@@ -213,7 +213,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 		return getN3PrefixString() +
                "?publication  ands:hasResearchData  ?researchDataUri. \n" +
                "?researchDataUri ands:publishedIn ?publication. \n" +
-               "?researchDataUri  a <${researchDataClass}> ;";
+               "?researchDataUri a ands:ResearchData ;";
 	}
 
 	/** Set URIS and Literals In Scope and on form and supporting methods	 */
