@@ -93,20 +93,26 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     private List<String> generateN3Optional() {
 		return list(
                 getN3ForResearchDataLabel(),
+                getN3ForSubjectArea(),
                 getN3ForResearchDataDescription());
-
 	}
+
+    private String getN3ForSubjectArea()
+    {
+        return getN3PrefixString() +
+            "?researchDataUri <http://vivoweb.org/ontology/core#hasSubjectArea> ?subjectArea .";
+    }
 
     private String getN3ForResearchDataLabel()
     {
         return getN3PrefixString() + 
-            "?researchDataUri rdfs:label ?researchDataLabel";
+            "?researchDataUri rdfs:label ?researchDataLabel .";
     }
 
     private String getN3ForResearchDataDescription()
     {
         return getN3PrefixString() +
-            "?researchDataUri ands:researchDataDescription ?dataDescription";
+            "?researchDataUri ands:researchDataDescription ?dataDescription .";
     }
 
     private Map<String, String> getInheritedSubjectAreaLabelAndUri()
@@ -256,7 +262,9 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 
     private void setUrisAndLiteralsOnForm(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
     	List<String> urisOnForm = new ArrayList<String>();
-    	
+
+        urisOnForm.add("subjectArea");
+
     	editConfiguration.setUrisOnform(urisOnForm);
 
     	List<String> literalsOnForm = list("researchDataLabel",
@@ -280,6 +288,12 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 	private void setFields(EditConfigurationVTwo editConfiguration) {
     	setResearchDataLabelField(editConfiguration);
     	setDataDescriptionField(editConfiguration);
+        setSubjectAreaField(editConfiguration);
+    }
+
+    private void setSubjectAreaField(EditConfigurationVTwo editConfiguration) {
+        editConfiguration.addField(new FieldVTwo().
+            setName("subjectArea"));
     }
 
 	private void setResearchDataLabelField(EditConfigurationVTwo editConfiguration) {

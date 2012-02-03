@@ -32,6 +32,14 @@
     <label for="researchDataLabel">Title <span class="requiredHint"> *</span></label>
     <input size="30" type="text" id="researchDataLabel" name="researchDataLabel" value="">
 
+    //subjectArea1
+
+    <input type="checkbox" name="subjectArea" id="subjectArea1" value="http://purl.org/asc/1297.0/1998/rfcd/280104">subject area 1
+
+    //subjectArea2
+
+    <input type="checkbox" name="subjectArea" id="subjectArea2" value="http://purl.org/asc/1297.0/1998/rfcd/280399">subject area 2
+
     <label for="dataDescription">Description <span class="requiredHint"> *</span></label>
     <textarea name="dataDescription" id="dataDescription" style="width:90%;"></textarea>
 
