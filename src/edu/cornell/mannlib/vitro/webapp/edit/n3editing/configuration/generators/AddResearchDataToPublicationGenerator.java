@@ -1,5 +1,7 @@
 package edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -27,6 +29,8 @@ import javax.servlet.http.HttpSession;
 public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator implements EditConfigurationGenerator
 {
     private Model queryModel;
+
+    private static final Log log = LogFactory.getLog(AddResearchDataToPublicationGenerator.class);
 
     private int inheritedCustodianDeptCount = 0;
     private int inheritedSubjectCount = 0;
@@ -57,7 +61,8 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         editConfiguration.setN3Required(list(getN3NewResearchData()));
         editConfiguration.addNewResource("researchDataUri", DEFAULT_NS_TOKEN);
 
-        //TODO: Include optional later? ...        
+        //TODO: Include optional later? ...
+        log.info("Debug: running the generateN3Optional method");
         editConfiguration.setN3Optional(generateN3Optional());
 
         //In scope
@@ -143,8 +148,8 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "?la core:linkedAuthor ?person. \n" +
                 "?person core:personInPosition ?position. \n" +
                 "?position core:positionInOrganization ?org. \n" +
-                "?person rdfs:label ?plabel. \n" +
-                "?org rdfs:label ?olabel}";
+                "?person rdfs:label ?personLabel. \n" +
+                "?org rdfs:label ?orgLabel}";
 
         ResultSet rs = sparqlQuery(queryModel, query);        
 
@@ -152,7 +157,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         {
             QuerySolution qs = rs.nextSolution();
             String uriString = qs.get("org").toString();
-            String labelString = qs.get("olabel").toString();
+            String labelString = qs.get("orgLabel").toString();
             results.put(uriString, labelString);
         }
 
@@ -171,7 +176,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "?publication core:informationResourceInAuthorship ?la. \n" +
                 "?la core:linkedAuthor ?person. \n" +
                 "?person core:personInPosition ?position. \n" +
-                "?person rdfs:label ?plabel}";
+                "?person rdfs:label ?personLabel}";
 
         ResultSet rs = sparqlQuery(queryModel, query);        
         
@@ -179,7 +184,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         {
             QuerySolution qs = rs.nextSolution();
             String uriString = qs.get("person").toString();
-            String labelString = qs.get("plabel").toString();
+            String labelString = qs.get("personLabel").toString();
             results.put(uriString, labelString);
         }
 
