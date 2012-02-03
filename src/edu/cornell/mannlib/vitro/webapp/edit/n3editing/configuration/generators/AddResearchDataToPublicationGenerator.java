@@ -58,6 +58,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         editConfiguration.addNewResource("researchDataUri", DEFAULT_NS_TOKEN);
 
         //TODO: Include optional later? ...        
+        editConfiguration.setN3Optional(generateN3Optional());
 
         //In scope
         setUrisAndLiteralsInScope(editConfiguration, vreq);
@@ -82,6 +83,25 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         //is never an update and has no SPARQL for existing
 
         return editConfiguration;
+    }
+
+    private List<String> generateN3Optional() {
+		return list(
+                getN3ForResearchDataLabel(),
+                getN3ForResearchDataDescription());
+
+	}
+
+    private String getN3ForResearchDataLabel()
+    {
+        return getN3PrefixString() + 
+            "?researchDataUri rdfs:label ?researchDataLabel";
+    }
+
+    private String getN3ForResearchDataDescription()
+    {
+        return getN3PrefixString() +
+            "?researchDataUri ands:researchDataDescription ?dataDescription";
     }
 
     private Map<String, String> getInheritedSubjectAreaLabelAndUri()
@@ -205,6 +225,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 	public String getN3PrefixString()
     {
 		return "@prefix core: <" + vivoCore + "> .\n" +
+               "@prefix rdfs: <" + rdfs + "> .\n" +
                "@prefix ands: <http://purl.org/ands/ontologies/vivo/> .\n";
 	}
 
