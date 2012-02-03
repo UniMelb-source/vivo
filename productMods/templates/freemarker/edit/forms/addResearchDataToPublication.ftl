@@ -28,17 +28,23 @@
 <h3>Add Research Data to Publication</h3>
 
 <form id="addResearchDataForm" action ="${submitUrl}" class="customForm noIE67">
-    
-        <p class="submit">
-            <input type="hidden" name = "editKey" value="${editKey}" role="input" />
-            <input type="submit" id="submit" value="Add Author" role="button" role="input" />
-            
-            <span class="or"> or </span>
-            
-            <a class="cancel" href="${cancelUrl}" title="Cancel">Cancel</a>
-        </p>
 
-        <p id="requiredLegend" class="requiredHint">* required fields</p>
+    <label for="researchDataLabel">Title <span class="requiredHint"> *</span></label>
+    <input size="30" type="text" id="researchDataLabel" name="researchDataLabel" value="">
+
+    <label for="dataDescription">Description <span class="requiredHint"> *</span></label>
+    <textarea name="dataDescription" id="dataDescription" style="width:90%;"></textarea>
+
+    <p class="submit">
+        <input type="hidden" name = "editKey" value="${editKey}" role="input" />
+        <input type="submit" id="submit" value="Add Research Data" role="button" role="input" />
+
+        <span class="or"> or </span>
+
+        <a class="cancel" href="${cancelUrl}" title="Cancel">Cancel</a>
+    </p>
+
+    <p id="requiredLegend" class="requiredHint">* required fields</p>
 </form>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />',
