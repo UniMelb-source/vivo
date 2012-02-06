@@ -32,10 +32,6 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 
     private static final Log log = LogFactory.getLog(AddResearchDataToPublicationGenerator.class);
 
-    private int inheritedCustodianDeptCount = 0;
-    private int inheritedSubjectCount = 0;
-    private int inheritedCustodianCount = 0;
-
     public EditConfigurationVTwo getEditConfiguration(VitroRequest vreq, HttpSession session)
     {        
 
@@ -311,6 +307,16 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 				setRangeDatatypeUri(XSD.xstring.toString())
 				);
 	}
+
+    public void addFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq)
+    {
+        HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
+
+        //Call on our custom SPARQL and put the values into the HashMap
+        formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri());
+        formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri());
+        formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
+    }
 
     static final String DEFAULT_NS_TOKEN = null; //null forces the default NS
 }

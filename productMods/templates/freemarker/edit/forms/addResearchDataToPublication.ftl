@@ -4,6 +4,11 @@
 
 <#import "lib-vivo-form.ftl" as lvf>
 
+<#--Retrieve certain page specific information information-->
+<#assign inheritedCustodianDepartments = editConfiguration.pageData.InheritedCustodianDepartments />
+<#assign inheritedCustodians = editConfiguration.pageData.InheritedCustodians />
+<#assign inheritedSubjectArea = editConfiguration.pageData.InheritedSubjectArea />
+
 <#assign title="<em>${editConfiguration.subjectName}</em>" />
 <#assign requiredHint="<span class='requiredHint'> *</span>" />
 <#assign initialHint="<span class='hint'>(initial okay)</span>" />
