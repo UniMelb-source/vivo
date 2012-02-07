@@ -46,7 +46,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     public EditConfigurationVTwo getEditConfiguration(VitroRequest vreq, HttpSession session)
     {        
 
-        EditConfigurationVTwo editConfiguration = new EditConfigurationVTwo();
+        EditConfigurationVTwo editConfiguration = new EditConfigurationVTwo();        
 
         //Creating an instance of SparqlEvaluateVTwo so that we can run queries
         //on our optional inferred statements.
@@ -122,7 +122,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             "?researchDataUri ands:researchDataDescription ?dataDescription .";
     }
 
-    private Map<String, String> getInheritedSubjectAreaLabelAndUri()
+    private Map<String, String> getInheritedSubjectAreaLabelAndUri(String subjectUri)
     {
         Map<String, String> results = new HashMap<String, String>();        
 
@@ -131,7 +131,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 	        "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
 	        "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
             "SELECT ?subjectArea ?subjectAreaLabel WHERE { \n" +
-            "?publication core:hasSubjectArea ?subjectArea . \n" +
+            subjectUri + " core:hasSubjectArea ?subjectArea . \n" +
             "?subjectArea rdfs:label ?subjectAreaLabel \n" +
             "}";
 
@@ -149,7 +149,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         return results;
     }
 
-    private Map<String, String> getInheritedCustodianDepartmentsLabelAndUri()
+    private Map<String, String> getInheritedCustodianDepartmentsLabelAndUri(String subjectUri)
     {
         Map<String, String> results = new HashMap<String, String>();
 
@@ -158,7 +158,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
                 "SELECT DISTINCT ?org ?orgLabel WHERE { \n" +
-                "?publication core:informationResourceInAuthorship ?la. \n" +
+                subjectUri + " core:informationResourceInAuthorship ?la. \n" +
                 "?la core:linkedAuthor ?person. \n" +
                 "?person core:personInPosition ?position. \n" +
                 "?position core:positionInOrganization ?org. \n" +
@@ -178,7 +178,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         return results;
     }    
 
-    private Map<String, String> getInheritedCustodiansLabelAndUri()
+    private Map<String, String> getInheritedCustodiansLabelAndUri(String subjectUri)
     {
         Map<String, String> results = new HashMap<String, String>();
 
@@ -187,8 +187,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
                 "SELECT DISTINCT ?person ?personLabel WHERE { \n" +
-                //"?publication core:informationResourceInAuthorship ?la. \n" +
-                "<http://www.findanexpert.unimelb.edu.au/publication/publication134384> core:informationResourceInAuthorship ?la. \n" +
+                subjectUri + " core:informationResourceInAuthorship ?la. \n" +
                 "?la core:linkedAuthor ?person. \n" +
                 "?person rdfs:label ?personLabel}";
 
@@ -322,10 +321,13 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     {
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
 
-        //Call on our custom SPARQL and put the values into the HashMap        
-        formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri());
-        formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri());
-        formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
+        //Call on our custom SPARQL and put the values into the HashMap
+        String subjectUri = editConfiguration.getSubjectUri();
+        log.info("Debug: " + subjectUri);
+
+        formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri(subjectUri));
+        formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri(subjectUri));
+        formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri(subjectUri));
 
         log.info("Debug: setting form specific data...");
         editConfiguration.setFormSpecificData(formSpecificData);
