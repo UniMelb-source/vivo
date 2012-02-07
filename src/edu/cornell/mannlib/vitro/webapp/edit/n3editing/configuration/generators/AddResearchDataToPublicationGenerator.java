@@ -308,11 +308,24 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     	setResearchDataLabelField(editConfiguration);
     	setDataDescriptionField(editConfiguration);
         setSubjectAreaField(editConfiguration);
+        setCustodianDepartmentsField(editConfiguration);
+        setcustodiansField(editConfiguration);
+
     }
 
     private void setSubjectAreaField(EditConfigurationVTwo editConfiguration) {
         editConfiguration.addField(new FieldVTwo().
             setName("subjectArea"));
+    }
+
+    private void setCustodianDepartmentsField(EditConfigurationVTwo editConfiguration) {
+        editConfiguration.addField(new FieldVTwo().
+            setName("custodianDepartments"));
+    }
+
+    private void setcustodiansField(EditConfigurationVTwo editConfiguration) {
+        editConfiguration.addField(new FieldVTwo().
+            setName("custodians"));
     }
 
 	private void setResearchDataLabelField(EditConfigurationVTwo editConfiguration) {
