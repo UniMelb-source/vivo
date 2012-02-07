@@ -183,7 +183,6 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "?la core:linkedAuthor ?person. \n" +
                 "?person core:personInPosition ?position. \n" +
                 "?position core:positionInOrganization ?org. \n" +
-                "?person rdfs:label ?personLabel. \n" +
                 "?org rdfs:label ?orgLabel}";
 
         ResultSet rs = sparqlQuery(queryModel, query);        
@@ -385,10 +384,10 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
 
         //Call on our custom SPARQL and put the values into the HashMap
-        formSpecificData.put("XYZ", getXYZ());
-        formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri());
+        //formSpecificData.put("XYZ", getXYZ());
+        //formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri());
         formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri());
-        formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
+        //formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
 
         log.info("Debug: setting form specific data...");
         editConfiguration.setFormSpecificData(formSpecificData);
