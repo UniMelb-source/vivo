@@ -217,6 +217,11 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 
         ResultSet rs = sparqlQuery(queryModel, query);
 
+        if(rs.hasNext())
+        {
+            log.info("RAAAARGH");
+        }
+
         int i = 0;
 
         while(rs.hasNext())
@@ -273,7 +278,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             qe = QueryExecutionFactory.create(query, queryModel);
             ResultSet results = null;
             results = qe.execSelect();
-            if( results.hasNext())
+            if(results.hasNext())
             {
                 log.info("DO WE EVER GET HERE");
                 return results;
