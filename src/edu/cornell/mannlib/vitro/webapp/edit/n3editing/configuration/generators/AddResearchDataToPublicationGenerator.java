@@ -74,8 +74,10 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         //template file
         editConfiguration.setTemplate("addResearchDataToPublication.ftl");
 
-        //TODO: add validators
+        //Adding additional data, specifically edit mode
+        addFormSpecificData(editConfiguration, vreq);
 
+        //TODO: add validators
         editConfiguration.addValidator(new AntiXssValidation());
 
         //NOITCE this generator does not run prepare() since it
