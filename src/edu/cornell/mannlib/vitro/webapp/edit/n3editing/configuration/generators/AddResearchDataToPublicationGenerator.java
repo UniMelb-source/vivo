@@ -200,6 +200,35 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         return results;
     }
 
+    private Map<String, String> getXYZ()
+    {
+        Map<String, String> results = new HashMap<String, String>();
+
+        String query = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" +
+                "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
+                "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
+                "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
+                "SELECT ?x ?y ?z WHERE { \n" +
+                "?x ?y ?z}" +
+                "LIMIT 10";
+
+        ResultSet rs = sparqlQuery(queryModel, query);
+
+        int i = 0;
+
+        while(rs.hasNext())
+        {
+            QuerySolution qs = rs.nextSolution();
+            String x = qs.get("x").toString();
+            String y = qs.get("y").toString();
+            results.put(x, y);
+            i++;
+        }
+
+        log.info("Debug: XYZ: " + i + " " + results.isEmpty());
+        return results;
+    }
+
     private Map<String, String> getInheritedCustodiansLabelAndUri()
     {
         Map<String, String> results = new HashMap<String, String>();
@@ -214,17 +243,20 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "?person core:personInPosition ?position. \n" +
                 "?person rdfs:label ?personLabel}";
 
-        ResultSet rs = sparqlQuery(queryModel, query);        
-        
+        ResultSet rs = sparqlQuery(queryModel, query);
+
+        int i = 0;
+
         while(rs.hasNext())
         {
             QuerySolution qs = rs.nextSolution();
             String uriString = qs.get("person").toString();
             String labelString = qs.get("personLabel").toString();
             results.put(uriString, labelString);
+            i++;
         }
 
-        log.info("Debug: InheritedCustodians: " + results.isEmpty());
+        log.info("Debug: InheritedCustodians: " + i + " " + results.isEmpty());
         return results;
     }
 
@@ -348,6 +380,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
 
         //Call on our custom SPARQL and put the values into the HashMap
+        formSpecificData.put("XYZ", getXYZ());
         formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri());
         formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri());
         formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
