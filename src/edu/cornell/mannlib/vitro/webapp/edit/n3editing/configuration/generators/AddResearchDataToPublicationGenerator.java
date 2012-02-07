@@ -226,6 +226,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             String labelString = qs.get("personLabel").toString();
             results.put(uriString, labelString);
             i++;
+            log.info("xyz loop counter " + i);
         }
 
         log.info("Debug: XYZ: " + i + " " + results.isEmpty());
