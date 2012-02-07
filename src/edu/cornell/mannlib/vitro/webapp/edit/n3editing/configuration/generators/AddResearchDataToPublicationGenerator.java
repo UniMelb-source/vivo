@@ -51,29 +51,6 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         //Creating an instance of SparqlEvaluateVTwo so that we can run queries
         //on our optional inferred statements.
         queryModel = editConfiguration.getQueryModelSelector().getModel(vreq, session.getServletContext());
-
-        /*
-        StoreDesc storeDesc = new StoreDesc(LayoutType.fetch("layout2/hash"),DatabaseType.fetch("MySQL")) ;
-
-        BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost/vitrodb");
-        ds.setUsername("vivouser");
-        ds.setPassword("vitro123");
-
-        try
-        {
-            conn = new SDBConnection(ds.getConnection());
-        }
-        catch(SQLException e)
-        {
-            //dont care right now
-        }
-
-        Store store = SDBFactory.connectStore(conn, storeDesc);
-
-        queryModel = SDBFactory.connectNamedModel(store, JenaDataSourceSetupBase.JENA_DB_MODEL);
-         */
         
         //Basic intialization
         initBasics(editConfiguration, vreq);
@@ -199,45 +176,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 
         log.info("Debug: InheritedCustodianDepartments: " + results.isEmpty());
         return results;
-    }
-
-    private Map<String, String> getXYZ()
-    {
-        log.info("Starting XYZ");
-        
-        Map<String, String> results = new HashMap<String, String>();
-
-        String query = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" +
-                "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
-                "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
-                "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
-                "SELECT DISTINCT ?person ?personLabel WHERE { \n" +
-                "<http://www.findanexpert.unimelb.edu.au/publication/publication134384> core:informationResourceInAuthorship ?la. \n" +
-                "?la core:linkedAuthor ?person. \n" +                
-                "?person rdfs:label ?personLabel}";
-
-        ResultSet rs = sparqlQuery(queryModel, query);
-
-        if(rs.hasNext())
-        {
-            log.info("RAAAARGH");
-        }
-
-        int i = 0;
-
-        while(rs.hasNext())
-        {
-            QuerySolution qs = rs.nextSolution();
-            String uriString = qs.get("person").toString();
-            String labelString = qs.get("personLabel").toString();
-            results.put(uriString, labelString);
-            i++;
-            log.info("xyz loop counter " + i);
-        }
-
-        log.info("Debug: XYZ: " + i + " " + results.isEmpty());
-        return results;
-    }
+    }    
 
     private Map<String, String> getInheritedCustodiansLabelAndUri()
     {
@@ -383,11 +322,10 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     {
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
 
-        //Call on our custom SPARQL and put the values into the HashMap
-        //formSpecificData.put("XYZ", getXYZ());
-        //formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri());
+        //Call on our custom SPARQL and put the values into the HashMap        
+        formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri());
         formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri());
-        //formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
+        formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
 
         log.info("Debug: setting form specific data...");
         editConfiguration.setFormSpecificData(formSpecificData);
