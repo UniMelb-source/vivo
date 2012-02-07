@@ -283,6 +283,8 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     	List<String> urisOnForm = new ArrayList<String>();
 
         urisOnForm.add("subjectArea");
+        urisOnForm.add("custodianDepartments");
+        urisOnForm.add("custodians");
 
     	editConfiguration.setUrisOnform(urisOnForm);
 
@@ -309,7 +311,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     	setDataDescriptionField(editConfiguration);
         setSubjectAreaField(editConfiguration);
         setCustodianDepartmentsField(editConfiguration);
-        setcustodiansField(editConfiguration);
+        setCustodiansField(editConfiguration);
 
     }
 
@@ -323,7 +325,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             setName("custodianDepartments"));
     }
 
-    private void setcustodiansField(EditConfigurationVTwo editConfiguration) {
+    private void setCustodiansField(EditConfigurationVTwo editConfiguration) {
         editConfiguration.addField(new FieldVTwo().
             setName("custodians"));
     }
