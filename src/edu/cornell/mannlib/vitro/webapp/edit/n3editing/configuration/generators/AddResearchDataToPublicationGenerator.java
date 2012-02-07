@@ -101,6 +101,8 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 		return list(
                 getN3ForResearchDataLabel(),
                 getN3ForSubjectArea(),
+                getN3ForCustodianDepartments(),
+                getN3ForCustodians(),
                 getN3ForResearchDataDescription());
 	}
 
@@ -108,6 +110,18 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     {
         return getN3PrefixString() +
             "?researchDataUri <http://vivoweb.org/ontology/core#hasSubjectArea> ?subjectArea .";
+    }
+
+    private String getN3ForCustodianDepartments()
+    {
+        return getN3PrefixString() +
+            "?researchDataUri ands:isManagedBy ?custodianDepartments .";
+    }
+
+    private String getN3ForCustodians()
+    {
+        return getN3PrefixString() +
+            "?researchDataUri ands:associatedPrincipleInvestigator ?custodians .";
     }
 
     private String getN3ForResearchDataLabel()
