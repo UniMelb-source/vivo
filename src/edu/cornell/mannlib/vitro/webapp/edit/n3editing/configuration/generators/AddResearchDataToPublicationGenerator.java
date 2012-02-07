@@ -316,6 +316,8 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri());
         formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri());
         formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
+
+        editConfiguration.setFormSpecificData(formSpecificData);
     }
 
     static final String DEFAULT_NS_TOKEN = null; //null forces the default NS
