@@ -115,13 +115,13 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
     {
         Map<String, String> results = new HashMap<String, String>();        
 
-        String query = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-	      	"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-	        "PREFIX bibo: <http://purl.org/ontology/bibo/>\n" +
-	        "PREFIX core: <http://vivoweb.org/ontology/core#>" +
-            "SELECT ?subjectArea ?subjectAreaLabel WHERE {\n" +
-            "?publication core:hasSubjectArea ?subjectArea .\n" +
-            "?subjectArea rdfs:label ?subjectAreaLabel\n" +
+        String query = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" +
+	      	"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
+	        "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
+	        "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
+            "SELECT ?subjectArea ?subjectAreaLabel WHERE { \n" +
+            "?publication core:hasSubjectArea ?subjectArea . \n" +
+            "?subjectArea rdfs:label ?subjectAreaLabel \n" +
             "}";
 
         ResultSet rs = sparqlQuery(queryModel, query);
@@ -146,7 +146,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
-                "SELECT DISTINCT ?org ?olabel WHERE { \n" +
+                "SELECT DISTINCT ?org ?orgLabel WHERE { \n" +
                 "?publication core:informationResourceInAuthorship ?la. \n" +
                 "?la core:linkedAuthor ?person. \n" +
                 "?person core:personInPosition ?position. \n" +
@@ -176,7 +176,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
-                "SELECT DISTINCT ?person ?plabel WHERE { \n" +
+                "SELECT DISTINCT ?person ?personLabel WHERE { \n" +
                 "?publication core:informationResourceInAuthorship ?la. \n" +
                 "?la core:linkedAuthor ?person. \n" +
                 "?person core:personInPosition ?position. \n" +
