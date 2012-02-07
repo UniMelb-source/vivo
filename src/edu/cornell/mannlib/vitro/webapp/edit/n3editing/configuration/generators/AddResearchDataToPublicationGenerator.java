@@ -131,7 +131,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 	        "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
 	        "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
             "SELECT ?subjectArea ?subjectAreaLabel WHERE { \n" +
-            subjectUri + " core:hasSubjectArea ?subjectArea . \n" +
+            "<" + subjectUri + "> core:hasSubjectArea ?subjectArea . \n" +
             "?subjectArea rdfs:label ?subjectAreaLabel \n" +
             "}";
 
@@ -158,7 +158,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
                 "SELECT DISTINCT ?org ?orgLabel WHERE { \n" +
-                subjectUri + " core:informationResourceInAuthorship ?la. \n" +
+                "<" + subjectUri + "> core:informationResourceInAuthorship ?la. \n" +
                 "?la core:linkedAuthor ?person. \n" +
                 "?person core:personInPosition ?position. \n" +
                 "?position core:positionInOrganization ?org. \n" +
@@ -187,7 +187,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
                 "SELECT DISTINCT ?person ?personLabel WHERE { \n" +
-                subjectUri + " core:informationResourceInAuthorship ?la. \n" +
+                "<" + subjectUri + "> core:informationResourceInAuthorship ?la. \n" +
                 "?la core:linkedAuthor ?person. \n" +
                 "?person rdfs:label ?personLabel}";
 
