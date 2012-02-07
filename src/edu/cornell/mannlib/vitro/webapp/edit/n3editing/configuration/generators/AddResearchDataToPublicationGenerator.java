@@ -202,15 +202,18 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 
     private Map<String, String> getXYZ()
     {
+        log.info("Starting XYZ");
+        
         Map<String, String> results = new HashMap<String, String>();
 
         String query = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" +
                 "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
-                "SELECT ?x ?y ?z WHERE { \n" +
-                "?x ?y ?z . } \n" +
-                "LIMIT 10";
+                "SELECT DISTINCT ?person ?personLabel WHERE { \n" +
+                "<http://www.findanexpert.unimelb.edu.au/publication/publication134384> core:informationResourceInAuthorship ?la. \n" +
+                "?la core:linkedAuthor ?person. \n" +                
+                "?person rdfs:label ?personLabel}";
 
         ResultSet rs = sparqlQuery(queryModel, query);
 
@@ -219,9 +222,9 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         while(rs.hasNext())
         {
             QuerySolution qs = rs.nextSolution();
-            String x = qs.get("x").toString();
-            String y = qs.get("y").toString();
-            results.put(x, y);
+            String uriString = qs.get("person").toString();
+            String labelString = qs.get("personLabel").toString();
+            results.put(uriString, labelString);
             i++;
         }
 
@@ -271,10 +274,12 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             results = qe.execSelect();
             if( results.hasNext())
             {
+                log.info("DO WE EVER GET HERE");
                 return results;
             }
             else
             {
+                log.info("Nope. We didnt");
                 return null;
             }
         }
