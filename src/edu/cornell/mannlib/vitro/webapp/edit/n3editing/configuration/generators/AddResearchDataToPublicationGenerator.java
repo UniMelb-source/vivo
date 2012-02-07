@@ -282,15 +282,6 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             {
                 log.info("DO WE EVER GET HERE");
 
-                int i = 0;
-
-                while(results.hasNext())
-                {
-                    QuerySolution qs = results.nextSolution();
-                    i++;
-                    log.info("sparqlQuery loop counter " + i);
-                }
-
                 return results;
             }
             else
@@ -302,13 +293,6 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         catch(Exception ex)
         {
             throw new Error("could not parse SPARQL in queryToUri: \n" + queryString + '\n' + ex.getMessage());
-        }
-        finally
-        {
-            if( qe != null)
-            {
-                qe.close();
-            }
         }
     }
 
