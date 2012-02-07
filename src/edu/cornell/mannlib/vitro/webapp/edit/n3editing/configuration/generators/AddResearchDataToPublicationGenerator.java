@@ -327,7 +327,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 
         formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartmentsLabelAndUri(subjectUri));
         formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri(subjectUri));
-        formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri(subjectUri));
+        //formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri(subjectUri));
 
         log.info("Debug: setting form specific data...");
         editConfiguration.setFormSpecificData(formSpecificData);

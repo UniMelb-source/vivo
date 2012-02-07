@@ -7,11 +7,11 @@
 <#--Retrieve certain page specific information information-->
 <#assign inheritedCustodianDepartments = editConfiguration.pageData.InheritedCustodianDepartments />
 <#assign inheritedCustodians = editConfiguration.pageData.InheritedCustodians />
-<#assign inheritedSubjectArea = editConfiguration.pageData.InheritedSubjectArea />
+<#-- <#assign inheritedSubjectArea = editConfiguration.pageData.InheritedSubjectArea /> -->
 
 <#assign custodianDepartmentKeys = inheritedCustodianDepartments?keys>
 <#assign custodianKeys = inheritedCustodians?keys>
-<#assign subjectAreaKeys = inheritedSubjectArea?keys>
+<#-- <#assign subjectAreaKeys = inheritedSubjectArea?keys> -->
 
 <#assign title="<em>${editConfiguration.subjectName}</em>" />
 <#assign requiredHint="<span class='requiredHint'> *</span>" />
@@ -47,7 +47,7 @@
 
     <#list custodianDepartmentKeys as key>${key} = ${inheritedCustodianDepartments[key]}; </#list>
     <#list custodianKeys as key>${key} = ${inheritedCustodians[key]}; </#list>
-    <#list subjectAreaKeys as key>${key} = ${inheritedSubjectArea[key]}; </#list>
+    <#-- <#list subjectAreaKeys as key>${key} = ${inheritedSubjectArea[key]}; </#list> -->
 
     <label for="dataDescription">Description <span class="requiredHint"> *</span></label>
     <textarea name="dataDescription" id="dataDescription" style="width:90%;"></textarea>
