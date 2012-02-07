@@ -50,8 +50,9 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 
         //Creating an instance of SparqlEvaluateVTwo so that we can run queries
         //on our optional inferred statements.
-        //queryModel = editConfiguration.getQueryModelSelector().getModel(vreq, session.getServletContext());
+        queryModel = editConfiguration.getQueryModelSelector().getModel(vreq, session.getServletContext());
 
+        /*
         StoreDesc storeDesc = new StoreDesc(LayoutType.fetch("layout2/hash"),DatabaseType.fetch("MySQL")) ;
 
         BasicDataSource ds = new BasicDataSource();
@@ -72,7 +73,8 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         Store store = SDBFactory.connectStore(conn, storeDesc);
 
         queryModel = SDBFactory.connectNamedModel(store, JenaDataSourceSetupBase.JENA_DB_MODEL);
-
+         */
+        
         //Basic intialization
         initBasics(editConfiguration, vreq);
         initPropertyParameters(vreq, session, editConfiguration);
@@ -246,9 +248,9 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
                 "SELECT DISTINCT ?person ?personLabel WHERE { \n" +
-                "?publication core:informationResourceInAuthorship ?la. \n" +
+                //"?publication core:informationResourceInAuthorship ?la. \n" +
+                "<http://www.findanexpert.unimelb.edu.au/publication/publication134384> core:informationResourceInAuthorship ?la. \n" +
                 "?la core:linkedAuthor ?person. \n" +
-                "?person core:personInPosition ?position. \n" +
                 "?person rdfs:label ?personLabel}";
 
         ResultSet rs = sparqlQuery(queryModel, query);
@@ -279,13 +281,11 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             results = qe.execSelect();
             if(results.hasNext())
             {
-                log.info("DO WE EVER GET HERE");
-
+                log.info("Results retrieved.");
                 return results;
             }
             else
-            {
-                log.info("Nope. We didnt");
+            {                
                 return null;
             }
         }
