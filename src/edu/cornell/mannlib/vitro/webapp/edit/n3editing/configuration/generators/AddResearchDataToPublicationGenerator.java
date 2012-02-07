@@ -209,7 +209,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
                 "PREFIX bibo: <http://purl.org/ontology/bibo/> \n" +
                 "PREFIX core: <http://vivoweb.org/ontology/core#> \n" +
                 "SELECT ?x ?y ?z WHERE { \n" +
-                "?x ?y ?z}" +
+                "?x ?y ?z . } \n" +
                 "LIMIT 10";
 
         ResultSet rs = sparqlQuery(queryModel, query);
