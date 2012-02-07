@@ -43,8 +43,8 @@
 
     <!-- <input type="checkbox" name="subjectArea" id="subjectArea1" value="http://purl.org/asc/1297.0/1998/rfcd/280104">subject area 1 -->
 
-    <#list custodianDepartmentKeys as key><input type="checkbox" name="custodianDepartments" value="${key}">${inheritedCustodianDepartments[key]}</#list>
-    <#list custodianKeys as key><input type="checkbox" name="custodians" value="${key}">${inheritedCustodians[key]}</#list>    
+    <#list custodianDepartmentKeys as key><input type="checkbox" name="custodianDepartments" value="${key}">Inherited Custodian Departments: ${inheritedCustodianDepartments[key]} <br></#list>
+    <#list custodianKeys as key><input type="checkbox" name="custodians" value="${key}">Inherited Custodian: ${inheritedCustodians[key]} <br></#list>
 
     <label for="dataDescription">Description <span class="requiredHint"> *</span></label>
     <textarea name="dataDescription" id="dataDescription" style="width:90%;"></textarea>

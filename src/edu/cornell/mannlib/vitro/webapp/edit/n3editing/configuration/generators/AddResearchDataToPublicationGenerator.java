@@ -57,7 +57,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         initPropertyParameters(vreq, session, editConfiguration);
 
         //Overriding URL to return to (as we won't be editing)
-        setUrlToReturnTo(editConfiguration, vreq);
+        //setUrlToReturnTo(editConfiguration, vreq);
 
         //set variable names
         editConfiguration.setVarNameForSubject("publication");
