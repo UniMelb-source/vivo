@@ -134,6 +134,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             results.put(uriString, labelString);
         }
 
+        log.info("Debug: InheritedSubjectArea: " + results.isEmpty());
         return results;
     }
 
@@ -163,6 +164,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             results.put(uriString, labelString);
         }
 
+        log.info("Debug: InheritedCustodianDepartments: " + results.isEmpty());
         return results;
     }
 
@@ -190,6 +192,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             results.put(uriString, labelString);
         }
 
+        log.info("Debug: InheritedCustodians: " + results.isEmpty());
         return results;
     }
 
@@ -317,6 +320,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         formSpecificData.put("InheritedCustodians", getInheritedCustodiansLabelAndUri());
         formSpecificData.put("InheritedSubjectArea", getInheritedSubjectAreaLabelAndUri());
 
+        log.info("Debug: setting form specific data...");
         editConfiguration.setFormSpecificData(formSpecificData);
     }
 
