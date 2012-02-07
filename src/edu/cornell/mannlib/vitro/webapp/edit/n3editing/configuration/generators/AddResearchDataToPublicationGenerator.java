@@ -281,6 +281,16 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
             if(results.hasNext())
             {
                 log.info("DO WE EVER GET HERE");
+
+                int i = 0;
+
+                while(results.hasNext())
+                {
+                    QuerySolution qs = results.nextSolution();
+                    i++;
+                    log.info("sparqlQuery loop counter " + i);
+                }
+
                 return results;
             }
             else
