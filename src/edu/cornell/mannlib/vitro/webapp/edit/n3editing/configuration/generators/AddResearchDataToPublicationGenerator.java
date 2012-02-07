@@ -56,9 +56,7 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
         // Required N3
         editConfiguration.setN3Required(list(getN3NewResearchData()));
         editConfiguration.addNewResource("researchDataUri", DEFAULT_NS_TOKEN);
-
-        //TODO: Include optional later? ...
-        log.info("Debug: running the generateN3Optional method");
+                
         editConfiguration.setN3Optional(generateN3Optional());
 
         //In scope
