@@ -9,18 +9,28 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.sdb.SDBFactory;
+import com.hp.hpl.jena.sdb.Store;
+import com.hp.hpl.jena.sdb.StoreDesc;
+import com.hp.hpl.jena.sdb.sql.SDBConnection;
+import com.hp.hpl.jena.sdb.store.DatabaseType;
+import com.hp.hpl.jena.sdb.store.LayoutType;
 import com.hp.hpl.jena.vocabulary.XSD;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationUtils;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.validators.AntiXssValidation;
+import edu.cornell.mannlib.vitro.webapp.servlet.setup.JenaDataSourceSetupBase;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.dbcp.BasicDataSource;
+
 
 /**
  *
@@ -29,6 +39,7 @@ import javax.servlet.http.HttpSession;
 public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator implements EditConfigurationGenerator
 {
     private Model queryModel;
+    private SDBConnection conn;
 
     private static final Log log = LogFactory.getLog(AddResearchDataToPublicationGenerator.class);
 
@@ -39,7 +50,28 @@ public class AddResearchDataToPublicationGenerator extends VivoBaseGenerator imp
 
         //Creating an instance of SparqlEvaluateVTwo so that we can run queries
         //on our optional inferred statements.
-        queryModel = editConfiguration.getQueryModelSelector().getModel(vreq, session.getServletContext());
+        //queryModel = editConfiguration.getQueryModelSelector().getModel(vreq, session.getServletContext());
+
+        StoreDesc storeDesc = new StoreDesc(LayoutType.fetch("layout2/hash"),DatabaseType.fetch("MySQL")) ;
+
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost/vitrodb");
+        ds.setUsername("vivouser");
+        ds.setPassword("vitro123");
+
+        try
+        {
+            conn = new SDBConnection(ds.getConnection());
+        }
+        catch(SQLException e)
+        {
+            //dont care right now
+        }
+
+        Store store = SDBFactory.connectStore(conn, storeDesc);
+
+        queryModel = SDBFactory.connectNamedModel(store, JenaDataSourceSetupBase.JENA_DB_MODEL);
 
         //Basic intialization
         initBasics(editConfiguration, vreq);
