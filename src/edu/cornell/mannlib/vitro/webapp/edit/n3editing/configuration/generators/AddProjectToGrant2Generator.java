@@ -89,10 +89,10 @@ public class AddProjectToGrant2Generator extends VivoBaseGenerator implements Ed
 
     /***N3 strings both required and optional***/
     private List<String> generateN3Optional() {
-        return list(/*getN3ForExistingPub(),
+        return list(getN3ForExistingPub(),
                 getN3ForNewPub(),
                 getN3NewPubNameAssertion(),
-                getN3NewPubTypeAssertion()*/);
+                getN3NewPubTypeAssertion());
     }
 
 
@@ -109,16 +109,16 @@ public class AddProjectToGrant2Generator extends VivoBaseGenerator implements Ed
 
     private String getN3ForExistingPub() {
         return "@prefix core: <" + vivoCore + "> ." +
-        "?authorshipUri core:linkedInformationResource ?pubUri ." +
-        "?pubUri core:informationResourceInAuthorship ?authorshipUri .";
+        "?authorshipUri core:hasFundingVehicle ?pubUri ." +
+        "?pubUri core:fundingVehicleFore ?authorshipUri .";
     }
 
     private String getN3ForNewPub() {
         return "@prefix core: <" + vivoCore + "> ." +
         "?pubUri a ?pubType ;" +
         "<" + label + "> ?title ." +  
-        "?authorshipUri core:linkedInformationResource ?pubUri ." +
-        "?pubUri core:informationResourceInAuthorship ?authorshipUri .";   
+        "?authorshipUri core:hasFundingVehicle ?pubUri ." +
+        "?pubUri core:fundingVehicleFor ?authorshipUri .";   
     }
 
     private String getN3NewPubNameAssertion() {
