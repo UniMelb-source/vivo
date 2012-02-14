@@ -110,7 +110,7 @@ public class AddProjectToGrant2Generator extends VivoBaseGenerator implements Ed
     private String getN3ForExistingPub() {
         return "@prefix core: <" + vivoCore + "> ." +
         "?authorshipUri core:hasFundingVehicle ?pubUri ." +
-        "?pubUri core:fundingVehicleFore ?authorshipUri .";
+        "?pubUri core:fundingVehicleFor ?authorshipUri .";
     }
 
     private String getN3ForNewPub() {
