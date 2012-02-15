@@ -79,9 +79,9 @@ public class AddProjectToGrant2Generator extends VivoBaseGenerator implements Ed
     }
     
     private void setVarNames(EditConfigurationVTwo editConfiguration) {
-        editConfiguration.setVarNameForSubject("person");               
+        editConfiguration.setVarNameForSubject("grant");               
         editConfiguration.setVarNameForPredicate("predicate");      
-        editConfiguration.setVarNameForObject("authorshipUri");
+        editConfiguration.setVarNameForObject("project");
 
     }
 
@@ -104,29 +104,29 @@ public class AddProjectToGrant2Generator extends VivoBaseGenerator implements Ed
         return "@prefix core: <" + vivoCore + "> . " + 
         //"?authorshipUri a core:Authorship ;" + 
         //"core:linkedAuthor ?person ." +   
-        "?person core:fundingVehicleFor ?authorshipUri .";
+        "?grant core:fundingVehicleFor ?project .";
     }
 
     private String getN3ForExistingPub() {
         return "@prefix core: <" + vivoCore + "> ." +
-        "?authorshipUri core:fundingVehicleFor ?pubUri ." +
-        "?pubUri core:hasFundingVehicle ?authorshipUri .";
+        "?project core:hasFundingVehicle ?grant ." +
+        "?grant core:fundingVehicleFor ?project .";
     }
 
     private String getN3ForNewPub() {
         return "@prefix core: <" + vivoCore + "> ." +
-        "?pubUri a ?pubType ;" +
+        "?project a ?pubType ;" +
         "<" + label + "> ?title ." +  
-        "?authorshipUri core:fundingVehicleFor ?pubUri ." +
-        "?pubUri core:hasFundingVehicle ?authorshipUri .";   
+        "?project core:hasFundingVehicle ?grant ." +
+        "?grant core:fundingVehicleFor ?project .";   
     }
 
     private String getN3NewPubNameAssertion() {
-        return "?pubUri <" + label + "> ?title .";
+        return "?project <" + label + "> ?title .";
     }
 
     private String getN3NewPubTypeAssertion() {
-        return "?pubUri a ?pubType . ";
+        return "?project a ?pubType . ";
 
     }
 
