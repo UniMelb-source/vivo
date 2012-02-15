@@ -135,8 +135,8 @@ public class AddProjectToGrant2Generator extends VivoBaseGenerator implements Ed
         String DEFAULT_NS_TOKEN=null; //null forces the default NS
 
         HashMap<String, String> newResources = new HashMap<String, String>();			
-        newResources.put("authorshipUri", DEFAULT_NS_TOKEN);
-        newResources.put("pubUri", DEFAULT_NS_TOKEN);
+        newResources.put("project", DEFAULT_NS_TOKEN);
+        //newResources.put("pubUri", DEFAULT_NS_TOKEN);
         return newResources;
     }
 
@@ -238,8 +238,8 @@ public class AddProjectToGrant2Generator extends VivoBaseGenerator implements Ed
         String subject = EditConfigurationUtils.getSubjectUri(vreq);			
 
         String query = "PREFIX core:<" + vivoCore + "> " + 
-        "SELECT ?authorshipUri WHERE { " + 
-        "<" + subject + "> core:fundingVehicleFor ?authorshipUri . }";
+        "SELECT ?project WHERE { " + 
+        "<" + subject + "> core:fundingVehicleFor ?project . }";
         return query;
     }
 
