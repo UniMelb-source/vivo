@@ -127,7 +127,7 @@ public abstract class AddPersonToRoleTwoStageGenerator extends BaseEditConfigura
     	// Required N3
     	editConfiguration.setN3Required(list(    	            	        
     	        N3_PREFIX + "\n" +
-    	        "?grant ?rolePredicate ?role .\n" +
+    	        "?grant ?inverseRolePredicate ?role .\n" +
     	        "?role a ?roleType .\n"
     	));    
     	
@@ -142,7 +142,7 @@ public abstract class AddPersonToRoleTwoStageGenerator extends BaseEditConfigura
     	editConfiguration.setN3Optional( list(
     			"?role " + getRoleToActivityPlaceholder() + " ?roleActivity .\n"+
     	        "?roleActivity " + getActivityToRolePlaceholder() + " ?role .",
-    	        "?person ?inverseRolePredicate ?role .",
+    	        "?person ?rolePredicate ?role .",
     	        getN3ForActivityLabel(),
     	        getN3ForActivityType(),                              
     	        getN3RoleLabelAssertion(),
