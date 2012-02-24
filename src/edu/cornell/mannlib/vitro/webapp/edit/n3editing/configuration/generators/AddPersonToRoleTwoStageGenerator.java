@@ -908,7 +908,8 @@ public abstract class AddPersonToRoleTwoStageGenerator extends BaseEditConfigura
 	
 	
 	private String getActivityToRolePlaceholder() {
-		return "?activityToRolePredicate";
+		//return "?activityToRolePredicate";
+            return "core:hasResearcherRole";
 	}
 
 	//Types of options to populate drop-down for types for the "right side" of the role
