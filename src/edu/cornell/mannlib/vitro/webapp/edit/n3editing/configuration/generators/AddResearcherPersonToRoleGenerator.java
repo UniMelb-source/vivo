@@ -35,7 +35,7 @@ public class AddResearcherPersonToRoleGenerator extends AddPersonToRoleTwoStageG
 	HashMap<String, String> getRoleActivityTypeLiteralOptions() {
 		HashMap<String, String> literalOptions = new HashMap<String, String>();
 		literalOptions.put("", "Select one");
-        literalOptions.put("http://vivoweb.org/ontology/core#Person", "Person");
+        literalOptions.put("http://vivoweb.org/ontology/core#FacultyMember", "Person");
         //literalOptions.put("http://vivoweb.org/ontology/core#Project","Project");
 		return literalOptions;
 	}
