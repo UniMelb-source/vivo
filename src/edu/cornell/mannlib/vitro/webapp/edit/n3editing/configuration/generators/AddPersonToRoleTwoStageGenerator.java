@@ -140,8 +140,8 @@ public abstract class AddPersonToRoleTwoStageGenerator extends BaseEditConfigura
     	//independently evaluated and passed back with substitutions even if the other strings are not 
     	//substituted correctly. 
     	editConfiguration.setN3Optional( list(
-    			"?role " + getRoleToActivityPlaceholder() + " ?roleActivity .\n"+
-    	        "?roleActivity " + getActivityToRolePlaceholder() + " ?role .",
+    			"?role core:researcherRoleOf" + /*getRoleToActivityPlaceholder() + */" ?roleActivity .\n"+
+    	        "?roleActivity core:hasResearcherRole" + /*getActivityToRolePlaceholder() + */" ?role .",
     	        "?role ?inverseRolePredicate ?grant .",
     	        getN3ForActivityLabel(),
     	        getN3ForActivityType(),                              
