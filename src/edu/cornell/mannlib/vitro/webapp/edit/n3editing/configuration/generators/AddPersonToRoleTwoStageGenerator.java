@@ -898,7 +898,8 @@ public abstract class AddPersonToRoleTwoStageGenerator extends BaseEditConfigura
 	}
 	
 	private String getRoleToActivityPlaceholder() {
-		return "?" + getRoleToActivityPlaceholderName();
+		//return "?" + getRoleToActivityPlaceholderName();
+                return "core:researcherRoleOf";
 	}
 	
 	private String getRoleToActivityPlaceholderName() {

@@ -142,8 +142,7 @@ public abstract class AddRoleToPersonTwoStageGenerator extends BaseEditConfigura
     	editConfiguration.setN3Optional( list(
     			"?role " + getRoleToActivityPlaceholder() + " ?roleActivity .\n"+
     	        "?roleActivity " + getActivityToRolePlaceholder() + " ?role .",
-    	        //"?role ?inverseRolePredicate ?person .",
-                "?role <vivo:researcherRoleOf> ?person",
+    	        "?role ?inverseRolePredicate ?person .",
     	        getN3ForActivityLabel(),
     	        getN3ForActivityType(),                              
     	        getN3RoleLabelAssertion(),
