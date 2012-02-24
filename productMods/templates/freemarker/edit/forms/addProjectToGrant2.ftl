@@ -72,7 +72,7 @@
         <p>
             <label for="relatedIndLabel">Title ${requiredHint}</label>
             <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="title" 
-            <#if (disabledVal?length > 0)>disabled="${disabledVal}"</#if> value="" />
+            <#if (disabledVal?length > 0)>disabled="${disabledVal}"</#if> ivalue="" />
         </p>
 
         <div class="acSelection">

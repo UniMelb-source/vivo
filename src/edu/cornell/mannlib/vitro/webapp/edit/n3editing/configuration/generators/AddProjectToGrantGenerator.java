@@ -27,10 +27,8 @@ import edu.cornell.mannlib.vitro.webapp.utils.FrontEndEditingUtils.EditMode;
 public class AddProjectToGrantGenerator extends DefaultObjectPropertyFormGenerator {
 
 	//The only thing that changes here are the templates
-	private Log log = LogFactory.getLog(AutocompleteObjectPropertyFormGenerator.class);
+	private Log log = LogFactory.getLog(AddProjectToGrantGenerator.class);
 
-	private String objectPropertyTemplate = "autoCompleteObjectPropForm.ftl";
-	private String dataPropertyTemplate = "autoCompleteDataPropForm.ftl";
 	
 	@Override
 	public void addFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
@@ -45,7 +43,7 @@ public class AddProjectToGrantGenerator extends DefaultObjectPropertyFormGenerat
 			formSpecificData.put("objectLabel", objectLabel);
 		}
 		formSpecificData.put("sparqlForAcFilter", getSparqlForAcFilter(vreq));
-		editConfiguration.setTemplate(objectPropertyTemplate);
+		editConfiguration.setTemplate("addProjectToGrant.ftl");
 		editConfiguration.setFormSpecificData(formSpecificData);
 	}
 	
@@ -79,7 +77,8 @@ public class AddProjectToGrantGenerator extends DefaultObjectPropertyFormGenerat
 		String predicate = EditConfigurationUtils.getPredicateUri(vreq);
 		//Get all objects for existing predicate, filters out results from addition and edit
 		String query =  "SELECT ?objectVar WHERE { " + 
-			"<" + subject + "> <" + predicate + "> ?objectVar .} ";
+			"<" + subject + "> <" + predicate + "> ?objectVar .} "
+                        + " FILTER ";
 		return query;
 	}
 	
