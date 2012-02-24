@@ -120,14 +120,14 @@ public abstract class AddPersonToRoleTwoStageGenerator extends BaseEditConfigura
         EditConfigurationVTwo editConfiguration = new EditConfigurationVTwo();    	    	
     	initProcessParameters(vreq, session, editConfiguration);
     	
-        editConfiguration.setVarNameForSubject("role");               
+        editConfiguration.setVarNameForSubject("grant");               
         editConfiguration.setVarNameForPredicate("rolePredicate");      
-        editConfiguration.setVarNameForObject("person");
+        editConfiguration.setVarNameForObject("role");
         
     	// Required N3
     	editConfiguration.setN3Required(list(    	            	        
     	        N3_PREFIX + "\n" +
-    	        "?role ?rolePredicate ?person .\n" +
+    	        "?grant ?rolePredicate ?role .\n" +
     	        "?role a ?roleType .\n"
     	));    
     	
