@@ -1,0 +1,324 @@
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix ands: <http://www.ands.org.au/ontologies/ns/0.1/VITRO-ANDS.owl#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix unimelb: <http://www.findanexpert.unimelb.edu.au/ontology/> .
+
+unimelb: a owl:Ontology.
+
+unimelb:InternalClass a owl:Class.
+
+unimelb:hasWorkLocation a owl:ObjectProperty;
+	rdfs:domain foaf:Person;
+	rdfs:range vivo:Location.
+
+
+
+unimelb:DistributionMedium a owl:DatatypeProperty.
+unimelb:customer a owl:DatatypeProperty. 
+
+
+unimelb:PublicationTypeA  
+	a owl:Class; rdfs:label "Books";  
+	rdfs:subClassOf bibo:Book .
+
+unimelb:PublicationTypeA1  a owl:Class; 
+	rdfs:label "Authored Research Books";  
+	rdfs:subClassOf bibo:Book .
+
+unimelb:PublicationTypeA2  a owl:Class; 
+	rdfs:label "Edited Books";  
+	rdfs:subClassOf bibo:Book .
+
+unimelb:PublicationTypeA3  a owl:Class; 
+	rdfs:label "Revised Books";  
+	rdfs:subClassOf bibo:Book .
+
+unimelb:PublicationTypeA4  a owl:Class; 
+	rdfs:label "Translated Books"; 
+	rdfs:subClassOf bibo:Book, vivo:Translation.
+
+unimelb:PublicationTypeA5  a owl:Class; 
+	rdfs:label "Textbooks";  
+	rdfs:subClassOf bibo:Book .
+
+unimelb:PublicationTypeA6  a owl:Class; 
+	rdfs:label "Authored Books Other";  
+	rdfs:subClassOf bibo:Book .
+
+unimelb:PublicationTypeB  a owl:Class; 
+	rdfs:label "Book Chapters";  
+	rdfs:subClassOf bibo:Chapter .
+
+unimelb:PublicationTypeB1  a owl:Class; 
+	rdfs:label "Research Book Chapters";  
+	rdfs:subClassOf bibo:Chapter .
+
+unimelb:PublicationTypeB2  a owl:Class; 
+	rdfs:label "Book Chapters Other";  
+	rdfs:subClassOf bibo:Chapter .
+
+unimelb:PublicationTypeC  a owl:Class; 
+	rdfs:label "Journal Articles"; 
+	rdfs:subClassOf bibo:AcademicArticle.
+
+unimelb:PublicationTypeC1  a owl:Class; 
+	rdfs:label "Journal Articles Refereed"; 
+	rdfs:subClassOf bibo:AcademicArticle.
+
+unimelb:PublicationTypeC2  a owl:Class; 
+	rdfs:label "Journal Articles Unrefereed"; 
+	rdfs:subClassOf bibo:AcademicArticle.
+
+unimelb:PublicationTypeC3  a owl:Class; 
+	rdfs:label "Journal Articles Unrefereed Letters or Notes"; 
+	rdfs:subClassOf vivo:InformationResource.
+
+unimelb:PublicationTypeC5  a owl:Class; 
+	rdfs:label "Other Refereed Contribution to Refereed Journals"; 
+	rdfs:subClassOf vivo:InformationResource.
+
+unimelb:PublicationTypeD  a owl:Class; 
+	rdfs:label "Major Reference Works"; 
+	rdfs:subClassOf bibo:ReferenceSource.
+
+unimelb:PublicationTypeD4  a owl:Class; 
+	rdfs:label "Major Reference Works"; 
+	rdfs:subClassOf bibo:ReferenceSource.
+
+unimelb:PublicationTypeF  a owl:Class; 
+	rdfs:label "Conference Proceedings"; 
+	rdfs:subClassOf vivo:ConferencePaper.
+
+unimelb:PublicationTypeF1  a owl:Class; 
+	rdfs:label "Full Written Papers Refereed"; 
+	rdfs:subClassOf vivo:ConferencePaper.
+
+unimelb:PublicationTypeF2  a owl:Class; 
+	rdfs:label "Full Written Papers Unrefereed"; 
+	rdfs:subClassOf vivo:ConferencePaper.
+
+unimelb:PublicationTypeG  a owl:Class; 
+	rdfs:label "Reports and Working Papers"; 
+	rdfs:subClassOf bibo:Report.
+
+unimelb:PublicationTypeG4  a owl:Class; 
+	rdfs:label "Major Reports and Working Papers"; 
+	rdfs:subClassOf bibo:Report.
+
+unimelb:PublicationTypeG5  a owl:Class; 
+	rdfs:label "Minor Reports and Working Papers"; 
+	rdfs:subClassOf bibo:Report.
+
+unimelb:PublicationTypeI  a owl:Class; 
+	rdfs:label "Patents"; 
+	rdfs:subClassOf bibo:Patent.
+
+unimelb:PublicationTypeI1  a owl:Class; 
+	rdfs:label "Patents"; 
+	rdfs:subClassOf bibo:Patent.
+
+unimelb:PublicationTypeJ11  a owl:Class; 
+	rdfs:label "Major Published Works"; 
+	rdfs:subClassOf bibo:Document.
+
+unimelb:PublicationTypeJ12  a owl:Class; 
+	rdfs:label "Major Recorded Works"; 
+	rdfs:subClassOf bibo:AudioDocument.
+
+unimelb:PublicationTypeJ6  a owl:Class; 
+	rdfs:label "Minor Published Works"; 
+	rdfs:subClassOf bibo:Document.
+
+unimelb:PublicationTypeJ7  a owl:Class; 
+	rdfs:label "Minor Recorded Works"; 
+	rdfs:subClassOf bibo:AudioDocument.
+
+unimelb:PublicationTypeJi  a owl:Class; 
+	rdfs:label "Creative Published Works"; 
+	rdfs:subClassOf bibo:Document.
+
+unimelb:PublicationTypeJii  a owl:Class; 
+	rdfs:label "Creative Recorded Works"; 
+	rdfs:subClassOf bibo:AudioDocument.
+
+
+unimelb:PublicationTypeM  a owl:Class; 
+	rdfs:label "Computer Software Products"; 
+	rdfs:subClassOf vivo:Software.
+
+unimelb:PublicationTypeM5  a owl:Class; 
+	rdfs:label "Computer Software Products"; 
+	rdfs:subClassOf vivo:Software.
+
+unimelb:PublicationTypeN  a owl:Class; 
+	rdfs:label "Audio-visual Recordings"; 
+	rdfs:subClassOf bibo:AudioDocument.
+
+unimelb:PublicationTypeN4  a owl:Class; 
+	rdfs:label "Audio-visual Recordings"; 
+	rdfs:subClassOf bibo:AudioDocument.
+
+unimelb:ExhibitionTypeJiii a owl:Class;
+        rdfs:label "Creative Exhibited Works";
+        rdfs:subClassOf vivo:Exhibit.
+
+unimelb:ExhibitionTypeJ8 a owl:Class;
+        rdfs:label "Minor Exhibited Works";
+        rdfs:subClassOf vivo:Exhibit.
+
+unimelb:ExhibitionTypeK2 a owl:Class;
+        rdfs:label "Curatorship of Exhibition/Event";
+        rdfs:subClassOf vivo:Exhibit.
+
+unimelb:ExhibitionTypeK3 a owl:Class;
+        rdfs:label "Curatorship of Festival";
+        rdfs:subClassOf vivo:Exhibit.
+
+unimelb:ExhibitionTypeK4 a owl:Class;
+        rdfs:label "Curatorship . Other";
+        rdfs:subClassOf vivo:Exhibit.
+
+unimelb:ExhibitionTypeJ13 a owl:Class;
+        rdfs:label "Major Exhibited Works";
+        rdfs:subClassOf vivo:Exhibit.
+
+unimelb:PerformanceTypeP a owl:Class;
+        rdfs:label "Performance";
+        rdfs:subClassOf bibo:Performance.
+
+unimelb:PerformanceTypeP2 a owl:Class;
+        rdfs:label "Minor Performance";
+        rdfs:subClassOf bibo:Performance.
+
+unimelb:PerformanceTypeU2 a owl:Class;
+        rdfs:label "1st Performance of Minor Unpublished Composition";
+        rdfs:subClassOf bibo:Performance.
+
+unimelb:PerformanceTypeP1 a owl:Class;
+        rdfs:label "Major Performance";
+        rdfs:subClassOf bibo:Performance.
+
+unimelb:PerformanceTypeU1 a owl:Class;
+        rdfs:label "1st Performance of Major Unpublished Composition";
+        rdfs:subClassOf bibo:Performance.
+
+unimelb:PerformanceTypeU a owl:Class;
+        rdfs:label "Performance of Unpublished Composition";
+        rdfs:subClassOf bibo:Performance.
+
+unimelb:PerformanceTypeK a owl:Class;
+        rdfs:label "Curatorship";
+        rdfs:subClassOf vivo:Exhibit.
+
+unimelb:PerformanceTypeK1 a owl:Class;
+        rdfs:label "Curatorship of Web based Exhibition";
+        rdfs:subClassOf vivo:Exhibit.
+
+#authorShip Types:
+
+unimelb:Editorship a owl:Class;
+	rdfs:label "Editor";
+rdfs:subClassOf vivo:Authorship.
+
+unimelb:Translatorship a owl:Class;
+	rdfs:label "Translator";
+rdfs:subClassOf vivo:Authorship.
+
+
+unimelb:eventLocation a owl:DatatypeProperty.
+
+
+unimelb:exhibitorRoleOf   a owl:ObjectProperty;
+        rdfs:label "exhibitor role of" ;
+	rdfs:domain vivo:Role;
+	rdfs:range foaf:Person.
+
+ 
+unimelb:exhibitorRoleIn a owl:ObjectProperty;
+	rdfs:domain vivo:Role;
+	rdfs:range vivo:Exhibit.
+
+unimelb:hasExhibitorRole a owl:ObjectProperty;
+	rdfs:domain foaf:Person;
+	rdfs:range vivo:Role.
+
+unimelb:hasCurattorRole a owl:ObjectProperty;
+        rdfs:domain foaf:Person;
+        rdfs:range vivo:Role.
+
+unimelb:curatorRoleOf  a owl:ObjectProperty;
+	rdfs:domain vivo:Role;
+	rdfs:range foaf:Person.
+
+unimelb:curatorRoleIn  a owl:ObjectProperty;
+	rdfs:domain vivo:Role;
+	rdfs:range vivo:Exhibit.
+	
+unimelb:hasPerformerRole a owl:ObjectProperty;
+	rdfs:domain foaf:Person;
+	rdfs:range vivo:Role.
+
+unimelb:performerRoleOf a owl:ObjectProperty;
+	rdfs:domain vivo:Role;
+	rdfs:range foaf:Person.
+
+unimelb:performerRoleIn a owl:ObjectProperty;
+	rdfs:domain foaf:Person;
+	rdfs:range bibo:Performance.
+
+unimelb:hasPerformerRole a owl:ObjectProperty;
+	rdfs:domain foaf:Person;
+	rdfs:range vivo:Role.
+
+unimelb:CuratorRole a owl:Class;
+	rdfs:subClassOf vivo:Role.
+unimelb:ExhibitorRole a owl:Class;
+	rdfs:subClassOf vivo:Role.
+unimelb:PerformerRole a owl:Class;
+	rdfs:subClassOf vivo:Role.
+
+#Find a supervisor  and media ontology requirements
+
+
+unimelb:supervisorStatement a owl:DatatypeProperty;
+	rdfs:domain foaf:Person.
+
+unimelb:hasMediaOnlyContact a owl:DatatypeProperty;
+	rdfs:domain foaf:Person.
+#boolean
+
+unimelb:availableForSupervision a owl:DatatypeProperty;
+	rdfs:domain foaf:Person;
+        rdfs:label "available for supervision".	
+#boolean
+
+unimelb:videoStatement a owl:DatatypeProperty;
+	rdfs:domain foaf:Person.
+
+unimelb:gradResearchAddress a owl:DatatypeProperty;
+        rdfs:label "Interested in graduate research at Melbourne? Next Steps:";
+        rdfs:domain foaf:Agent.
+
+unimelb:hasWorkLocation a owl:ObjectProperty;
+          rdfs:label "has work location";
+          rdfs:domain foaf:Person;
+          rdfs:range  vivo:Location.
+
+unimelb:internationalLinkageRole  a owl:ObjectProperty;
+          rdfs:label "international Linkage";
+          rdfs:domain foaf:Person;
+          rdfs:range unimelb:InternationalLinkageRole.
+
+ unimelb:InternationalLinkageRole a owl:Class;
+        rdfs:subClassOf vivo:Role.
+ 
+
