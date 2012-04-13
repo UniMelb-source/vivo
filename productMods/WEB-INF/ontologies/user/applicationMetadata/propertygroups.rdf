@@ -28,14 +28,24 @@
     <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">properties holding unique and non-unique identifiers, names, and other identification information</vitro:publicDescriptionAnnot>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://vivoweb.org/ontology#vitroPropertyGroupaddress">
+<!--  <rdf:Description rdf:about="http://vivoweb.org/ontology#vitroPropertyGroupaddress">
     <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">properties related to postal and email addresses</vitro:publicDescriptionAnnot>
     <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">120</vitro:displayRank>
     <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-12-28T09:15:07</vitro:modTime>
     <rdfs:label xml:lang="en-US">contact</rdfs:label>
     <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </rdf:Description> -->
+
+  <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology#unimelbPropertyGroupSupervision">
+    <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-12-28T14:00:43</vitro:modTime>
+    <rdfs:label xml:lang="en-US">Supervision</rdfs:label>
+    <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
+    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Supervision Details</vitro:publicDescriptionAnnot>
+    <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">99</vitro:displayRank>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </rdf:Description>
+
   <rdf:Description rdf:about="http://vivoweb.org/ontology#vitroPropertyGrouplinks">
     <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-12-28T14:00:43</vitro:modTime>
     <rdfs:label xml:lang="en-US">links</rdfs:label>
