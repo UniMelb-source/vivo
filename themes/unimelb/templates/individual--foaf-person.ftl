@@ -124,30 +124,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#assign location = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/hasWorkLocation") !>
 <#assign mediaOnly  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/hasMediaOnlyContact") !>
 <#assign graduateStudy  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/gradResearchAddress") !>
-
-<#--            </div>
-
-            <div class="col-2 nav">
-                   <ul>
-                       <li>
-                           <ul>
-                              <#include "individual-contactInfo.ftl">
-                              <@vp.webpages propertyGroups editable "individual-urls-people" />
-                            </ul>
-                       </li>
-                       <li>
-                         <ul>
-                            <li>
-                               <ul>
-                                  <#include "individual-visualizationFoafPerson.ftl">
-                               </ul>
-                            </li>
-                         </ul>
-                       </li>
-                  </ul>
-            </div>
-          </div>
--->        
+<#assign webpage = propertyGroups.pullProperty("${core}webpage")!>
 
 <!-- </div>  #wrapper-content -->
 
@@ -173,7 +150,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                        <li>
                            <ul>
                               <#include "individual-contactInfo.ftl">
-                              <@vp.webpages propertyGroups editable "individual-urls-people" />
                             </ul>
                        </li>
                        <li>
