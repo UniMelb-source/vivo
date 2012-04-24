@@ -29,6 +29,10 @@
       </rdf:Description>
 
 
+     <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/providesInformalLinkageRole">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-providesInformalLinkageRole.xml</display:listViewConfigFile>
+      </rdf:Description>
+
       <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/hasPerformerRole">
             <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasPerformerRole.xml</display:listViewConfigFile>
        </rdf:Description>
