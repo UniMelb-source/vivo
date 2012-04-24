@@ -36,7 +36,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <#macro showStatement statement>
     <#-- The query retrieves a type only for Persons. Post-processing will remove all but one. -->   
-    ${statement.orgLabel!}  (${statement.label!statement.localName!}) 
+  
+<#if statement.org??>
+<a href="${profileUrl(statement.uri("org"))}" title="name">${statement.orgLabel!}</a>  (${statement.label!statement.localName!}) 
+</#if>
 </#macro>
 
 
