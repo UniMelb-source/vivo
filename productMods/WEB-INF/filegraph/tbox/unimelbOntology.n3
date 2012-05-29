@@ -17,6 +17,7 @@ unimelb: a owl:Ontology.
 unimelb:InternalClass a owl:Class.
 
 unimelb:hasWorkLocation a owl:ObjectProperty;
+        rdfs:label "has work location" ;
 	rdfs:domain foaf:Person;
 	rdfs:range vivo:Location.
 
@@ -251,7 +252,7 @@ unimelb:hasExhibitorRole a owl:ObjectProperty;
 	rdfs:domain foaf:Person;
 	rdfs:range vivo:Role.
 
-unimelb:hasCurattorRole a owl:ObjectProperty;
+unimelb:hasCuratorRole a owl:ObjectProperty;
         rdfs:domain foaf:Person;
         rdfs:range vivo:Role.
 
@@ -318,7 +319,50 @@ unimelb:internationalLinkageRole  a owl:ObjectProperty;
           rdfs:domain foaf:Person;
           rdfs:range unimelb:InternationalLinkageRole.
 
- unimelb:InternationalLinkageRole a owl:Class;
+unimelb:providesInformalLinkageRole a owl:ObjectProperty;
+          rdfs:label "International collaborations with";
+          rdfs:doamin foaf:Organization;
+          rdfs:range vivo:Role .
+           
+
+unimelb:InternationalLinkageRole a owl:Class;
         rdfs:subClassOf vivo:Role.
  
+unimelb:InternationalLinkageOrg a owl:Class;
+        rdfs:subClassOf foaf:Organization;
+        rdfs:label "Linkage Institution" .
 
+unimelb:OtherAward
+        a owl:Class ;
+        rdfs:subClassOf vivo:Award ;
+        rdfs:label "Other Award" .
+
+unimelb:Fellowship
+        a owl:class ;
+        rdfs:subClassOf vivo:Award ;
+        rdfs:label "Fellowship" .
+
+unimelb:Honour
+        a owl:Class ;
+        rdfs:subClassOf vivo:Award ;
+        rdfs:label "Honour" .
+
+unimelb:Consultancy
+        a owl:Class ;
+	rdfs:subClassOf vivo:Agreement ;
+        rdfs:label "Consultancy" .
+
+unimelb:parentTitle a owl:DatatypeProperty;
+        rdfs:label "Parent Title" .
+
+unimelb:scheme a owl:DatatypeProperty;
+        rdfs:label "Scheme" .
+
+<http://www.findanexpert.unimelb.edu.au/ontology/overviewText1> a owl:DatatypeProperty .
+<http://www.findanexpert.unimelb.edu.au/ontology/overviewText2> a owl:DatatypeProperty .
+<http://www.findanexpert.unimelb.edu.au/ontology/overviewText3> a owl:DatatypeProperty .
+<http://www.findanexpert.unimelb.edu.au/ontology/overviewText4> a owl:DatatypeProperty .
+<http://www.findanexpert.unimelb.edu.au/ontology/supervisorText1> a owl:DatatypeProperty .
+<http://www.findanexpert.unimelb.edu.au/ontology/supervisorText2> a owl:DatatypeProperty .
+<http://www.findanexpert.unimelb.edu.au/ontology/supervisorText3> a owl:DatatypeProperty .
+<http://www.findanexpert.unimelb.edu.au/ontology/supervisorText4> a owl:DatatypeProperty .

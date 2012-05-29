@@ -28,6 +28,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <#-- Default individual profile page template -->
 <#--@dumpAll /-->
+<!--<div class="main" id="main-content" role="main">
+<div class="col-8">-->
+
 <section id="individual-intro" class="vcard" role="region">
     <#-- Image -->
     <#assign individualImage>
@@ -86,6 +89,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#-- Ontology properties -->
 <#include "individual-properties.ftl">
 
+<!--</div>
+</div>-->
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',

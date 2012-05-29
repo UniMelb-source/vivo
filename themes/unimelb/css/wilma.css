@@ -568,10 +568,14 @@ ul#main-nav {
 #wrapper-content {
     clear: both;
     width: 960px;
-    margin: 0 auto;
+    margin: 0 0 ;
+    /*margin: 0 auto; */
     /*background: #fff;*/
-    min-height: 550px;
-    /*padding: 20px;*/
+    /*min-height: 550px;*/
+    /*padding: 10px;*/
+     /*border-style: solid;
+     border-color: #fff;
+     border-width:10px;*/
 }
 /* INTRO-BLURB ------>  */
 #intro {
@@ -1424,7 +1428,7 @@ p.view-all-coauthors {
 /* PROPERTY GROUP MENU ------>  */
 
 #property-group-menu {
-    width: 920px;
+   /* width: 920px;*/
     background: #f1f2ee;
 }
 #property-group-menu ul {

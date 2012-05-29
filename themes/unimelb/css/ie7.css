@@ -1,4 +1,4 @@
-<#--
+/*
 Copyright (c) 2011, Cornell University
 All rights reserved.
 
@@ -24,39 +24,16 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
+*/
 
-<div class="topnav">
-<div class="wrapper">
-  <div class="inside">
-    <ul>
-        <#list menu.items as item>
-            <li <#if !(item_has_next)>class="last"</#if>><a href="${item.url}">${item.linkText}</a></li>
-        </#list>
-    </ul>
-	<ul style="float: right;">
-		<li class="last"><a href="${urls.index}">Data</a></li>
-	</ul>
-  </div>
-</div>
-</div>
+/* Fix browser issues in IE7 browsers */
 
-<div class="wrapper">
-<div id="wrapper-content" role="main">        
-    <#if flash?has_content>
-        <#if flash?starts_with("Welcome") >
-            <section  id="welcome-msg-container" role="container">
-                <section  id="welcome-message" role="alert">${flash}</section>
-            </section>
-        <#else>
-            <section id="flash-message" role="alert">
-                ${flash}
-            </section>
-        </#if>
-    </#if>
-    
-    <!--[if lte IE 8]>
-    <noscript>
-        <p class="ie-alert">This site uses HTML elements that are not recognized by Internet Explorer 8 and below in the absence of JavaScript. As a result, the site will not be rendered appropriately. To correct this, please either enable JavaScript, upgrade to Internet Explorer 9, or use another browser. Here are the <a href="http://www.enable-javascript.com"  title="java script instructions">instructions for enabling JavaScript in your web browser</a>.</p>
-    </noscript>
-    <![endif]-->
+/* Fix for homepage */
+#search-home-field  input.search {
+    padding-left: 14px;
+}
+.topnav {margin-top: 60px;}
+.header #headingtext {margin-top: 10px;}
+.topnav .wrapper {background-color: #003366;}
+.wrapper-content {width: 980px;}
+

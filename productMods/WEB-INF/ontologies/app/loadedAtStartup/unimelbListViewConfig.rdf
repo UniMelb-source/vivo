@@ -20,6 +20,18 @@
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasMemberRole.xml</display:listViewConfigFile>
      </rdf:Description>
 
+    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#grantAwardedBy">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-defaultNoLink.xml</display:listViewConfigFile>
+     </rdf:Description>
+
+    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasPublicationVenue">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-defaultNoLink.xml</display:listViewConfigFile>
+     </rdf:Description>
+
+    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#publisher">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-defaultNoLink.xml</display:listViewConfigFile>
+     </rdf:Description>
+
      <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/hasWorkLocation">
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasWorkLocation.xml</display:listViewConfigFile>
      </rdf:Description>

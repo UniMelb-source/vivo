@@ -1,120 +1,343 @@
-# $This file is distributed under the terms of the license in /doc/license.txt$ 
+@prefix pvs:     <http://vivoweb.org/ontology/provenance-support#> .
+@prefix geo:     <http://aims.fao.org/aos/geopolitical.owl#> .
+@prefix unimelb:  <http://www.unimelb.edu.au/ontology#> .
+@prefix scires:  <http://vivoweb.org/ontology/scientific-research#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix fae:     <http://www.findanexpert.unimelb.edu.au/ontology/> .
+@prefix vitro:   <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix event:   <http://purl.org/NET/c4dm/event.owl#> .
+@prefix bibo:    <http://purl.org/ontology/bibo/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix vitro-public:  <http://vitro.mannlib.cornell.edu/ns/vitro/public#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix vivo:    <http://vivoweb.org/ontology/core#> .
+@prefix dcelem:  <http://purl.org/dc/elements/1.1/> .
+@prefix ero:     <http://purl.obolibrary.org/obo/> .
 
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#> .
-@prefix core: <http://vivoweb.org/ontology/core#> .
-@prefix vivoweb: <http://vivoweb.org/ontology#> .
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1/>
+      a       owl:Ontology ;
+      rdfs:label "Vitro display ontology" ;
+      owl:versionInfo "1.1" .
 
-### This file defines the default menu for vivo. ###
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#parameterValue>
+      a       owl:DatatypeProperty ;
+      rdfs:label "parameter value" .
 
-#### Default Menu ####
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#requiresBodyTemplate>
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Indicates that a page requires a body template." ;
+      rdfs:domain <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
+      rdfs:label "Body Template" .
 
-display:DefaultMenu 
-    a  display:MainMenu ;
-    rdfs:label "Default Menu" ;
-    display:hasElement display:EventsMenuItem ;
-    display:hasElement display:HomeMenuItem ;
-    display:hasElement display:OrganizationsMenuItem ;
-    display:hasElement display:PeopleMenuItem ;
-    display:hasElement display:ResearchMenuItem .
+rdfs:label
+      a       owl:AnnotationProperty , owl:DatatypeProperty .
 
-#### Menu Items for Default Menu ####
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#restrictResultsByClass>
+      a       owl:ObjectProperty .
 
-display:HomeMenuItem 
-    a display:NavigationElement ;
-    display:menuPosition 1;
-    display:linkText "Home";
-    display:toPage display:Home .
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#HomeMenuItem>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#NavigationElement> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#linkText>
+              "Home" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#menuPosition>
+              "1"^^xsd:int ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#toPage>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Home> .
 
-display:PeopleMenuItem 
-    a display:NavigationElement ;
-    display:menuPosition 2;
-    display:linkText "People";
-    display:toPage display:People .
+owl:DatatypeProperty
+      a       owl:DatatypeProperty , owl:Class .
 
-display:OrganizationsMenuItem 
-    a display:NavigationElement ;
-    display:menuPosition 3;
-    display:linkText "Organizations";
-    display:toPage display:Organizations .
+rdfs:comment
+      a       owl:AnnotationProperty , owl:DatatypeProperty .
 
-display:ResearchMenuItem     
-    a display:NavigationElement ;
-    display:menuPosition 4;
-    display:linkText "Research";
-    display:toPage display:Research .
-
-display:EventsMenuItem 
-    a display:NavigationElement ;
-    display:menuPosition 5;
-    display:linkText "Events";
-    display:toPage display:Events .
-
-########## Pages ############
-#Instead of type, now using dataGetter which uses an object that specifies information for data getter
-
-display:Home 
-    a display:HomePage ;    
-    a display:Page ;
-    display:title "Home" ;    
-    display:urlMapping "/" ;
-    display:hasDataGetter display:homeDataGetter .
-
-display:Events 
-    a display:Page ;    
-    a display:ClassGroupPage;
-    display:forClassGroup vivoweb:vitroClassGroupevents ;
-    display:title "Events" ;
-    display:urlMapping "/events" ; 
-    display:hasDataGetter display:eventsDataGetter .
-
-display:Organizations 
-    a display:Page ;
-    a display:ClassGroupPage;
-    display:forClassGroup vivoweb:vitroClassGrouporganizations ;
-    display:title "Organizations" ;
-    display:urlMapping "/organizations";
-    display:hasDataGetter display:organizationsDataGetter .
-
-display:People 
-    a display:Page ;    
-    a display:ClassGroupPage;
-    display:forClassGroup vivoweb:vitroClassGrouppeople ;
-    display:requiresBodyTemplate "menupage--classgroup-people.ftl" ;
-    display:title "People" ;
-    display:urlMapping "/people" ;
-   	display:hasDataGetter display:peopleDataGetter .
-
-display:Research 
-    a display:Page ;        
-    a display:ClassGroupPage;
-    display:forClassGroup vivoweb:vitroClassGrouppublications ;
-    display:title "Research" ;
-    display:urlMapping "/research" ;
-    display:hasDataGetter display:researchDataGetter .
-
-#The data getter objects used above
-<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#peopleDataGetter>
-      a <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.ClassGroupPageData>;
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#InternationalLinkagesMenuItemPage-dataGetter>
+      a       <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.InternalClassesDataGetter> ;
       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
-              <http://vivoweb.org/ontology#vitroClassGrouppeople> .
+              <http://vivoweb.org/ontology#vitroClassGrouplocations> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#getIndividualsForClass>
+              vivo:GeographicRegion , vivo:Country , vivo:County , fae:InternationalLinkageOrg , vivo:GeographicLocation , vivo:Continent .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#menuPosition>
+      a       owl:DatatypeProperty ;
+      rdfs:label "menu position" .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
+      a       owl:ObjectProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ResearchClassificationsMenuItem>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#NavigationElement> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#linkText>
+              "Research Classifications" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#menuPosition>
+              "5"^^xsd:int ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#toPage>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ResearchClassificationsMenuItemPage> .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ExternallyLinkedNamespace>
+      a       owl:Class ;
+      rdfs:label "Externally Linked Namespace" .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#HomePage>
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#DefaultMenu>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#MainMenu> ;
+      rdfs:label "Default Menu" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasElement>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#HomeMenuItem> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#OrganizationsMenuItem> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#InternationalLinkagesMenuItem> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ResearchMenuItem> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#PeopleMenuItem> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ResearchClassificationsMenuItem> .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1/#Menu>
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#InternalClassesPage>
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#restrictResultsByInternalClass>
+      a       owl:DatatypeProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ResearchClassificationsMenuItemPage-dataGetter>
+      a       <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.ClassGroupPageData> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
+              <http://fae-dev.unimelb.edu.au/individual/vitroClassGroupClassifications> .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasElement>
+      a       owl:ObjectProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#title>
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Value for HTML title element." ;
+      rdfs:domain <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
+      rdfs:label "title" .
+
+owl:ObjectProperty
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#MainMenu>
+      a       owl:Class ;
+      vitro:customDisplayViewAnnot
+              """
+  		individual-menu.ftl
+  	"""^^xsd:string .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1/excludeClass>
+      a       owl:ObjectProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Home>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#HomePage> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasDataGetter>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#homeDataGetter> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#title>
+              "Home" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#urlMapping>
+              "/" .
+
+rdfs:domain
+      a       owl:ObjectProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#listViewConfigFile>
+      a       owl:DatatypeProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1/includeClass>
+      a       owl:ObjectProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Organizations>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ClassGroupPage> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
+              <http://vivoweb.org/ontology#vitroClassGrouporganizations> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasDataGetter>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#organizationsDataGetter> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#requiresBodyTemplate>
+              "menupage--classgroup-organization.ftl" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#title>
+              "Organizations" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#urlMapping>
+              "/organizations" .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#People>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ClassGroupPage> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
+              <http://vivoweb.org/ontology#vitroClassGrouppeople> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasDataGetter>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#peopleDataGetter> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#requiresBodyTemplate>
+              "menupage--classgroup-people.ftl" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#title>
+              "Experts" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#urlMapping>
+              "/experts" .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1/#hasParameter>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
+      rdfs:range <http://vitro.mannlib.cornell.edu/ontologies/display/1.1/#parameter> .
+
+owl:Ontology
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#homeDataGetter>
+      a       <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.BrowseDataGetter> .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#urlMapping>
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Values from HttpRequest.getPathInfo() will be mapped to values from urlMapping." .
+
+rdfs:range
+      a       owl:ObjectProperty .
+
+owl:AnnotationProperty
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ResearchMenuItem>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#NavigationElement> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#linkText>
+              "Research" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#menuPosition>
+              "4"^^xsd:int ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#toPage>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Research> .
+
+rdfs:subPropertyOf
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#PeopleMenuItem>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#NavigationElement> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#linkText>
+              "Experts" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#menuPosition>
+              "2"^^xsd:int ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#toPage>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#People> .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#toPage>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#NavigationElement> ;
+      rdfs:range <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#excludeClass>
+      a       owl:ObjectProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#OrganizationsMenuItem>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#NavigationElement> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#linkText>
+              "Organizations" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#menuPosition>
+              "3"^^xsd:int ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#toPage>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Organizations> .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#InternationalLinkagesMenuItem>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#NavigationElement> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#linkText>
+              "International Linkages" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#menuPosition>
+              "6"^^xsd:int ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#toPage>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#InternationalLinkagesMenuItemPage> .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ResearchClassificationsMenuItemPage>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasDataGetter>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ResearchClassificationsMenuItemPage-dataGetter> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#requiresBodyTemplate>
+              "menupage--classgroup-subjectArea.ftl" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#title>
+              "Research Classifications" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#urlMapping>
+              "/classifications" .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#getIndividualsForClass>
+      a       owl:ObjectProperty .
 
 <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#researchDataGetter>
-      a <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.ClassGroupPageData>;
+      a       <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.InternalClassesDataGetter> ;
       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
-              <http://vivoweb.org/ontology#vitroClassGrouppublications> .
+              <http://vivoweb.org/ontology#vitroClassGrouppublications> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#getIndividualsForClass>
+              bibo:Film , fae:PublicationTypeN , bibo:Chapter , ero:ERO_0000020 , fae:PublicationTypeA3 , bibo:Proceedings , bibo:Report , vivo:Grant , fae:PublicationTypeA , bibo:Book , vivo:BlogPosting , vivo:CaseStudy , fae:PerformanceTypeP1 , fae:PublicationTypeB2 , vivo:Review , fae:PerformanceTypeK , fae:PerformanceTypeK1 , fae:PublicationTypeJii , vivo:Credential , fae:PublicationTypeF , skos:Concept , fae:PublicationTypeC2 , fae:PublicationTypeD4 , fae:PublicationTypeJ11 , fae:PublicationTypeJ7 , ero:ERO_0000006 , bibo:Webpage , scires:Phase1ClinicalTrial , bibo:AudioDocument , fae:PublicationTypeA4 , vivo:ConferencePaper , vivo:WorkingPaper , fae:ExhibitionTypeK2 , vivo:Software , fae:PublicationTypeG4 , vivo:ConferencePoster , fae:ExhibitionTypeJ8 , bibo:Website , fae:PublicationTypeB , ero:ERO_0000595 , fae:PublicationTypeB1 , fae:PerformanceTypeP2 , fae:ExhibitionTypeJiii , fae:PublicationTypeM5 , vivo:Video , fae:PublicationTypeG , bibo:Issue , fae:PublicationTypeC5 , bibo:Patent , vivo:Speech , fae:PublicationTypeC1 , vivo:Newsletter , vivo:ResearchProposal , fae:PerformanceTypeU , fae:PublicationTypeC , bibo:Journal , fae:PublicationTypeJ12 , fae:PublicationTypeN4 , fae:PublicationTypeA5 , fae:PublicationTypeA1 , fae:ExhibitionTypeK3 , fae:PublicationTypeG5 , fae:PublicationTypeJ6 , vivo:EditorialArticle , bibo:Series , ero:OBI_0000272 , bibo:Thesis , scires:Phase4ClinicalTrial , fae:PublicationTypeF1 , ero:ERO_0000015 , scires:Phase2ClinicalTrial , fae:PublicationTypeI , fae:PublicationTypeD , fae:PerformanceTypeP , fae:ExhibitionTypeJ13 , bibo:AcademicArticle , fae:PublicationTypeM , ero:OBI_0100026 , fae:PublicationTypeJi , vivo:NewsRelease , fae:PublicationTypeI1 , scires:Phase3ClinicalTrial , fae:PublicationTypeA6 , fae:PublicationTypeA2 , fae:ExhibitionTypeK4 , bibo:EditedBook , vivo:Database , scires:Phase0ClinicalTrial , fae:PublicationTypeC3 , fae:PublicationTypeF2 , bibo:Article , vivo:Certificate , vivo:Catalog .
+
+owl:topDataProperty
+      a       owl:DatatypeProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#IndividualsForClassesPage>
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#parameterName>
+      a       owl:DatatypeProperty ;
+      rdfs:label "parameter name" .
+
+owl:topObjectProperty
+      a       owl:ObjectProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page>
+      a       owl:Class ;
+      rdfs:comment "Class of pages." ;
+      rdfs:label "Page" .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#InternationalLinkagesMenuItemPage>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasDataGetter>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#InternationalLinkagesMenuItemPage-dataGetter> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#requiresBodyTemplate>
+              "menupage--classgroup-location.ftl" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#title>
+              "International Linkages" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#urlMapping>
+              "/internationalLinkages" .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ClassGroupPage>
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasDataGetter>
+      a       owl:ObjectProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#peopleDataGetter>
+      a       <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.InternalClassesDataGetter> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
+              <http://vivoweb.org/ontology#vitroClassGrouppeople> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#getIndividualsForClass>
+              vivo:FacultyMember .
+
+owl:Class
+      a       owl:Class .
 
 <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#organizationsDataGetter>
-      a <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.ClassGroupPageData>;
+      a       <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.InternalClassesDataGetter> ;
       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
-              <http://vivoweb.org/ontology#vitroClassGrouporganizations> .
-                            
-<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#eventsDataGetter>
-      a <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.ClassGroupPageData>;
+              <http://vivoweb.org/ontology#vitroClassGrouporganizations> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#getIndividualsForClass>
+              vivo:Department , vivo:AcademicDepartment .
+
+owl:versionInfo
+      a       owl:AnnotationProperty , owl:DatatypeProperty .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1/#parameter>
+      a       owl:Class .
+
+owl:NamedIndividual
+      a       owl:Class .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Research>
+      a       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#ClassGroupPage> , <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#Page> ;
       <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#forClassGroup>
-              <http://vivoweb.org/ontology#vitroClassGroupevents> .
-              
-<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#homeDataGetter>
-      a <java:edu.cornell.mannlib.vitro.webapp.utils.pageDataGetter.BrowseDataGetter> .
+              <http://vivoweb.org/ontology#vitroClassGrouppublications> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#hasDataGetter>
+              <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#researchDataGetter> ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#requiresBodyTemplate>
+              "menupage--classgroup-research.ftl" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#title>
+              "Research" ;
+      <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#urlMapping>
+              "/research" .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#linkText>
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Text to display to a link." .
+
+<http://vitro.mannlib.cornell.edu/ontologies/display/1.1#NavigationElement>
+      a       owl:Class ;
+      rdfs:comment "This represents a menu item or other general navigation item." ;
+      rdfs:label "Navigation Element" .

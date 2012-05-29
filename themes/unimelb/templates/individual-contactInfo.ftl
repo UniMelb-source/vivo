@@ -27,6 +27,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <#-- Contact info on individual profile page -->
+<li>Contact Details
+<ul>
 
 <#-- Primary Email     
 <@emailLinks "${core}primaryEmail" /> 
@@ -38,7 +40,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <#list email.statements as statement>
                     <li role="listitem">
                         <img class ="icon-email middle" src="${urls.images}/individual/emailIcon.gif" alt="email icon" />
-                        <a class="email" href="mailto:${statement.value}" title="email">${statement.value}</a>
+                        <a class="email" style="display: inline;" href="mailto:${statement.value}" title="email">${statement.value}</a>
                         <@p.editingLinks "${email.localName}" statement editable />
                     </li>
                 </#list>
@@ -82,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <#list mediaOnly.statements as statement>
                 <li role="listitem">
                    <img class ="icon-phone  middle" src="${urls.images}/individual/phoneIcon.gif" alt="media only icon" />
-                     <a href="https://newsroom.melbourne.edu/user?uri=${individual.uri?url}">Media Only (login required)</a> 
+                    After hours: <a href="https://newsroom.melbourne.edu/user?uri=${individual.uri?url}" target="_blank">Media Only (login required)</a> 
                 </li>
             </#list>
     </#if>
@@ -90,10 +92,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#-- webpages -->
     <#if webpage?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
         <nav role="navigation">
-            <#local label = "Web Pages">
-            <@p.addLinkWithLabel webpage editable label />
+  <#--          <#assign wlabel = "Web Pages">
+            <@p.addLinkWithLabel webpage editable wlabel /> -->
             <#if webpage.statements?has_content> <#-- if there are any statements -->
-                <#include "lib-vivo-property-webpage.ftl">
+	    	<ul>
+			<@p.objectPropertyList webpage editable />
+	        </ul>
             </#if>
         </nav>
     </#if>
@@ -103,12 +107,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <#if location.statements?has_content>
 <li>
+Location
 <ul>
 <@p.objectPropertyList location editable />
 </ul>
 </li>
 </#if>
 
+</ul>
+</li>
+
+<li>Graduate Study
+<ul>
 <#if graduateStudy.statements?has_content>
 <li>
   <ul>
@@ -116,17 +126,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
      <ul>
     <#list graduateStudy.statements as statement>
-        <li role="listitem">
+    
+    <li role="listitem">
             ${statement.value}
          </li>
       </#list>
-    </li>
     </ul>
+    </li>
   </ul>
 </li>
 </#if>
-
-
+</ul>
+</li>
 <#macro emailLinks property>
     <#assign email = propertyGroups.pullProperty(property)!>    
     <#if property == "${core}primaryEmail">

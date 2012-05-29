@@ -61,9 +61,53 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 </#macro>
 
 <#macro dataPropertyList property editable>
+    <#if property.name?contains("overviewText1") >
+     <li role="listitem">
+      <#list property.statements as statement>
+                ${statement.value}
+      </#list>
+       <#if overviewText2?has_content>
+         <#list overviewText2.statements as statement>
+                ${statement.value}
+          </#list>
+       </#if>
+       <#if overviewText3?has_content>
+         <#list overviewText3.statements as statement>
+                ${statement.value}
+          </#list>
+       </#if>
+       <#if overviewText4?has_content>
+         <#list overviewText4.statements as statement>
+                ${statement.value}
+          </#list>
+       </#if>
+      </li>
+    <#elseif property.name?contains("supervisorText1") >
+     <li role="listitem">
+      <#list property.statements as statement>
+                ${statement.value}
+      </#list>
+       <#if supervisorText2?has_content>
+         <#list supervisorText2.statements as statement>
+                ${statement.value}
+          </#list>
+       </#if>
+       <#if supervisorText3?has_content>
+         <#list supervisorText3.statements as statement>
+                ${statement.value}
+          </#list>
+       </#if>
+       <#if supervisorText4?has_content>
+         <#list supervisorText4.statements as statement>
+                ${statement.value}
+          </#list>
+       </#if>
+      </li>
+     <#else>
     <#list property.statements as statement>
         <@propertyListItem property statement editable >${statement.value}</@propertyListItem>
-    </#list> 
+    </#list>
+    </#if> 
 </#macro>
 
 
@@ -220,7 +264,7 @@ name will be used as the label. -->
 -->
 <#macro image individual propertyGroups namespaces editable showPlaceholder="never" placeholder="">
     <#local mainImage = propertyGroups.pullProperty("${namespaces.vitroPublic}mainImage")!>
-    <#local videoStatement = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/videoStatement")!>
+    <#local videoStatement = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/videoStatement")!> 
     <#local extraParams = "">
     <#if placeholder?has_content>
         <#local extraParams = { "placeholder" : placeholder } >
@@ -240,11 +284,11 @@ name will be used as the label. -->
             </#if>
         </#if>
     </#if> -->
-     <#if (videoStatement.statements)?has_content> 
+      <#if (videoStatement.statements)?has_content> 
          <div id="viewnow"><a href="http://www.macromedia.com/go/getflashplayer">Get the latest Flash player to watch this now.</a></div>
                 <script type='text/javascript' src='http://newsroom.melbourne.edu/sites/newsroom.melbourne.edu/themes/newsroom/mediaplayer-licensed/swfobject.js'></script>  
                 <script type='text/javascript'>
-                  var s1 = new SWFObject('http://newsroom.melbourne.edu/sites/newsroom.melbourne.edu/themes/newsroom/mediaplayer-licensed/player-licensed.swf','ply','160','98','9','#ffffff');
+                  var s1 = new SWFObject('http://newsroom.melbourne.edu/sites/newsroom.melbourne.edu/themes/newsroom/mediaplayer-licensed/player-licensed.swf','ply','160','96','9','#ffffff');
                   s1.addParam('allowfullscreen','true');
                   s1.addParam('allowscriptaccess','always');
                   s1.addParam('wmode','opaque'); 
@@ -265,7 +309,7 @@ name will be used as the label. -->
              </#if>
          </#if>
 
-     </#if>
+     </#if> 
 </#macro>
 
 <#-- Label -->

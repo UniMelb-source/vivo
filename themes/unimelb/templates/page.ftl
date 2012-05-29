@@ -34,12 +34,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#include "head.ftl">
     </head>
     
-    <body class="no-logo science">
+    <body class="no-logo fae">
         <#include "identity.ftl">
         
         <#include "menu.ftl">
-        
+<div class="main" id="main-content" role="main">
+<div class="col-8">        
         ${body}
+</div>
+</div>
         
         <#include "footer.ftl">
     </body>

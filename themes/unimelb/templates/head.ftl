@@ -37,6 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <#include "stylesheets.ftl">
 <link rel="stylesheet" href="${urls.theme}/css/screen.css" />
+<link rel="stylesheet" href="${urls.theme}/css/custom2.css" />
 
 <#include "headScripts.ftl">
 
@@ -48,6 +49,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <link rel="stylesheet" href="${urls.theme}/css/ie6.css" />
 <![endif]-->
 
+<#--
 <!--[if IE 7]>
 <link rel="stylesheet" href="${urls.theme}/css/ie7.css" />
 <![endif]-->

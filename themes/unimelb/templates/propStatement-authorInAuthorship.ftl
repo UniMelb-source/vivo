@@ -119,7 +119,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <#if citationDetails?has_content>
                 <a href="${profileUrl(statement.uri("infoResource"))}"  title="resource name">${statement.infoResourceName}</a>.&nbsp;
             <#else>
-                <a href="${profileUrl(statement.uri("infoResource"))}"  title="resource name">${statement.infoResourceName}</a>
+                <a href="${profileUrl(statement.uri("infoResource"))}"  title="resource name">
+                  <#if statement.infoResourceName?has_content>${statement.infoResourceName}</#if>
+                </a>
             </#if>
         <#else>
             <#-- This shouldn't happen, but we must provide for it -->

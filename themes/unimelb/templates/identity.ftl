@@ -34,7 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <hr>
     </div>
     
-    <section id="search" role="region">
+<#--    <section id="search" role="region">
         <fieldset>
             <legend>Search form</legend>
 
@@ -50,5 +50,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 </form>
             
         </fieldset>
-    </section>
+    </section>-->
 </header>

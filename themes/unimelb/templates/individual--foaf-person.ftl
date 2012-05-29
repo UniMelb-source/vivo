@@ -31,10 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#include "individual-setup.ftl">
 <#import "individual-qrCodeGenerator.ftl" as qr>
 <#import "lib-vivo-properties.ftl" as vp>
-
 <!-- <div id="wrapper-content" role="main">  -->      
-
-         <div class="col-8 main">
             <div class="col-6 first">
 <section id="individual-intro" class="vcard person" role="region">
 <section id="share-contact" role="region">
@@ -74,13 +71,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <p><a href="${relatedSubject.url}" title="return to">&larr; return to ${relatedSubject.name}</a></p>
             <#else>
                 <h1 class="vcard foaf-person">
+                    <#assign nameStatement = individual.nameStatement.value! !>
                     <#assign nameSplit = individual.nameStatement.value?split(" ") !>
                     <#assign firstName = propertyGroups.pullProperty("http://xmlns.com/foaf/0.1/firstName")!>
                     <#assign lastName = propertyGroups.pullProperty("http://xmlns.com/foaf/0.1/lastName")!>
 
                     <#-- Label -->
-                    <span class="fn"> ${nameSplit[1]} <#if firstName?has_content>${firstName.statements[0].value}</#if>
-                    <#if lastName?has_content>${lastName.statements[0].value}</#if> </span>
+                    <span class="fn"><#-- ${nameSplit[1]} <#if firstName?has_content>${firstName.statements[0].value}</#if>
+                    <#if lastName?has_content>${lastName.statements[0].value}</#if>-->${nameStatement} </span>
 
                     <#--  Display preferredTitle if it exists; otherwise mostSpecificTypes -->
                     <#assign title = propertyGroups.pullProperty("${core}preferredTitle")!>
@@ -125,9 +123,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#assign mediaOnly  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/hasMediaOnlyContact") !>
 <#assign graduateStudy  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/gradResearchAddress") !>
 <#assign webpage = propertyGroups.pullProperty("${core}webpage")!>
-
+<#assign overviewText2  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/overviewText2") !>
+<#assign overviewText3  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/overviewText3") !>
+<#assign overviewText4  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/overviewText4") !>
+<#assign supervisorText2  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/supervisorText2") !>
+<#assign supervisorText3  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/supervisorText3") !>
+<#assign supervisorText4  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/supervisorText4") !>
 <!-- </div>  #wrapper-content -->
-
 <#--
 <#assign nameForOtherGroup = "other">--> <#-- used by both individual-propertyGroupMenu.ftl and individual-properties.ftl -->
 
@@ -144,27 +146,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         var individualRdfUrl = '${rdfUrl}';
     </script>
 </#if>
+
+
+
+
+<script type="text/javascript">
+
+
+if(document.getElementById("overviewText1"))
+{
+  document.getElementById("overviewText1").innerHTML = "Overview";
+}
+
+</script> 
+
 </div>
             <div class="col-2 nav">
                    <ul>
-                       <li>
-                           <ul>
                               <#include "individual-contactInfo.ftl">
-                            </ul>
-                       </li>
-                       <li>
-                         <ul>
-                            <li>
-                               <ul>
-                                  <#include "individual-visualizationFoafPerson.ftl">
-                               </ul>
-                            </li>
-                         </ul>
-                       </li>
+                              <#include "individual-visualizationFoafPerson.ftl">
                   </ul>
             </div>
-          </div>
-
+<!--          </div>
+</div> -->
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
                   '<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}

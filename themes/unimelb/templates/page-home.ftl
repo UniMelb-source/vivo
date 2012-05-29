@@ -34,53 +34,74 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#include "head.ftl">
     </head>
     
-    <body class="no-logo science">
-        <#include "identity.ftl">
-        
+    <body class="no-logo fae">
+        <#include "identity-home.ftl">
+        <hr style="clear:both;">
         <#include "menu.ftl">
-        <div class="col-6">
-            <section id="intro" role="region">
-                <h2>Welcome to Find An Expert</h2>
+        <div class="main" id="main-content" role="main">
 
-                <p>Find An Expert is a research-focused discovery tool that enables collaboration among scientists across all disciplines.</p>
-                <p>Browse or search information on people, departments, courses, grants, and publications.</p>
-                
-                <section id="search-home" role="region">
-                    <h2>Search Find An Expert</h2>
-                    
-                    <fieldset>
-                        <legend>Search form</legend>
-                        <form id="search-home-vivo" action="${urls.search}" method="post" name="search-home" role="search">
-                            <div id="search-home-field">
-                                <input type="text" name="querytext" class="search-home-vivo" value="${querytext!}" />
-                                <input type="submit" value="Search" class="search">
-                            </div>
-                        </form>
-                    </fieldset>
-                </section> <!-- #search-home -->
-            </section> <!-- #intro --> 
-         </div>
- <div class="col-2">
-           <img class="polaroid" src="${urls.theme}/images/find-an-expert.jpg" alt="journal front convers" style="float: right;">
-         </div>
-
-         <div class="col-6 first">
-            <div class="col-2 first page-preview">
-              <h2>Find Supervisors</h2>
-              <img class="polaroid col-2 first" src="http://www.unimelb.edu.au/research/images/research-student-actual-sml.jpg" alt="Research student surrounded by glassware">
-              <p>As members of one of Australia's largest research institutions our PhD and research masters candidates work on projects spanning emerging fields as well as the full range of traditional academic disciplines.</p>
-			  <p><a href="http://futurestudents.unimelb.edu.au/info/research">How to apply</a></p>
-              <p><a href="http://msgr.unimelb.edu.au/">Information for current and prospective graduate researchers</a></p>
-            </div>
-            <div class="col-2 page-preview">
-              <h2>Researchers for Media Comment</h2>
-              <img class="polaroid col-2 first" src="http://www.unimelb.edu.au/research/images/sara-bice.jpg" alt="Sara Bice">
-              <p>Research is the lifeblood of the University, and we take special interest in supporting researchers at all stages of their development. </p>
-              <a href="http://www.research.unimelb.edu.au/">Information for researchers</a>
-            </div>
-          </div>
-          <#-- <@allClassGroups vClassGroups /> -->
+     	    <div class="col-8"><h2>Welcome to Find An Expert</h2>
+             <p>Find An Expert is a research-focused discovery tool that enables collaboration among scientists across all disciplines.</p>
         
+
+	     <section role="region" id="search-home" class="col-4 first">
+			        <h1>Search Find an Expert</h1>
+	     <form id="search-form" action="http://search-au.funnelback.com/s/search.html?collection=unimelb-researchers" name="search" role="search" accept-charset="UTF-8" method="GET">
+              <div id="search-field">
+                 <input type="text" name="query" class="search-vivo" value="" autocapitalize="off">
+                 <input type="hidden" name="collection" value="unimelb-researchers">
+        	<input type="submit" value="Search" class="search"><br/>
+                <input type="checkbox" name="facetScope" id="facetScope" value="f.Supervisor%20Availability%7C1=Available" >Show only available supervisors
+
+              <p class="hint">Search for experts, by name or research topic<br /></p>
+    	      </div>
+            </form>
+            </section> <!-- #search-home -->
+			
+	    <div class="col-3">
+		<div id="video">
+		Video poster frame (clicking this launches the movie)
+		</div>
+	    </div>
+			
+
+     	</div>
+
+	<hr>
+	<div class="col-8">
+		<h2 class="pullin">Support</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+		<div class="col-2 first">
+			  <h3>I'm  looking for a research collaborator</h3>
+			  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+			  <a href="#" class="button">Read more</a>
+		</div>
+
+
+	  	<div class="col-2">
+			  <h3>I'm looking for a research supervisor</h3>
+			  <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			  <a href="#" class="button">Read more</a>
+		</div>
+
+		<div class="col-2">
+			  <h3>I'm looking for an expert opinion</h3>
+			  <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				  <a href="#" class="button">Read more</a>
+		</div>
+				
+		<div class="col-2" style="width: 190px">
+			<h3>Use FAE data on your site</h3>
+			<p>Learn how Find an Expert can help you embed up-to-date information on your site.</p>
+	 	 <a href="#" class="button">Read more</a>
+		</div>
+	</div>
+
+
+
+    <hr>
+</div>
+</div> <!-- dic wraper set in menu.ftl -->
         <#include "footer.ftl"> 
     </body>
 </html>
