@@ -1,0 +1,92 @@
+/*  Used to manage your own custom styles  */
+
+body.fae { background-image: url(building2.jpg); background-color: #036; background-repeat: no-repeat;  }
+
+/* You could also try:
+
+body.fae { background-image: url(southlawn.jpg); background-color: #036; background-repeat: no-repeat;  }
+body.fae { background-image: url(building1.jpg); background-color: #036; background-repeat: no-repeat;  }
+body.fae { background-image: url(statue.jpg); background-color: #036; background-repeat: no-repeat;  }
+
+
+*/
+
+#main-content { background-color: rgb(255,255,255); width: 980px ; margin-top : 20px}
+.siteMap { background-color: rgb(255,255,255)}
+#wrapper-content { background-color: rgb(255,255,255)
+                   width: 980px}
+div.footer { margin-top: 0px ;
+             width: 980px    }
+.footer-wrapper {background-color: rgb(255,255,255) ;
+                    width: 980px;
+                 margin: 0;
+                 padding: 0;
+                 }
+
+.main { padding: 0;  }
+
+.search-vivo {width: 300px;}
+
+.topnav {
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+.topnav .inside {
+    background: none repeat scroll 0 0 rgba(0, 51, 102, 1);
+    float: none;
+    overflow: hidden;
+}
+.topnav ul {
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 7px 0;
+}
+.topnav ul.study {
+    background: none repeat scroll 0 0 rgba(0, 51, 102, 0.2);
+    position: relative;
+}
+.topnav ul li {
+    border-right: 1px solid #fff;
+    display: inline;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-left: 14px;
+    padding-right: 14px;
+}
+.topnav ul li.last {
+    border-right: 0 none;
+}
+.topnav ul li a, .topnav ul li a:visited {
+    color: #fff;
+    margin: 0;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.hint { font-family: Helvetica, Arial, sans-serif; text-align: left }
+
+
+#support { margin-left: 10px }
+
+footer p.copyright, footer nav, footer ul { display: inline;  font-size: 10px; }
+#footer-nav { margin: 0; padding: 0; }
+#footer-nav li { list-style-type: none; display: inline; margin: 0; }
+
+
+#search-home { background: rgb(116,117,70); border-radius: 6px; padding: 16px 32px; color: #fff; }
+#search-home h1 { color: #fff; }
+#search-home a:link, #search-home a:visited { color: rgb(233,233,180); }
+
+#search-home input.button { margin: 0 }
+
+#video { background: #ddd; padding: 80px 40px; text-align: center;}
+a.uNavImage {display: inline;}
+.nav ul li a {display: inline;}
+.helper img { float: left; margin: 0 20px 20px 0 }
+
+.helper { clear: both }
+
+.main a { border-bottom-style: none; }
