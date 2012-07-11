@@ -36,7 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <#macro showStatement statement>
     <#-- The query retrieves a type only for Persons. Post-processing will remove all but one. -->   
-    Test <a href="${profileUrl(statement.uri("object"))}" title="name">${statement.label!statement.localName!}</a> ${statement.title!statement.type!}
+    <a href="${profileUrl(statement.uri("object"))}" title="name">${statement.label!statement.localName!}</a> ${statement.title!statement.type!}
 </#macro>
 
 

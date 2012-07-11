@@ -112,23 +112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     ${statement.startPage!}.
                 </#if>
             </#if>
-              <#else>
-                <#if statement.journal??>
-                    <em>${statement.journal!}</em>.
-                <#elseif statement.appearsIn??>
-                    <em>${statement.appearsIn!}</em>.
-                <#elseif statement.partOf??>
-                    <em>${statement.partOf!}</em>.
-                </#if>
-                <#if statement.editor??>
-                    Ed. ${statement.editor!}.&nbsp;
-                </#if>
-                <#if statement.startPage?? && statement.endPage??>
-                    ${statement.startPage!}-${statement.endPage!}.
-                <#elseif statement.startPage??>
-                    ${statement.startPage!}.
-		</#if>
-       </#if>
+        </#if>
     </#local>
 
     <#local resourceTitle>

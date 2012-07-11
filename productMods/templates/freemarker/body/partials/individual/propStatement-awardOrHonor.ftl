@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <#local conferredByOrg>
         <#if statement.conferredBy?has_content && statement.conferredByLabel?has_content>
-             conferred by <!--a href="${profileUrl(statement.uri("conferredBy"))}" title="conferred by"-->${statement.conferredByLabel}<!--/a-->
+             conferred by <a href="${profileUrl(statement.uri("conferredBy"))}" title="conferred by">${statement.conferredByLabel}</a>
         </#if>
     </#local>
 

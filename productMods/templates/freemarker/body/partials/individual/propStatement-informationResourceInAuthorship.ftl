@@ -43,7 +43,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <a href="${profileUrl(statement.uri("person"))}" title="author name">${statement.personName}</a>
     <#else>
         <#-- This shouldn't happen, but we must provide for it -->
-        <#-- a href="${profileUrl(statement.uri("authorship"))}" title="missing author">${statement.alternate}</a -->
-	${statement.alternate}
+        <a href="${profileUrl(statement.uri("authorship"))}" title="missing author">missing author</a>
     </#if>
 </#macro>

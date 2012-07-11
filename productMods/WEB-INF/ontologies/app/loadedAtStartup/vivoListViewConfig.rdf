@@ -26,7 +26,6 @@
     <rdf:Description rdf:about="http://vivoweb.org/ontology/core#informationResourceInAuthorship">
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-informationResourceInAuthorship.xml</display:listViewConfigFile>
     </rdf:Description>
-    
     <rdf:Description rdf:about="http://vivoweb.org/ontology/core#personInPosition">
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-personInPosition.xml</display:listViewConfigFile>
     </rdf:Description>
@@ -74,10 +73,10 @@
     <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasLeaderRole">
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasRole.xml</display:listViewConfigFile>
     </rdf:Description>
-    
+   <!-- 
     <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasMemberRole">
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasRole.xml</display:listViewConfigFile>
-    </rdf:Description>
+    </rdf:Description>-->
     
     <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasOutreachProviderRole">
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasRole.xml</display:listViewConfigFile>
@@ -168,12 +167,16 @@
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasAssociatedConcept.xml</display:listViewConfigFile>
     </rdf:Description>
     
-    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasSubjectArea">
+<!--    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasSubjectArea">
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasAssociatedConcept.xml</display:listViewConfigFile>
-    </rdf:Description>
+    </rdf:Description> -->
     
     <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasResearchArea">
         <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasAssociatedConcept.xml</display:listViewConfigFile>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/availableForSupervision">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-availableForSupervision.xml</display:listViewConfigFile>
     </rdf:Description>
         
 </rdf:RDF>

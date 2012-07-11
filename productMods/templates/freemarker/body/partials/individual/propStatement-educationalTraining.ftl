@@ -55,10 +55,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     <#local linkedIndividual>
         <#if statement.org??>
-            <!--a href="${profileUrl(statement.uri("org"))}" title="organization name"-->${statement.orgName}<!--/a-->
+            <a href="${profileUrl(statement.uri("org"))}" title="organization name">${statement.orgName}</a>
         <#elseif editable>
             <#-- Show the link to the context node only if the user is editing the page. -->
-            <!--a href="${profileUrl(statement.uri("edTraining"))}" title="missing organization"-->missing organization<!--/a-->
+            <a href="${profileUrl(statement.uri("edTraining"))}" title="missing organization">missing organization</a>
         </#if>
     </#local>
 
