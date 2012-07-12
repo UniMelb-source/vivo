@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+<!ENTITY display "http://vitro.mannlib.cornell.edu/ontologies/display/1.1#">
+<!ENTITY owl "http://www.w3.org/2002/07/owl#">
+<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+<!ENTITY vitro "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#">
+]>
+
+<rdf:RDF xml:base="http://vitro.mannlib.cornell.edu/ontologies/display/1.1/"
+    xmlns:display="&display;"
+    xmlns:owl="&owl;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:vitro="&vitro;">
+
+    
+    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasMemberRole">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasMemberRole.xml</display:listViewConfigFile>
+     </rdf:Description>
+
+    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#grantAwardedBy">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-defaultNoLink.xml</display:listViewConfigFile>
+     </rdf:Description>
+
+    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#hasPublicationVenue">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-defaultNoLink.xml</display:listViewConfigFile>
+     </rdf:Description>
+
+    <rdf:Description rdf:about="http://vivoweb.org/ontology/core#publisher">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-defaultNoLink.xml</display:listViewConfigFile>
+     </rdf:Description>
+
+     <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/hasWorkLocation">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasWorkLocation.xml</display:listViewConfigFile>
+     </rdf:Description>
+
+     <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/internationalLinkageRole">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-internationalLinkageRole.xml</display:listViewConfigFile>
+      </rdf:Description>
+
+
+     <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/providesInformalLinkageRole">
+        <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-providesInformalLinkageRole.xml</display:listViewConfigFile>
+      </rdf:Description>
+
+      <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/hasPerformerRole">
+            <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasPerformerRole.xml</display:listViewConfigFile>
+       </rdf:Description>
+
+        <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/hasExhibitorRole">
+            <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasExhibitorRole.xml</display:listViewConfigFile>
+       </rdf:Description>
+
+        <rdf:Description rdf:about="http://www.findanexpert.unimelb.edu.au/ontology/hasCuratorRole">
+            <display:listViewConfigFile rdf:datatype="http://www.w3.org/2001/XMLSchema#string">listViewConfig-hasCuratorRole.xml</display:listViewConfigFile>
+       </rdf:Description>
+</rdf:RDF>
