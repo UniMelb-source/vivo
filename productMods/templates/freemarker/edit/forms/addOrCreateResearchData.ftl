@@ -4,21 +4,25 @@
 
 <#import "lib-vivo-form.ftl" as lvf>
 
-<#include "setupResearchDataInferences.ftl" />
-
 <#assign title="<em>${editConfiguration.subjectName}</em>" />
 <#assign requiredHint="<span class='requiredHint'> *</span>" />
 <#assign initialHint="<span class='hint'>(initial okay)</span>" />
+<#assign editForm = editConfiguration.pageData.editForm />
 
 <@lvf.unsupportedBrowser urls.base/>
 
 <h2>${title}</h2>
 
 <#include "displayErrors.ftl" />
+<#include "addExistingForm.ftl" />
 
-<h3>Add Research Data to Publication</h3>
-
-<#include "addResearchDataForm.ftl" />
+<p>If you don't find the appropriate entry on the selection list above:</p>
+<form class="editForm" action="${urls.base}/editRequestDispatch" role="input" />        
+    <input type="hidden" value="${editConfiguration.subjectUri}" name="subjectUri" role="input" />  
+    <input type="hidden" value="${editConfiguration.predicateUri}" name="predicateUri" role="input" />    
+    <input type="hidden" value="${editForm}" name="editForm" role="input"/>
+    <input type="submit" id="submit" value="Create a new item" role="button" />  
+</form>
 
 ${stylesheets.add(
 	'<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />',

@@ -1,0 +1,55 @@
+/* ------------------------------------------------->  */
+/* CUSTOM TABS ------------------------------------->  */
+/* ------------------------------------------------->  */
+
+.property-group {
+	display: none;
+}
+
+#property-group-menu {
+	width: auto;
+	background: transparent; 
+	margin-top: 15px;
+	margin-bottom: 0;
+	border: 0;
+	/*height: 29px;*/ /* For version 1.4 */ 
+	padding-bottom: 1px; /* For version 1.4 */ 
+	z-index: 10; 
+	position: relative;
+}
+
+#property-group-menu li {
+	background: transparent;
+	padding-left: 2px;
+	padding-right: 1px;
+	line-height: normal;
+}
+
+#property-group-menu ul {
+    list-style: none;
+    padding: 5px 0 4px 0;
+    margin: 0 0 0 10px;
+}
+
+#property-group-menu ul li {
+    display: inline;
+}
+
+#property-group-menu ul li a {
+    border: 1px solid #DFEBE5;
+    padding: 8px 12px;
+    text-decoration: none;
+    background-color: #eeeeee;
+    outline: none;
+}
+
+#property-group-menu ul li a:hover {
+    background-color: #dddddd;
+    padding: 8px 12px;
+}
+
+#property-group-menu ul li.activeTab a,
+#property-group-menu ul li.activeTab a:hover {
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+}

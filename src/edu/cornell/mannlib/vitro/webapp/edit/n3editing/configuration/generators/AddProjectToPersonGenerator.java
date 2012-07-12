@@ -6,42 +6,41 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class AddProjectToGrant2Generator extends AddProjectToThingGenerator {
+public class AddProjectToPersonGenerator extends AddProjectToThingGenerator {
 
-    private static final Log log = LogFactory.getLog(AddProjectToGrant2Generator.class);
-    
+    private static final Log log = LogFactory.getLog(AddProjectToPersonGenerator.class);
+
     @Override
     protected final List<String> getN3Required() {
         return list(N3_PREFIX
-                    + "?grant core:fundingVehicleFor ?projectUri . \n"
-                    + "?projectUri core:hasFundingVehicle ?grant . \n"
-                    + "?projectUri a core:Project ;");
+                + "?person  unimelb-rdr:zwoASXx8T9  ?projectUri . \n"
+                + "?projectUri unimelb-rdr:yuWVZk7RPJ ?person . \n"
+                + "?projectUri a core:Project ;");
     }
-    
+
     @Override
     protected final Log getLog() {
         return log;
     }
-    
+
     @Override
     protected final String getTemplate() {
-        return "addProjectToGrant2.ftl";
+        return "addProjectToPerson.ftl";
     }
-    
+
     @Override
     protected final Map<String, String> getInheritedRolesLabelAndUri(String subjectUri) {
         String query = SPARQL_PREFIX
-        + "SELECT DISTINCT ?role ?roleLabel WHERE { \n"
-        + "<" + subjectUri + "> core:contributingRole ?role . \n"
-        + "?role ?roleProp ?person . \n"
-        + "?roleProp rdfs:subPropertyOf core:roleOf . \n"
-        + "?role rdfs:label ?roleLabel}";
+                + "SELECT DISTINCT ?role ?roleLabel WHERE { \n"
+                + "<" + subjectUri + "> ?roleProp ?role . \n"
+                + "?roleProp rdfs:subPropertyOf core:hasRole . \n"
+                + "?role rdfs:label ?roleLabel}";
         return getResults(query, "role", "roleLabel");
     }
 
     @Override
     protected final String getSubjectName() {
-        return "grant";
+        return "person";
     }
 
     @Override

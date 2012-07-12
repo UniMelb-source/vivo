@@ -9,6 +9,7 @@
 <#assign title="<em>${editConfiguration.subjectName}</em>" />
 <#assign requiredHint="<span class='requiredHint'> *</span>" />
 <#assign initialHint="<span class='hint'>(initial okay)</span>" />
+<#assign agreementType=editConfiguration.pageData.agreementType />
 
 <@lvf.unsupportedBrowser urls.base/>
 
@@ -16,7 +17,7 @@
 
 <#include "displayErrors.ftl" />
 
-<h3>Add Research Data to Publication</h3>
+<h3>Add Research Data to ${agreementType}</h3>
 
 <#include "addResearchDataForm.ftl" />
 

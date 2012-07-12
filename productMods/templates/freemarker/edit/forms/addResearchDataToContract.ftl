@@ -16,7 +16,7 @@
 
 <#include "displayErrors.ftl" />
 
-<h3>Add Research Data to Publication</h3>
+<h3>Add Research Data to Contract</h3>
 
 <#include "addResearchDataForm.ftl" />
 

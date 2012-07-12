@@ -1,0 +1,120 @@
+@prefix ands: <http://purl.org/ands/ontologies/vivo/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix unimelb-rdr: <https://rdr.unimelb.edu.au/config/> .
+@prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://rdr.unimelb.edu.au/config/> a owl:Ontology ;
+	rdfs:label "Unimelb RDR"@en ;
+	dc:contributor "University of Melbourne" ;
+	dc:date "2012-06-20" .
+
+# add a ResearchData to Agreement
+unimelb-rdr:agreementHasResearchDataOutput a owl:ObjectProperty ;
+    rdfs:label "has research data output"@en ;
+    rdfs:domain vivo:Agreement ;
+    rdfs:range ands:ResearchData ;
+    owl:inverseOf unimelb-rdr:isResearchDataForAgreement ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToAgreementGenerator"^^xsd:string ;
+    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean  .
+unimelb-rdr:isResearchDataForAgreement a owl:ObjectProperty ;
+    rdfs:label "is research data output for agreement"@en ;
+    rdfs:domain ands:ResearchData ;
+    rdfs:range vivo:Agreement ;
+    owl:inverseOf unimelb-rdr:agreementHasResearchDataOutput .
+
+# add a ResearchData to Project
+unimelb-rdr:projectHasResearchDataOutput a owl:ObjectProperty ;
+    rdfs:label "has research data output"@en ;
+    rdfs:domain vivo:Project ;
+    rdfs:range ands:ResearchData ;
+    owl:inverseOf unimelb-rdr:isResearchDataForProject ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToProjectGenerator"^^xsd:string ;
+    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean .
+unimelb-rdr:isResearchDataForProject a owl:ObjectProperty ;
+    rdfs:label "is research data output for project"@en ;
+    rdfs:domain ands:ResearchData ;
+    rdfs:range vivo:Project ;
+    owl:inverseOf unimelb-rdr:projectHasResearchDataOutput .
+
+# add a Project to an Agreement
+unimelb-rdr:fundingVehicleFor a owl:ObjectProperty ;
+    rdfs:domain vivo:Agreement ;
+    rdfs:label "provides funding for"@en-US ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
+    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:selectFromExistingAnnot "true"^^xsd:boolean ;
+    owl:inverseOf unimelb-rdr:hasFundingVehicle ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddProjectToAgreementGenerator"^^xsd:string .
+unimelb-rdr:hasFundingVehicle a owl:ObjectProperty ;
+    rdfs:label "funding provided via"@en-US ;
+    rdfs:range vivo:Agreement ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:selectFromExistingAnnot "true"^^xsd:boolean ;
+    owl:inverseOf unimelb-rdr:fundingVehicleFor .
+
+# datatype properties
+unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
+	rdfs:comment "Location URL"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "location digital"@en ;
+	rdfs:subPropertyOf unimelb-rdr:digitalLocation, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+
+unimelb-rdr:nonDigitalLocation a owl:DatatypeProperty ;
+	rdfs:comment "Location Details"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "location non digital"@en ;
+	rdfs:subPropertyOf unimelb-rdr:nonDigitalLocation, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+
+unimelb-rdr:retentionPeriod a owl:DatatypeProperty ;
+	rdfs:comment "Retention Period"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "retention period"@en ;
+	rdfs:subPropertyOf unimelb-rdr:retentionPeriod, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+
+unimelb-rdr:accessibility a owl:DatatypeProperty ;
+	rdfs:comment "Accessibility"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "accessibility"@en ;
+	rdfs:subPropertyOf unimelb-rdr:accessibility, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+
+unimelb-rdr:dataManagementPlanId a owl:DatatypeProperty ;
+	rdfs:comment "Data Management Plan ID"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "data management plan id"@en ;
+	rdfs:subPropertyOf unimelb-rdr:dataManagementPlanId, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+
+# modifying existing elements
+vivo:hasInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddGrantRoleToPersonGenerator"^^xsd:string ;
+    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean .
+
+vivo:hasPrincipalInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddGrantRoleToPersonGenerator"^^xsd:string ;
+    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
+    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean .
+
+ands:isCollectorOf vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToResearcherGenerator"^^xsd:string .
+
+ands:relatedResearchData vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToPublicationGenerator"^^xsd:string .
+
+ands:relatedInformationResource vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddPublicationToResearchDataGenerator"^^xsd:string .

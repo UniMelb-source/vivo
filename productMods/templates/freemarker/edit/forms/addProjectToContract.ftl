@@ -16,7 +16,7 @@
 
 <#include "displayErrors.ftl" />
 
-<h3>Add Project to Grant</h3>
+<h3>Add Project to Contract</h3>
 
 <form id="addProjectForm" action ="${submitUrl}" class="customForm rdrCustomForm noIE67">
 
