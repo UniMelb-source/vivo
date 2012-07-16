@@ -1,11 +1,11 @@
 package edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators;
 
+import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 
 /**
  *
@@ -28,17 +28,16 @@ public class AddPersonToPublicationGenerator extends AddPersonToThingGenerator {
     @Override
     protected final List<String> getN3Required() {
         return list(N3_PREFIX
-        + "?authorshipUri a core:Authorship ;" 
-        + "core:linkedAuthor ?personUri ."   
-        + "?personUri core:authorInAuthorship ?authorshipUri .");
+                + "?authorshipUri a core:Authorship ;"
+                + "core:linkedAuthor ?personUri ."
+                + "?personUri core:authorInAuthorship ?authorshipUri .");
     }
 
     @Override
     protected final List<String> getN3Optional() {
-        return list(N3_PREFIX + "?authorshipUri core:linkedInformationResource ?publicationUri ." +
-                "?publicationUri core:informationResourceInAuthorship ?authorshipUri .");
+        return list(N3_PREFIX + "?authorshipUri core:linkedInformationResource ?publicationUri ."
+                + "?publicationUri core:informationResourceInAuthorship ?authorshipUri .");
     }
-
 
     @Override
     protected final String getSubjectName() {

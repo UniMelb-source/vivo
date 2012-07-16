@@ -18,31 +18,31 @@ import javax.servlet.http.HttpSession;
 
 /**
  * On an add/new, this will show a form, on an edit/update this will skip to the
- * profile page of the publication.  
+ * profile page of the publication.
  */
 public class AddPublicationToPersonGenerator extends VivoBaseGenerator implements EditConfigurationGenerator {
 
-	@Override
+    @Override
     public EditConfigurationVTwo getEditConfiguration(VitroRequest vreq, HttpSession session) {
-     
-     if( EditConfigurationUtils.getObjectUri(vreq) == null ){
-         return doAddNew(vreq,session);
-     }else{
-         return doSkipToPublication(vreq);
-     }
+
+        if (EditConfigurationUtils.getObjectUri(vreq) == null) {
+            return doAddNew(vreq, session);
+        } else {
+            return doSkipToPublication(vreq);
+        }
     }
 
     private EditConfigurationVTwo doSkipToPublication(VitroRequest vreq) {
         Individual authorshipNode = EditConfigurationUtils.getObjectIndividual(vreq);
-        
+
         //try to get the publication
-        List<ObjectPropertyStatement> stmts = 
-            authorshipNode.getObjectPropertyStatements("http://vivoweb.org/ontology/core#linkedInformationResource");
-        if( stmts == null || stmts.isEmpty() ){
-            return doBadAuthorshipNoPub( vreq );
-        }else if( stmts.size() > 1 ){
+        List<ObjectPropertyStatement> stmts =
+                authorshipNode.getObjectPropertyStatements("http://vivoweb.org/ontology/core#linkedInformationResource");
+        if (stmts == null || stmts.isEmpty()) {
+            return doBadAuthorshipNoPub(vreq);
+        } else if (stmts.size() > 1) {
             return doBadAuthorshipMultiplePubs(vreq);
-        }else{ 
+        } else {
             //skip to publication 
             EditConfigurationVTwo editConfiguration = new EditConfigurationVTwo();
             editConfiguration.setSkipToUrl(UrlBuilder.getIndividualProfileUrl(stmts.get(0).getObjectURI(), vreq));
@@ -98,17 +98,17 @@ public class AddPublicationToPersonGenerator extends VivoBaseGenerator implement
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     private void setVarNames(EditConfigurationVTwo editConfiguration) {
-        editConfiguration.setVarNameForSubject("person");               
-        editConfiguration.setVarNameForPredicate("predicate");      
+        editConfiguration.setVarNameForSubject("person");
+        editConfiguration.setVarNameForPredicate("predicate");
         editConfiguration.setVarNameForObject("authorshipUri");
 
     }
 
-
-
-    /***N3 strings both required and optional***/
+    /**
+     * *N3 strings both required and optional**
+     */
     private List<String> generateN3Optional() {
         return list(getN3ForExistingPub(),
                 getN3ForNewPub(),
@@ -116,30 +116,29 @@ public class AddPublicationToPersonGenerator extends VivoBaseGenerator implement
                 getN3NewPubTypeAssertion());
     }
 
-
     private List<String> generateN3Required() {
         return list(getAuthorshipN3());
     }
 
     private String getAuthorshipN3() {
-        return "@prefix core: <" + vivoCore + "> . " + 
-        "?authorshipUri a core:Authorship ;" + 
-        "core:linkedAuthor ?person ." +   
-        "?person core:authorInAuthorship ?authorshipUri .";
+        return "@prefix core: <" + vivoCore + "> . "
+                + "?authorshipUri a core:Authorship ;"
+                + "core:linkedAuthor ?person ."
+                + "?person core:authorInAuthorship ?authorshipUri .";
     }
 
     private String getN3ForExistingPub() {
-        return "@prefix core: <" + vivoCore + "> ." +
-        "?authorshipUri core:linkedInformationResource ?pubUri ." +
-        "?pubUri core:informationResourceInAuthorship ?authorshipUri .";
+        return "@prefix core: <" + vivoCore + "> ."
+                + "?authorshipUri core:linkedInformationResource ?pubUri ."
+                + "?pubUri core:informationResourceInAuthorship ?authorshipUri .";
     }
 
     private String getN3ForNewPub() {
-        return "@prefix core: <" + vivoCore + "> ." +
-        "?pubUri a ?pubType ;" +
-        "<" + label + "> ?title ." +  
-        "?authorshipUri core:linkedInformationResource ?pubUri ." +
-        "?pubUri core:informationResourceInAuthorship ?authorshipUri .";   
+        return "@prefix core: <" + vivoCore + "> ."
+                + "?pubUri a ?pubType ;"
+                + "<" + label + "> ?title ."
+                + "?authorshipUri core:linkedInformationResource ?pubUri ."
+                + "?pubUri core:informationResourceInAuthorship ?authorshipUri .";
     }
 
     private String getN3NewPubNameAssertion() {
@@ -151,31 +150,35 @@ public class AddPublicationToPersonGenerator extends VivoBaseGenerator implement
 
     }
 
-    /**  Get new resources	 */
-    private Map<String, String> generateNewResources(VitroRequest vreq) {					
-        String DEFAULT_NS_TOKEN=null; //null forces the default NS
+    /**
+     * Get new resources
+     */
+    private Map<String, String> generateNewResources(VitroRequest vreq) {
+        String DEFAULT_NS_TOKEN = null; //null forces the default NS
 
-        HashMap<String, String> newResources = new HashMap<String, String>();			
+        HashMap<String, String> newResources = new HashMap<String, String>();
         newResources.put("authorshipUri", DEFAULT_NS_TOKEN);
         newResources.put("pubUri", DEFAULT_NS_TOKEN);
         return newResources;
     }
 
-    /** Set URIS and Literals In Scope and on form and supporting methods	 */   
+    /**
+     * Set URIS and Literals In Scope and on form and supporting methods
+     */
     private void setUrisAndLiteralsInScope(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         HashMap<String, List<String>> urisInScope = new HashMap<String, List<String>>();
-        urisInScope.put(editConfiguration.getVarNameForSubject(), 
+        urisInScope.put(editConfiguration.getVarNameForSubject(),
                 Arrays.asList(new String[]{editConfiguration.getSubjectUri()}));
-        urisInScope.put(editConfiguration.getVarNameForPredicate(), 
+        urisInScope.put(editConfiguration.getVarNameForPredicate(),
                 Arrays.asList(new String[]{editConfiguration.getPredicateUri()}));
-        editConfiguration.setUrisInScope(urisInScope);    	
+        editConfiguration.setUrisInScope(urisInScope);
         HashMap<String, List<Literal>> literalsInScope = new HashMap<String, List<Literal>>();
-        editConfiguration.setLiteralsInScope(literalsInScope);    	
+        editConfiguration.setLiteralsInScope(literalsInScope);
 
     }
 
     private void setUrisAndLiteralsOnForm(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
-        List<String> urisOnForm = new ArrayList<String>();    	
+        List<String> urisOnForm = new ArrayList<String>();
         //add role activity and roleActivityType to uris on form
         urisOnForm.add("pubUri");
         urisOnForm.add("pubType");
@@ -185,11 +188,13 @@ public class AddPublicationToPersonGenerator extends VivoBaseGenerator implement
         List<String> literalsOnForm = new ArrayList<String>();
         literalsOnForm.add("title");
         editConfiguration.setLiteralsOnForm(literalsOnForm);
-    }   
+    }
 
-    /** Set SPARQL Queries and supporting methods. */        
+    /**
+     * Set SPARQL Queries and supporting methods.
+     */
     //In this case no queries for existing
-    private void setSparqlQueries(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {        
+    private void setSparqlQueries(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         editConfiguration.setSparqlForExistingUris(new HashMap<String, String>());
         editConfiguration.setSparqlForAdditionalLiteralsInScope(new HashMap<String, String>());
         editConfiguration.setSparqlForAdditionalUrisInScope(new HashMap<String, String>());
@@ -197,10 +202,9 @@ public class AddPublicationToPersonGenerator extends VivoBaseGenerator implement
     }
 
     /**
-     * 
+     *
      * Set Fields and supporting methods
      */
-
     private void setFields(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         setTitleField(editConfiguration);
         setPubTypeField(editConfiguration);
@@ -209,34 +213,22 @@ public class AddPublicationToPersonGenerator extends VivoBaseGenerator implement
 
     private void setTitleField(EditConfigurationVTwo editConfiguration) {
         String stringDatatypeUri = XSD.xstring.toString();
-        editConfiguration.addField(new FieldVTwo().
-                setName("title").
+        editConfiguration.addField(new FieldVTwo().setName("title").
                 setValidators(list("datatype:" + stringDatatypeUri)).
                 setRangeDatatypeUri(stringDatatypeUri));
 
     }
 
-
-
-
-
     private void setPubTypeField(EditConfigurationVTwo editConfiguration) {
-        editConfiguration.addField(new FieldVTwo().
-                setName("pubType").
+        editConfiguration.addField(new FieldVTwo().setName("pubType").
                 setOptionsType("HARDCODED_LITERALS").
                 setLiteralOptions(getPublicationTypeLiteralOptions()));
     }
 
-
-
-
-
     private void setPubUriField(EditConfigurationVTwo editConfiguration) {
-        editConfiguration.addField(new FieldVTwo().
-                setName("pubUri").
-                setObjectClassUri(personClass));			
+        editConfiguration.addField(new FieldVTwo().setName("pubUri").
+                setObjectClassUri(personClass));
     }
-
 
     private List<List<String>> getPublicationTypeLiteralOptions() {
         List<List<String>> literalOptions = new ArrayList<List<String>>();
@@ -271,8 +263,6 @@ public class AddPublicationToPersonGenerator extends VivoBaseGenerator implement
         return literalOptions;
     }
 
-
-
     //Form specific data
     public void addFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
@@ -282,17 +272,16 @@ public class AddPublicationToPersonGenerator extends VivoBaseGenerator implement
     }
 
     public String getSparqlForAcFilter(VitroRequest vreq) {
-        String subject = EditConfigurationUtils.getSubjectUri(vreq);			
+        String subject = EditConfigurationUtils.getSubjectUri(vreq);
 
-        String query = "PREFIX core:<" + vivoCore + "> " + 
-        "SELECT ?pubUri WHERE { " + 
-        "<" + subject + "> core:authorInAuthorship ?authorshipUri ." + 
-        "?authorshipUri core:linkedInformationResource ?pubUri . }";
+        String query = "PREFIX core:<" + vivoCore + "> "
+                + "SELECT ?pubUri WHERE { "
+                + "<" + subject + "> core:authorInAuthorship ?authorshipUri ."
+                + "?authorshipUri core:linkedInformationResource ?pubUri . }";
         return query;
     }
 
     public EditMode getEditMode(VitroRequest vreq) {
         return EditModeUtils.getEditMode(vreq, list("http://vivoweb.org/ontology/core#linkedInformationResource"));
     }
-
 }

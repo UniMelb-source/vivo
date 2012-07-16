@@ -1,14 +1,13 @@
 package edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators;
 
+import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationUtils;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationUtils;
-import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
-import java.util.HashMap;
-import java.util.ArrayList;
-import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 
 /**
  *
@@ -76,13 +75,12 @@ public class AddResearchDataToAgreementGenerator extends AddResearchDataToThingG
 
     private String getSpecificType(String subjectUri) {
         String query = SPARQL_PREFIX
-                +"SELECT ?type WHERE { \n"
+                + "SELECT ?type WHERE { \n"
                 + "<" + subjectUri + "> rdf:type ?type}";
         List<String> results = getResults(query, "type");
-        if(results.contains("http://vivoweb.org/ontology/core#Contract")) {
+        if (results.contains("http://vivoweb.org/ontology/core#Contract")) {
             return "Contract";
-        }
-        else if(results.contains("http://vivoweb.org/ontology/core#Grant")) {
+        } else if (results.contains("http://vivoweb.org/ontology/core#Grant")) {
             return "Grant";
         }
         return "Agreement";

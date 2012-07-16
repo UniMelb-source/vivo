@@ -9,9 +9,9 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://rdr.unimelb.edu.au/config/> a owl:Ontology ;
-    rdfs:label "Unimelb RDR"@en ;
-    dc:contributor "University of Melbourne" ;
-    dc:date "2012-06-20" .
+	rdfs:label "Unimelb RDR"@en ;
+	dc:contributor "University of Melbourne" ;
+	dc:date "2012-06-20" .
 
 # add a ResearchData to Agreement
 unimelb-rdr:agreementHasResearchDataOutput a owl:ObjectProperty ;
@@ -68,39 +68,39 @@ unimelb-rdr:hasFundingVehicle a owl:ObjectProperty ;
 
 # datatype properties
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
-    rdfs:comment "Location URL"^^xsd:string ;
-    rdfs:domain ands:ResearchData ;
-    rdfs:label "location digital"@en ;
-    rdfs:subPropertyOf unimelb-rdr:digitalLocation, owl:topDataProperty ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+	rdfs:comment "Location URL"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "location URL"@en ;
+	rdfs:subPropertyOf unimelb-rdr:digitalLocation, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:nonDigitalLocation a owl:DatatypeProperty ;
-    rdfs:comment "Location Details"^^xsd:string ;
-    rdfs:domain ands:ResearchData ;
-    rdfs:label "location non digital"@en ;
-    rdfs:subPropertyOf unimelb-rdr:nonDigitalLocation, owl:topDataProperty ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+	rdfs:comment "Location Details"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "location details"@en ;
+	rdfs:subPropertyOf unimelb-rdr:nonDigitalLocation, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:retentionPeriod a owl:DatatypeProperty ;
-    rdfs:comment "Retention Period"^^xsd:string ;
-    rdfs:domain ands:ResearchData ;
-    rdfs:label "retention period"@en ;
-    rdfs:subPropertyOf unimelb-rdr:retentionPeriod, owl:topDataProperty ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+	rdfs:comment "Retention Period"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "retention period"@en ;
+	rdfs:subPropertyOf unimelb-rdr:retentionPeriod, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:accessibility a owl:DatatypeProperty ;
-    rdfs:comment "Accessibility"^^xsd:string ;
-    rdfs:domain ands:ResearchData ;
-    rdfs:label "accessibility"@en ;
-    rdfs:subPropertyOf unimelb-rdr:accessibility, owl:topDataProperty ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+	rdfs:comment "Accessibility"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "accessibility"@en ;
+	rdfs:subPropertyOf unimelb-rdr:accessibility, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:dataManagementPlanId a owl:DatatypeProperty ;
-    rdfs:comment "Data Management Plan ID"^^xsd:string ;
-    rdfs:domain ands:ResearchData ;
-    rdfs:label "data management plan id"@en ;
-    rdfs:subPropertyOf unimelb-rdr:dataManagementPlanId, owl:topDataProperty ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
+	rdfs:comment "Data Management Plan ID"^^xsd:string ;
+	rdfs:domain ands:ResearchData ;
+	rdfs:label "data management plan id"@en ;
+	rdfs:subPropertyOf unimelb-rdr:dataManagementPlanId, owl:topDataProperty ;
+	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 # modifying existing elements
 vivo:hasInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddGrantRoleToPersonGenerator"^^xsd:string ;

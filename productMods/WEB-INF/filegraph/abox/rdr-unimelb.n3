@@ -70,14 +70,14 @@ unimelb-rdr:hasFundingVehicle a owl:ObjectProperty ;
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
 	rdfs:comment "Location URL"^^xsd:string ;
 	rdfs:domain ands:ResearchData ;
-	rdfs:label "location digital"@en ;
+	rdfs:label "location URL"@en ;
 	rdfs:subPropertyOf unimelb-rdr:digitalLocation, owl:topDataProperty ;
 	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:nonDigitalLocation a owl:DatatypeProperty ;
 	rdfs:comment "Location Details"^^xsd:string ;
 	rdfs:domain ands:ResearchData ;
-	rdfs:label "location non digital"@en ;
+	rdfs:label "location details"@en ;
 	rdfs:subPropertyOf unimelb-rdr:nonDigitalLocation, owl:topDataProperty ;
 	vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 

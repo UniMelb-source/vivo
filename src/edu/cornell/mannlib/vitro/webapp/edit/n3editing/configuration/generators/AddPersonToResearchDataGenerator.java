@@ -1,12 +1,11 @@
 package edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators;
 
+import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 import java.util.Collections;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 
 /**
  *
@@ -15,7 +14,7 @@ import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 public class AddPersonToResearchDataGenerator extends AddPersonToThingGenerator {
 
     private static final Log log = LogFactory.getLog(AddPersonToResearchDataGenerator.class);
-    
+
     @Override
     protected Log getLog() {
         return log;

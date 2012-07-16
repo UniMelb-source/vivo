@@ -4,19 +4,13 @@ import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.shared.PrefixMapping;
-import edu.cornell.mannlib.vitro.webapp.beans.Individual;
-import edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
+import edu.cornell.mannlib.vitro.webapp.dao.jena.ModelContext;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
-import edu.cornell.mannlib.vitro.webapp.dao.jena.ModelContext;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.SetEntityReturnPreprocessor;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 
@@ -103,7 +97,7 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
 
         editConfiguration.setFormSpecificData(getFormSpecificData(editConfiguration, vreq));
         String forwardUri = getForwardUri();
-        if(null != forwardUri) {
+        if (null != forwardUri) {
             editConfiguration.addEditSubmissionPreprocessor(new SetEntityReturnPreprocessor(editConfiguration, forwardUri));
         }
         prepare(vreq, editConfiguration);
@@ -240,7 +234,7 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
         return fields;
     }
 
-    protected List<String> getLiteralsOnForm(){
+    protected List<String> getLiteralsOnForm() {
         return list("forwardUri");
     }
 }
