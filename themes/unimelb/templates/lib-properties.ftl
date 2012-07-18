@@ -133,7 +133,7 @@ Assumes property is non-null. -->
                     <#if oldDate != 'start'>
                         </ul></li></ul></li>
                     </#if>
-                    <li>${date}<ul>
+                    <li class="subclass"><h3>${date}</h3><ul>
                     <#local oldDate = date>
                     <#local oldSubclass = 'start'>
                 </#if>
@@ -143,7 +143,7 @@ Assumes property is non-null. -->
                     <#if oldSubclass != 'start'>
                         </ul></li>
                     </#if>
-                    <li>${statement.subclasslabel}<ul>
+                    <li class="subclass"><h3>${statement.subclasslabel}</h3><ul>
                     <#local oldSubclass = statement.subclasslabel>
                 </#if>
             </#if>

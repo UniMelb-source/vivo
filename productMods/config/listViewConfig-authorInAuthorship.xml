@@ -38,6 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         PREFIX vitro: &lt;http://vitro.mannlib.cornell.edu/ns/vitro/0.7#&gt;
               
         SELECT DISTINCT <collated> ?subclass </collated> 
+        		?subclass
                         ?authorship
                         ?infoResource ?infoResourceName 
                         ?dateTime
@@ -50,6 +51,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                         ?appearsIn
                         ?partOf
                         ?editor
+                        ?displayRankAnot
+                        ?subclasslabel
         WHERE {
             ?subject ?property ?authorship  
             OPTIONAL { ?authorship core:linkedInformationResource ?infoResource .                      
@@ -92,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <critical-data-required>
             FILTER ( bound(?infoResource) )
             </critical-data-required>
-        } ORDER BY DESC(?dateTime) ?displayRankAnnot <collated> ?subclass </collated> ?infoResourceName
+        } ORDER BY DESC(?dateTime) ?displayRankAnnot ?subclass ?infoResourceName
 
     </query-select>
 
