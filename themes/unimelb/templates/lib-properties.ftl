@@ -123,9 +123,36 @@ Assumes property is non-null. -->
 </#macro>
 
 <#macro objectPropertyList property editable statements=property.statements template=property.template>
+        <#local oldDate = 'start'>
+        <#local oldSubclass = 'start'>
     <#list statements as statement>
+        <#if property.localName = 'authorInAuthorship'>
+            <#if statement.dateTime??>
+                <#local date = statement.dateTime?substring(0, 4)>
+                <#if date != oldDate>
+                    <#if oldDate != 'start'>
+                        </ul></li></ul></li>
+                    </#if>
+                    <li>${date}<ul>
+                    <#local oldDate = date>
+                    <#local oldSubclass = 'start'>
+                </#if>
+            </#if>
+            <#if statement.subclasslabel??>
+                <#if statement.subclasslabel != oldSubclass>
+                    <#if oldSubclass != 'start'>
+                        </ul></li>
+                    </#if>
+                    <li>${statement.subclasslabel}<ul>
+                    <#local oldSubclass = statement.subclasslabel>
+                </#if>
+            </#if>
+        </#if>
         <@propertyListItem property statement editable><#include "${template}"></@propertyListItem>
     </#list>
+    <#if property.localName = 'authorInAuthorship'>
+        </ul></li></ul></li>
+    </#if>
 </#macro>
 
 <#-- Some properties usually display without a label. But if there's an add link, 
