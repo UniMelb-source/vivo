@@ -72,14 +72,14 @@ unimelb-rdr:principalInvestigatorFor a owl:ObjectProperty ;
     rdfs:domain foaf:Person ;
     rdfs:range ands:ResearchData ;
     rdfs:label "principal investigator for"@en ;
-    owl:inverseOf ands:associatedPrincipleInvestigator ;
+    owl:inverseOf ands:associatedPrincipleInvestigator .
 
 unimelb-rdr:supervisorFor a owl:ObjectProperty ;
     rdfs:comment "Supervisor for"^^xsd:string ;
     rdfs:domain foaf:Person ;
     rdfs:range ands:ResearchData ;
     rdfs:label "supervisor for"@en ;
-    owl:inverseOf ands:associatedSupervisor ;
+    owl:inverseOf ands:associatedSupervisor .
 
 # datatype properties
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
