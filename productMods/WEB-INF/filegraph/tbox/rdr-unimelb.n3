@@ -106,7 +106,7 @@ unimelb-rdr:principalInvestigatorFor a owl:ObjectProperty ;
     rdfs:range ands:ResearchData ;
     rdfs:label "principal investigator for"@en ;
     owl:inverseOf ands:associatedPrincipleInvestigator ;
-    unimelb-rdr:propertyGroupResearchData .
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
 
 unimelb-rdr:supervisorFor a owl:ObjectProperty ;
     rdfs:comment "Supervisor for"^^xsd:string ;
@@ -114,7 +114,7 @@ unimelb-rdr:supervisorFor a owl:ObjectProperty ;
     rdfs:range ands:ResearchData ;
     rdfs:label "supervisor for"@en ;
     owl:inverseOf ands:associatedSupervisor ;
-    unimelb-rdr:propertyGroupResearchData .
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
 
 # datatype properties
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
