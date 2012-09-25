@@ -50,7 +50,7 @@ unimelb-rdr:agreementHasResearchDataOutput a owl:ObjectProperty ;
     rdfs:range ands:ResearchData ;
     owl:inverseOf unimelb-rdr:isResearchDataForAgreement ;
     vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToAgreementGenerator"^^xsd:string ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean  .
@@ -58,7 +58,8 @@ unimelb-rdr:isResearchDataForAgreement a owl:ObjectProperty ;
     rdfs:label "is research data output for agreement"@en ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:Agreement ;
-    owl:inverseOf unimelb-rdr:agreementHasResearchDataOutput .
+    owl:inverseOf unimelb-rdr:agreementHasResearchDataOutput ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement .
 
 # add a ResearchData to Project
 unimelb-rdr:projectHasResearchDataOutput a owl:ObjectProperty ;
@@ -67,7 +68,7 @@ unimelb-rdr:projectHasResearchDataOutput a owl:ObjectProperty ;
     rdfs:range ands:ResearchData ;
     owl:inverseOf unimelb-rdr:isResearchDataForProject ;
     vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToProjectGenerator"^^xsd:string ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean .
@@ -75,7 +76,8 @@ unimelb-rdr:isResearchDataForProject a owl:ObjectProperty ;
     rdfs:label "is research data output for project"@en ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:Project ;
-    owl:inverseOf unimelb-rdr:projectHasResearchDataOutput .
+    owl:inverseOf unimelb-rdr:projectHasResearchDataOutput ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupProject .
 
 # add a Project to an Agreement
 unimelb-rdr:fundingVehicleFor a owl:ObjectProperty ;
@@ -94,7 +96,8 @@ unimelb-rdr:hasFundingVehicle a owl:ObjectProperty ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:selectFromExistingAnnot "true"^^xsd:boolean ;
-    owl:inverseOf unimelb-rdr:fundingVehicleFor .
+    owl:inverseOf unimelb-rdr:fundingVehicleFor ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement .
 
 # inverse relationships for foaf:Person to ands:ResearchData
 unimelb-rdr:principalInvestigatorFor a owl:ObjectProperty ;
@@ -102,14 +105,16 @@ unimelb-rdr:principalInvestigatorFor a owl:ObjectProperty ;
     rdfs:domain foaf:Person ;
     rdfs:range ands:ResearchData ;
     rdfs:label "principal investigator for"@en ;
-    owl:inverseOf ands:associatedPrincipleInvestigator .
+    owl:inverseOf ands:associatedPrincipleInvestigator ;
+    unimelb-rdr:propertyGroupResearchData .
 
 unimelb-rdr:supervisorFor a owl:ObjectProperty ;
     rdfs:comment "Supervisor for"^^xsd:string ;
     rdfs:domain foaf:Person ;
     rdfs:range ands:ResearchData ;
     rdfs:label "supervisor for"@en ;
-    owl:inverseOf ands:associatedSupervisor .
+    owl:inverseOf ands:associatedSupervisor ;
+    unimelb-rdr:propertyGroupResearchData .
 
 # datatype properties
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
