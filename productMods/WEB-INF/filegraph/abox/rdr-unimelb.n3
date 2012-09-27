@@ -73,7 +73,7 @@ unimelb-rdr:projectHasResearchDataOutput a owl:ObjectProperty ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean .
 unimelb-rdr:isResearchDataForProject a owl:ObjectProperty ;
-    rdfs:label "is research data output for project"@en ;
+    rdfs:label "project"@en ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:Project ;
     owl:inverseOf unimelb-rdr:projectHasResearchDataOutput ;
@@ -120,7 +120,7 @@ unimelb-rdr:supervisorFor a owl:ObjectProperty ;
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
     rdfs:comment "Location URL"^^xsd:string ;
     rdfs:domain ands:ResearchData ;
-    rdfs:label "location URL"@en ;
+    rdfs:label "location identifier"@en ;
     rdfs:subPropertyOf unimelb-rdr:digitalLocation, owl:topDataProperty ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
@@ -141,14 +141,14 @@ unimelb-rdr:retentionPeriod a owl:DatatypeProperty ;
 unimelb-rdr:accessibility a owl:DatatypeProperty ;
     rdfs:comment "Accessibility"^^xsd:string ;
     rdfs:domain ands:ResearchData ;
-    rdfs:label "accessibility"@en ;
+    rdfs:label "access"@en ;
     rdfs:subPropertyOf unimelb-rdr:accessibility, owl:topDataProperty ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:dataManagementPlanId a owl:DatatypeProperty ;
     rdfs:comment "Data Management Plan ID"^^xsd:string ;
     rdfs:domain ands:ResearchData ;
-    rdfs:label "data management plan id"@en ;
+    rdfs:label "data management plan"@en ;
     rdfs:subPropertyOf unimelb-rdr:dataManagementPlanId, owl:topDataProperty ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
@@ -167,4 +167,15 @@ ands:isCollectorOf vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.
 
 ands:relatedResearchData vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToPublicationGenerator"^^xsd:string .
 
-ands:relatedInformationResource vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddPublicationToResearchDataGenerator"^^xsd:string .
+ands:relatedInformationResource vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddPublicationToResearchDataGenerator"^^xsd:string ;
+    rdfs:label "publications"@en .
+
+ands:hasCollector rdfs:label "chief investigator"@en .
+
+ands:associatedPrincipleInvestigator rdfs:label "associated investigators"@en .
+
+ands:associatedSupervisor rdfs:label "graduate supervisor"@en .
+
+ands:isLocatedIn rdfs:label "location"@en .
+
+ands:isManagedBy rdfs:label "managed by"@en .
