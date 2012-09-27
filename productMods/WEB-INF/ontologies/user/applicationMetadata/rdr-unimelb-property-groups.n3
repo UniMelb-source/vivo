@@ -1,0 +1,35 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix unimelb-rdr: <https://rdr.unimelb.edu.au/config/> .
+@prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+unimelb-rdr:propertyGroupResearchData
+    a owl:Thing , vitro:PropertyGroup ;
+    rdfs:label "research-data"@en-US ;
+    vitro:displayRank "1"^^xsd:int ;
+    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
+
+unimelb-rdr:propertyGroupInformationResource
+    a owl:Thing , vitro:PropertyGroup ;
+    rdfs:label "publication"@en-US ;
+    vitro:displayRank "2"^^xsd:int ;
+    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
+
+unimelb-rdr:propertyGroupAgreement
+    a owl:Thing , vitro:PropertyGroup ;
+    rdfs:label "agreement"@en-US ;
+    vitro:displayRank "3"^^xsd:int ;
+    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
+
+unimelb-rdr:propertyGroupProject
+    a owl:Thing , vitro:PropertyGroup ;
+    rdfs:label "project"@en-US ;
+    vitro:displayRank "4"^^xsd:int ;
+    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
+
+unimelb-rdr:propertyGroupResearcher
+    a owl:Thing , vitro:PropertyGroup ;
+    rdfs:label "researcher"@en-US ;
+    vitro:displayRank "5"^^xsd:int ;
+    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
