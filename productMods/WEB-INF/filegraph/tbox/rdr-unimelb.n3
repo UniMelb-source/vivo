@@ -13,36 +13,6 @@
     dc:contributor "University of Melbourne" ;
     dc:date "2012-06-20" .
 
-unimelb-rdr:propertyGroupResearchData
-    a owl:Thing , vitro:PropertyGroup ;
-    rdfs:label "research-data"@en-US ;
-    vitro:displayRank "1"^^xsd:int ;
-    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
-
-unimelb-rdr:propertyGroupInformationResource
-    a owl:Thing , vitro:PropertyGroup ;
-    rdfs:label "publication"@en-US ;
-    vitro:displayRank "2"^^xsd:int ;
-    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
-
-unimelb-rdr:propertyGroupAgreement
-    a owl:Thing , vitro:PropertyGroup ;
-    rdfs:label "agreement"@en-US ;
-    vitro:displayRank "3"^^xsd:int ;
-    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
-
-unimelb-rdr:propertyGroupProject
-    a owl:Thing , vitro:PropertyGroup ;
-    rdfs:label "project"@en-US ;
-    vitro:displayRank "4"^^xsd:int ;
-    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
-
-unimelb-rdr:propertyGroupResearcher
-    a owl:Thing , vitro:PropertyGroup ;
-    rdfs:label "researcher"@en-US ;
-    vitro:displayRank "5"^^xsd:int ;
-    vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime .
-
 # add a ResearchData to Agreement
 unimelb-rdr:agreementHasResearchDataOutput a owl:ObjectProperty ;
     rdfs:label "has research data output"@en ;
