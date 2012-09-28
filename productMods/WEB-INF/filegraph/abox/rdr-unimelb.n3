@@ -96,7 +96,7 @@ unimelb-rdr:supervisorFor a owl:ObjectProperty ;
 
 # datatype properties
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
-    rdfs:comment "Location URL"^^xsd:string ;
+    rdfs:comment "Location identifier"^^xsd:string ;
     rdfs:domain ands:ResearchData ;
     rdfs:label "location identifier"@en ;
     rdfs:subPropertyOf unimelb-rdr:digitalLocation, owl:topDataProperty ;
@@ -117,14 +117,14 @@ unimelb-rdr:retentionPeriod a owl:DatatypeProperty ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:accessibility a owl:DatatypeProperty ;
-    rdfs:comment "Accessibility"^^xsd:string ;
+    rdfs:comment "Access"^^xsd:string ;
     rdfs:domain ands:ResearchData ;
     rdfs:label "access"@en ;
     rdfs:subPropertyOf unimelb-rdr:accessibility, owl:topDataProperty ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:dataManagementPlanId a owl:DatatypeProperty ;
-    rdfs:comment "Data Management Plan ID"^^xsd:string ;
+    rdfs:comment "Data Management Plan"^^xsd:string ;
     rdfs:domain ands:ResearchData ;
     rdfs:label "data management plan"@en ;
     rdfs:subPropertyOf unimelb-rdr:dataManagementPlanId, owl:topDataProperty ;
@@ -146,14 +146,20 @@ ands:isCollectorOf vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.
 ands:relatedResearchData vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToPublicationGenerator"^^xsd:string .
 
 ands:relatedInformationResource vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddPublicationToResearchDataGenerator"^^xsd:string ;
-    rdfs:label "publications"@en .
+    rdfs:label "publications"@en ;
+    rdfs:comment "Publications"^^xsd:string .
 
-ands:hasCollector rdfs:label "chief investigator"@en .
+ands:hasCollector rdfs:label "chief investigator"@en ;
+    rdfs:comment "Chief investigator"^^xsd:string .
 
-ands:associatedPrincipleInvestigator rdfs:label "associated investigators"@en .
+ands:associatedPrincipleInvestigator rdfs:label "associated investigators"@en ;
+    rdfs:comment "Associated investigators"^^xsd:string .
 
-ands:associatedSupervisor rdfs:label "graduate supervisor"@en .
+ands:associatedSupervisor rdfs:label "graduate supervisor"@en ;
+    rdfs:comment "Graduate supervisor"^^xsd:string .
 
-ands:isLocatedIn rdfs:label "location"@en .
+ands:isLocatedIn rdfs:label "location"@en ;
+    rdfs:comment "Location"^^xsd:string .
 
-ands:isManagedBy rdfs:label "managed by"@en .
+ands:isManagedBy rdfs:label "managed by"@en ;
+    rdfs:comment "Managed by"^^xsd:string .
