@@ -136,47 +136,4 @@
     <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-12-28T13:05:00</vitro:modTime>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </rdf:Description>
-
-  #Custom property groups
-  <rdf:Description rdf:about="https://rdr.unimelb.edu.au/config/propertyGroupResearchData">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
-    <rdfs:label xml:lang="en-US">research-data</rdfs:label>
-    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Research Data</vitro:publicDescriptionAnnot>
-    <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vitro:displayRank>
-    <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-09-25T17:00:00</vitro:modTime>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://rdr.unimelb.edu.au/config/propertyGroupInformationResource">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
-    <rdfs:label xml:lang="en-US">publication</rdfs:label>
-    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Publication</vitro:publicDescriptionAnnot>
-    <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</vitro:displayRank>
-    <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-09-25T17:00:00</vitro:modTime>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://rdr.unimelb.edu.au/config/propertyGroupAgreement">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
-    <rdfs:label xml:lang="en-US">agreement</rdfs:label>
-    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Agreement</vitro:publicDescriptionAnnot>
-    <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</vitro:displayRank>
-    <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-09-25T17:00:00</vitro:modTime>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://rdr.unimelb.edu.au/config/propertyGroupProject">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
-    <rdfs:label xml:lang="en-US">project</rdfs:label>
-    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Project</vitro:publicDescriptionAnnot>
-    <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</vitro:displayRank>
-    <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-09-25T17:00:00</vitro:modTime>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://rdr.unimelb.edu.au/config/propertyGroupResearcher">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
-    <rdfs:label xml:lang="en-US">researcher</rdfs:label>
-    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Researcher</vitro:publicDescriptionAnnot>
-    <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayRank>
-    <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-09-25T17:00:00</vitro:modTime>
-  </rdf:Description>
-
 </rdf:RDF>
