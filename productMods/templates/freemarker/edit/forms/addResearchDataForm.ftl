@@ -17,7 +17,7 @@
     <label for="physicalDataLocation">Location Details</label>
     <textarea name="physicalDataLocation" id="physicalDataLocation" style="width:90%;"></textarea>
     <br>
-    <label for="digitalDataLocation">Location URL</label>
+    <label for="digitalDataLocation">Location Identifier</label>
     <textarea name="digitalDataLocation" id="digitalDataLocation" style="width:90%;"></textarea>
     <br>
     <label for="researchDataDescription">Description of the data<span class="requiredHint"> *</span></label>
@@ -32,13 +32,13 @@
         <option value="to be determined">To be determined</option>
     </select>
     <br>
-    <label for="accessiblity">Accessibility</label>
+    <label for="accessiblity">Access</label>
     <textarea name="accessibility" id="accessibility" style="width:90%;"></textarea>
     <br>
     <label for="rights">Rights</label>
     <textarea name="rights" id="rights" style="width:90%;"></textarea>
     <br>
-    <label for="dataManagementPlanNumber">Data Management Plan ID</label>
+    <label for="dataManagementPlanNumber">Data Management Plan</label>
     <input size="30" type="text" id="dataManagementPlanNumber" name="dataManagementPlanNumber" value="">
     <br>
 
