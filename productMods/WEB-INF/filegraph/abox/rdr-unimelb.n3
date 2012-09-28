@@ -141,7 +141,8 @@ vivo:hasPrincipalInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannli
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
     vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean .
 
-ands:isCollectorOf vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToResearcherGenerator"^^xsd:string .
+ands:isCollectorOf vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToResearcherGenerator"^^xsd:string ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
 
 ands:relatedResearchData vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToPublicationGenerator"^^xsd:string ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
