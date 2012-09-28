@@ -143,19 +143,34 @@ vivo:hasPrincipalInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannli
 
 ands:isCollectorOf vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToResearcherGenerator"^^xsd:string .
 
-ands:relatedResearchData vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToPublicationGenerator"^^xsd:string .
+ands:relatedResearchData vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToPublicationGenerator"^^xsd:string ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+
+ands:hasResearchData vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
 
 ands:relatedInformationResource vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddPublicationToResearchDataGenerator"^^xsd:string ;
     rdfs:label "publications"@en ;
-    rdfs:comment "Publications"^^xsd:string .
+    rdfs:comment "Publications"^^xsd:string ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
+
+ands:publishedIn vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
 
 ands:hasCollector rdfs:label "chief investigator"@en ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     rdfs:comment "Chief investigator"^^xsd:string .
 
 ands:associatedPrincipleInvestigator rdfs:label "associated investigators"@en ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     rdfs:comment "Associated investigators"^^xsd:string .
 
 ands:associatedSupervisor rdfs:label "graduate supervisor"@en ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     rdfs:comment "Graduate supervisor"^^xsd:string .
 
 ands:isLocatedIn rdfs:label "location"@en ;
