@@ -154,6 +154,10 @@ ands:relatedInformationResource vitro:customEntryFormAnnot "edu.cornell.mannlib.
     rdfs:comment "Publications"^^xsd:string ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
 
+vivo:authorInAuthorship vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
+
+vivo:informationResourceInAuthorship vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher .  
+
 ands:publishedIn vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
 
 ands:hasCollector rdfs:label "chief investigator"@en ;
