@@ -29,7 +29,9 @@ unimelb-rdr:isResearchDataForAgreement a owl:ObjectProperty ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:Agreement ;
     owl:inverseOf unimelb-rdr:agreementHasResearchDataOutput ;
-    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement .
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
 
 # add a ResearchData to Project
 unimelb-rdr:projectHasResearchDataOutput a owl:ObjectProperty ;
@@ -47,7 +49,9 @@ unimelb-rdr:isResearchDataForProject a owl:ObjectProperty ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:Project ;
     owl:inverseOf unimelb-rdr:projectHasResearchDataOutput ;
-    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupProject .
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupProject ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
 
 # add a Project to an Agreement
 unimelb-rdr:fundingVehicleFor a owl:ObjectProperty ;
@@ -76,7 +80,9 @@ unimelb-rdr:principalInvestigatorFor a owl:ObjectProperty ;
     rdfs:range ands:ResearchData ;
     rdfs:label "principal investigator for"@en ;
     owl:inverseOf ands:associatedPrincipleInvestigator ;
-    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
 
 unimelb-rdr:supervisorFor a owl:ObjectProperty ;
     rdfs:comment "Supervisor for"^^xsd:string ;
@@ -84,7 +90,9 @@ unimelb-rdr:supervisorFor a owl:ObjectProperty ;
     rdfs:range ands:ResearchData ;
     rdfs:label "supervisor for"@en ;
     owl:inverseOf ands:associatedSupervisor ;
-    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
 
 # datatype properties
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
