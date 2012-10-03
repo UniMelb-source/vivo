@@ -27,6 +27,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <#-- Individual profile page template for foaf:Person individuals -->
+<h1>PERSON</h1>
 
 <#include "individual-setup.ftl">
 <#import "individual-qrCodeGenerator.ftl" as qr>

@@ -4,6 +4,7 @@
 
 <#include "individual-setup.ftl">
 <#import "lib-vivo-properties.ftl" as vp>
+<h1>RESEARCH DATA</h1>
 
 <#assign individualProductExtension>
     <#-- Include for any class specific template additions -->
