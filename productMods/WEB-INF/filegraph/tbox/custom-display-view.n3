@@ -1,0 +1,10 @@
+@prefix ands: <http://purl.org/ands/ontologies/vivo/> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+
+vivo:Project vitro:customDisplayViewAnnot "individual--vivo-project.ftl"^^xsd:string .
+
+ands:ResearchData vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string .
+
+vivo:Agreement vitro:customDisplayViewAnnot "individual--vivo-agreement.ftl"^^xsd:string .
+
+vivo:InformationResource vitro:customDisplayViewAnnot "individual--vivo-informationresource.ftl"^^xsd:string .
