@@ -1,5 +1,7 @@
 @prefix ands: <http://purl.org/ands/ontologies/vivo/> .
+@prefix vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 vivo:Project vitro:customDisplayViewAnnot "individual--vivo-project.ftl"^^xsd:string .
 
