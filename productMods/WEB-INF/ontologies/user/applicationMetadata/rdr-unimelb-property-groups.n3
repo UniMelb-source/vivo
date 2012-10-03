@@ -6,10 +6,10 @@
 
 unimelb-rdr:propertyGroupResearchData
     a owl:Thing , vitro:PropertyGroup ;
-    rdfs:label "research data"@en-US ;
+    rdfs:label "research-data"@en-US ;
     vitro:displayRank "1"^^xsd:int ;
     vitro:modTime "2012-09-25T17:00:00"^^xsd:dateTime ;
-    vitro:publicDescriptionAnnot "Research Data"^^xsd:string .
+    vitro:publicDescriptionAnnot "Research-Data"^^xsd:string .
 
 unimelb-rdr:propertyGroupInformationResource
     a owl:Thing , vitro:PropertyGroup ;
