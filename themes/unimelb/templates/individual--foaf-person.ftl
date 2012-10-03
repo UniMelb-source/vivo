@@ -163,7 +163,7 @@ if(document.getElementById("overviewText1"))
 </div>
             <div class="col-2 nav">
                    <ul>
-                              <#include "individual-contactInfo.ftl">
+                              <#include "individual--foaf-person--contactInfo.ftl">
                               <#include "individual-visualizationFoafPerson.ftl">
                   </ul>
             </div>
