@@ -183,3 +183,8 @@ ands:isLocatedIn rdfs:label "location"@en ;
 
 ands:isManagedBy rdfs:label "managed by"@en ;
     rdfs:comment "Managed by"^^xsd:string .
+
+vivo:Project vitro:customDisplayViewAnnot "individual--vivo-project.ftl"^^xsd:string ;
+ands:ResearchData vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string ;
+vivo:Agreement vitro:customDisplayViewAnnot "individual--vivo-agreement.ftl"^^xsd:string ;
+vivo:InformationResource vitro:customDisplayViewAnnot "individual--vivo-informationresource.ftl"^^xsd:string ;
