@@ -156,6 +156,12 @@ ands:relatedInformationResource vitro:customEntryFormAnnot "edu.cornell.mannlib.
 
 vivo:authorInAuthorship vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
 
+vivo:editor vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher .
+
+vivo:editorOf vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
+
+vivo:informationProduct vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
+
 vivo:informationResourceInAuthorship vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher .  
 
 ands:publishedIn vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
