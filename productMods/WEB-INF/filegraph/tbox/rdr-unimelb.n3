@@ -166,6 +166,12 @@ vivo:informationResourceInAuthorship vitro:inPropertyGroupAnnot unimelb-rdr:prop
 
 ands:publishedIn vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupInformationResource .
 
+ands:isFundedBy vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement .
+
+ands:isFunderOf vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupProject .
+
+vivo:contributingRole vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher .
+
 ands:hasCollector rdfs:label "chief investigator"@en ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
