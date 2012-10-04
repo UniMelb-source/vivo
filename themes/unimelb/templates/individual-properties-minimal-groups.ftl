@@ -29,9 +29,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#-- Template for property listing on individual profile page -->
 
 <#import "lib-properties.ftl" as p>
+<#assign hidden_groups = ["additional document info",
+    "service",
+    "affiliation",
+    "background",
+    "research",
+    "links",
+    "contact",
+    "related documents",
+    "time",
+    "identity",
+    "publications",
+    "location",
+    "bib mapping",
+    "overview",
+    "teaching"]>
 
 <#list propertyGroups.all as group>
     <#assign groupName = group.getName()>
+    <#if hidden_groups?seq_contains(groupName)>
+        <#break>
+    </#if>
     
     <section class="property-group" role="region">
         <nav class="scroll-up" role="navigation">

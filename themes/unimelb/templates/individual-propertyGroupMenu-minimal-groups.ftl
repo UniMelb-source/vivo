@@ -2,6 +2,22 @@
 
 <#-- Template for property group menu on individual profile page -->
 
+<#assign hidden_groups = ["additional document info",
+    "service",
+    "affiliation",
+    "background",
+    "research",
+    "links",
+    "contact",
+    "related documents",
+    "time",
+    "identity",
+    "publications",
+    "location",
+    "bib mapping",
+    "overview",
+    "teaching"]>
+
 <#if (propertyGroups.all)??>
     <#assign groups = propertyGroups.all>
     
@@ -11,6 +27,9 @@
                 <ul role="list">
                     <#list groups as group>
                         <#assign groupname = group.getName()>                        
+                        <#if hidden_groups?seq_contains(groupname)>
+                            <#break>
+                        </#if>
                         <#if groupname?has_content>
                     		    <#--create property group html id is the function that will replace all spaces with underscore to make a valid id-->
                         	 <#assign groupnameHtmlId = p.createPropertyGroupHtmlId(groupname) >
