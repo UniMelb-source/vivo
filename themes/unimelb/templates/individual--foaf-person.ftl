@@ -137,10 +137,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#assign nameForOtherGroup = "other">--> <#-- used by both individual-propertyGroupMenu.ftl and individual-properties.ftl -->
 
 <#-- Property group menu -->
-<#include "individual-propertyGroupMenu.ftl">
+<#include "individual-propertyGroupMenu-minimal-groups.ftl">
 
 <#-- Ontology properties -->
-<#include "individual-properties.ftl">
+<#include "individual-properties-minimal-groups.ftl">
 
 <#assign rdfUrl = individual.rdfUrl>
 
