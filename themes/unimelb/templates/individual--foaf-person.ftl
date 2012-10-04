@@ -102,9 +102,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <#if positions?has_content>
                 <@p.objectPropertyListing positions editable />
             </#if>
-            <#list positions as position>
-                <span>${position.value}</span>
-            </#list>
         </header>
 
         <#-- Overview -->
