@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#include "individual-setup.ftl">
 <#import "individual-qrCodeGenerator.ftl" as qr>
 <#import "lib-vivo-properties.ftl" as vp>
+<#import "lib-status-display.ftl" as lsd>
 <!-- <div id="wrapper-content" role="main">  -->      
             <div class="col-6 first">
 <section id="individual-intro" class="vcard person" role="region">
@@ -101,6 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <#assign positions = propertyGroups.pullProperty("${core}personInPosition")!>
             <#if positions?has_content>
                 <@p.objectPropertyListing positions editable />
+                <@lsd.print_status positions />
             </#if>
         </header>
 
