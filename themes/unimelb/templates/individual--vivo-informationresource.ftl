@@ -55,9 +55,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#assign doi  = propertyGroups.pullProperty("http://purl.org/ontology/bibo/doi") !>
 
 <#assign yearValue>
-    <#if ! year.statements[0].dateTime??>
-    <#else>
-        ${dt.formatXsdDateTimeLong(year.statements[0].dateTime, year.statements[0].precision!)}
+    <#if year.statements?has_content>
+        <#if ! year.statements[0].dateTime??>
+        <#else>
+            ${dt.formatXsdDateTimeLong(year.statements[0].dateTime, year.statements[0].precision!)}
+        </#if>
     </#if>
 </#assign>
 
