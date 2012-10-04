@@ -99,9 +99,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <#-- Positions -->
             <#assign positions = propertyGroups.pullProperty("${core}personInPosition")!>
-            <#if positions?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
+            <#if positions?has_content>
                 <@p.objectPropertyListing positions editable />
             </#if>
+            <#list positions as position>
+                <span>${position.value}</span>
+            </#list>
         </header>
 
         <#-- Overview -->
