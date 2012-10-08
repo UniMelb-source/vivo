@@ -55,7 +55,7 @@ $(document).ready(function() {
 			{
 				//for h2 - Clicking back from a page perhaps, or bookmarks.
 				//Regardless, it should be here.
-				$(hash).parent().show();
+				$(hash).show();
 
 				//the tab we want
 				$('a[href="' + hash + '"]').parent().addClass('activeTab');
@@ -71,7 +71,7 @@ $(document).ready(function() {
 		$('#property-group-menu ul li').removeClass('activeTab');
 		var selected_tab = $(this).find('a').attr('href');
 		$('.property-group').hide();
-		$(selected_tab).parent().show();
+		$(selected_tab).show();
 		$(this).addClass('activeTab');
 		
 		return false;

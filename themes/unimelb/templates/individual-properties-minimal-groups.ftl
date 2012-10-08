@@ -52,21 +52,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <#break>
         </#if>
     </#if>
+
+    <#-- Display the group heading --> 
+    <#if groupName?has_content>
+        <#assign groupnameHtmlId = p.createPropertyGroupHtmlId(groupName) >
+        <!--h2 id="${groupnameHtmlId}">${groupName?capitalize}</h2-->
+    <#else>
+        <#assign groupnameHtmlId = "properties">
+        <!--h2 id="properties">Properties</h2-->
+    </#if>
     
-    <section class="property-group" role="region">
+    <section id="${groupnameHtmlId}" class="property-group" role="region">
         <nav class="scroll-up" role="navigation">
             <a href="#branding" title="scroll up">
                 <img src="${urls.images}/individual/scroll-up.gif" alt="scroll to property group menus" />
             </a>
         </nav>
         
-        <#-- Display the group heading --> 
-        <#if groupName?has_content>
-				<#assign groupnameHtmlId = p.createPropertyGroupHtmlId(groupName) >
-            <h2 id="${groupnameHtmlId}">${groupName?capitalize}</h2>
-        <#else>
-            <h2 id="properties">Properties</h2>
-        </#if>
         
         <#-- List the properties in the group -->
         <#list group.properties as property>
