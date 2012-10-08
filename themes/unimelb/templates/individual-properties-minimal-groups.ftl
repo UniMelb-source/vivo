@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#-- Display the group heading --> 
         <#if groupName?has_content>
 		<#assign groupnameHtmlId = p.createPropertyGroupHtmlId(groupname) >
-            <h2 id="${groupName}">${groupName?capitalize}</h2>
+            <h2 id="${groupnameHtmlId}">${groupName?capitalize}</h2>
         <#else>
             <h2 id="properties">Properties</h2>
         </#if>
