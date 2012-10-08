@@ -33,9 +33,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <@p.addLinkWithLabel overview editable />
     <#list overview.statements as statement>
         <div class="individual-overview">
-            <div class="overview-value">
+            <h2 class="overview-value">
                 ${statement.value}
-            </div>
+            </h2>
             <@p.editingLinks "${overview.name}" statement editable />
         </div>
     </#list>

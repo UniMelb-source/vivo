@@ -47,8 +47,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <#list propertyGroups.all as group>
     <#assign groupName = group.getName()>
-    <#if hidden_groups?seq_contains(groupName)>
-        <#break>
+    <#if !individual.showAdminPanel>
+        <#if hidden_groups?seq_contains(groupName)>
+            <#break>
+        </#if>
     </#if>
     
     <section class="property-group" role="region">

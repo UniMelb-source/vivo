@@ -27,8 +27,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <#-- Individual profile page template for foaf:Person individuals -->
-<h1>PERSON</h1>
-
 <#include "individual-setup.ftl">
 <#import "individual-qrCodeGenerator.ftl" as qr>
 <#import "lib-vivo-properties.ftl" as vp>
@@ -75,8 +73,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <h1 class="vcard foaf-person">
                     <#assign nameStatement = individual.nameStatement.value! !>
                     <#assign nameSplit = individual.nameStatement.value?split(" ") !>
-                    <#assign firstName = propertyGroups.pullProperty("http://xmlns.com/foaf/0.1/firstName")!>
-                    <#assign lastName = propertyGroups.pullProperty("http://xmlns.com/foaf/0.1/lastName")!>
+                    <#assign firstName = propertyGroups.pullProperty("${foaf}firstName")!>
+                    <#assign lastName = propertyGroups.pullProperty("${foaf}lastName")!>
 
                     <#-- Label -->
                     <span class="fn"><#-- ${nameSplit[1]} <#if firstName?has_content>${firstName.statements[0].value}</#if>
@@ -122,16 +120,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#assign email = propertyGroups.pullProperty("${core}email")!>
 <#assign phone = propertyGroups.pullProperty("${core}phoneNumber")!>
 <#assign fax = propertyGroups.pullProperty("${core}faxNumber")!>
-<#assign location = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/hasWorkLocation") !>
-<#assign mediaOnly  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/hasMediaOnlyContact") !>
-<#assign graduateStudy  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/gradResearchAddress") !>
+<#assign location = propertyGroups.pullProperty("${fae}hasWorkLocation") !>
+<#assign mediaOnly  = propertyGroups.pullProperty("${fae}hasMediaOnlyContact") !>
+<#assign graduateStudy  = propertyGroups.pullProperty("${fae}gradResearchAddress") !>
 <#assign webpage = propertyGroups.pullProperty("${core}webpage")!>
-<#assign overviewText2  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/overviewText2") !>
-<#assign overviewText3  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/overviewText3") !>
-<#assign overviewText4  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/overviewText4") !>
-<#assign supervisorText2  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/supervisorText2") !>
-<#assign supervisorText3  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/supervisorText3") !>
-<#assign supervisorText4  = propertyGroups.pullProperty("http://www.findanexpert.unimelb.edu.au/ontology/supervisorText4") !>
+<#assign overviewText2  = propertyGroups.pullProperty("${fae}overviewText2") !>
+<#assign overviewText3  = propertyGroups.pullProperty("${fae}overviewText3") !>
+<#assign overviewText4  = propertyGroups.pullProperty("${fae}overviewText4") !>
+<#assign supervisorText2  = propertyGroups.pullProperty("${fae}supervisorText2") !>
+<#assign supervisorText3  = propertyGroups.pullProperty("${fae}supervisorText3") !>
+<#assign supervisorText4  = propertyGroups.pullProperty("${fae}supervisorText4") !>
 <!-- </div>  #wrapper-content -->
 <#--
 <#assign nameForOtherGroup = "other">--> <#-- used by both individual-propertyGroupMenu.ftl and individual-properties.ftl -->

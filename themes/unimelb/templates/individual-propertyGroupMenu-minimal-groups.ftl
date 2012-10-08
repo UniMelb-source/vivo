@@ -22,14 +22,16 @@
     <#assign groups = propertyGroups.all>
     
     <#if groups?has_content>
-        <#if (groups?size > 1)> 
+        <!--#if (groups?size > 1)--> 
             <nav id="property-group-menu" role="navigation">
                 <ul role="list">
                     <#list groups as group>
                         <#assign groupname = group.getName()>                        
-                        <#if hidden_groups?seq_contains(groupname)>
-                            <#break>
-                        </#if>
+								<#if !individual.showAdminPanel>
+                        	<#if hidden_groups?seq_contains(groupname)>
+                           	<#break>
+                        	</#if>
+								</#if>
                         <#if groupname?has_content>
                     		    <#--create property group html id is the function that will replace all spaces with underscore to make a valid id-->
                         	 <#assign groupnameHtmlId = p.createPropertyGroupHtmlId(groupname) >
@@ -40,6 +42,6 @@
                     </#list>
                 </ul>
             </nav>
-        </#if> 
+        <!--/#if--> 
     </#if>
 </#if>
