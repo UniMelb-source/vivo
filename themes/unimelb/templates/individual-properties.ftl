@@ -27,7 +27,7 @@
         <#list group.properties as property>
             <article class="property" role="article">
                 <#-- Property display name -->
-                <h3 id="${property.localName}">${property.name} <@p.addLink property editable /> <@p.verboseDisplay property /></h3>               
+                <h3 id="${property.localName}">${property.name?cap_first} <@p.addLink property editable /> <@p.verboseDisplay property /></h3>               
                 <#-- List the statements for each property -->
                 <ul class="property-list" role="list">
                     <#-- data property -->
