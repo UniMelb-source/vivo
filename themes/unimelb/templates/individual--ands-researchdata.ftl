@@ -74,6 +74,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#if researchAreas?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
             <@p.objectPropertyListing researchAreas editable />
         </#if>
+
+        <#-- Location Identifier -->
+        <#assign locationIdentifier = propertyGroups.pullProperty("${unimelb-rdr}digitalLocation")!>
+        <#if locationIdentifier?has_content>
+            <@p.dataPropertyListing locationIdentifier editable />
+        </#if>
+
+        <#-- Location Details -->
+        <#assign locationDetails = propertyGroups.pullProperty("${unimelb-rdr}nonDigitalLocation")!>
+        <#if locationDetails?has_content>
+            <@p.dataPropertyListing locationDetails editable />
+        </#if>
+
+        <#-- Retention Period -->
+        <#assign retentionPeriod = propertyGroups.pullProperty("${unimelb-rdr}retentionPeriod")!>
+        <#if retentionPeriod?has_content>
+            <@p.dataPropertyListing retentionPeriod editable />
+        </#if>
+
+        <#-- Access -->
+        <#assign access = propertyGroups.pullProperty("${unimelb-rdr}accessibility")!>
+        <#if access?has_content>
+            <@p.dataPropertyListing access editable />
+        </#if>
+
+        <#-- Data Management Plan -->
+        <#assign dataManagementPlan = propertyGroups.pullProperty("${unimelb-rdr}dataManagementPlanId")!>
+        <#if dataManagementPlan?has_content>
+            <@p.dataPropertyListing dataManagementPlan editable />
+        </#if>
     </section>
  </div>
 </section>
@@ -98,9 +128,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         var individualRdfUrl = '${rdfUrl}';
     </script>
 </#if>
-
-
-
 
 <script type="text/javascript">
 
