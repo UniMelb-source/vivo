@@ -172,6 +172,20 @@ ands:isFunderOf vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupProject .
 
 vivo:contributingRole vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher .
 
+ands:describes vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+
+ands:isDescribedBy vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+
+ands:hasAssociationWith vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+
+ands:isLocatedIn vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+
+ands:isLocationFor vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+
+ands:hasDerivedCollection vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+
+ands:isDerivedFrom vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
+
 ands:hasCollector rdfs:label "chief investigator"@en ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
