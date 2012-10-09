@@ -76,33 +76,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </#if>
 
         <#-- Location Identifier -->
-        <#assign locationIdentifier = propertyGroups.pullProperty("${unimelb-rdr}digitalLocation")!>
-        <#if locationIdentifier?has_content>
-            <@p.dataPropertyListing locationIdentifier editable />
-        </#if>
+        <#assign locationIdentifier = propertyGroups.pullProperty("${unimelbrdr}digitalLocation")!>
+        <@dp.dataProperty locationIdentifier editable />
 
         <#-- Location Details -->
-        <#assign locationDetails = propertyGroups.pullProperty("${unimelb-rdr}nonDigitalLocation")!>
-        <#if locationDetails?has_content>
-            <@p.dataPropertyListing locationDetails editable />
-        </#if>
+        <#assign locationDetails = propertyGroups.pullProperty("${unimelbrdr}nonDigitalLocation")!>
+        <@dp.dataProperty locationDetails editable />
 
         <#-- Retention Period -->
-        <#assign retentionPeriod = propertyGroups.pullProperty("${unimelb-rdr}retentionPeriod")!>
-        <#if retentionPeriod?has_content>
-            <@p.dataPropertyListing retentionPeriod editable />
-        </#if>
+        <#assign retentionPeriod = propertyGroups.pullProperty("${unimelbrdr}retentionPeriod")!>
+        <@dp.dataProperty retentionPeriod editable />
 
         <#-- Access -->
-        <#assign access = propertyGroups.pullProperty("${unimelb-rdr}accessibility")!>
-        <#if access?has_content>
-            <@p.dataPropertyListing access editable />
-        </#if>
+        <#assign access = propertyGroups.pullProperty("${unimelbrdr}accessibility")!>
+        <@dp.dataProperty access editable />
 
         <#-- Data Management Plan -->
-        <#assign dataManagementPlan = propertyGroups.pullProperty("${unimelb-rdr}dataManagementPlanId")!>
-        <#if dataManagementPlan?has_content>
-            <@p.dataPropertyListing dataManagementPlan editable />
+        <#assign dataManagementPlan = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanId")!>
+        <@dp.dataProperty dataManagementPlan editable />
+
+        <#-- Rights -->
+        <#assign rights = propertyGroups.pullProperty("${ands}rights")!>
+        <@dp.dataProperty rights editable />
+
+        <#-- Is Managed By -->
+        <#assign isManagedBy = propertyGroups.pullProperty("${ands}isManagedBy")!>
+        <#if isManagedBy?has_content>
+            <@p.objectPropertyListing isManagedBy editable />
         </#if>
     </section>
  </div>
