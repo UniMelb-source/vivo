@@ -95,6 +95,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#assign dataManagementPlan = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanId")!>
         <@dp.dataProperty dataManagementPlan editable />
 
+        <#-- Data Management Plan Available -->
+        <#assign dataManagementPlanAvailable = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanAvailable")!>
+        <@dp.dataProperty dataManagementPlanAvailable editable />
+
+        <#-- Data Management Plan Description -->
+        <#assign dataManagementPlanDescription = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanDescription")!>
+        <@dp.dataProperty dataManagementPlanDescription editable />     
+        
         <#-- Rights -->
         <#assign rights = propertyGroups.pullProperty("${ands}rights")!>
         <@dp.dataProperty rights editable />
@@ -103,6 +111,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#assign isManagedBy = propertyGroups.pullProperty("${ands}isManagedBy")!>
         <#if isManagedBy?has_content>
             <@p.objectPropertyListing isManagedBy editable />
+        </#if>
+        
+        <#-- Is Located In -->
+        <#assign isLocatedIn = propertyGroups.pullProperty("${ands}isLocatedIn")!>
+        <#if isLocatedIn?has_content>
+            <@p.objectPropertyListing isLocatedIn editable />
         </#if>
     </section>
  </div>
