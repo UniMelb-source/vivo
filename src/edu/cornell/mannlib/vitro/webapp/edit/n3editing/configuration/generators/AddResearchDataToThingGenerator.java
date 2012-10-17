@@ -24,6 +24,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
 
     @Override
     protected final List<String> getN3Optional() {
+        String username = userAccount.getFirstName() + " " + userAccount.getLastName();
         return list(
                 N3_PREFIX + "?researchDataUri rdfs:label ?researchDataLabel .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:digitalLocation ?digitalDataLocation .",
@@ -36,7 +37,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri core:hasSubjectArea ?subjectAreas .",
                 N3_PREFIX + "?researchDataUri ands:isManagedBy ?custodianDepartments .",
                 N3_PREFIX + "?researchDataUri ands:associatedPrincipleInvestigator ?custodians .",
-                N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .");
+                N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator \"" + username + "\"^^xsd:string .");
     }
 
     @Override
