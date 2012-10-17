@@ -4,6 +4,9 @@ import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.shared.PrefixMapping;
+
+import edu.cornell.mannlib.vedit.beans.LoginStatusBean;
+import edu.cornell.mannlib.vitro.webapp.beans.UserAccount;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 import edu.cornell.mannlib.vitro.webapp.dao.jena.ModelContext;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
@@ -21,6 +24,7 @@ import org.apache.commons.logging.Log;
 public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements EditConfigurationGenerator {
 
     protected Model queryModel;
+    protected UserAccount userAccount;
     protected static final String DEFAULT_NS_TOKEN = null; //null forces the default NS
     protected static final String N3_PREFIX = "@prefix core: <" + vivoCore + "> .\n"
             + "@prefix rdfs: <" + rdfs + "> .\n"
@@ -58,6 +62,7 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
     protected abstract String getObjectName();
 
     public EditConfigurationVTwo getEditConfiguration(VitroRequest vreq, HttpSession session) {
+        userAccount = LoginStatusBean.getCurrentUser(vreq);
         EditConfigurationVTwo editConfiguration = new EditConfigurationVTwo();
 
         //queryModel = editConfiguration.getQueryModelSelector().getModel(vreq, session.getServletContext());
