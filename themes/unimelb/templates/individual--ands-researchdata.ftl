@@ -118,6 +118,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#if isLocatedIn?has_content>
             <@p.objectPropertyListing isLocatedIn editable />
         </#if>
+        
+        <#-- Record Creator -->
+        <#assign recordCreator = propertyGroups.pullProperty("${unimelbrdr}recordCreator")!>
+        <@dp.dataProperty recordCreator editable />
+
+        <#-- Record Created -->
+        <#assign recordCreated = propertyGroups.pullProperty("${unimelbrdr}recordCreated")!>
+        <#if recordCreated?has_content>
+            <@p.objectPropertyListing recordCreated editable />
+        </#if>
     </section>
  </div>
 </section>
