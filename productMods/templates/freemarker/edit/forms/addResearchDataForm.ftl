@@ -41,6 +41,9 @@
     <label for="dataManagementPlanNumber">Data Management Plan</label>
     <input size="30" type="text" id="dataManagementPlanNumber" name="dataManagementPlanNumber" value="">
     <br>
+    <label for="dataManagementPlanAvailable">Data Management Plan Available?</label>
+    <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
+    <br>
 
     <#include "displayResearchDataInferences.ftl" />
     <#include "setupChildOrParent.ftl" />

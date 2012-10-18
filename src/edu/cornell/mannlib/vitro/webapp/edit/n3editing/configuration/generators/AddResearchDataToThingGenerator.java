@@ -33,6 +33,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri unimelb-rdr:accessibility ?accessibility .",
                 N3_PREFIX + "?researchDataUri ands:rights ?rights .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:dataManagementPlanId ?dataManagementPlanNumber .",
+                N3_PREFIX + "?researchDataUri unimelb-rdr:dataManagementPlanAvailable ?dataManagementPlanAvailable .",
                 N3_PREFIX + "?researchDataUri ands:isLocatedIn ?researchRepository .",
                 N3_PREFIX + "?researchDataUri core:hasSubjectArea ?subjectAreas .",
                 N3_PREFIX + "?researchDataUri ands:isManagedBy ?custodianDepartments .",
@@ -78,6 +79,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "accessibility",
                 "rights",
                 "dataManagementPlanNumber",
+                "dataManagementPlanAvailable",
                 "researchDataDescription",
                 "redirectForward",
                 "sparqlQueryUrl",
@@ -106,6 +108,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         fields.add(new CustomFieldVTwo("accessibility", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("rights", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("dataManagementPlanNumber", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("dataManagementPlanAvailable", list("datatype:" + XSD.xboolean.toString()), XSD.xboolean.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("physicalDataLocation", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("redirectForward", null, XSD.xboolean.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("subjectAreas", null, null, null, null, null));
