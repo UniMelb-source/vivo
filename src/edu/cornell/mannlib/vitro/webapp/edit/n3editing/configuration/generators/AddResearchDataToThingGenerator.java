@@ -44,12 +44,12 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri ands:isManagedBy ?custodianDepartments .",
                 N3_PREFIX + "?researchDataUri ands:associatedPrincipleInvestigator ?custodians .",
                 N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator \"" + username + "\"^^xsd:string .",
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator \"" + username + "\"^^xsd:string ."/*,
                 N3_PREFIX + "?recordCreatedOn a vivo:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?recordCreatedOn vitro:mostSpecificType vivo:DateTimeValue .",
                 N3_PREFIX + "?recordCreatedOn vivo:dateTime <value> .",
                 N3_PREFIX + "?recordCreatedOn vivo:dateTimePrecision vivo:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .");
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn ."*/);
     }
 
     @Override
@@ -139,7 +139,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
     protected final Map<String, String> getNewResources(VitroRequest vreq) {
         HashMap<String, String> newResources = new HashMap<String, String>();
         newResources.put("researchDataUri", DEFAULT_NS_TOKEN);
-        newResources.put("recordCreatedOn", DEFAULT_NS_TOKEN);
+        /*newResources.put("recordCreatedOn", DEFAULT_NS_TOKEN);*/
         return newResources;
     }
 
