@@ -56,8 +56,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
     @Override
     protected HashMap<String, Object> getFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
-        String username = userAccount.getFirstName() + " " + userAccount.getLastName() + "^^xsd:string";
-        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()) + "^^xsd:dateTime";
+        String username = userAccount.getFirstName() + " " + userAccount.getLastName()/* + "^^xsd:string"*/;
+        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())/* + "^^xsd:dateTime"*/;
         String subjectUri = EditConfigurationUtils.getSubjectUri(vreq);
         formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartments(subjectUri));
         formSpecificData.put("InheritedCustodians", getInheritedCustodians(subjectUri));
