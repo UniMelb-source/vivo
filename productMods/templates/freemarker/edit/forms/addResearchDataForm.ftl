@@ -46,6 +46,7 @@
     <br>
 
     <#include "displayResearchDataInferences.ftl" />
+    <#include "creatorFields.ftl" />
     <#include "setupChildOrParent.ftl" />
 
     <p class="submit">

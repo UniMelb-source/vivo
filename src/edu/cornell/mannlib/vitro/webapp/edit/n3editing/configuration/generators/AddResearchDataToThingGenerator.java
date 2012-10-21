@@ -7,8 +7,10 @@ import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTw
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.validators.AntiXssValidation;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +28,9 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
     protected List<String> getN3Required() {
         return Collections.<String>emptyList();
     }
-    
+
     @Override
     protected final List<String> getN3Optional() {
-        String username = userAccount.getFirstName() + " " + userAccount.getLastName();
         return list(
                 N3_PREFIX + "?researchDataUri rdfs:label ?researchDataLabel .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:digitalLocation ?digitalDataLocation .",
@@ -44,18 +45,19 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri ands:isManagedBy ?custodianDepartments .",
                 N3_PREFIX + "?researchDataUri ands:associatedPrincipleInvestigator ?custodians .",
                 N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator \"" + username + "\"^^xsd:string ."/*,
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator .",
                 N3_PREFIX + "?recordCreatedOn a vivo:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?recordCreatedOn vitro:mostSpecificType vivo:DateTimeValue .",
-                N3_PREFIX + "?recordCreatedOn vivo:dateTime <value> .",
+                N3_PREFIX + "?recordCreatedOn vivo:dateTime ?recordCreatedOn .",
                 N3_PREFIX + "?recordCreatedOn vivo:dateTimePrecision vivo:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn ."*/);
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .");
     }
 
     @Override
     protected HashMap<String, Object> getFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
-
+        String username = userAccount.getFirstName() + " " + userAccount.getLastName() + "^^xsd:string";
+        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()) + "^^xsd:dateTime";
         String subjectUri = EditConfigurationUtils.getSubjectUri(vreq);
         formSpecificData.put("InheritedCustodianDepartments", getInheritedCustodianDepartments(subjectUri));
         formSpecificData.put("InheritedCustodians", getInheritedCustodians(subjectUri));
@@ -68,6 +70,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         formSpecificData.put("editMode", "add");
         formSpecificData.put("submitButtonTextType", "simple");
         formSpecificData.put("typeName", "Research Data");
+        formSpecificData.put("_username", username);
+        formSpecificData.put("_dateString", dateString);
 
         return formSpecificData;
     }
@@ -97,7 +101,9 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "acType",
                 "editMode",
                 "submitButtonTextType",
-                "typeName");
+                "typeName",
+                "recordCreator",
+                "recordCreatedOn");
     }
 
     @Override
@@ -132,6 +138,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         fields.add(new CustomFieldVTwo("editMode", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("submitButtonTextType", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("typeName", null, null, null, null, null));
+        fields.add(new CustomFieldVTwo("recordCreator", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("recordCreatedOn", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
         return fields;
     }
 
@@ -139,7 +147,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
     protected final Map<String, String> getNewResources(VitroRequest vreq) {
         HashMap<String, String> newResources = new HashMap<String, String>();
         newResources.put("researchDataUri", DEFAULT_NS_TOKEN);
-        /*newResources.put("recordCreatedOn", DEFAULT_NS_TOKEN);*/
+        newResources.put("recordCreatedOn", DEFAULT_NS_TOKEN);
         return newResources;
     }
 
