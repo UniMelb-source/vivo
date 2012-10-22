@@ -16,7 +16,7 @@
 <#macro showRole statement>
     <#local linkedIndividual>
         <#if statement.project??>
-            <a href="${profileUrl(statement.uri("hasProjectRole"))}" title="project name">${statement.projectLabel!statement.projectName}</a>
+            <a href="${profileUrl(statement.uri("project"))}" title="project name">${statement.projectLabel!statement.projectName}</a>
         <#else>
             <#-- This shouldn't happen, but we must provide for it -->
             <a href="${profileUrl(statement.uri("role"))}" title="missing presentation">missing presentation</a>
@@ -26,5 +26,7 @@
     <#local dateTime>
         <@dt.yearSpan statement.dateTime! /> 
     </#local>
+
+    <@s.join [ linkedIndividual, statement.roleLabel! ] /> ${dateTime!}
 
 </#macro>
