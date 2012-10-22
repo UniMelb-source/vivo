@@ -2,8 +2,6 @@ package edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators
 
 import com.hp.hpl.jena.vocabulary.XSD;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
-import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
-import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.DateTimeWithPrecisionVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationUtils;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
@@ -28,7 +26,13 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
     protected abstract Map<String, String> getInheritedCustodianDepartments(String subjectUri);
 
     protected List<String> getN3Required() {
-        return Collections.<String>emptyList();
+        //String username = userAccount.getFirstName() + " " + userAccount.getLastName() + "^^xsd:string";
+        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()) + "^^xsd:dateTime";
+        return list(N3_PREFIX
+                + "?recordCreatedOn a vivo:DateTimeValue . \n"
+                + "?recordCreatedOn vitro:mostSpecificType vivo:DateTimeValue . \n"
+                + "?recordCreatedOn vivo:dateTimePrecision vivo:yearMonthDayTimePrecision . \n"
+                + "?recordCreatedOn vivo:dateTime \"" + dateString + "\" . ;");
     }
 
     @Override
@@ -47,12 +51,9 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri ands:isManagedBy ?custodianDepartments .",
                 N3_PREFIX + "?researchDataUri ands:associatedPrincipleInvestigator ?custodians .",
                 N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator .",
-                N3_PREFIX + "?recordCreatedOn a vivo:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?recordCreatedOn vitro:mostSpecificType vivo:DateTimeValue .",
-                N3_PREFIX + "?recordCreatedOn vivo:dateTime ?recordCreatedOnDateTime .",
-                N3_PREFIX + "?recordCreatedOn vivo:dateTimePrecision vivo:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .");
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator ."/*,
+                 N3_PREFIX + "?recordCreatedOn vivo:dateTime ?recordCreatedOnDateTime .",
+                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn ."*/);
     }
 
     @Override
@@ -141,12 +142,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         fields.add(new CustomFieldVTwo("submitButtonTextType", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("typeName", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("recordCreator", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
-        //fields.add(new CustomFieldVTwo("recordCreatedOnDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        FieldVTwo dateTimeField = new FieldVTwo().setName("recordCreatedOnDateTime");
-        dateTimeField.setEditElement(new DateTimeWithPrecisionVTwo(dateTimeField,
-                VitroVocabulary.Precision.SECOND.uri(),
-                VitroVocabulary.Precision.NONE.uri()));
-        fields.add(dateTimeField);
+        fields.add(new CustomFieldVTwo("recordCreatedOnDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
         return fields;
     }
 
