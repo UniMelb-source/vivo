@@ -48,7 +48,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator .",
                 N3_PREFIX + "?recordCreatedOn a vivo:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?recordCreatedOn vitro:mostSpecificType vivo:DateTimeValue .",
-                N3_PREFIX + "?recordCreatedOn vivo:dateTime ?recordCreatedOn .",
+                N3_PREFIX + "?recordCreatedOn vivo:dateTime ?recordCreatedOnDateTime .",
                 N3_PREFIX + "?recordCreatedOn vivo:dateTimePrecision vivo:yearMonthDayTimePrecision .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .");
     }
@@ -103,7 +103,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "submitButtonTextType",
                 "typeName",
                 "recordCreator",
-                "recordCreatedOn");
+                "recordCreatedOnDateTime");
     }
 
     @Override
@@ -139,7 +139,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         fields.add(new CustomFieldVTwo("submitButtonTextType", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("typeName", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("recordCreator", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("recordCreatedOn", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("recordCreatedOnDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
         return fields;
     }
 

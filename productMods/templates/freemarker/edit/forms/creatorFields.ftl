@@ -6,5 +6,5 @@
 </#if>
 
 <#if dateString?has_content>
-    <input type="hidden" name="recordCreatedOn" value="${dateString}" id="recordCreatedOn"/>
+    <input type="hidden" name="recordCreatedOnDateTime" value="${dateString}" id="recordCreatedOnDateTime"/>
 </#if>
