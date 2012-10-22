@@ -121,12 +121,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         
         <#-- Record Creator -->
         <#assign recordCreator = propertyGroups.pullProperty("${unimelbrdr}recordCreator")!>
-        <@dp.dataProperty recordCreator editable />
+        <@dp.dataProperty recordCreator false />
 
         <#-- Record Created -->
         <#assign recordCreated = propertyGroups.pullProperty("${unimelbrdr}recordCreated")!>
         <#if recordCreated?has_content>
-            <@p.objectPropertyListing recordCreated editable />
+            <@p.objectPropertyListing recordCreated false />
         </#if>
     </section>
  </div>
