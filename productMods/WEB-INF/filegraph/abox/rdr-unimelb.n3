@@ -99,7 +99,8 @@ unimelb-rdr:recordCreated a owl:ObjectProperty ;
     rdfs:label "record created on"@en ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:DateTimeValue ;
-    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean .
+    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.DateTimeValueFormGenerator"^^xsd:string .
 
 # datatype properties
 unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
