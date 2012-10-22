@@ -13,6 +13,17 @@
     dc:contributor "University of Melbourne" ;
     dc:date "2012-06-20" .
 
+# custom classes
+unimelb-rdr:ProjectRole a owl:Class;
+    rdfs:label "Project Role" ;
+    rdfs:subClassOf owl:Thing, vivo:Role ;
+    vitro:descriptionAnnot "Role of a researcher in a project"^^xsd:string ;
+    vitro:shortDef "Role of a researcher in a project"^^xsd:string ;
+    vitro:displayLimitAnnot "-1"^^xsd:int ;
+    vitro:displayRankAnnot "-1"^^xsd:int ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
+
 # add a ResearchData to Agreement
 unimelb-rdr:agreementHasResearchDataOutput a owl:ObjectProperty ;
     rdfs:label "has research data output"@en ;
@@ -72,6 +83,28 @@ unimelb-rdr:hasFundingVehicle a owl:ObjectProperty ;
     vitro:selectFromExistingAnnot "true"^^xsd:boolean ;
     owl:inverseOf unimelb-rdr:fundingVehicleFor ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement .
+
+# add a Project to a Person
+unimelb-rdr:hasProjectRole a owl:ObjectProperty ;
+    rdfs:label "has project role"@en-US ;
+    rdfs:domain foaf:Person ;
+    rdfs:range unimelb-rdr:ProjectRole ;
+    rdfs:subPropertyOf vivo:hasRole , vivo:hasProjectRole , owl:topObjectProperty ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddProjectRoleToPersonGenerator"^^xsd:string ;
+    vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:publicDescriptionAnnot "This relates a person to a description of their project."^^xsd:string ;
+    vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean ;
+    vitro:selectFromExistingAnnot "true"^^xsd:boolean ;
+    owl:inverseOf unimelb-rdr:fundingVehicleFor ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupProject ;
+    owl:inverseof unimelb-rdr:projectRoleOf .
+unimelb-rdr:projectRoleOf a owl:ObjectProperty ;
+    rdfs:label "project role of"@en-US ;
+    rdfs:domain unimelb-rdr:ProjectRole ;
+    rdfs:range foaf:Person ;
+    rdfs:subPropertyOf vivo:roleOf ;
+    owl:inverseOf unimelb-rdr:hasProjectRole .
 
 # inverse relationships for foaf:Person to ands:ResearchData
 unimelb-rdr:principalInvestigatorFor a owl:ObjectProperty ;
