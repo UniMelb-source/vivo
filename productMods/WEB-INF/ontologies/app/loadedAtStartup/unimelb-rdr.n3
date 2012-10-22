@@ -3,3 +3,4 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 unimelb-rdr:recordCreated display:listViewConfigFile "listViewConfig-recordCreated.xml" .
+unimelb-rdr:hasProjectRole display:listViewConfigFile "listViewConfig-hasProjectRole.xml" .
