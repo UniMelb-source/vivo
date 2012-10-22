@@ -1,5 +1,5 @@
-@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#>
+@prefix display: <http://vitro.mannlib.cornell.edu/ontologies/display/1.1#> .
 @prefix unimelb-rdr: <https://rdr.unimelb.edu.au/config/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-unimelb-rdr:recordCreated display:listViewConfigFile "listViewConfig-recordCreated.xml"^^xsd:string .
+unimelb-rdr:recordCreated display:listViewConfigFile "listViewConfig-recordCreated.xml" .
