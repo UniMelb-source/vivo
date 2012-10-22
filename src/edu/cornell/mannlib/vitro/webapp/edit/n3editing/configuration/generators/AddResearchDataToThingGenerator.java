@@ -26,13 +26,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
     protected abstract Map<String, String> getInheritedCustodianDepartments(String subjectUri);
 
     protected List<String> getN3Required() {
-        //String username = userAccount.getFirstName() + " " + userAccount.getLastName() + "^^xsd:string";
-        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()) + "^^xsd:dateTime";
-        return list(N3_PREFIX
-                + "?recordCreatedOn a vivo:DateTimeValue . \n"
-                + "?recordCreatedOn vitro:mostSpecificType vivo:DateTimeValue . \n"
-                + "?recordCreatedOn vivo:dateTimePrecision vivo:yearMonthDayTimePrecision . \n"
-                + "?recordCreatedOn vivo:dateTime \"" + dateString + "\" . ;");
+        return Collections.<String>emptyList();
     }
 
     @Override
@@ -51,9 +45,12 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri ands:isManagedBy ?custodianDepartments .",
                 N3_PREFIX + "?researchDataUri ands:associatedPrincipleInvestigator ?custodians .",
                 N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator ."/*,
-                 N3_PREFIX + "?recordCreatedOn vivo:dateTime ?recordCreatedOnDateTime .",
-                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn ."*/);
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator .",
+                N3_PREFIX + "?recordCreatedOn a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?recordCreatedOn vitro:mostSpecificType core:DateTimeValue .",
+                N3_PREFIX + "?recordCreatedOn core:dateTime ?recordCreatedOnDateTime .",
+                N3_PREFIX + "?recordCreatedOn core:dateTimePrecision core:yearMonthDayTimePrecision .",
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .");
     }
 
     @Override
