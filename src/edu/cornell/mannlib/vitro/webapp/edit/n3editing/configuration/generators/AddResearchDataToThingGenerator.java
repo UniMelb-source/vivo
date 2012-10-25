@@ -133,10 +133,16 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "typeName",
                 "recordCreator",
                 "recordCreatedOnDateTime",
+                "collectedDateRange",
                 "collectedDateRangeStart",
+                "collectedDateRangeStartDateTime",
                 "collectedDateRangeEnd",
+                "collectedDateRangeEndDateTime",
+                "coveredDateRange",
                 "coveredDateRangeStart",
-                "coveredDateRangeEnd");
+                "coveredDateRangeStartDateTime",
+                "coveredDateRangeEnd",
+                "coveredDateRangeEndDateTime");
     }
 
     @Override
@@ -173,10 +179,12 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         fields.add(new CustomFieldVTwo("typeName", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("recordCreator", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("recordCreatedOnDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("collectedDateRangeStart", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("collectedDateRangeEnd", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("coveredDateRangeStart", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("coveredDateRangeEnd", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        //fields.add(new CustomFieldVTwo("collectedDateRange", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("collectedDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("collectedDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        //fields.add(new CustomFieldVTwo("coveredDateRange", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("coveredDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("coveredDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
         return fields;
     }
 
