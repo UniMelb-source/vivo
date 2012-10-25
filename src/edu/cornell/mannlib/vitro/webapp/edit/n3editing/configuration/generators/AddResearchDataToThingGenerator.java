@@ -26,7 +26,14 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
     protected abstract Map<String, String> getInheritedCustodianDepartments(String subjectUri);
 
     protected List<String> getN3Required() {
-        return Collections.<String>emptyList();
+        return list(
+                N3_PREFIX + "?recordCreatedOn a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?collectedDateRangeStart a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?collectedDateRangeEnd a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?collectedDateRange a core:DateTimeInterval , owl:Thing .",
+                N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?coveredDateRange a core:DateTimeInterval , owl:Thing .");
     }
 
     @Override
@@ -47,36 +54,29 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator .",
                 /* Create date time value for created on */
-                N3_PREFIX + "?recordCreatedOn a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?recordCreatedOn vitro:mostSpecificType core:DateTimeValue .",
+                //N3_PREFIX + "?recordCreatedOn a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?recordCreatedOn core:dateTime ?recordCreatedOnDateTime .",
                 N3_PREFIX + "?recordCreatedOn core:dateTimePrecision core:yearMonthDayTimePrecision .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .",
                 /* Create date time interval for collected on */
-                N3_PREFIX + "?collectedDateRangeStart a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?collectedDateRangeStart vitro:mostSpecificType core:DateTimeValue .",
+                //N3_PREFIX + "?collectedDateRangeStart a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?collectedDateRangeStart core:dateTime ?collectedDateRangeStartDateTime .",
                 N3_PREFIX + "?collectedDateRangeStart core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?collectedDateRangeEnd a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?collectedDateRangeEnd vitro:mostSpecificType core:DateTimeValue .",
+                //N3_PREFIX + "?collectedDateRangeEnd a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?collectedDateRangeEnd core:dateTime ?collectedDateRangeEndDateTime .",
                 N3_PREFIX + "?collectedDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?collectedDateRange a core:DateTimeInterval , owl:Thing .",
-                N3_PREFIX + "?collectedDateRange vitro:mostSpecificType core:DateTimeInterval .",
+                //N3_PREFIX + "?collectedDateRange a core:DateTimeInterval , owl:Thing .",
                 N3_PREFIX + "?collectedDateRange core:start ?collectedDateRangeStart .",
                 N3_PREFIX + "?collectedDateRange core:end ?collectedDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:collectedDateRange ?collectedDateRange .",
                 /* Create date time interval for covered */
-                N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?coveredDateRangeStart vitro:mostSpecificType core:DateTimeValue .",
+                //N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?coveredDateRangeStart core:dateTime ?coveredDateRangeStartDateTime .",
                 N3_PREFIX + "?coveredDateRangeStart core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?coveredDateRangeEnd vitro:mostSpecificType core:DateTimeValue .",
+                //N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?coveredDateRangeEnd core:dateTime ?coveredDateRangeEndDateTime .",
                 N3_PREFIX + "?coveredDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?coveredDateRange a core:DateTimeInterval , owl:Thing .",
-                N3_PREFIX + "?coveredDateRange vitro:mostSpecificType core:DateTimeInterval .",
+                //N3_PREFIX + "?coveredDateRange a core:DateTimeInterval , owl:Thing .",
                 N3_PREFIX + "?coveredDateRange core:start ?coveredDateRangeStart .",
                 N3_PREFIX + "?coveredDateRange core:end ?coveredDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:coveredDateRange ?coveredDateRange .");
