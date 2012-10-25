@@ -35,60 +35,60 @@ ands:gml a owl:DatatypeProperty;
 	rdfs:label "gml"@en;
     rdfs:comment "OpenGIS Geography Markup Language (GML) Encoding Standard"^^xsd:string;
     rdfs:range rdf:XMLLiteral;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:gmlKmlPolyCoords a owl:DatatypeProperty;
     rdfs:label "gmlKmlPolyCoords"@en;
 	rdfs:comment "A set of KML long/lat co-ordinates derived from GML defining a polygon as described by the KML coordinates element but without the altitude component"^^xsd:string;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:gpx a owl:DatatypeProperty;
     rdfs:label "gpx"@en;
 	rdfs:comment "The GPS Exchange Format"^^xsd:string;
     rdfs:range xsd:string;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:iso31661 a owl:ObjectProperty;
     rdfs:label "iso31661"@en;
 	rdfs:comment "ISO 3166-1 Codes for the representation of names of countries and their subdivisions - Part 1"^^xsd:string;
 	rdfs:range <http://aims.fao.org/aos/geopolitical.owl>;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:iso31662 a owl:ObjectProperty;
     rdfs:label "iso31662"@en;
 	rdfs:comment "Codes for the representation of names of countries and their subdivisions - Part 2"^^xsd:string;
 	rdfs:range <http://aims.fao.org/aos/geopolitical.owl>;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:iso19139dcmiBox a owl:DatatypeProperty;
     rdfs:label "iso19139dcmiBox"@en;
 	rdfs:comment "DCMI Box notation derived from bounding box metadata conformant with the iso19139 schema"^^xsd:string;
     rdfs:range xsd:string;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:kml a owl:DatatypeProperty;
     rdfs:label "kml"@en;
 	rdfs:comment "Keyhole Markup Language developed for use with Google Earth"^^xsd:string;
 	rdfs:range rdf:XMLLiteral;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:kmlPolyCoords a owl:DatatypeProperty;
     rdfs:label "kml poly coords"@en;
 	rdfs:comment "A set of KML long/lat co-ordinates defining a polygon as described by the KML coordinates element"^^xsd:string;
 	rdfs:range rdf:XMLLiteral;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:dcmiPoint a owl:DatatypeProperty;
     rdfs:label "dcmi point"@en;
 	rdfs:comment "Spatial location information specified in DCMI Point notation"^^xsd:string;
     rdfs:range xsd:string;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:textLocation a owl:DatatypeProperty;
     rdfs:label "text"@en;
 	rdfs:comment "Free-text representation of spatial location"^^xsd:string;
     rdfs:range xsd:string;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:hasMember a owl:ObjectProperty;
 	rdfs:comment "(group only) has enrolled the related party in the group"^^xsd:string;
@@ -100,13 +100,13 @@ ands:hasMember a owl:ObjectProperty;
 ands:hasAssociationWith a owl:ObjectProperty;
 	rdfs:comment "Has an unspecified relationship with the related activity."^^xsd:string;
 	rdfs:label "has association with"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain owl:Thing;
 	rdfs:range ands:RifcsThing .
 
 ands:local a owl:DatatypeProperty;
 	rdfs:comment "identifier unique within a local context"^^xsd:string;
 	rdfs:label "local"@en;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain owl:Thing .
 
 ands:deliveryMethod a owl:DatatypeProperty;
 	rdfs:comment "(Services only) Information about how the service is delivered."^^xsd:string;
@@ -235,7 +235,7 @@ ands:SubjectAreaKeyword a owl:Class;
 ands:handle a owl:DatatypeProperty;
 	rdfs:label "handle"@en;
 	rdfs:comment "HANDLE System identifier"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain owl:Thing .
 
 ands:abn a owl:DatatypeProperty;
     rdfs:label "Australian Business Number"@en;
@@ -259,7 +259,7 @@ ands:ark a owl:DatatypeProperty;
 ands:ands a owl:DatatypeProperty;
     rdfs:label "ANDS identifier"@en;
     rdfs:comment "ANDS handle"^^xsd:string;
-    rdfs:domain ands:RifcsThing;
+    rdfs:domain owl:Thing;
     rdfs:subPropertyOf bibo:handle .
 
 ands:dateOfPublication a owl:ObjectProperty;
@@ -274,13 +274,13 @@ ands:groupDescription a owl:DatatypeProperty;
 ands:infouri a owl:DatatypeProperty;
     rdfs:label "info-uri identifier"@en;
     rdfs:comment "Identifier in INFO URI scheme"^^xsd:string;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain owl:Thing;
     rdfs:subPropertyOf vivo:identifier .
 
 ands:isil a owl:DatatypeProperty;
     rdfs:label "ISIL identifier"@en;
     rdfs:comment "International Standard Identifier for Libraries and Related Organizations"^^xsd:string;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain owl:Thing;
     rdfs:subPropertyOf bibo:identifier .
 
 ands:nla a owl:DatatypeProperty;
@@ -292,13 +292,13 @@ ands:nla a owl:DatatypeProperty;
 ands:originatingSource a owl:DatatypeProperty;
     rdfs:label "originating source"@en;
     rdfs:comment "Used in RIF-CS export. Normally supplied by ANDSHavest instance, but can be overriden by each harvested individual"^^xsd:string;
-    rdfs:domain ands:RifcsThing;
+    rdfs:domain owl:Thing;
     rdfs:range xsd:string .
 
 ands:purl a owl:DatatypeProperty;
     rdfs:label "purl"@en;
     rdfs:comment "A Persistent URL"^^xsd:string;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain owl:Thing;
     rdfs:subPropertyOf bibo:uri .
 
 ands:ResearchCatalog a owl:Class;
@@ -432,7 +432,7 @@ ands:isLocationFor a owl:ObjectProperty;
 ands:isManagedBy a owl:ObjectProperty;
     rdfs:label "is managed by"@en;
 	rdfs:comment " is overseen by the related party"^^xsd:string;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain owl:Thing;
 	rdfs:range foaf:Agent;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isManagerOf .
@@ -522,14 +522,14 @@ ands:streetAddress a owl:ObjectProperty;
     rdfs:label "street address"@en;
     rdfs:comment "street address"^^xsd:string;
     rdfs:range vivo:Address;
-    rdfs:domain ands:RifcsThing;
+    rdfs:domain owl:Thing;
     owl:inverseOf ands:streetAddressFor .
 
 ands:postalAddress a owl:ObjectProperty;
     rdfs:label "postal address"@en;
     rdfs:comment "pstal address"^^xsd:string;
     rdfs:range vivo:Address;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain owl:Thing .
 
 ands:streetAddressFor a owl:ObjectProperty;
     rdfs:label "street address for"@en;
