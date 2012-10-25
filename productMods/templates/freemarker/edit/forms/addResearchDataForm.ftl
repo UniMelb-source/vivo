@@ -44,17 +44,17 @@
     <label for="dataManagementPlanNumber">Data Management Plan</label>
     <input size="30" type="text" id="dataManagementPlanNumber" name="dataManagementPlanNumber" value="">
     <br>
-    <label for="collectedDateRangeStart">Collected Date Range Start</label>
-    <input size="30" type="text" id="collectedDateRangeStart" name="collectedDateRangeStart" value="">
+    <label for="collectedDateRangeStartDateTime">Collected Date Range Start</label>
+    <input size="30" type="text" id="collectedDateRangeStartDateTime" name="collectedDateRangeStartDateTime" value="">
     <br>
-    <label for="collectedDateRangeEnd">Collected Date Range End</label>
-    <input size="30" type="text" id="collectedDateRangeEnd" name="collectedDateRangeEnd" value="">
+    <label for="collectedDateRangeEndDateTime">Collected Date Range End</label>
+    <input size="30" type="text" id="collectedDateRangeEndDateTime" name="collectedDateRangeEndDateTime" value="">
     <br>
-    <label for="coveredDateRangeStart">Covered Date Range Start</label>
-    <input size="30" type="text" id="coveredDateRangeStart" name="coveredDateRangeStart" value="">
+    <label for="coveredDateRangeStartDateTime">Covered Date Range Start</label>
+    <input size="30" type="text" id="coveredDateRangeStartDateTime" name="coveredDateRangeStartDateTime" value="">
     <br>
-    <label for="coveredDateRangeEnd">Covered Date Range End</label>
-    <input size="30" type="text" id="coveredDateRangeEnd" name="coveredDateRangeEnd" value="">
+    <label for="coveredDateRangeEndDateTime">Covered Date Range End</label>
+    <input size="30" type="text" id="coveredDateRangeEndDateTime" name="coveredDateRangeEndDateTime" value="">
     <br>
 
     <#include "displayResearchDataInferences.ftl" />
