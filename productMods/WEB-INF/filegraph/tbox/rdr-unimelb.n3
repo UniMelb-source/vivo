@@ -106,6 +106,28 @@ unimelb-rdr:projectRoleOf a owl:ObjectProperty ;
     rdfs:subPropertyOf vivo:roleOf ;
     owl:inverseOf unimelb-rdr:hasProjectRole .
 
+unimelb-rdr:collectedDateRange a owl:ObjectProperty ;
+    rdfs:label "collected between"@en-US ;
+    rdfs:domain vivo:ResearchData ;
+    rdfs:range vivo:DateTimeInterval ;
+    owl:inverseOf unimelb-rdr:unimelb-rdr:collectedDateRangeFor .
+unimelb-rdr:collectedDateRangeFor a owl:ObjectProperty ;
+    rdfs:label "collected range for"@en-US ;
+    rdfs:domain vivo:DateTimeInterval ;
+    rdfs:range vivo:ResearchData ;
+    owl:inverseOf unimelb-rdr:collectedDateRange .
+    
+unimelb-rdr:coveredDateRange a owl:ObjectProperty ;
+    rdfs:label "covered between"@en-US ;
+    rdfs:domain vivo:ResearchData ;
+    rdfs:range vivo:DateTimeInterval ;
+    owl:inverseOf unimelb-rdr:unimelb-rdr:coveredDateRangeFor .
+unimelb-rdr:coveredDateRangeFor a owl:ObjectProperty ;
+    rdfs:label "covered range for"@en-US ;
+    rdfs:domain vivo:DateTimeInterval ;
+    rdfs:range vivo:ResearchData ;
+    owl:inverseOf unimelb-rdr:coveredDateRange .
+
 # inverse relationships for foaf:Person to ands:ResearchData
 unimelb-rdr:principalInvestigatorFor a owl:ObjectProperty ;
     rdfs:comment "Principal investigator for"^^xsd:string ;
