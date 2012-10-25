@@ -62,7 +62,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?collectedDateRangeEnd core:dateTime ?collectedDateRangeEndDateTime .",
                 N3_PREFIX + "?collectedDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
                 N3_PREFIX + "?collectedDateRange a core:DateTimeInterval , owl:Thing .",
-                N3_PREFIX + "?collectedDateRange vitro:mostSpecificType core:DateTimeIntervale .",
+                N3_PREFIX + "?collectedDateRange vitro:mostSpecificType core:DateTimeInterval .",
                 N3_PREFIX + "?collectedDateRange core:start ?collectedDateRangeStart .",
                 N3_PREFIX + "?collectedDateRange core:end ?collectedDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:collectedDateRange ?collectedDateRange .",
@@ -76,7 +76,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?coveredDateRangeEnd core:dateTime ?coveredDateRangeEndDateTime .",
                 N3_PREFIX + "?coveredDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
                 N3_PREFIX + "?coveredDateRange a core:DateTimeInterval , owl:Thing .",
-                N3_PREFIX + "?coveredDateRange vitro:mostSpecificType core:DateTimeIntervale .",
+                N3_PREFIX + "?coveredDateRange vitro:mostSpecificType core:DateTimeInterval .",
                 N3_PREFIX + "?coveredDateRange core:start ?coveredDateRangeStart .",
                 N3_PREFIX + "?coveredDateRange core:end ?coveredDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:coveredDateRange ?coveredDateRange .");
