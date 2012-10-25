@@ -27,13 +27,13 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
 
     protected List<String> getN3Required() {
         return list(
-                N3_PREFIX + "?recordCreatedOn a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?collectedDateRangeStart a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?collectedDateRangeEnd a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?collectedDateRange a core:DateTimeInterval , owl:Thing .",
-                N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue , owl:Thing .",
-                N3_PREFIX + "?coveredDateRange a core:DateTimeInterval , owl:Thing .");
+                N3_PREFIX + "?recordCreatedOn a core:DateTimeValue .",
+                N3_PREFIX + "?collectedDateRangeStart a core:DateTimeValue .",
+                N3_PREFIX + "?collectedDateRangeEnd a core:DateTimeValue .",
+                N3_PREFIX + "?collectedDateRange a core:DateTimeInterval .",
+                N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue .",
+                N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue .",
+                N3_PREFIX + "?coveredDateRange a core:DateTimeInterval .");
     }
 
     @Override
