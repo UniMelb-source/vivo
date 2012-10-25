@@ -46,11 +46,36 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri ands:associatedPrincipleInvestigator ?custodians .",
                 N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator .",
+                /* Create date time value for created on */
                 N3_PREFIX + "?recordCreatedOn a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?recordCreatedOn vitro:mostSpecificType core:DateTimeValue .",
                 N3_PREFIX + "?recordCreatedOn core:dateTime ?recordCreatedOnDateTime .",
                 N3_PREFIX + "?recordCreatedOn core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .");
+                N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .",
+                /* Create date time interval for collected on */
+                N3_PREFIX + "?collectedDateRangeStart a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?collectedDateRangeStart vitro:mostSpecificType core:DateTimeValue .",
+                N3_PREFIX + "?collectedDateRangeStart core:dateTime ?collectedDateRangeStartDateTime .",
+                N3_PREFIX + "?collectedDateRangeStart core:dateTimePrecision core:yearMonthDayTimePrecision .",
+                N3_PREFIX + "?collectedDateRangeEnd a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?collectedDateRangeEnd vitro:mostSpecificType core:DateTimeValue .",
+                N3_PREFIX + "?collectedDateRangeEnd core:dateTime ?collectedDateRangeEndDateTime .",
+                N3_PREFIX + "?collectedDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
+                N3_PREFIX + "?collectedDateRange vivo:start ?collectedDateRangeStart .",
+                N3_PREFIX + "?collectedDateRange vivo:end ?collectedDateRangeEnd .",
+                N3_PREFIX + "?researchDataUri unimelb-rdr:collectedDateRange ?collectedDateRange .",
+                /* Create date time interval for covered */
+                N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?coveredDateRangeStart vitro:mostSpecificType core:DateTimeValue .",
+                N3_PREFIX + "?coveredDateRangeStart core:dateTime ?coveredDateRangeStartDateTime .",
+                N3_PREFIX + "?coveredDateRangeStart core:dateTimePrecision core:yearMonthDayTimePrecision .",
+                N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue , owl:Thing .",
+                N3_PREFIX + "?coveredDateRangeEnd vitro:mostSpecificType core:DateTimeValue .",
+                N3_PREFIX + "?coveredDateRangeEnd core:dateTime ?coveredDateRangeEndDateTime .",
+                N3_PREFIX + "?coveredDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
+                N3_PREFIX + "?coveredDateRange vivo:start ?coveredDateRangeStart .",
+                N3_PREFIX + "?coveredDateRange vivo:end ?coveredDateRangeEnd .",
+                N3_PREFIX + "?researchDataUri unimelb-rdr:coveredDateRange ?coveredDateRange .");
     }
 
     @Override
@@ -103,7 +128,11 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "submitButtonTextType",
                 "typeName",
                 "recordCreator",
-                "recordCreatedOnDateTime");
+                "recordCreatedOnDateTime",
+                "collectedDateRangeStart",
+                "collectedDateRangeEnd",
+                "coveredDateRangeStart",
+                "coveredDateRangeEnd");
     }
 
     @Override
@@ -140,6 +169,10 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         fields.add(new CustomFieldVTwo("typeName", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("recordCreator", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("recordCreatedOnDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("collectedDateRangeStart", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("collectedDateRangeEnd", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("coveredDateRangeStart", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("coveredDateRangeEnd", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
         return fields;
     }
 
@@ -148,6 +181,12 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         HashMap<String, String> newResources = new HashMap<String, String>();
         newResources.put("researchDataUri", DEFAULT_NS_TOKEN);
         newResources.put("recordCreatedOn", DEFAULT_NS_TOKEN);
+        newResources.put("collectedDateRange", DEFAULT_NS_TOKEN);
+        newResources.put("collectedDateRangeStart", DEFAULT_NS_TOKEN);
+        newResources.put("collectedDateRangeEnd", DEFAULT_NS_TOKEN);
+        newResources.put("coveredDateRange", DEFAULT_NS_TOKEN);
+        newResources.put("coveredDateRangeStart", DEFAULT_NS_TOKEN);
+        newResources.put("coveredDateRangeEnd", DEFAULT_NS_TOKEN);
         return newResources;
     }
 
