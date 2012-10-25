@@ -110,7 +110,7 @@ unimelb-rdr:collectedDateRange a owl:ObjectProperty ;
     rdfs:label "collected between"@en-US ;
     rdfs:domain vivo:ResearchData ;
     rdfs:range vivo:DateTimeInterval ;
-    owl:inverseOf unimelb-rdr:unimelb-rdr:collectedDateRangeFor .
+    owl:inverseOf unimelb-rdr:collectedDateRangeFor .
 unimelb-rdr:collectedDateRangeFor a owl:ObjectProperty ;
     rdfs:label "collected range for"@en-US ;
     rdfs:domain vivo:DateTimeInterval ;
@@ -121,7 +121,7 @@ unimelb-rdr:coveredDateRange a owl:ObjectProperty ;
     rdfs:label "covered between"@en-US ;
     rdfs:domain vivo:ResearchData ;
     rdfs:range vivo:DateTimeInterval ;
-    owl:inverseOf unimelb-rdr:unimelb-rdr:coveredDateRangeFor .
+    owl:inverseOf unimelb-rdr:coveredDateRangeFor .
 unimelb-rdr:coveredDateRangeFor a owl:ObjectProperty ;
     rdfs:label "covered range for"@en-US ;
     rdfs:domain vivo:DateTimeInterval ;
