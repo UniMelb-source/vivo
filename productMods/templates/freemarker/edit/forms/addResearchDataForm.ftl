@@ -38,11 +38,23 @@
     <label for="rights">Rights</label>
     <textarea name="rights" id="rights" style="width:90%;"></textarea>
     <br>
+    <label for="dataManagementPlanAvailable">Data Management Plan Available?</label>
+    <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
+    <br>
     <label for="dataManagementPlanNumber">Data Management Plan</label>
     <input size="30" type="text" id="dataManagementPlanNumber" name="dataManagementPlanNumber" value="">
     <br>
-    <label for="dataManagementPlanAvailable">Data Management Plan Available?</label>
-    <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
+    <label for="collectedDateRangeStart">Collected Date Range Start</label>
+    <input size="30" type="text" id="collectedDateRangeStart" name="collectedDateRangeStart" value="">
+    <br>
+    <label for="collectedDateRangeEnd">Collected Date Range End</label>
+    <input size="30" type="text" id="collectedDateRangeEnd" name="collectedDateRangeEnd" value="">
+    <br>
+    <label for="coveredDateRangeStart">Covered Date Range Start</label>
+    <input size="30" type="text" id="coveredDateRangeStart" name="coveredDateRangeStart" value="">
+    <br>
+    <label for="coveredDateRangeEnd">Covered Date Range End</label>
+    <input size="30" type="text" id="coveredDateRangeEnd" name="coveredDateRangeEnd" value="">
     <br>
 
     <#include "displayResearchDataInferences.ftl" />
