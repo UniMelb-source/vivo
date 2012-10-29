@@ -14,10 +14,12 @@ public class AddResearchDataToContractGenerator extends AddResearchDataToThingGe
     private static final Log log = LogFactory.getLog(AddResearchDataToContractGenerator.class);
 
     protected List<String> getN3Required() {
-        return list(N3_PREFIX
+        List<String> n3Required = super.getN3Required();
+        n3Required.addAll(list(N3_PREFIX
                 + "?contract unimelb-rdr:agreementHasResearchDataOutput ?researchDataUri. \n"
                 + "?researchDataUri unimelb-rdr:isResearchDataForAgreement ?contract. \n"
-                + "?researchDataUri a ands:ResearchData ;");
+                + "?researchDataUri a ands:ResearchData ;"));
+        return n3Required;
     }
 
     @Override

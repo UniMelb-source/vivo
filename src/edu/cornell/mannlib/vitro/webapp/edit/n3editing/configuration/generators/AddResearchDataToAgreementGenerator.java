@@ -18,10 +18,12 @@ public class AddResearchDataToAgreementGenerator extends AddResearchDataToThingG
     private static final Log log = LogFactory.getLog(AddResearchDataToAgreementGenerator.class);
 
     protected List<String> getN3Required() {
-        return list(N3_PREFIX
+        List<String> n3Required = super.getN3Required();
+        n3Required.addAll(list(N3_PREFIX
                 + "?agreement unimelb-rdr:agreementHasResearchDataOutput ?researchDataUri. \n"
                 + "?researchDataUri unimelb-rdr:isResearchDataForAgreement ?agreement. \n"
-                + "?researchDataUri a ands:ResearchData ;");
+                + "?researchDataUri a ands:ResearchData ;"));
+        return n3Required;
     }
 
     @Override

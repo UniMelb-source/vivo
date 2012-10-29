@@ -31,7 +31,6 @@ public class AddProjectRoleToPersonGenerator extends AddRoleToPersonTwoStageGene
     @Override
     protected HashMap<String, String> getRoleActivityTypeLiteralOptions() {
         HashMap<String, String> literalOptions = new HashMap<String, String>();
-        literalOptions.put("", "Select type");
         literalOptions.put("http://vivoweb.org/ontology/core#Project", "Project");
         return literalOptions;
     }

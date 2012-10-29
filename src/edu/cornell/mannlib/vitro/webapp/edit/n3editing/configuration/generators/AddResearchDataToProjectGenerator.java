@@ -35,20 +35,20 @@ public class AddResearchDataToProjectGenerator extends AddResearchDataToThingGen
 
     @Override
     protected final Map<String, String> getInheritedCustodians(String subjectUri) {
-        //ands:associatedPrincipleInvestigator
         String query = SPARQL_PREFIX
                 + "SELECT DISTINCT ?person ?personLabel WHERE { \n"
-                + "<" + subjectUri + "> ands:isManagedBy ?person. \n"
+                + "<" + subjectUri + "> unimelb-rdr:relatedProjectRole ?projectRole. \n"
+                + "?projectRole unimelb-rdr:projectRoleOf ?person. \n"
                 + "?person rdfs:label ?personLabel}";
         return getResults(query, "person", "personLabel");
     }
 
     @Override
     protected final Map<String, String> getInheritedCustodianDepartments(String subjectUri) {
-        //ands:isManagedBy
         String query = SPARQL_PREFIX
                 + "SELECT DISTINCT ?org ?orgLabel WHERE { \n"
-                + "<" + subjectUri + "> ands:isManagedBy ?person. \n"
+                + "<" + subjectUri + "> unimelb-rdr:relatedProjectRole ?projectRole. \n"
+                + "?projectRole unimelb-rdr:projectRoleOf ?person. \n"
                 + "?person core:personInPosition ?position. \n"
                 + "?position core:positionInOrganization ?org. \n"
                 + "?org rdfs:label ?orgLabel}";

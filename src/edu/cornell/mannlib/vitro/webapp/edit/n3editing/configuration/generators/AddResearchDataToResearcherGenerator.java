@@ -16,10 +16,12 @@ public class AddResearchDataToResearcherGenerator extends AddResearchDataToThing
 
     @Override
     protected List<String> getN3Required() {
-        return list(N3_PREFIX
+        List<String> n3Required = super.getN3Required();
+        n3Required.addAll(list(N3_PREFIX
                 + "?researcher ands:isCollectorOf ?researchDataUri. \n"
                 + "?researchDataUri ands:hasCollector ?researcher. \n"
-                + "?researchDataUri a ands:ResearchData ;");
+                + "?researchDataUri a ands:ResearchData ;"));
+        return n3Required;
     }
 
     @Override
