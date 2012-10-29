@@ -2,6 +2,9 @@ package edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators
 
 import com.hp.hpl.jena.vocabulary.XSD;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
+import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.DateTimeIntervalValidationVTwo;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.DateTimeWithPrecisionVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationUtils;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
@@ -54,29 +57,22 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator .",
                 /* Create date time value for created on */
-                //N3_PREFIX + "?recordCreatedOn a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?recordCreatedOn core:dateTime ?recordCreatedOnDateTime .",
                 N3_PREFIX + "?recordCreatedOn core:dateTimePrecision core:yearMonthDayTimePrecision .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .",
                 /* Create date time interval for collected on */
-                //N3_PREFIX + "?collectedDateRangeStart a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?collectedDateRangeStart core:dateTime ?collectedDateRangeStartDateTime .",
                 N3_PREFIX + "?collectedDateRangeStart core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                //N3_PREFIX + "?collectedDateRangeEnd a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?collectedDateRangeEnd core:dateTime ?collectedDateRangeEndDateTime .",
                 N3_PREFIX + "?collectedDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                //N3_PREFIX + "?collectedDateRange a core:DateTimeInterval , owl:Thing .",
                 N3_PREFIX + "?collectedDateRange core:start ?collectedDateRangeStart .",
                 N3_PREFIX + "?collectedDateRange core:end ?collectedDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:collectedDateRange ?collectedDateRange .",
                 /* Create date time interval for covered */
-                //N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?coveredDateRangeStart core:dateTime ?coveredDateRangeStartDateTime .",
                 N3_PREFIX + "?coveredDateRangeStart core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                //N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue , owl:Thing .",
                 N3_PREFIX + "?coveredDateRangeEnd core:dateTime ?coveredDateRangeEndDateTime .",
                 N3_PREFIX + "?coveredDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                //N3_PREFIX + "?coveredDateRange a core:DateTimeInterval , owl:Thing .",
                 N3_PREFIX + "?coveredDateRange core:start ?coveredDateRangeStart .",
                 N3_PREFIX + "?coveredDateRange core:end ?coveredDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:coveredDateRange ?coveredDateRange .");
@@ -185,6 +181,16 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         //fields.add(new CustomFieldVTwo("coveredDateRange", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("coveredDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("coveredDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        FieldVTwo startField = new FieldVTwo().setName("startField");
+        startField.setEditElement(new DateTimeWithPrecisionVTwo(startField,
+                VitroVocabulary.Precision.SECOND.uri(),
+                VitroVocabulary.Precision.NONE.uri()));
+        fields.add(startField);
+        FieldVTwo endField = new FieldVTwo().setName("endField");
+        endField.setEditElement(new DateTimeWithPrecisionVTwo(endField,
+                VitroVocabulary.Precision.SECOND.uri(),
+                VitroVocabulary.Precision.NONE.uri()));
+        fields.add(endField);
         return fields;
     }
 
@@ -207,6 +213,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         List<N3ValidatorVTwo> validators = new ArrayList<N3ValidatorVTwo>();
 
         validators.add(new AntiXssValidation());
+        validators.add(new DateTimeIntervalValidationVTwo("startField","endField"));
         return validators;
     }
 
