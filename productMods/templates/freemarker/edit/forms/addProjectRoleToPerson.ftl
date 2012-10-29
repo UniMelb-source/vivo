@@ -49,17 +49,17 @@
 
 
 <#--Get selected activity type value if it exists, this is alternative to below-->
-<#assign activityTypeValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "roleActivityType")/>
+<#assign projectTypeValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "projectType")/>
 
 <#--Get activity label value-->
-<#assign activityLabelValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "activityLabel") />
+<#assign projectLabelValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "projectLabel") />
 
 
 <#--Get role label-->
 <#assign roleLabel = lvf.getFormFieldValue(editSubmission, editConfiguration, "roleLabel") />
 
 <#--For role activity uri-->
-<#assign existingRoleActivityValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "roleActivity") />
+<#assign existingProjectValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "project") />
 
 
 <#assign requiredHint = "<span class='requiredHint'> *</span>" />
@@ -92,7 +92,7 @@
         </#if>
         </#list>
         <#--Checking if Name field is empty-->
-        <#if lvf.submissionErrorExists(editSubmission, "activityLabel")>
+        <#if lvf.submissionErrorExists(editSubmission, "projectLabel")>
         Please enter or select a value in the Name field.<br />
         </#if>
         <#--Checking if role field is empty-->
@@ -111,22 +111,22 @@
     <form id="add${roleDescriptor?capitalize}RoleToPersonTwoStage" class="customForm noIE67" action="${submitUrl}"  role="add/edit grant role">
 
         <p class="inline">
-            <#assign roleActivityTypeValues = editConfiguration.pageData.roleActivityType />
-            <#assign roleActivityTypeKeys = roleActivityTypeValues?keys />
-            <#if (roleActivityTypeKeys?size > 1)>
-                <select id="typeSelector" name="roleActivityType" 
+            <#assign projectTypeValues = editConfiguration.pageData.projectType />
+            <#assign projectTypeKeys = projectTypeValues?keys />
+            <#if (projectTypeKeys?size > 1)>
+                <select id="typeSelector" name="projectType" 
                     <#if disabledVal?has_content>
                         disabled = "${disabledVal}"
                     </#if>
                     >
                     <#--Code below allows for selection of first 'select one' option if no activity type selected-->
-                    <#if activityTypeValue?has_content>
-                        <#assign selectedActivityType = activityTypeValue />
+                    <#if projectTypeValue?has_content>
+                        <#assign selectedProjectType = projectTypeValue />
                     <#else>
-                        <#assign selectedActivityType = "" />
+                        <#assign selectedProjectType = "" />
                     </#if>
-                    <#list roleActivityTypeKeys as key>
-                        <option value="${key}"<#if selectedActivityType = key>selected</#if>>${roleActivityTypeValues[key]}</option>
+                    <#list projectTypeKeys as key>
+                        <option value="${key}"<#if selectedProjectType = key>selected</#if>>${projectTypeValues[key]}</option>
                     </#list>
                 </select>
             </#if>
@@ -134,21 +134,21 @@
         <!--div class="fullViewOnly"-->
             <p>
                 <label for="relatedIndLabel">Project Name ${requiredHint}</label>
-                <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="activityLabel"  value="${activityLabelValue}" 
+                <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="projectLabel"  value="${projectLabelValue}" 
                        <#if disabledVal?has_content>
                        disabled=${disabledVal}
                        </#if>
                        />
             </p>
 
-            <input type="hidden" id="roleToActivityPredicate" name="roleToActivityPredicate" value="" />
+            <input type="hidden" id="roleToProjectPredicate" name="roleToProjectPredicate" value="" />
             <!--Populated or modified by JavaScript based on type of activity, type returned from AJAX request-->
 
             <#if editMode = "edit">
-            <input type="hidden" id="roleActivityType" name="roleActivityType" value="${activityTypeValue}"/>
-            <input type="hidden" id="activityLabel" name="activityLabel" value="${activityLabelValue}"/>
+            <input type="hidden" id="projectType" name="projectType" value="${projectTypeValue}"/>
+            <input type="hidden" id="projectLabel" name="projectLabel" value="${projectLabelValue}"/>
             </#if>
-            <@lvf.acSelection urls.base "roleActivity" "roleActivityUri" existingRoleActivityValue />
+            <@lvf.acSelection urls.base "project" "projectUri" existingProjectValue />
 
             <#if showRoleLabelField = true>
             <p><label for="roleLabel">Role in ### ${requiredHint} ${roleExamples}</label>

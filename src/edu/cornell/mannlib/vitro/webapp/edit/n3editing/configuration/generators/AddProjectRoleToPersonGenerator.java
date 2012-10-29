@@ -46,15 +46,15 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         return "https://rdr.unimelb.edu.au/config/ProjectRole";
     }
 
-    RoleActivityOptionTypes getRoleActivityTypeOptionsType() {
-        return RoleActivityOptionTypes.HARDCODED_LITERALS;
+    ProjectOptionTypes getProjectTypeOptionsType() {
+        return ProjectOptionTypes.HARDCODED_LITERALS;
     }
 
-    String getRoleActivityTypeObjectClassUri(VitroRequest vreq) {
+    String getProjectTypeObjectClassUri(VitroRequest vreq) {
         return null;
     }
 
-    protected HashMap<String, String> getRoleActivityTypeLiteralOptions() {
+    protected HashMap<String, String> getProjectTypeLiteralOptions() {
         HashMap<String, String> literalOptions = new HashMap<String, String>();
         literalOptions.put("http://vivoweb.org/ontology/core#Project", "Project");
         return literalOptions;
@@ -89,11 +89,11 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         //independently evaluated and passed back with substitutions even if the other strings are not 
         //substituted correctly. 
         editConfiguration.setN3Optional(list(
-                "?role " + getRoleToActivityPlaceholder() + " ?roleActivity .\n"
-                + "?roleActivity " + getActivityToRolePlaceholder() + " ?role .",
+                "?role " + getRoleToProjectPlaceholder() + " ?project .\n"
+                + "?project " + getProjectToRolePlaceholder() + " ?role .",
                 "?role ?inverseRolePredicate ?person .",
-                getN3ForActivityLabel(),
-                getN3ForActivityType(),
+                getN3ForProjectLabel(),
+                getN3ForProjectType(),
                 getN3RoleLabelAssertion(),
                 getN3ForStart(),
                 getN3ForEnd()));
@@ -139,12 +139,12 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     }
 
     /* N3 Required and Optional Generators as well as supporting methods */
-    private String getN3ForActivityLabel() {
-        return "?roleActivity <" + RDFS.label.getURI() + "> ?activityLabel .";
+    private String getN3ForProjectLabel() {
+        return "?project <" + RDFS.label.getURI() + "> ?projectLabel .";
     }
 
-    private String getN3ForActivityType() {
-        return "?roleActivity a ?roleActivityType .";
+    private String getN3ForProjectType() {
+        return "?project a <http://vivoweb.org/ontology/core#Project> .";
     }
 
     private String getN3RoleLabelAssertion() {
@@ -182,7 +182,7 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
 
         HashMap<String, String> newResources = new HashMap<String, String>();
         newResources.put("role", DEFAULT_NS_TOKEN);
-        newResources.put("roleActivity", DEFAULT_NS_TOKEN);
+        newResources.put("project", DEFAULT_NS_TOKEN);
         newResources.put("intervalNode", DEFAULT_NS_TOKEN);
         newResources.put("startNode", DEFAULT_NS_TOKEN);
         newResources.put("endNode", DEFAULT_NS_TOKEN);
@@ -218,17 +218,17 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     private void setUrisAndLiteralsOnForm(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         List<String> urisOnForm = new ArrayList<String>();
         //add role activity and roleActivityType to uris on form
-        urisOnForm.add("roleActivity");
-        urisOnForm.add("roleActivityType");
+        urisOnForm.add("project");
+        //urisOnForm.add("roleActivityType");
         //Also adding the predicates
         //TODO: Check how to override this in case of default parameter? Just write hidden input to form?
-        urisOnForm.add("roleToActivityPredicate");
-        urisOnForm.add("activityToRolePredicate");
+        //urisOnForm.add("roleToActivityPredicate");
+        //urisOnForm.add("activityToRolePredicate");
         editConfiguration.setUrisOnform(urisOnForm);
 
         //activity label and role label are literals on form
         List<String> literalsOnForm = new ArrayList<String>();
-        literalsOnForm.add("activityLabel");
+        literalsOnForm.add("projectLabel");
         literalsOnForm.add("roleLabel");
         editConfiguration.setLiteralsOnForm(literalsOnForm);
     }
@@ -239,7 +239,7 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     private void setSparqlQueries(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         //Queries for activity label, role label, start Field value, end Field value
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("activityLabel", getActivityLabelQuery(vreq));
+        map.put("projectLabel", getProjectLabelQuery(vreq));
         map.put("roleLabel", getRoleLabelQuery(vreq));
         map.put("startField-value", getExistingStartDateQuery(vreq));
         map.put("endField-value", getExistingEndDateQuery(vreq));
@@ -249,41 +249,41 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         //Queries for role activity, activity type query, interval node, 
         // start node, end node, start field precision, endfield precision
         map = new HashMap<String, String>();
-        map.put("roleActivity", getRoleActivityQuery(vreq));
-        map.put("roleActivityType", getActivityTypeQuery(vreq));
+        map.put("project", getProjectQuery(vreq));
+        map.put("projectType", getProjectTypeQuery(vreq));
         map.put("intervalNode", getIntervalNodeQuery(vreq));
         map.put("startNode", getStartNodeQuery(vreq));
         map.put("endNode", getEndNodeQuery(vreq));
         map.put("startField-precision", getStartPrecisionQuery(vreq));
         map.put("endField-precision", getEndPrecisionQuery(vreq));
         //Also need sparql queries for roleToActivityPredicate and activityToRolePredicate
-        map.put("roleToActivityPredicate", getRoleToActivityPredicateQuery(vreq));
-        map.put("activityToRolePredicate", getActivityToRolePredicateQuery(vreq));
+        map.put("roleToProjectPredicate", getRoleToProjectPredicateQuery(vreq));
+        map.put("projectToRolePredicate", getProjectToRolePredicateQuery(vreq));
 
         editConfiguration.setSparqlForExistingUris(map);
     }
 
-    private String getActivityToRolePredicateQuery(VitroRequest vreq) {
-        String query = "SELECT ?existingActivityToRolePredicate \n "
+    private String getProjectToRolePredicateQuery(VitroRequest vreq) {
+        String query = "SELECT ?existingProjectToRolePredicate \n "
                 + "WHERE { \n"
-                + "?roleActivity ?existingActivityToRolePredicate ?role .\n";
+                + "?project ?existingProjectToRolePredicate ?role .\n";
         //Get possible predicates
         List<String> addToQuery = new ArrayList<String>();
-        List<String> predicates = getPossibleActivityToRolePredicates();
+        List<String> predicates = getProjectToRolePredicates();
         for (String p : predicates) {
-            addToQuery.add("(?existingActivityToRolePredicate=<" + p + ">)");
+            addToQuery.add("(?existingProjectToRolePredicate=<" + p + ">)");
         }
         query += "FILTER (" + StringUtils.join(addToQuery, " || ") + ")\n";
         query += "}";
         return query;
     }
 
-    private String getRoleToActivityPredicateQuery(VitroRequest vreq) {
-        String query = "SELECT ?existingRoleToActivityPredicate \n "
+    private String getRoleToProjectPredicateQuery(VitroRequest vreq) {
+        String query = "SELECT ?existingRoleToProjectPredicate \n "
                 + "WHERE { \n"
-                + "?role ?existingRoleToActivityPredicate ?roleActivity .\n";
+                + "?role ?existingRoleToProjectPredicate ?project .\n";
         //Get possible predicates
-        query += getFilterRoleToActivityPredicate("existingRoleToActivityPredicate");
+        query += getFilterRoleToProjectPredicate("existingRoleToProjectPredicate");
         query += "\n}";
         return query;
     }
@@ -344,58 +344,58 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
      * but that is unlikely.
      */
     //This method had some code already setup in the jsp file
-    private String getActivityTypeQuery(VitroRequest vreq) {
-        String activityTypeQuery = null;
+    private String getProjectTypeQuery(VitroRequest vreq) {
+        String projectTypeQuery = null;
 
         //roleActivityType_optionsType: This gets you whether this is a literal
         //
-        RoleActivityOptionTypes optionsType = getRoleActivityTypeOptionsType();
+        ProjectOptionTypes optionsType = getProjectTypeOptionsType();
 
         // Note that this value is overloaded to specify either object class uri or classgroup uri
-        String objectClassUri = getRoleActivityTypeObjectClassUri(vreq);
+        String objectClassUri = getProjectTypeObjectClassUri(vreq);
 
         if (StringUtils.isNotBlank(objectClassUri)) {
             log.debug("objectClassUri = " + objectClassUri);
 
-            if (RoleActivityOptionTypes.VCLASSGROUP.equals(optionsType)) {
-                activityTypeQuery = getClassgroupActivityTypeQuery(vreq);
-                activityTypeQuery = QueryUtils.subUriForQueryVar(activityTypeQuery, "classgroup", objectClassUri);
+            if (ProjectOptionTypes.VCLASSGROUP.equals(optionsType)) {
+                projectTypeQuery = getClassgroupProjectTypeQuery(vreq);
+                projectTypeQuery = QueryUtils.subUriForQueryVar(projectTypeQuery, "classgroup", objectClassUri);
 
-            } else if (RoleActivityOptionTypes.CHILD_VCLASSES.equals(optionsType)) {
-                activityTypeQuery = getSubclassActivityTypeQuery(vreq);
-                activityTypeQuery = QueryUtils.subUriForQueryVar(activityTypeQuery, "objectClassUri", objectClassUri);
+            } else if (ProjectOptionTypes.CHILD_VCLASSES.equals(optionsType)) {
+                projectTypeQuery = getSubclassProjectTypeQuery(vreq);
+                projectTypeQuery = QueryUtils.subUriForQueryVar(projectTypeQuery, "objectClassUri", objectClassUri);
 
             } else {
-                activityTypeQuery = getDefaultActivityTypeQuery(vreq);
+                projectTypeQuery = getDefaultProjectTypeQuery(vreq);
             }
 
             // Select options are hardcoded
-        } else if (RoleActivityOptionTypes.HARDCODED_LITERALS.equals(optionsType)) {
+        } else if (ProjectOptionTypes.HARDCODED_LITERALS.equals(optionsType)) {
 
             //literal options
-            HashMap<String, String> typeLiteralOptions = getRoleActivityTypeLiteralOptions();
+            HashMap<String, String> typeLiteralOptions = getProjectTypeLiteralOptions();
             if (typeLiteralOptions.size() > 0) {
                 try {
                     List<String> typeUris = new ArrayList<String>();
                     Set<String> optionUris = typeLiteralOptions.keySet();
                     for (String uri : optionUris) {
                         if (!uri.isEmpty()) {
-                            typeUris.add("(?existingActivityType = <" + uri + ">)");
+                            typeUris.add("(?existingProjectType = <" + uri + ">)");
                         }
                     }
                     String typeFilters = "FILTER (" + StringUtils.join(typeUris, "||") + ")";
-                    String defaultActivityTypeQuery = getDefaultActivityTypeQuery(vreq);
-                    activityTypeQuery = defaultActivityTypeQuery.replaceAll("}$", "") + typeFilters + "}";
+                    String defaultProjectTypeQuery = getDefaultProjectTypeQuery(vreq);
+                    projectTypeQuery = defaultProjectTypeQuery.replaceAll("}$", "") + typeFilters + "}";
                 } catch (Exception e) {
-                    activityTypeQuery = getDefaultActivityTypeQuery(vreq);
+                    projectTypeQuery = getDefaultProjectTypeQuery(vreq);
                 }
 
             } else {
-                activityTypeQuery = getDefaultActivityTypeQuery(vreq);
+                projectTypeQuery = getDefaultProjectTypeQuery(vreq);
             }
 
         } else {
-            activityTypeQuery = getDefaultActivityTypeQuery(vreq);
+            projectTypeQuery = getDefaultProjectTypeQuery(vreq);
         }
 
         //The replacement of activity type query's predicate was only relevant when we actually
@@ -403,60 +403,60 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         //Here we have multiple values possible for predicate so the original 
         //Replacement should only happen when we have an actual predicate
 
-        String replaceRoleToActivityPredicate = getRoleToActivityPredicate(vreq);
-        activityTypeQuery = QueryUtils.replaceQueryVar(activityTypeQuery, "predicate", getRoleToActivityPlaceholderName());
-        log.debug("Activity type query: " + activityTypeQuery);
+        String replaceRoleToProjectPredicate = getRoleToProjectPredicate(vreq);
+        projectTypeQuery = QueryUtils.replaceQueryVar(projectTypeQuery, "predicate", getRoleToProjectPlaceholderName());
+        log.debug("Project type query: " + projectTypeQuery);
 
-        return activityTypeQuery;
+        return projectTypeQuery;
     }
 
-    private String getDefaultActivityTypeQuery(VitroRequest vreq) {
+    private String getDefaultProjectTypeQuery(VitroRequest vreq) {
         String query = "PREFIX core: <" + VIVO_NS + ">\n"
                 + "PREFIX vitro: <" + VitroVocabulary.vitroURI + "> \n"
-                + "SELECT ?existingActivityType WHERE { \n"
-                + "    ?role ?predicate ?existingActivity . \n"
-                + "    ?existingActivity vitro:mostSpecificType ?existingActivityType . \n";
-        query += getFilterRoleToActivityPredicate("predicate");
+                + "SELECT ?existingProjectType WHERE { \n"
+                + "    ?role ?predicate ?existingProject . \n"
+                + "    ?existingProject vitro:mostSpecificType ?existingProjectType . \n";
+        query += getFilterRoleToProjectPredicate("predicate");
         query += "}";
         return query;
     }
 
-    private String getSubclassActivityTypeQuery(VitroRequest vreq) {
+    private String getSubclassProjectTypeQuery(VitroRequest vreq) {
         String query = "PREFIX core: <" + VIVO_NS + ">\n"
                 + "PREFIX rdfs: <" + VitroVocabulary.RDFS + ">\n"
                 + "PREFIX vitro: <" + VitroVocabulary.vitroURI + "> \n"
-                + "SELECT ?existingActivityType WHERE {\n"
-                + "    ?role ?predicate ?existingActivity . \n"
-                + "    ?existingActivity vitro:mostSpecificType ?existingActivityType . \n"
-                + "    ?existingActivityType rdfs:subClassOf ?objectClassUri . \n";
-        query += getFilterRoleToActivityPredicate("predicate");
+                + "SELECT ?existingProjectType WHERE {\n"
+                + "    ?role ?predicate ?existingProject . \n"
+                + "    ?existingProject vitro:mostSpecificType ?existingProjectType . \n"
+                + "    ?existingProjectType rdfs:subClassOf ?objectClassUri . \n";
+        query += getFilterRoleToProjectPredicate("predicate");
         query += "}";
         return query;
     }
 
-    private String getClassgroupActivityTypeQuery(VitroRequest vreq) {
+    private String getClassgroupProjectTypeQuery(VitroRequest vreq) {
         String query = "PREFIX core: <" + VIVO_NS + ">\n"
                 + "PREFIX vitro: <" + VitroVocabulary.vitroURI + "> \n"
-                + "SELECT ?existingActivityType WHERE { \n"
-                + "    ?role ?predicate ?existingActivity . \n"
-                + "    ?existingActivity vitro:mostSpecificType ?existingActivityType . \n"
-                + "    ?existingActivityType vitro:inClassGroup ?classgroup . \n";
-        query += getFilterRoleToActivityPredicate("predicate");
+                + "SELECT ?existingProjectType WHERE { \n"
+                + "    ?role ?predicate ?existingProject . \n"
+                + "    ?existingProject vitro:mostSpecificType ?existingProjectType . \n"
+                + "    ?existingProjectType vitro:inClassGroup ?classgroup . \n";
+        query += getFilterRoleToProjectPredicate("predicate");
         query += "}";
         return query;
     }
 
-    private String getRoleActivityQuery(VitroRequest vreq) {
+    private String getProjectQuery(VitroRequest vreq) {
         //If role to activity predicate is the default query, then we need to replace with a union
         //of both realizedIn and the other
         String query = "PREFIX core: <" + VIVO_NS + ">";
 
         //Portion below for multiple possible predicates
-        List<String> predicates = getPossibleRoleToActivityPredicates();
+        List<String> predicates = getRoleToProjectPredicates();
         List<String> addToQuery = new ArrayList<String>();
-        query += "SELECT ?existingActivity WHERE { \n"
-                + " ?role ?predicate ?existingActivity . \n ";
-        query += getFilterRoleToActivityPredicate("predicate");
+        query += "SELECT ?existingProject WHERE { \n"
+                + " ?role ?predicate ?existingProject . \n ";
+        query += getFilterRoleToProjectPredicate("predicate");
         query += "}";
         return query;
     }
@@ -488,14 +488,14 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         return query;
     }
 
-    private String getActivityLabelQuery(VitroRequest vreq) {
+    private String getProjectLabelQuery(VitroRequest vreq) {
         String query = "PREFIX core: <" + VIVO_NS + ">"
                 + "PREFIX rdfs: <" + RDFS.getURI() + "> \n";
 
         query += "SELECT ?existingTitle WHERE { \n"
-                + "?role ?predicate ?existingActivity . \n"
-                + "?existingActivity rdfs:label ?existingTitle . \n";
-        query += getFilterRoleToActivityPredicate("predicate");
+                + "?role ?predicate ?existingProject . \n"
+                + "?existingProject rdfs:label ?existingTitle . \n";
+        query += getFilterRoleToProjectPredicate("predicate");
         query += "}";
         return query;
     }
@@ -507,24 +507,24 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     private void setFields(EditConfigurationVTwo editConfiguration, VitroRequest vreq, String predicateUri) {
         Map<String, FieldVTwo> fields = new HashMap<String, FieldVTwo>();
         //Multiple fields
-        getActivityLabelField(editConfiguration, vreq, fields);
-        getRoleActivityTypeField(editConfiguration, vreq, fields);
-        getRoleActivityField(editConfiguration, vreq, fields);
+        getProjectLabelField(editConfiguration, vreq, fields);
+        getProjectTypeField(editConfiguration, vreq, fields);
+        getProjectField(editConfiguration, vreq, fields);
         getRoleLabelField(editConfiguration, vreq, fields);
         getStartField(editConfiguration, vreq, fields);
         getEndField(editConfiguration, vreq, fields);
         //These fields are for the predicates that will be set later
         //TODO: Do these only if not using a parameter for the predicate?
-        getRoleToActivityPredicateField(editConfiguration, vreq, fields);
-        getActivityToRolePredicateField(editConfiguration, vreq, fields);
+        getRoleToProjectPredicateField(editConfiguration, vreq, fields);
+        getProjectToRolePredicateField(editConfiguration, vreq, fields);
         editConfiguration.setFields(fields);
     }
 
     //This is a literal technically?
-    private void getActivityToRolePredicateField(
+    private void getProjectToRolePredicateField(
             EditConfigurationVTwo editConfiguration, VitroRequest vreq,
             Map<String, FieldVTwo> fields) {
-        String fieldName = "activityToRolePredicate";
+        String fieldName = "projectToRolePredicate";
         //get range data type uri and range language
         String stringDatatypeUri = XSD.xstring.toString();
 
@@ -548,10 +548,10 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         fields.put(field.getName(), field);
     }
 
-    private void getRoleToActivityPredicateField(
+    private void getRoleToProjectPredicateField(
             EditConfigurationVTwo editConfiguration, VitroRequest vreq,
             Map<String, FieldVTwo> fields) {
-        String fieldName = "roleToActivityPredicate";
+        String fieldName = "roleToProjectPredicate";
         //get range data type uri and range language
         String stringDatatypeUri = XSD.xstring.toString();
 
@@ -577,9 +577,9 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     }
 
     //Label of "right side" of role, i.e. label for role roleIn Activity
-    private void getActivityLabelField(EditConfigurationVTwo editConfiguration,
+    private void getProjectLabelField(EditConfigurationVTwo editConfiguration,
             VitroRequest vreq, Map<String, FieldVTwo> fields) {
-        String fieldName = "activityLabel";
+        String fieldName = "projectLabel";
         //get range data type uri and range language
         String stringDatatypeUri = XSD.xstring.toString();
 
@@ -609,10 +609,10 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     }
 
     //type of "right side" of role, i.e. type of activity from role roleIn activity
-    private void getRoleActivityTypeField(
+    private void getProjectTypeField(
             EditConfigurationVTwo editConfiguration, VitroRequest vreq,
             Map<String, FieldVTwo> fields) {
-        String fieldName = "roleActivityType";
+        String fieldName = "projectType";
         //get range data type uri and range language
 
         FieldVTwo field = new FieldVTwo();
@@ -626,14 +626,14 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
 
         //subjectUri and subjectClassUri are not being used in Field
         //TODO: Check if this is correct
-        field.setOptionsType(getRoleActivityTypeOptionsType().toString());
+        field.setOptionsType(getProjectTypeOptionsType().toString());
         //why isn't predicate uri set for data properties?
         field.setPredicateUri(null);
-        field.setObjectClassUri(getRoleActivityTypeObjectClassUri(vreq));
+        field.setObjectClassUri(getProjectTypeObjectClassUri(vreq));
         field.setRangeDatatypeUri(null);
 
 
-        HashMap<String, String> literalOptionsMap = getRoleActivityTypeLiteralOptions();
+        HashMap<String, String> literalOptionsMap = getProjectTypeLiteralOptions();
         List<List<String>> fieldLiteralOptions = new ArrayList<List<String>>();
         Set<String> optionUris = literalOptionsMap.keySet();
         for (String optionUri : optionUris) {
@@ -649,9 +649,9 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     }
 
     //Assuming URI for activity for role?
-    private void getRoleActivityField(EditConfigurationVTwo editConfiguration,
+    private void getProjectField(EditConfigurationVTwo editConfiguration,
             VitroRequest vreq, Map<String, FieldVTwo> fields) {
-        String fieldName = "roleActivity";
+        String fieldName = "project";
         //get range data type uri and range language
 
         FieldVTwo field = new FieldVTwo();
@@ -672,7 +672,7 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
 
         fields.put(field.getName(), field);
     }
-
+get
     private void getRoleLabelField(EditConfigurationVTwo editConfiguration,
             VitroRequest vreq, Map<String, FieldVTwo> fields) {
         String fieldName = "roleLabel";
@@ -762,8 +762,8 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     private void addPreprocessors(EditConfigurationVTwo editConfiguration, WebappDaoFactory wadf) {
         //Add preprocessor that will replace the role to activity predicate and inverse
         //with correct properties based on the activity type
-        editConfiguration.addEditSubmissionPreprocessor(
-                new RoleToActivityPredicatePreprocessor(editConfiguration, wadf));
+        /*editConfiguration.addEditSubmissionPreprocessor(
+                new RoleToActivityPredicatePreprocessor(editConfiguration, wadf));*/
 
     }
 
@@ -772,24 +772,30 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
     //Overridden when need be in subclassed generator
     //Also note that for now we're going to actually going to return a 
     //placeholder value by default	
-    public String getRoleToActivityPredicate(VitroRequest vreq) {
+    public String getRoleToProjectPredicate(VitroRequest vreq) {
         //TODO: <uri> and ?placeholder are incompatible
-        return getRoleToActivityPlaceholder();
+        return getRoleToProjectPlaceholder();
     }
     //Ensure when overwritten that this includes the <> b/c otherwise the query won't work
 
     //Some values will have a default value
-    public List<String> getPossibleRoleToActivityPredicates() {
-        return ModelUtils.getPossiblePropertiesForRole();
+    public List<String> getRoleToProjectPredicates() {
+        List<String> predicates = new ArrayList<String>();
+        predicates.add("https://rdr.unimelb.edu.au/config/projectRoleIn");
+        return predicates;
+        //return ModelUtils.getPossiblePropertiesForRole();
     }
 
-    public List<String> getPossibleActivityToRolePredicates() {
-        return ModelUtils.getPossibleInversePropertiesForRole();
+    public List<String> getProjectToRolePredicates() {
+        List<String> predicates = new ArrayList<String>();
+        predicates.add("https://rdr.unimelb.edu.au/config/relatedProjectRole");
+        return predicates;
+        //return ModelUtils.getPossibleInversePropertiesForRole();
     }
 
     /* Methods that check edit mode	 */
     public FrontEndEditingUtils.EditMode getEditMode(VitroRequest vreq) {
-        List<String> roleToGrantPredicates = getPossibleRoleToActivityPredicates();
+        List<String> roleToGrantPredicates = getRoleToProjectPredicates();
         return EditModeUtils.getEditMode(vreq, roleToGrantPredicates);
     }
 
@@ -823,7 +829,7 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         //Fields that will need select lists generated
         //Store field names
         List<String> objectSelect = new ArrayList<String>();
-        objectSelect.add("roleActivityType");
+        objectSelect.add("projectType");
         //TODO: Check if this is the proper way to do this?
         formSpecificData.put("objectSelect", objectSelect);
         //Also put in show role label field
@@ -832,9 +838,9 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         editConfiguration.setFormSpecificData(formSpecificData);
     }
 
-    public String getFilterRoleToActivityPredicate(String predicateVar) {
+    public String getFilterRoleToProjectPredicate(String predicateVar) {
         String addFilter = "FILTER (";
-        List<String> predicates = getPossibleRoleToActivityPredicates();
+        List<String> predicates = getRoleToProjectPredicates();
         List<String> filterPortions = new ArrayList<String>();
         for (String p : predicates) {
             filterPortions.add("(?" + predicateVar + "=<" + p + ">)");
@@ -844,20 +850,20 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         return addFilter;
     }
 
-    private String getRoleToActivityPlaceholder() {
-        return "?" + getRoleToActivityPlaceholderName();
+    private String getRoleToProjectPlaceholder() {
+        return "?" + getRoleToProjectPlaceholderName();
     }
 
-    private String getRoleToActivityPlaceholderName() {
-        return "roleToActivityPredicate";
+    private String getRoleToProjectPlaceholderName() {
+        return "roleToProjectPredicate";
     }
 
-    private String getActivityToRolePlaceholder() {
-        return "?activityToRolePredicate";
+    private String getProjectToRolePlaceholder() {
+        return "?projectToRolePredicate";
     }
 
     //Types of options to populate drop-down for types for the "right side" of the role
-    public static enum RoleActivityOptionTypes {
+    public static enum ProjectOptionTypes {
 
         VCLASSGROUP,
         CHILD_VCLASSES,
