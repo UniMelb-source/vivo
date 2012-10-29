@@ -672,7 +672,7 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
 
         fields.put(field.getName(), field);
     }
-get
+    
     private void getRoleLabelField(EditConfigurationVTwo editConfiguration,
             VitroRequest vreq, Map<String, FieldVTwo> fields) {
         String fieldName = "roleLabel";
