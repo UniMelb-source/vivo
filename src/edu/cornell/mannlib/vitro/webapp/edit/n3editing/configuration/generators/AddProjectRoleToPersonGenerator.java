@@ -89,8 +89,8 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         //independently evaluated and passed back with substitutions even if the other strings are not 
         //substituted correctly. 
         editConfiguration.setN3Optional(list(
-                "?role " + getRoleToProjectPlaceholder() + " ?project .\n"
-                + "?project " + getProjectToRolePlaceholder() + " ?role .",
+                "?role <https://rdr.unimelb.edu.au/config/projectRoleIn> ?project .\n"
+                + "?project <https://rdr.unimelb.edu.au/config/relatedProjectRole> ?role .",
                 "?role ?inverseRolePredicate ?person .",
                 getN3ForProjectLabel(),
                 getN3ForProjectType(),
@@ -250,7 +250,6 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         // start node, end node, start field precision, endfield precision
         map = new HashMap<String, String>();
         map.put("project", getProjectQuery(vreq));
-        map.put("projectType", getProjectTypeQuery(vreq));
         map.put("intervalNode", getIntervalNodeQuery(vreq));
         map.put("startNode", getStartNodeQuery(vreq));
         map.put("endNode", getEndNodeQuery(vreq));
@@ -331,83 +330,6 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
                 + "?role <" + RoleToIntervalURI + "> ?existingIntervalNode . \n"
                 + " ?existingIntervalNode <" + VitroVocabulary.RDF_TYPE + "> <" + IntervalTypeURI + "> . }\n";
         return query;
-    }
-
-    /*
-     * The activity type query results must be limited to the values in the activity type select element. 
-     * Sometimes the query returns a superclass such as owl:Thing instead.
-     * Make use of vitro:mostSpecificType so that, for example, an individual is both a 
-     * core:InvitedTalk and a core:Presentation, core:InvitedTalk is selected.
-     * vitro:mostSpecificType alone may not suffice, since it does not guarantee that the value returned
-     * is in the select list.
-     * We could still have problems if the value from the select list is not a vitro:mostSpecificType, 
-     * but that is unlikely.
-     */
-    //This method had some code already setup in the jsp file
-    private String getProjectTypeQuery(VitroRequest vreq) {
-        String projectTypeQuery = null;
-
-        //roleActivityType_optionsType: This gets you whether this is a literal
-        //
-        ProjectOptionTypes optionsType = getProjectTypeOptionsType();
-
-        // Note that this value is overloaded to specify either object class uri or classgroup uri
-        String objectClassUri = getProjectTypeObjectClassUri(vreq);
-
-        if (StringUtils.isNotBlank(objectClassUri)) {
-            log.debug("objectClassUri = " + objectClassUri);
-
-            if (ProjectOptionTypes.VCLASSGROUP.equals(optionsType)) {
-                projectTypeQuery = getClassgroupProjectTypeQuery(vreq);
-                projectTypeQuery = QueryUtils.subUriForQueryVar(projectTypeQuery, "classgroup", objectClassUri);
-
-            } else if (ProjectOptionTypes.CHILD_VCLASSES.equals(optionsType)) {
-                projectTypeQuery = getSubclassProjectTypeQuery(vreq);
-                projectTypeQuery = QueryUtils.subUriForQueryVar(projectTypeQuery, "objectClassUri", objectClassUri);
-
-            } else {
-                projectTypeQuery = getDefaultProjectTypeQuery(vreq);
-            }
-
-            // Select options are hardcoded
-        } else if (ProjectOptionTypes.HARDCODED_LITERALS.equals(optionsType)) {
-
-            //literal options
-            HashMap<String, String> typeLiteralOptions = getProjectTypeLiteralOptions();
-            if (typeLiteralOptions.size() > 0) {
-                try {
-                    List<String> typeUris = new ArrayList<String>();
-                    Set<String> optionUris = typeLiteralOptions.keySet();
-                    for (String uri : optionUris) {
-                        if (!uri.isEmpty()) {
-                            typeUris.add("(?existingProjectType = <" + uri + ">)");
-                        }
-                    }
-                    String typeFilters = "FILTER (" + StringUtils.join(typeUris, "||") + ")";
-                    String defaultProjectTypeQuery = getDefaultProjectTypeQuery(vreq);
-                    projectTypeQuery = defaultProjectTypeQuery.replaceAll("}$", "") + typeFilters + "}";
-                } catch (Exception e) {
-                    projectTypeQuery = getDefaultProjectTypeQuery(vreq);
-                }
-
-            } else {
-                projectTypeQuery = getDefaultProjectTypeQuery(vreq);
-            }
-
-        } else {
-            projectTypeQuery = getDefaultProjectTypeQuery(vreq);
-        }
-
-        //The replacement of activity type query's predicate was only relevant when we actually
-        //know which predicate is definitely being used here
-        //Here we have multiple values possible for predicate so the original 
-        //Replacement should only happen when we have an actual predicate
-
-        String replaceRoleToProjectPredicate = getRoleToProjectPredicate(vreq);
-        projectTypeQuery = QueryUtils.replaceQueryVar(projectTypeQuery, "predicate", getRoleToProjectPlaceholderName());
-        log.debug("Project type query: " + projectTypeQuery);
-
-        return projectTypeQuery;
     }
 
     private String getDefaultProjectTypeQuery(VitroRequest vreq) {
@@ -767,15 +689,6 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
 
     }
 
-    //This has a default value, but note that even that will not be used
-    //in the update with realized in or contributes to
-    //Overridden when need be in subclassed generator
-    //Also note that for now we're going to actually going to return a 
-    //placeholder value by default	
-    public String getRoleToProjectPredicate(VitroRequest vreq) {
-        //TODO: <uri> and ?placeholder are incompatible
-        return getRoleToProjectPlaceholder();
-    }
     //Ensure when overwritten that this includes the <> b/c otherwise the query won't work
 
     //Some values will have a default value
@@ -848,18 +761,6 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         addFilter += StringUtils.join(filterPortions, " || ");
         addFilter += ")";
         return addFilter;
-    }
-
-    private String getRoleToProjectPlaceholder() {
-        return "?" + getRoleToProjectPlaceholderName();
-    }
-
-    private String getRoleToProjectPlaceholderName() {
-        return "roleToProjectPredicate";
-    }
-
-    private String getProjectToRolePlaceholder() {
-        return "?projectToRolePredicate";
     }
 
     //Types of options to populate drop-down for types for the "right side" of the role
