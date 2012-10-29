@@ -37,6 +37,6 @@ public class AddProjectRoleToPersonGenerator extends AddRoleToPersonTwoStageGene
 
     @Override
     boolean isShowRoleLabelField() {
-        return true;
+        return false;
     }
 }

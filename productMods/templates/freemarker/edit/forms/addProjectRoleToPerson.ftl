@@ -110,11 +110,11 @@
 
     <form id="add${roleDescriptor?capitalize}RoleToPersonTwoStage" class="customForm noIE67" action="${submitUrl}"  role="add/edit grant role">
 
-        <p class="inline"><label for="typeSelector">${typeSelectorLabel?capitalize} ${requiredHint}</label>
+        <p class="inline">
             <#assign roleActivityTypeValues = editConfiguration.pageData.roleActivityType />
             <#assign roleActivityTypeKeys = roleActivityTypeValues?keys />
             <#if roleActivityTypeKeys?size == 1>
-                <input type="hidden" name="roleActivityType" value="${roleActivityTypeKeys[0]}" id="recordCreator"/>
+                <input type="hidden" name="roleActivityType" value="${roleActivityTypeKeys[0]}" id="roleActivityType"/>
             <#else>
                 <select id="typeSelector" name="roleActivityType" 
                     <#if disabledVal?has_content>
@@ -134,7 +134,7 @@
             </#if>
         </p>
         <p>
-            <label for="relatedIndLabel">### Name ${requiredHint}</label>
+            <label for="relatedIndLabel">Project Name ${requiredHint}</label>
             <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="activityLabel"  value="${activityLabelValue}" 
                    <#if disabledVal?has_content>
                    disabled=${disabledVal}
