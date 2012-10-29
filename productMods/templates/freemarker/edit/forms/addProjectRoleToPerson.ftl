@@ -113,9 +113,7 @@
         <p class="inline">
             <#assign roleActivityTypeValues = editConfiguration.pageData.roleActivityType />
             <#assign roleActivityTypeKeys = roleActivityTypeValues?keys />
-            <#if roleActivityTypeKeys?size == 1>
-                <input type="hidden" name="roleActivityType" value="${roleActivityTypeKeys[0]}" id="roleActivityType"/>
-            <#else>
+            <#if (roleActivityTypeKeys?size > 1)>
                 <select id="typeSelector" name="roleActivityType" 
                     <#if disabledVal?has_content>
                         disabled = "${disabledVal}"
@@ -133,7 +131,7 @@
                 </select>
             </#if>
         </p>
-        <div class="fullViewOnly">
+        <!--div class="fullViewOnly"-->
             <p>
                 <label for="relatedIndLabel">Project Name ${requiredHint}</label>
                 <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="activityLabel"  value="${activityLabelValue}" 
@@ -176,7 +174,7 @@
             ${htmlForElements["endField"]} ${yearHint}
             </#if>
             </#if>
-        </div>
+        <!--/div-->
         <p class="submit">
             <input type="hidden" id="editKey" name="editKey" value="${editKey}" />
             <input type="submit" id="submit" value="${submitButtonText}"/><span class="or"> or </span><a class="cancel" href="${cancelUrl}" title="Cancel">Cancel</a>
@@ -190,6 +188,8 @@
     <script type="text/javascript">
         var customFormData  = {
             acUrl: '${urls.base}/autocomplete?tokenize=true',
+            acType: 'http://vivoweb.org/ontology/core#Project',
+            typeName: 'Project',
             editMode: '${editMode}',
             submitButtonTextType: 'compound',
             defaultTypeName: 'activity' // used in repair mode, to generate button text and org name field label
