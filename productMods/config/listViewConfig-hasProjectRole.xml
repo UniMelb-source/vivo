@@ -11,6 +11,7 @@
         PREFIX owl:   &lt;http://www.w3.org/2002/07/owl#&gt;
         PREFIX rdfs:  &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
         PREFIX vitro: &lt;http://vitro.mannlib.cornell.edu/ns/vitro/0.7#&gt;
+        PREFIX unimelb-rdr: &lt;https://rdr.unimelb.edu.au/config/&gt;
         
         SELECT DISTINCT <collated>?subclass</collated>
                         ?role ?roleLabel                         
@@ -23,7 +24,7 @@
                 
                 OPTIONAL { ?role rdfs:label ?roleLabel }
                 
-                OPTIONAL {  ?role vivo:roleRealizedIn ?project
+                OPTIONAL {  ?role unimelb-rdr:projectRoleIn ?project
                             LET (?projectName := afn:localname(?project)) 
                         
                             OPTIONAL { ?project rdfs:label ?projectLabel }
@@ -71,19 +72,19 @@
         
         CONSTRUCT {
             ?subject ?property ?role .
-            ?role vivo:roleRealizedIn ?project .
+            ?role unimelb-rdr:projectRoleIn ?project .
             ?project vitro:mostSpecificType ?subclass .
             ?subclass rdfs:subClassOf vivo:Project .
             ?subclass owl:equivalentClass vivo:Project .
         } WHERE {
             { 
                 ?subject ?property ?role .
-                ?role vivo:roleRealizedIn ?project .
+                ?role unimelb-rdr:projectRoleIn ?project .
                 ?project vitro:mostSpecificType ?subclass .
                 ?subclass rdfs:subClassOf vivo:Project 
             } UNION {
                 ?subject ?property ?role .
-                ?role vivo:roleRealizedIn ?project .
+                ?role unimelb-rdr:projectRoleIn ?project .
                 ?project vitro:mostSpecificType ?subclass .
                 ?subclass owl:equivalentClass vivo:Project 
             }   
@@ -105,7 +106,7 @@
                 ?role ?roleProperty ?roleValue 
             } UNION {
                 ?subject ?property ?role .
-                ?role vivo:roleRealizedIn ?project . 
+                ?role unimelb-rdr:projectRoleIn ?project . 
                 ?project rdfs:label ?projectLabel 
             }
         } 

@@ -19,7 +19,7 @@
             <a href="${profileUrl(statement.uri("project"))}" title="project name">${statement.projectLabel!statement.projectName}</a>
         <#else>
             <#-- This shouldn't happen, but we must provide for it -->
-            <a href="${profileUrl(statement.uri("role"))}" title="missing presentation">missing presentation</a>
+            <a href="${profileUrl(statement.uri("role"))}" title="missing project">missing project</a>
         </#if>
     </#local>
     
