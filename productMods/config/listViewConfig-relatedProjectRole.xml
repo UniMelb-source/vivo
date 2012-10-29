@@ -14,8 +14,7 @@ http://vivoweb.org/ontology/core#realizedRole and http://vivoweb.org/ontology/co
         PREFIX vitro: &lt;http://vitro.mannlib.cornell.edu/ns/vitro/0.7#&gt;
         PREFIX unimelb-rdr: &lt;http://vitro.mannlib.cornell.edu/ns/vitro/0.7#&gt;
         
-        SELECT DISTINCT <collated>?subclass</collated>
-                        ?property
+        SELECT DISTINCT ?property
                         ?role   
                         ?roleLabel ?roleTypeLabel                          
                         ?indivInRole (afn:localname(?indivInRole) AS ?indivName)
@@ -28,11 +27,10 @@ http://vivoweb.org/ontology/core#realizedRole and http://vivoweb.org/ontology/co
 
             # We need ?subclass in the uncollated query to get the roleTypeLabel  
             # for roles that have no label (e.g., InvestigatorRole and its subclasses).
-            OPTIONAL { ?role vitro:mostSpecificType ?subclass . 
-                       ?subclass rdfs:subClassOf unimelb-rdr:ProjectRole 
-                       OPTIONAL { ?subclass rdfs:label ?roleTypeLabel }
+            OPTIONAL { ?role vitro:mostSpecificType unimelb-rdr:ProjectRole 
+                       OPTIONAL { unimelb-rdr:ProjectRole rdfs:label ?roleTypeLabel }
                        ?roleProp rdfs:subPropertyOf core:roleOf ;
-                                 rdfs:domain ?subclass . 
+                                 rdfs:domain unimelb-rdr:ProjectRole . 
                        OPTIONAL { ?role ?roleProp ?indivInRole 
                                   OPTIONAL { ?indivInRole rdfs:label ?indivLabel }
                                 } 
@@ -49,24 +47,9 @@ http://vivoweb.org/ontology/core#realizedRole and http://vivoweb.org/ontology/co
             <critical-data-required>
             FILTER ( bound(?indivInRole) )
             </critical-data-required>     
-        } ORDER BY <collated>?subclass</collated> ?indivLabel ?roleLabel ?roleTypeLabel ?indivName
+        } ORDER BY ?indivLabel ?roleLabel ?roleTypeLabel ?indivName
     </query-select>
 
-    <query-construct>
-        PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;  
-        PREFIX core: &lt;http://vivoweb.org/ontology/core#&gt;  
-        PREFIX unimelb-rdr: &lt;http://vitro.mannlib.cornell.edu/ns/vitro/0.7#&gt;
-        CONSTRUCT {
-            ?subclass rdfs:subClassOf unimelb-rdr:ProjectRole .
-            ?roleProp rdfs:subPropertyOf core:roleOf . 
-            ?roleProp rdfs:domain ?subclass
-        } WHERE {
-            ?subclass rdfs:subClassOf unimelb-rdr:ProjectRole .
-            ?roleProp rdfs:subPropertyOf core:roleOf ;
-                      rdfs:domain ?subclass
-        }
-    </query-construct>
-    
     <query-construct>
         PREFIX core: &lt;http://vivoweb.org/ontology/core#&gt;
         PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
@@ -75,8 +58,8 @@ http://vivoweb.org/ontology/core#realizedRole and http://vivoweb.org/ontology/co
         CONSTRUCT { 
             ?subject ?property ?role .
             ?role ?roleProperty ?roleValue .
-            ?role vitro:mostSpecificType ?subclass .
-            ?subclass rdfs:label ?roleTypeLabel .
+            ?role vitro:mostSpecificType unimelb-rdr:ProjectRole .
+            unimelb-rdr:ProjectRole rdfs:label ?roleTypeLabel .
             ?indivInRole rdfs:label ?indivLabel
         } WHERE {
             {
@@ -86,11 +69,11 @@ http://vivoweb.org/ontology/core#realizedRole and http://vivoweb.org/ontology/co
                ?role ?roleProperty ?roleValue  
             } UNION {
                ?subject ?property ?role .
-               ?role vitro:mostSpecificType ?subclass 
+               ?role vitro:mostSpecificType unimelb-rdr:ProjectRole 
             } UNION {
                ?subject ?property ?role .
-               ?role vitro:mostSpecificType ?subclass . 
-               ?subclass rdfs:label ?roleTypeLabel
+               ?role vitro:mostSpecificType unimelb-rdr:ProjectRole . 
+               unimelb-rdr:ProjectRole rdfs:label ?roleTypeLabel
             } UNION {
                ?subject ?property ?role .
                ?role ?roleProp ?indivInRole .
