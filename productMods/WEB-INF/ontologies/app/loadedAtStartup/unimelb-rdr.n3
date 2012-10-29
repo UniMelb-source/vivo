@@ -4,5 +4,6 @@
 
 unimelb-rdr:recordCreated display:listViewConfigFile "listViewConfig-recordCreated.xml" .
 unimelb-rdr:hasProjectRole display:listViewConfigFile "listViewConfig-hasProjectRole.xml" .
+unimelb-rdr:relatedProjectRole display:listViewConfigFile "listViewConfig-relatedProjectRole.xml" .
 unimelb-rdr:collectedDateRange display:listViewConfigFile "listViewConfig-dateTimeInterval.xml" .
 unimelb-rdr:coveredDateRange display:listViewConfigFile "listViewConfig-dateTimeInterval.xml" .
