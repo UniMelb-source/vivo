@@ -106,6 +106,20 @@ unimelb-rdr:projectRoleOf a owl:ObjectProperty ;
     rdfs:subPropertyOf vivo:roleOf ;
     owl:inverseOf unimelb-rdr:hasProjectRole .
 
+unimelb-rdr:projectRoleIn a owl:ObjectProperty ;
+    rdfs:label "project role in"@en-US ;
+    rdfs:domain unimelb-rdr:ProjectRole ;
+    rdfs:range vivo:Project ;
+    rdfs:subPropertyOf vivo:roleIn, unimelb-rdr:projectRoleIn ;
+    owl:inverseOf unimelb-rdr:relatedProjectRole .
+unimelb-rdr:relatedProjectRole a owl:ObjectProperty ;
+    rdfs:label "related project role"@en-US ;
+    rdfs:domain vivo:Project ;
+    rdfs:range unimelb-rdr:ProjectRole ;
+    rdfs:subPropertyOf vivo:relatedRole, unimelb-rdr:relatedProjectRole ;
+    owl:inverseOf unimelb-rdr:projectRoleIn ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher .
+
 unimelb-rdr:collectedDateRange a owl:ObjectProperty ;
     rdfs:label "collected between"@en-US ;
     rdfs:domain ands:ResearchData ;
