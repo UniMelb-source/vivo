@@ -61,18 +61,18 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?recordCreatedOn core:dateTimePrecision core:yearMonthDayTimePrecision .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreated ?recordCreatedOn .",
                 /* Create date time interval for collected on */
-                N3_PREFIX + "?collectedDateRangeStart core:dateTime ?collectedDateRangeStartDateTime .",
-                N3_PREFIX + "?collectedDateRangeStart core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?collectedDateRangeEnd core:dateTime ?collectedDateRangeEndDateTime .",
-                N3_PREFIX + "?collectedDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
+                N3_PREFIX + "?collectedDateRangeStart core:dateTime ?collectedDateRangeStartDateTime-value .",
+                N3_PREFIX + "?collectedDateRangeStart core:dateTimePrecision ?collectedDateRangeStartDateTime-precision .",
+                N3_PREFIX + "?collectedDateRangeEnd core:dateTime ?collectedDateRangeEndDateTime-value .",
+                N3_PREFIX + "?collectedDateRangeEnd core:dateTimePrecision ?collectedDateRangeEndDateTime-precision .",
                 N3_PREFIX + "?collectedDateRange core:start ?collectedDateRangeStart .",
                 N3_PREFIX + "?collectedDateRange core:end ?collectedDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:collectedDateRange ?collectedDateRange .",
                 /* Create date time interval for covered */
-                N3_PREFIX + "?coveredDateRangeStart core:dateTime ?coveredDateRangeStartDateTime .",
-                N3_PREFIX + "?coveredDateRangeStart core:dateTimePrecision core:yearMonthDayTimePrecision .",
-                N3_PREFIX + "?coveredDateRangeEnd core:dateTime ?coveredDateRangeEndDateTime .",
-                N3_PREFIX + "?coveredDateRangeEnd core:dateTimePrecision core:yearMonthDayTimePrecision .",
+                N3_PREFIX + "?coveredDateRangeStart core:dateTime ?coveredDateRangeStartDateTime-value .",
+                N3_PREFIX + "?coveredDateRangeStart core:dateTimePrecision ?coveredDateRangeStartDateTime-precision .",
+                N3_PREFIX + "?coveredDateRangeEnd core:dateTime ?coveredDateRangeEndDateTime-value .",
+                N3_PREFIX + "?coveredDateRangeEnd core:dateTimePrecision ?coveredDateRangeEndDateTime-precision .",
                 N3_PREFIX + "?coveredDateRange core:start ?coveredDateRangeStart .",
                 N3_PREFIX + "?coveredDateRange core:end ?coveredDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:coveredDateRange ?coveredDateRange .");
@@ -175,22 +175,30 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         fields.add(new CustomFieldVTwo("typeName", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("recordCreator", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("recordCreatedOnDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        //fields.add(new CustomFieldVTwo("collectedDateRange", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("collectedDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("collectedDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        //fields.add(new CustomFieldVTwo("coveredDateRange", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("coveredDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        fields.add(new CustomFieldVTwo("coveredDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        FieldVTwo startField = new FieldVTwo().setName("startField");
-        startField.setEditElement(new DateTimeWithPrecisionVTwo(startField,
-                VitroVocabulary.Precision.SECOND.uri(),
+        //fields.add(new CustomFieldVTwo("collectedDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        //fields.add(new CustomFieldVTwo("collectedDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        //fields.add(new CustomFieldVTwo("coveredDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        //fields.add(new CustomFieldVTwo("coveredDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
+        FieldVTwo collectedStartField = new FieldVTwo().setName("collectedDateRangeStartDateTime");
+        collectedStartField.setEditElement(new DateTimeWithPrecisionVTwo(collectedStartField,
+                VitroVocabulary.Precision.DAY.uri(),
                 VitroVocabulary.Precision.NONE.uri()));
-        fields.add(startField);
-        FieldVTwo endField = new FieldVTwo().setName("endField");
-        endField.setEditElement(new DateTimeWithPrecisionVTwo(endField,
-                VitroVocabulary.Precision.SECOND.uri(),
+        fields.add(collectedStartField);
+        FieldVTwo collectedEndField = new FieldVTwo().setName("collectedDateRangeEndDateTime");
+        collectedEndField.setEditElement(new DateTimeWithPrecisionVTwo(collectedEndField,
+                VitroVocabulary.Precision.DAY.uri(),
                 VitroVocabulary.Precision.NONE.uri()));
-        fields.add(endField);
+        fields.add(collectedEndField);
+        FieldVTwo coveredStartField = new FieldVTwo().setName("coveredDateRangeStartDateTime");
+        coveredStartField.setEditElement(new DateTimeWithPrecisionVTwo(coveredStartField,
+                VitroVocabulary.Precision.DAY.uri(),
+                VitroVocabulary.Precision.NONE.uri()));
+        fields.add(coveredStartField);
+        FieldVTwo coveredEndField = new FieldVTwo().setName("coveredDateRangeEndDateTime");
+        coveredEndField.setEditElement(new DateTimeWithPrecisionVTwo(coveredEndField,
+                VitroVocabulary.Precision.DAY.uri(),
+                VitroVocabulary.Precision.NONE.uri()));
+        fields.add(coveredEndField);
         return fields;
     }
 
@@ -213,7 +221,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         List<N3ValidatorVTwo> validators = new ArrayList<N3ValidatorVTwo>();
 
         validators.add(new AntiXssValidation());
-        validators.add(new DateTimeIntervalValidationVTwo("startField","endField"));
+        validators.add(new DateTimeIntervalValidationVTwo("collectedDateRangeStartDateTime", "collectedDateRangeEndDateTime"));
+        validators.add(new DateTimeIntervalValidationVTwo("coveredDateRangeStartDateTime", "coveredDateRangeEndDateTime"));
         return validators;
     }
 
