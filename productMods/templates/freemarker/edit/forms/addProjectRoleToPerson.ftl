@@ -133,48 +133,50 @@
                 </select>
             </#if>
         </p>
-        <p>
-            <label for="relatedIndLabel">Project Name ${requiredHint}</label>
-            <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="activityLabel"  value="${activityLabelValue}" 
-                   <#if disabledVal?has_content>
-                   disabled=${disabledVal}
-                   </#if>
-                   />
-        </p>
+        <div class="fullViewOnly">
+            <p>
+                <label for="relatedIndLabel">Project Name ${requiredHint}</label>
+                <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="activityLabel"  value="${activityLabelValue}" 
+                       <#if disabledVal?has_content>
+                       disabled=${disabledVal}
+                       </#if>
+                       />
+            </p>
 
-        <input type="hidden" id="roleToActivityPredicate" name="roleToActivityPredicate" value="" />
-        <!--Populated or modified by JavaScript based on type of activity, type returned from AJAX request-->
+            <input type="hidden" id="roleToActivityPredicate" name="roleToActivityPredicate" value="" />
+            <!--Populated or modified by JavaScript based on type of activity, type returned from AJAX request-->
 
-        <#if editMode = "edit">
-        <input type="hidden" id="roleActivityType" name="roleActivityType" value="${activityTypeValue}"/>
-        <input type="hidden" id="activityLabel" name="activityLabel" value="${activityLabelValue}"/>
-        </#if>
-        <@lvf.acSelection urls.base "roleActivity" "roleActivityUri" existingRoleActivityValue />
+            <#if editMode = "edit">
+            <input type="hidden" id="roleActivityType" name="roleActivityType" value="${activityTypeValue}"/>
+            <input type="hidden" id="activityLabel" name="activityLabel" value="${activityLabelValue}"/>
+            </#if>
+            <@lvf.acSelection urls.base "roleActivity" "roleActivityUri" existingRoleActivityValue />
 
-        <#if showRoleLabelField = true>
-        <p><label for="roleLabel">Role in ### ${requiredHint} ${roleExamples}</label>
-            <input  size="50"  type="text" id="roleLabel" name="roleLabel" value="${roleLabel}" />
-        </p>
-        </#if>
+            <#if showRoleLabelField = true>
+            <p><label for="roleLabel">Role in ### ${requiredHint} ${roleExamples}</label>
+                <input  size="50"  type="text" id="roleLabel" name="roleLabel" value="${roleLabel}" />
+            </p>
+            </#if>
 
-        <#if numDateFields == 1 >
-        <#--Generated html is a map with key name mapping to html string-->
-        <#if htmlForElements?keys?seq_contains("startField")>
-        <label class="dateTimeLabel" for="startField">Start Year</label>
-        ${htmlForElements["startField"]} ${yearHint}
-        </#if>
-        <#else>
-        <h4 class="label">Years of Participation in ### </h4>
-        <#if htmlForElements?keys?seq_contains("startField")>
-        <label class="dateTime" for="startField">Start</label>
-        ${htmlForElements["startField"]} ${yearHint}
-        </#if>
-        <p></p>
-        <#if htmlForElements?keys?seq_contains("endField")>
-        <label class="dateTime" for="endField">End</label>
-        ${htmlForElements["endField"]} ${yearHint}
-        </#if>
-        </#if>
+            <#if numDateFields == 1 >
+            <#--Generated html is a map with key name mapping to html string-->
+            <#if htmlForElements?keys?seq_contains("startField")>
+            <label class="dateTimeLabel" for="startField">Start Year</label>
+            ${htmlForElements["startField"]} ${yearHint}
+            </#if>
+            <#else>
+            <h4 class="label">Years of Participation in Project </h4>
+            <#if htmlForElements?keys?seq_contains("startField")>
+            <label class="dateTime" for="startField">Start</label>
+            ${htmlForElements["startField"]} ${yearHint}
+            </#if>
+            <p></p>
+            <#if htmlForElements?keys?seq_contains("endField")>
+            <label class="dateTime" for="endField">End</label>
+            ${htmlForElements["endField"]} ${yearHint}
+            </#if>
+            </#if>
+        </div>
         <p class="submit">
             <input type="hidden" id="editKey" name="editKey" value="${editKey}" />
             <input type="submit" id="submit" value="${submitButtonText}"/><span class="or"> or </span><a class="cancel" href="${cancelUrl}" title="Cancel">Cancel</a>
