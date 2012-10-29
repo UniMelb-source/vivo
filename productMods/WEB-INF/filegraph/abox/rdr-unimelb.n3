@@ -110,7 +110,8 @@ unimelb-rdr:collectedDateRange a owl:ObjectProperty ;
     rdfs:label "collected between"@en-US ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:DateTimeInterval ;
-    owl:inverseOf unimelb-rdr:collectedDateRangeFor .
+    owl:inverseOf unimelb-rdr:collectedDateRangeFor ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.DateTimeIntervalFormGenerator"^^xsd:string .
 unimelb-rdr:collectedDateRangeFor a owl:ObjectProperty ;
     rdfs:label "collected range for"@en-US ;
     rdfs:domain vivo:DateTimeInterval ;
@@ -121,7 +122,8 @@ unimelb-rdr:coveredDateRange a owl:ObjectProperty ;
     rdfs:label "covered between"@en-US ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:DateTimeInterval ;
-    owl:inverseOf unimelb-rdr:coveredDateRangeFor .
+    owl:inverseOf unimelb-rdr:coveredDateRangeFor ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.DateTimeIntervalFormGenerator"^^xsd:string .
 unimelb-rdr:coveredDateRangeFor a owl:ObjectProperty ;
     rdfs:label "covered range for"@en-US ;
     rdfs:domain vivo:DateTimeInterval ;

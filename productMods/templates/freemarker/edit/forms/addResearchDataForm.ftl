@@ -5,6 +5,7 @@
     <br>
     <#assign availableResearchRepositories = editConfiguration.pageData.AvailableResearchRepositories />
     <#assign researchRepositoryKeys = availableResearchRepositories?keys>
+    <#assign htmlForElements = editConfiguration.pageData.htmlForElements />
     <#if researchRepositoryKeys?has_content>
         <label for="researchRepository">Location</label>
         <select id="researchRepository" name="researchRepository">
@@ -44,7 +45,7 @@
     <label for="dataManagementPlanNumber">Data Management Plan</label>
     <input size="30" type="text" id="dataManagementPlanNumber" name="dataManagementPlanNumber" value="">
     <br>
-    <label for="collectedDateRangeStartDateTime">Collected Date Range Start</label>
+    <!--label for="collectedDateRangeStartDateTime">Collected Date Range Start</label>
     <input size="30" type="text" id="collectedDateRangeStartDateTime" name="collectedDateRangeStartDateTime" value="">
     <br>
     <label for="collectedDateRangeEndDateTime">Collected Date Range End</label>
@@ -55,6 +56,22 @@
     <br>
     <label for="coveredDateRangeEndDateTime">Covered Date Range End</label>
     <input size="30" type="text" id="coveredDateRangeEndDateTime" name="coveredDateRangeEndDateTime" value="">
+    <br-->
+    <#if htmlForElements?keys?seq_contains("collectedDateRangeStartDateTime")>
+        Start&nbsp; ${htmlForElements["collectedDateRangeStartDateTime"]}
+    </#if>
+    <br>
+    <#if htmlForElements?keys?seq_contains("collectedDateRangeEndDateTime")>
+        End&nbsp; ${htmlForElements["collectedDateRangeEndDateTime"]}
+    </#if>
+    <br>
+    <#if htmlForElements?keys?seq_contains("coveredDateRangeStartDateTime")>
+        Start&nbsp; ${htmlForElements["coveredDateRangeStartDateTime"]}
+    </#if>
+    <br>
+    <#if htmlForElements?keys?seq_contains("coveredDateRangeEndDateTime")>
+        End&nbsp; ${htmlForElements["coveredDateRangeEndDateTime"]}
+    </#if>
     <br>
 
     <#include "displayResearchDataInferences.ftl" />

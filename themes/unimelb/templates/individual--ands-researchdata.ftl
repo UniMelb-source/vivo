@@ -128,6 +128,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#if recordCreated?has_content>
             <@p.objectPropertyListing recordCreated false />
         </#if>
+
+        <#-- Collected Date Range -->
+        <#assign collectedDateRange = propertyGroups.pullProperty("${unimelbrdr}collectedDateRange")!>
+        <#if collectedDateRange?has_content>
+            <@p.objectPropertyListing collectedDateRange editable />
+        </#if>
+
+        <#-- Covered Date Range -->
+        <#assign coveredDateRange = propertyGroups.pullProperty("${unimelbrdr}coveredDateRange")!>
+        <#if coveredDateRange?has_content>
+            <@p.objectPropertyListing coveredDateRange editable />
+        </#if>
     </section>
  </div>
 </section>
