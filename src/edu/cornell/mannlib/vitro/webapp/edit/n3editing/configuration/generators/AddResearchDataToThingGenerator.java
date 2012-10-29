@@ -68,6 +68,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?collectedDateRange core:start ?collectedDateRangeStart .",
                 N3_PREFIX + "?collectedDateRange core:end ?collectedDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:collectedDateRange ?collectedDateRange .",
+                N3_PREFIX + "?collectedDateRange unimelb-rdr:collectedDateRangeFor ?researchDataUri .",
+                //collectedDateRangeFor
                 /* Create date time interval for covered */
                 N3_PREFIX + "?coveredDateRangeStart core:dateTime ?coveredDateRangeStartDateTime-value .",
                 N3_PREFIX + "?coveredDateRangeStart core:dateTimePrecision ?coveredDateRangeStartDateTime-precision .",
@@ -75,7 +77,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 N3_PREFIX + "?coveredDateRangeEnd core:dateTimePrecision ?coveredDateRangeEndDateTime-precision .",
                 N3_PREFIX + "?coveredDateRange core:start ?coveredDateRangeStart .",
                 N3_PREFIX + "?coveredDateRange core:end ?coveredDateRangeEnd .",
-                N3_PREFIX + "?researchDataUri unimelb-rdr:coveredDateRange ?coveredDateRange .");
+                N3_PREFIX + "?researchDataUri unimelb-rdr:coveredDateRange ?coveredDateRange .",
+                N3_PREFIX + "?coveredDateRange unimelb-rdr:coveredDateRangeFor ?researchDataUri .");
     }
 
     @Override
