@@ -16,7 +16,7 @@
 # custom classes
 unimelb-rdr:ProjectRole a owl:Class;
     rdfs:label "Project Role" ;
-    rdfs:subClassOf owl:Thing, vivo:Role ;
+    rdfs:subClassOf owl:Thing, vivo:Role, unimelb-rdr:ProjectRole ;
     vitro:descriptionAnnot "Role of a researcher in a project"^^xsd:string ;
     vitro:shortDef "Role of a researcher in a project"^^xsd:string ;
     vitro:displayLimitAnnot "-1"^^xsd:int ;
