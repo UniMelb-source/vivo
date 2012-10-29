@@ -151,9 +151,11 @@
             <@lvf.acSelection urls.base "project" "projectUri" existingProjectValue />
 
             <#if showRoleLabelField = true>
-            <p><label for="roleLabel">Role in ### ${requiredHint} ${roleExamples}</label>
-                <input  size="50"  type="text" id="roleLabel" name="roleLabel" value="${roleLabel}" />
-            </p>
+                <p><label for="roleLabel">Role in ### ${requiredHint} ${roleExamples}</label>
+                    <input  size="50"  type="text" id="roleLabel" name="roleLabel" value="${roleLabel}" />
+                </p>
+            <#else>
+                <input type="hidden" id="roleLabel" name="roleLabel" value="Associated Supervisor"/>
             </#if>
 
             <#if numDateFields == 1 >
