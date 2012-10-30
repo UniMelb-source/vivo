@@ -1,0 +1,18 @@
+section.metadata h1 {
+	padding: 8px 0;
+	border-bottom: 1px solid #DFEBE5;
+}
+
+section.metadata h2 {
+	font-size: 1.1em;
+}
+
+.col-3-custom {
+	width: 300px;
+}
+
+.col-inner {
+	border: 1px solid #DFEBE5;
+	padding: 0 10px 10px 10px;
+	border-radius: 7px;
+}
