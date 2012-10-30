@@ -91,10 +91,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#assign access = propertyGroups.pullProperty("${unimelbrdr}accessibility")!>
         <@dp.dataProperty access editable />
 
-        <#-- Data Management Plan -->
-        <#assign dataManagementPlan = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanId")!>
-        <@dp.dataProperty dataManagementPlan editable />
-
         <#-- Data Management Plan Available -->
         <#assign dataManagementPlanAvailable = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanAvailable")!>
         <@dp.dataProperty dataManagementPlanAvailable editable />
