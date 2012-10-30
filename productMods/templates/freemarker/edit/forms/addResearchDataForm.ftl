@@ -45,20 +45,23 @@
     <label for="dataManagementPlanDescription">Data Management Plan Description</label>
     <input size="30" type="text" id="dataManagementPlanDescription" name="dataManagementPlanDescription" value="">
     <br>
+    <label>Date of Data Collection</label>
     <#if htmlForElements?keys?seq_contains("collectedDateRangeStartDateTime")>
-        Collected range start&nbsp; ${htmlForElements["collectedDateRangeStartDateTime"]}
+        <strong>Start</strong>
+        ${htmlForElements["collectedDateRangeStartDateTime"]}
     </#if>
     <br>
     <#if htmlForElements?keys?seq_contains("collectedDateRangeEndDateTime")>
-        Collected range end&nbsp; ${htmlForElements["collectedDateRangeEndDateTime"]}
+        <strong>End</strong> ${htmlForElements["collectedDateRangeEndDateTime"]}
     </#if>
     <br>
+    <label>Date Range Coverage</label>
     <#if htmlForElements?keys?seq_contains("coveredDateRangeStartDateTime")>
-        Covered range start&nbsp; ${htmlForElements["coveredDateRangeStartDateTime"]}
+        <strong>Start</strong> ${htmlForElements["coveredDateRangeStartDateTime"]}
     </#if>
     <br>
     <#if htmlForElements?keys?seq_contains("coveredDateRangeEndDateTime")>
-        Covered range end&nbsp; ${htmlForElements["coveredDateRangeEndDateTime"]}
+        <strong>End</strong> ${htmlForElements["coveredDateRangeEndDateTime"]}
     </#if>
     <br>
 

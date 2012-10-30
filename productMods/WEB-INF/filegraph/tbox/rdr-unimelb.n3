@@ -86,7 +86,7 @@ unimelb-rdr:hasFundingVehicle a owl:ObjectProperty ;
 
 # add a Project to a Person
 unimelb-rdr:hasProjectRole a owl:ObjectProperty ;
-    rdfs:label "has project role"@en-US ;
+    rdfs:label "associated supervisor for"@en-US ;
     rdfs:domain foaf:Person ;
     rdfs:range unimelb-rdr:ProjectRole ;
     rdfs:subPropertyOf vivo:hasRole , vivo:hasProjectRole , owl:topObjectProperty ;
@@ -113,7 +113,7 @@ unimelb-rdr:projectRoleIn a owl:ObjectProperty ;
     rdfs:subPropertyOf vivo:roleIn, unimelb-rdr:projectRoleIn ;
     owl:inverseOf unimelb-rdr:relatedProjectRole .
 unimelb-rdr:relatedProjectRole a owl:ObjectProperty ;
-    rdfs:label "related project role"@en-US ;
+    rdfs:label "associated supervisor"@en-US ;
     rdfs:domain vivo:Project ;
     rdfs:range unimelb-rdr:ProjectRole ;
     rdfs:subPropertyOf vivo:relatedRole, unimelb-rdr:relatedProjectRole ;
@@ -121,25 +121,25 @@ unimelb-rdr:relatedProjectRole a owl:ObjectProperty ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher .
 
 unimelb-rdr:collectedDateRange a owl:ObjectProperty ;
-    rdfs:label "collected between"@en-US ;
+    rdfs:label "date of data collection"@en-US ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:DateTimeInterval ;
     owl:inverseOf unimelb-rdr:collectedDateRangeFor ;
     vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.DateTimeIntervalFormGenerator"^^xsd:string .
 unimelb-rdr:collectedDateRangeFor a owl:ObjectProperty ;
-    rdfs:label "collected range for"@en-US ;
+    rdfs:label "data collection range for"@en-US ;
     rdfs:domain vivo:DateTimeInterval ;
     rdfs:range ands:ResearchData ;
     owl:inverseOf unimelb-rdr:collectedDateRange .
     
 unimelb-rdr:coveredDateRange a owl:ObjectProperty ;
-    rdfs:label "covered between"@en-US ;
+    rdfs:label "date range coverage"@en-US ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:DateTimeInterval ;
     owl:inverseOf unimelb-rdr:coveredDateRangeFor ;
     vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.DateTimeIntervalFormGenerator"^^xsd:string .
 unimelb-rdr:coveredDateRangeFor a owl:ObjectProperty ;
-    rdfs:label "covered range for"@en-US ;
+    rdfs:label "coverage range for"@en-US ;
     rdfs:domain vivo:DateTimeInterval ;
     rdfs:range ands:ResearchData ;
     owl:inverseOf unimelb-rdr:coveredDateRange .
