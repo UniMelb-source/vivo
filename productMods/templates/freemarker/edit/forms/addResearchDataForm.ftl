@@ -42,7 +42,7 @@
     <label for="dataManagementPlanAvailable">Data Management Plan?</label>
     <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
     <br>
-    <label for="dataManagementPlanDescription">Data Management Plan</label>
+    <label for="dataManagementPlanDescription">Data Management Plan Description</label>
     <input size="30" type="text" id="dataManagementPlanDescription" name="dataManagementPlanDescription" value="">
     <br>
     <#if htmlForElements?keys?seq_contains("collectedDateRangeStartDateTime")>

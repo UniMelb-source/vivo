@@ -136,6 +136,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#if coveredDateRange?has_content>
             <@p.objectPropertyListing coveredDateRange editable />
         </#if>
+
+        <#-- Content Verified -->
+        <#assign contentVerified = propertyGroups.pullProperty("${unimelbrdr}contentVerified")!>
+        <@dp.dataProperty contentVerified editable />
     </section>
  </div>
 </section>

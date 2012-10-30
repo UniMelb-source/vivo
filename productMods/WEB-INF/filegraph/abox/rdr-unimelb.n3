@@ -224,6 +224,14 @@ unimelb-rdr:recordCreator a owl:DatatypeProperty ;
     rdfs:range xsd:string ;
     rdfs:subPropertyOf unimelb-rdr:recordCreator, owl:topDataProperty .
 
+unimelb-rdr:contentVerified a owl:DatatypeProperty ;
+    rdfs:comment "Content verified?"^^xsd:string ;
+    rdfs:domain ands:ResearchData ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "content verified?"@en ;
+    rdfs:subPropertyOf unimelb-rdr:contentVerified, owl:topDataProperty ;
+    vitro:publicDescriptionAnnot "Valid entries are either 'true' or 'false' (without the quotes)"^^xsd:string .
+
 # modifying existing elements
 vivo:hasInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddGrantRoleToPersonGenerator"^^xsd:string ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement ;
