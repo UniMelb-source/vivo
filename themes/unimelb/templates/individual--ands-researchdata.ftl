@@ -33,7 +33,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#import "lib-status-display.ftl" as lsd>
 <!-- <div id="wrapper-content" role="main">  -->      
             <div>
-<section id="individual-intro" class="vcard person" role="region">
+<section id="individual-intro" class="vcard researchdata" role="region">
 <!--section id="share-contact" role="region">
         <nav role="navigation">
 
@@ -54,7 +54,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <h2>${relatedSubject.relatingPredicateDomainPublic} for ${relatedSubject.name}</h2>
                 <p><a href="${relatedSubject.url}" title="return to">&larr; return to ${relatedSubject.name}</a></p>
             <#else>
-                <h1 class="vcard foaf-person">
+                <h1 class="vcard ands-researchdata">
                     <#assign nameStatement = individual.nameStatement.value! !>
                     <#assign nameSplit = individual.nameStatement.value?split(" ") !>
                     <span class="fn">
