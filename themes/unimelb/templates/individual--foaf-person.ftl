@@ -32,8 +32,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#import "lib-vivo-properties.ftl" as vp>
 <#import "lib-status-display.ftl" as lsd>
 <!-- <div id="wrapper-content" role="main">  -->      
-<div class="col-6 first">
-    <section id="individual-intro" class="vcard person" role="region">
+<div>
+    <section id="individual-intro" class="vcard person col-6 first" role="region">
         <section id="share-contact" role="region">
             <#-- Image -->
             <#assign individualImage>
@@ -128,6 +128,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <#assign supervisorText2  = propertyGroups.pullProperty("${fae}supervisorText2") !>
     <#assign supervisorText3  = propertyGroups.pullProperty("${fae}supervisorText3") !>
     <#assign supervisorText4  = propertyGroups.pullProperty("${fae}supervisorText4") !>
+
+    <div class="col-2 nav">
+        <ul>
+            <#include "individual--foaf-person--contactInfo.ftl">
+            <#-- include "individual-visualizationFoafPerson.ftl" -->
+        </ul>
+    </div>
+    
     <!-- </div>  #wrapper-content -->
     <#--
     <#assign nameForOtherGroup = "other">--> <#-- used by both individual-propertyGroupMenu.ftl and individual-properties.ftl -->
@@ -153,12 +161,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         }
     </script> 
 
-</div>
-<div class="col-2 nav">
-    <ul>
-        <#include "individual--foaf-person--contactInfo.ftl">
-        <#-- include "individual-visualizationFoafPerson.ftl" -->
-    </ul>
 </div>
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
     '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',

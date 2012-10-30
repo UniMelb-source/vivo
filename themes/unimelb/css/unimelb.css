@@ -1866,6 +1866,7 @@ table tr, table th {
 }
 
 #individual-intro.person {
+    width: 700px; /* Hack to override width set by individual-vivo.css, to match col-6 */
 	margin-bottom: 0;
 }
 

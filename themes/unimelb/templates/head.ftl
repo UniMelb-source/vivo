@@ -35,6 +35,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <link rel="stylesheet" href="http://brand.unimelb.edu.au/web-templates/1-1/css/complete.css">
 <script type="text/javascript" src="http://brand.unimelb.edu.au/global-header/js/injection.js"></script>
 
+
 <#include "stylesheets.ftl">
 <link rel="stylesheet" href="${urls.theme}/css/screen.css" />
 
@@ -61,3 +62,10 @@ an individual profile page. -->
 ${headContent!}
 
 <link rel="shortcut icon" type="image/x-icon" href="${urls.base}/favicon.ico">
+
+<!-- Bootstrap Includes -->
+<link rel="stylesheet" href="${urls.theme}/lib/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="${urls.theme}/lib/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- RDR Stylesheets -->
+<link rel="stylesheet" href="${urls.theme}/css/rdr.css">

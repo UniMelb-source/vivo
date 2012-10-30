@@ -32,7 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#import "lib-vivo-properties.ftl" as vp>
 <#import "lib-status-display.ftl" as lsd>
 <!-- <div id="wrapper-content" role="main">  -->      
-            <div class="col-6 first">
+            <div>
 <section id="individual-intro" class="vcard person" role="region">
 <!--section id="share-contact" role="region">
         <nav role="navigation">
@@ -45,7 +45,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </nav>
 
     </section-->
-<div style="float: left; display: inline; width: 500px ">
+<div>
     <section id="individual-info-unimelb" ${infoClass!} role="region">
         <#include "individual-adminPanel.ftl">
 
@@ -69,97 +69,119 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#-- Overview -->
         <#include "individual-overview.ftl">
 
-        <#-- Research Areas -->
-        <#assign researchAreas = propertyGroups.pullProperty("${core}hasResearchArea")!>
-        <#if researchAreas?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
-            <@p.objectPropertyListing researchAreas editable />
-        </#if>
+        <section class="metadata col-3 col-3-custom first">
+            <div class="col-inner">
+                <h1>Descriptive Metadata</h1>
 
-        <#-- Location Identifier -->
-        <#assign locationIdentifier = propertyGroups.pullProperty("${unimelbrdr}digitalLocation")!>
-        <@dp.dataProperty locationIdentifier editable />
+                <#-- Description -->
+                <#assign description = propertyGroups.pullProperty("${ands}researchDataDescription")!>
+                <@dp.dataProperty description editable />
 
-        <#-- Location Details -->
-        <#assign locationDetails = propertyGroups.pullProperty("${unimelbrdr}nonDigitalLocation")!>
-        <@dp.dataProperty locationDetails editable />
+                <#-- Research Areas -->
+                <#assign researchAreas = propertyGroups.pullProperty("${core}hasResearchArea")!>
+                <#if researchAreas?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
+                    <@p.objectPropertyListing researchAreas editable />
+                </#if>
 
-        <#-- Retention Period -->
-        <#assign retentionPeriod = propertyGroups.pullProperty("${unimelbrdr}retentionPeriod")!>
-        <@dp.dataProperty retentionPeriod editable />
+                <#-- Collected Date Range -->
+                <#assign collectedDateRange = propertyGroups.pullProperty("${unimelbrdr}collectedDateRange")!>
+                <#if collectedDateRange?has_content>
+                    <@p.objectPropertyListing collectedDateRange editable />
+                </#if>
 
-        <#-- Access -->
-        <#assign access = propertyGroups.pullProperty("${unimelbrdr}accessibility")!>
-        <@dp.dataProperty access editable />
+                <#-- Covered Date Range -->
+                <#assign coveredDateRange = propertyGroups.pullProperty("${unimelbrdr}coveredDateRange")!>
+                <#if coveredDateRange?has_content>
+                    <@p.objectPropertyListing coveredDateRange editable />
+                </#if>
+            </div>
+        </section>
 
-        <#-- Data Management Plan Available -->
-        <#assign dataManagementPlanAvailable = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanAvailable")!>
-        <@dp.dataProperty dataManagementPlanAvailable editable />
+        <section class="metadata col-3 col-3-custom">
+            <div class="col-inner">
+                <h1>Administrative Metadata</h1>
+                
+                <#-- Is Located In -->
+                <#assign isLocatedIn = propertyGroups.pullProperty("${ands}isLocatedIn")!>
+                <#if isLocatedIn?has_content>
+                    <@p.objectPropertyListing isLocatedIn editable />
+                </#if>
 
-        <#-- Data Management Plan Description -->
-        <#assign dataManagementPlanDescription = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanDescription")!>
-        <@dp.dataProperty dataManagementPlanDescription editable />     
-        
-        <#-- Rights -->
-        <#assign rights = propertyGroups.pullProperty("${ands}rights")!>
-        <@dp.dataProperty rights editable />
+                <#-- Location Details -->
+                <#assign locationDetails = propertyGroups.pullProperty("${unimelbrdr}nonDigitalLocation")!>
+                <@dp.dataProperty locationDetails editable />
 
-        <#-- Is Managed By -->
-        <#assign isManagedBy = propertyGroups.pullProperty("${ands}isManagedBy")!>
-        <#if isManagedBy?has_content>
-            <@p.objectPropertyListing isManagedBy editable />
-        </#if>
-        
-        <#-- Is Located In -->
-        <#assign isLocatedIn = propertyGroups.pullProperty("${ands}isLocatedIn")!>
-        <#if isLocatedIn?has_content>
-            <@p.objectPropertyListing isLocatedIn editable />
-        </#if>
-        
-        <#-- Record Creator -->
-        <#assign recordCreator = propertyGroups.pullProperty("${unimelbrdr}recordCreator")!>
-        <@dp.dataProperty recordCreator false />
+                <#-- Location Identifier -->
+                <#assign locationIdentifier = propertyGroups.pullProperty("${unimelbrdr}digitalLocation")!>
+                <@dp.dataProperty locationIdentifier editable />
 
-        <#-- Record Created -->
-        <#assign recordCreated = propertyGroups.pullProperty("${unimelbrdr}recordCreated")!>
-        <#if recordCreated?has_content>
-            <@p.objectPropertyListing recordCreated false />
-        </#if>
+                <#-- Data Management Plan Available -->
+                <#assign dataManagementPlanAvailable = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanAvailable")!>
+                <@dp.dataProperty dataManagementPlanAvailable editable />
 
-        <#-- Collected Date Range -->
-        <#assign collectedDateRange = propertyGroups.pullProperty("${unimelbrdr}collectedDateRange")!>
-        <#if collectedDateRange?has_content>
-            <@p.objectPropertyListing collectedDateRange editable />
-        </#if>
+                <#-- Data Management Plan Description -->
+                <#assign dataManagementPlanDescription = propertyGroups.pullProperty("${unimelbrdr}dataManagementPlanDescription")!>
+                <@dp.dataProperty dataManagementPlanDescription editable />  
 
-        <#-- Covered Date Range -->
-        <#assign coveredDateRange = propertyGroups.pullProperty("${unimelbrdr}coveredDateRange")!>
-        <#if coveredDateRange?has_content>
-            <@p.objectPropertyListing coveredDateRange editable />
-        </#if>
+                <#-- Access -->
+                <#assign access = propertyGroups.pullProperty("${unimelbrdr}accessibility")!>
+                <@dp.dataProperty access editable />
+                    
+                <#-- Rights -->
+                <#assign rights = propertyGroups.pullProperty("${ands}rights")!>
+                <@dp.dataProperty rights editable />
 
-        <#-- Content Verified -->
-        <#assign contentVerified = propertyGroups.pullProperty("${unimelbrdr}contentVerified")!>
-        <@dp.dataProperty contentVerified editable />
+                <#-- Retention Period -->
+                <#assign retentionPeriod = propertyGroups.pullProperty("${unimelbrdr}retentionPeriod")!>
+                <@dp.dataProperty retentionPeriod editable />
+             
+                <#-- Is Managed By -->
+                <#assign isManagedBy = propertyGroups.pullProperty("${ands}isManagedBy")!>
+                <#if isManagedBy?has_content>
+                    <@p.objectPropertyListing isManagedBy editable />
+                </#if>
+       
+                <#-- Record Creator -->
+                <#assign recordCreator = propertyGroups.pullProperty("${unimelbrdr}recordCreator")!>
+                <@dp.dataProperty recordCreator false />
 
-        <#-- GML -->
-        <#assign gml = propertyGroups.pullProperty("${ands}gml")!>
-        <@dp.dataProperty gml editable />
+                <#-- Record Created -->
+                <#assign recordCreated = propertyGroups.pullProperty("${unimelbrdr}recordCreated")!>
+                <#if recordCreated?has_content>
+                    <@p.objectPropertyListing recordCreated false />
+                </#if>
 
-        <#-- GML KML Poly Co-Ordinates -->
-        <#assign gmlKmlPolyCoords = propertyGroups.pullProperty("${ands}gmlKmlPolyCoords")!>
-        <@dp.dataProperty gmlKmlPolyCoords editable />
+                <#-- Content Verified -->
+                <#assign contentVerified = propertyGroups.pullProperty("${unimelbrdr}contentVerified")!>
+                <@dp.dataProperty contentVerified editable />
+            </div>
+        </section>
 
-        <#-- GPX -->
-        <#assign gpx = propertyGroups.pullProperty("${ands}gpx")!>
-        <@dp.dataProperty gpx editable />
+        <section class="metadata col-3 col-3-custom">
+            <div class="col-inner">
+                <h1>Geo Location</h1>
 
-        <#-- KML -->
-        <#assign kml = propertyGroups.pullProperty("${ands}kml")!>
-        <@dp.dataProperty kml editable />
+                <#-- GML -->
+                <#assign gml = propertyGroups.pullProperty("${ands}gml")!>
+                <@dp.dataProperty gml editable />
 
-        <#-- KML Poly Co-Ordinates -->
-        <#assign kmlPolyCoords = propertyGroups.pullProperty("${ands}kmlPolyCoords")!>
-        <@dp.dataProperty kmlPolyCoords editable />
+                <#-- GML KML Poly Co-Ordinates -->
+                <#assign gmlKmlPolyCoords = propertyGroups.pullProperty("${ands}gmlKmlPolyCoords")!>
+                <@dp.dataProperty gmlKmlPolyCoords editable />
+
+                <#-- GPX -->
+                <#assign gpx = propertyGroups.pullProperty("${ands}gpx")!>
+                <@dp.dataProperty gpx editable />
+
+                <#-- KML -->
+                <#assign kml = propertyGroups.pullProperty("${ands}kml")!>
+                <@dp.dataProperty kml editable />
+
+                <#-- KML Poly Co-Ordinates -->
+                <#assign kmlPolyCoords = propertyGroups.pullProperty("${ands}kmlPolyCoords")!>
+                <@dp.dataProperty kmlPolyCoords editable />
+            </div>
+        </section>
     </section>
  </div>
 </section>
