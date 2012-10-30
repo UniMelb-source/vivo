@@ -201,13 +201,6 @@ unimelb-rdr:accessibility a owl:DatatypeProperty ;
     rdfs:subPropertyOf unimelb-rdr:accessibility, owl:topDataProperty ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
-unimelb-rdr:dataManagementPlanId a owl:DatatypeProperty ;
-    rdfs:comment "Data Management Plan"^^xsd:string ;
-    rdfs:domain ands:ResearchData ;
-    rdfs:label "data management plan"@en ;
-    rdfs:subPropertyOf unimelb-rdr:dataManagementPlanId, owl:topDataProperty ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
-
 unimelb-rdr:dataManagementPlanAvailable a owl:DatatypeProperty ;
     rdfs:comment "Data Management Plan Available"^^xsd:string ;
     rdfs:domain ands:ResearchData ;
