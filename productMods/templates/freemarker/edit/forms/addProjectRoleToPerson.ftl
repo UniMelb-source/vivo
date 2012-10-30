@@ -56,7 +56,7 @@
 
 
 <#--Get role label-->
-<#assign roleLabel = lvf.getFormFieldValue(editSubmission, editConfiguration, "roleLabel") />
+<#-- assign roleLabel = lvf.getFormFieldValue(editSubmission, editConfiguration, "roleLabel") / -->
 
 <#--For role activity uri-->
 <#assign existingProjectValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "project") />
