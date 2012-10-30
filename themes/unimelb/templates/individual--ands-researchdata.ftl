@@ -140,6 +140,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <#-- Content Verified -->
         <#assign contentVerified = propertyGroups.pullProperty("${unimelbrdr}contentVerified")!>
         <@dp.dataProperty contentVerified editable />
+
+        <#-- GML -->
+        <#assign gml = propertyGroups.pullProperty("${ands}gml")!>
+        <@dp.dataProperty gml editable />
+
+        <#-- GML KML Poly Co-Ordinates -->
+        <#assign gmlKmlPolyCoords = propertyGroups.pullProperty("${ands}gmlKmlPolyCoords")!>
+        <@dp.dataProperty gmlKmlPolyCoords editable />
+
+        <#-- GPX -->
+        <#assign gpx = propertyGroups.pullProperty("${ands}gpx")!>
+        <@dp.dataProperty gpx editable />
+
+        <#-- KML -->
+        <#assign kml = propertyGroups.pullProperty("${ands}kml")!>
+        <@dp.dataProperty kml editable />
+
+        <#-- KML Poly Co-Ordinates -->
+        <#assign kmlPolyCoords = propertyGroups.pullProperty("${ands}kmlPolyCoords")!>
+        <@dp.dataProperty kmlPolyCoords editable />
     </section>
  </div>
 </section>
