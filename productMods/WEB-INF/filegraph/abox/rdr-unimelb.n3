@@ -202,10 +202,10 @@ unimelb-rdr:accessibility a owl:DatatypeProperty ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:dataManagementPlanAvailable a owl:DatatypeProperty ;
-    rdfs:comment "Data Management Plan Available"^^xsd:string ;
+    rdfs:comment "Data Management Plan?"^^xsd:string ;
     rdfs:domain ands:ResearchData ;
     rdfs:range xsd:boolean ;
-    rdfs:label "data management plan available"@en ;
+    rdfs:label "data management plan?"@en ;
     rdfs:subPropertyOf unimelb-rdr:dataManagementPlanAvailable, owl:topDataProperty ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
     vitro:publicDescriptionAnnot "Valid entries are either 'true' or 'false' (without the quotes)"^^xsd:string .

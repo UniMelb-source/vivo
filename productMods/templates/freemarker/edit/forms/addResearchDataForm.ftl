@@ -39,7 +39,7 @@
     <label for="rights">Rights</label>
     <textarea name="rights" id="rights" style="width:90%;"></textarea>
     <br>
-    <label for="dataManagementPlanAvailable">Data Management Plan Available?</label>
+    <label for="dataManagementPlanAvailable">Data Management Plan?</label>
     <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
     <br>
     <label for="dataManagementPlanDescription">Data Management Plan</label>
