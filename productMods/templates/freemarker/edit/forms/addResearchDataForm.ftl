@@ -5,7 +5,7 @@
     <label for="researchDataLabel">Title <span class="requiredHint"> *</span></label>
     <input size="60" type="text" id="researchDataLabel" name="researchDataLabel" value="">
     <br>
-    <fieldset>
+    <fieldset class="property-grouping">
         <legend>Descriptive Metadata</legend>
         <label for="researchDataDescription">Description of the data<span class="requiredHint"> *</span></label>
         <textarea name="researchDataDescription" id="researchDataDescription" style="width:90%;"></textarea>
@@ -30,7 +30,7 @@
         </#if>
         <br>
     </fieldset>
-    <fieldset>
+    <fieldset class="property-grouping">
         <legend>Administrative Metadata</legend>
         <#if researchRepositoryKeys?has_content>
         <label for="researchRepository">Location</label>
@@ -70,7 +70,7 @@
         <br>
         <#include "displayResearchDataInferences.ftl" />
     </fieldset>
-    <fieldset>
+    <fieldset class="property-grouping">
         <legend>Geographic Coverage</legend>
         <label for="gml">GML</label>
         <textarea name="gml" id="gml" style="width:90%;"></textarea>
