@@ -1970,13 +1970,20 @@ form.customForm fieldset {
 }
 
 form.customForm fieldset.property-grouping {
-    border: 1px;
+    border-color: #DFEBE5;
+    border-style: solid;
+    border-width: 1px;
     display: block;
+    padding: 10px;
 }
 
 form.customForm fieldset.property-grouping legend {
     display: block;
     text-indent: 0em;
+}
+
+form.customForm fieldset.property-grouping textarea {
+    width: 90%;
 }
 
 input#addAndContinue {

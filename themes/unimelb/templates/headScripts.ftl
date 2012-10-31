@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <#-- Template for scripts that must be loaded in the head -->
 
 <script type="text/javascript" src="${urls.theme}/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="${urls.theme}/js/rdr.js"></script>
 <script type="text/javascript" src="${urls.base}/js/vitroUtils.js"></script>
 
 <#-- script for enabling new HTML5 semantic markup in IE browsers -->

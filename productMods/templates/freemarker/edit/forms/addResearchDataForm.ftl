@@ -6,9 +6,9 @@
     <input size="60" type="text" id="researchDataLabel" name="researchDataLabel" value="">
     <br>
     <fieldset class="property-grouping">
-        <legend>Descriptive Metadata</legend>
+        <legend><h2>Descriptive Metadata</h2></legend>
         <label for="researchDataDescription">Description of the data<span class="requiredHint"> *</span></label>
-        <textarea name="researchDataDescription" id="researchDataDescription" style="width:90%;"></textarea>
+        <textarea name="researchDataDescription" id="researchDataDescription"></textarea>
         <br>
         <label>Date of Data Collection</label>
         <#if htmlForElements?keys?seq_contains("collectedDateRangeStartDateTime")>
@@ -31,7 +31,7 @@
         <br>
     </fieldset>
     <fieldset class="property-grouping">
-        <legend>Administrative Metadata</legend>
+        <legend><h2>Administrative Metadata</h2></legend>
         <#if researchRepositoryKeys?has_content>
         <label for="researchRepository">Location</label>
         <select id="researchRepository" name="researchRepository">
@@ -42,24 +42,24 @@
         <br>
         </#if>
         <label for="physicalDataLocation">Location Details</label>
-        <textarea name="physicalDataLocation" id="physicalDataLocation" style="width:90%;"></textarea>
+        <textarea name="physicalDataLocation" id="physicalDataLocation"></textarea>
         <br>
         <label for="digitalDataLocation">Location URI</label>
-        <textarea name="digitalDataLocation" id="digitalDataLocation" style="width:90%;"></textarea>
+        <textarea name="digitalDataLocation" id="digitalDataLocation"></textarea>
         <br>
         <label for="dataManagementPlanAvailable">Data Management Plan?</label>
         <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
         <br>
         <div id="dataManagementPlanDescriptionWrapper">
             <label for="dataManagementPlanDescription">Data Management Plan Description</label>
-            <input size="30" type="text" id="dataManagementPlanDescription" name="dataManagementPlanDescription" value="">
+            <textarea name="dataManagementPlanDescription" id="dataManagementPlanDescription"></textarea>
             <br>
         </div>
         <label for="accessiblity">Access</label>
-        <textarea name="accessibility" id="accessibility" style="width:90%;"></textarea>
+        <textarea name="accessibility" id="accessibility"></textarea>
         <br>
         <label for="rights">Rights</label>
-        <textarea name="rights" id="rights" style="width:90%;"></textarea>
+        <textarea name="rights" id="rights"></textarea>
         <br>
         <label for="retention">Retention Period</label>
         <select id="retention" name="retention">
@@ -73,21 +73,21 @@
         <#include "displayResearchDataInferences.ftl" />
     </fieldset>
     <fieldset class="property-grouping">
-        <legend>Geographic Coverage</legend>
+        <legend><h2>Geographic Coverage</h2></legend>
         <label for="gml">GML</label>
-        <textarea name="gml" id="gml" style="width:90%;"></textarea>
+        <textarea name="gml" id="gml"></textarea>
         <br>
         <label for="gmlKmlPolyCoords">GML/KML Poly Co-ordinates</label>
-        <textarea name="gmlKmlPolyCoords" id="gmlKmlPolyCoords" style="width:90%;"></textarea>
+        <textarea name="gmlKmlPolyCoords" id="gmlKmlPolyCoords"></textarea>
         <br>
         <label for="gpx">GPX</label>
-        <textarea name="gpx" id="gpx" style="width:90%;"></textarea>
+        <textarea name="gpx" id="gpx"></textarea>
         <br>
         <label for="kml">KML</label>
-        <textarea name="kml" id="kml" style="width:90%;"></textarea>
+        <textarea name="kml" id="kml"></textarea>
         <br>
         <label for="kmlPolyCoords">KML Poly Co-ordinates</label>
-        <textarea name="kmlPolyCoords" id="kmlPolyCoords" style="width:90%;"></textarea>
+        <textarea name="kmlPolyCoords" id="kmlPolyCoords"></textarea>
         <br>
     </fieldset>
 

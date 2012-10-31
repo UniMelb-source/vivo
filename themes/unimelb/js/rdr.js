@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $('#dataManagementPlanDescriptionWrapper').hide();
     $('#dataManagementPlanAvailable').change(function(){
-        $(this).attr('checked') ? $('#dataManagementPlanDescriptionWrapper').show() : $('#dataManagementPlanDescriptionWrapper').hide();
+        var $wrapper = $('#dataManagementPlanDescriptionWrapper');
+        $(this).attr('checked') ? $wrapper.show() : $wrapper.hide();
     });
 });
