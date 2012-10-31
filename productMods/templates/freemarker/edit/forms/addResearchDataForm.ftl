@@ -50,9 +50,11 @@
         <label for="dataManagementPlanAvailable">Data Management Plan?</label>
         <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
         <br>
-        <label for="dataManagementPlanDescription">Data Management Plan Description</label>
-        <input size="30" type="text" id="dataManagementPlanDescription" name="dataManagementPlanDescription" value="">
-        <br>
+        <div id="dataManagementPlanDescriptionWrapper">
+            <label for="dataManagementPlanDescription">Data Management Plan Description</label>
+            <input size="30" type="text" id="dataManagementPlanDescription" name="dataManagementPlanDescription" value="">
+            <br>
+        </div>
         <label for="accessiblity">Access</label>
         <textarea name="accessibility" id="accessibility" style="width:90%;"></textarea>
         <br>
