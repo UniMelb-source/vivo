@@ -108,8 +108,8 @@
     <target name="deploy-no-test">
         <property name="webapp.deploy.home" value="${tomcat.home}/webapps/${webapp.name}" />
         <mkdir dir="${webapp.deploy.home}" />
-        <sync todir="${webapp.deploy.home}" includeemptydirs="true">
+        <sync todir="${webapp.deploy.home}" includeemptydirs="true" verbose="true">
             <fileset dir="${build.dir}/war" />
         </sync>
-    </target>
+   </target>
 </project>
