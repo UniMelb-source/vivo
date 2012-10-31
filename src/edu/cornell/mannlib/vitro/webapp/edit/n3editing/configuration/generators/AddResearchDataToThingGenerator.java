@@ -142,15 +142,15 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "kml",
                 "kmlPolyCoords",
                 "recordCreatedOnDateTime",
-                "collectedDateRange",
-                "collectedDateRangeStart",
+                /*"collectedDateRange",
+                "collectedDateRangeStart",*/
                 "collectedDateRangeStartDateTime",
-                "collectedDateRangeEnd",
+                /*"collectedDateRangeEnd",*/
                 "collectedDateRangeEndDateTime",
-                "coveredDateRange",
-                "coveredDateRangeStart",
+                /*"coveredDateRange",
+                "coveredDateRangeStart",*/
                 "coveredDateRangeStartDateTime",
-                "coveredDateRangeEnd",
+                /*"coveredDateRangeEnd",*/
                 "coveredDateRangeEndDateTime");
     }
 
@@ -193,10 +193,6 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         fields.add(new CustomFieldVTwo("kml", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("kmlPolyCoords", null, null, null, null, null));
         fields.add(new CustomFieldVTwo("recordCreatedOnDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        //fields.add(new CustomFieldVTwo("collectedDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        //fields.add(new CustomFieldVTwo("collectedDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        //fields.add(new CustomFieldVTwo("coveredDateRangeStartDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
-        //fields.add(new CustomFieldVTwo("coveredDateRangeEndDateTime", list("datatype:" + XSD.dateTime.toString()), XSD.dateTime.toString(), null, null, null));
         FieldVTwo collectedStartField = new FieldVTwo().setName("collectedDateRangeStartDateTime");
         collectedStartField.setEditElement(new DateTimeWithPrecisionVTwo(collectedStartField,
                 VitroVocabulary.Precision.DAY.uri(),
