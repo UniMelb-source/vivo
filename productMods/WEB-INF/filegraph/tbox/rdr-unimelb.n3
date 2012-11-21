@@ -235,12 +235,6 @@ unimelb-rdr:contentVerified a owl:DatatypeProperty ;
     rdfs:subPropertyOf unimelb-rdr:contentVerified, owl:topDataProperty ;
     vitro:publicDescriptionAnnot "Valid entries are either 'true' or 'false' (without the quotes)"^^xsd:string .
 
-unimelb-rdr:fieldInfo a owl:DatatypeProperty ;
-    rdfs:comment "Field information for properties"^^xsd:string ;
-    rdfs:domain rdf:Property ;
-    rdfs:range xsd:string ;
-    rdfs:label "field information for properties" .
-
 # modifying existing elements
 vivo:hasInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddGrantRoleToPersonGenerator"^^xsd:string ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement ;
@@ -330,28 +324,28 @@ vivo:Agreement vitro:customDisplayViewAnnot "individual--vivo-agreement.ftl"^^xs
 vivo:InformationResource vitro:customDisplayViewAnnot "individual--vivo-informationresource.ftl"^^xsd:string .
 
 # add field info for fields
-rdfs:label unimelb-rdr:fieldInfo "A name by which the data resource is known. Titles should be as descriptive as possible"@en .
+rdfs:label vitro:publicDescriptionAnnot "A name by which the data resource is known. Titles should be as descriptive as possible"@en .
 
-ands:researchDataDescription unimelb-rdr:fieldInfo "Free text description of the data including where the data was collected; what it covers; format(s). Include sufficient detail  to ensure that the full set of materials can be identified and retrieved."@en .
+ands:researchDataDescription vitro:publicDescriptionAnnot "Free text description of the data including where the data was collected; what it covers; format(s). Include sufficient detail  to ensure that the full set of materials can be identified and retrieved."@en .
 
-ands:isLocatedIn unimelb-rdr:fieldInfo "TBC"@en .
+ands:isLocatedIn vitro:publicDescriptionAnnot "TBC"@en .
 
-unimelb-rdr:nonDigitalLocation unimelb-rdr:fieldInfo "TBC"@en .
+unimelb-rdr:nonDigitalLocation vitro:publicDescriptionAnnot "TBC"@en .
 
-unimelb-rdr:digitalLocation unimelb-rdr:fieldInfo "TBC"@en .
+unimelb-rdr:digitalLocation vitro:publicDescriptionAnnot "TBC"@en .
 
-unimelb-rdr:dataManagementPlanAvailable unimelb-rdr:fieldInfo "TBC"@en .
+unimelb-rdr:dataManagementPlanAvailable vitro:publicDescriptionAnnot "TBC"@en .
 
-unimelb-rdr:dataManagementPlanDescription unimelb-rdr:fieldInfo "All researchers are encouraged to create a data management plan as part of their project planning for the research to be undertaken. Provide a text description of the location of the plan and an identifier ID if one exists."@en .
+unimelb-rdr:dataManagementPlanDescription vitro:publicDescriptionAnnot "All researchers are encouraged to create a data management plan as part of their project planning for the research to be undertaken. Provide a text description of the location of the plan and an identifier ID if one exists."@en .
 
-unimelb-rdr:accessibility unimelb-rdr:fieldInfo "Information about who can access the resource and an indication of its confidentiality. Who can access this data? how do they access? What are the restrictions on access?"@en .
+unimelb-rdr:accessibility vitro:publicDescriptionAnnot "Information about who can access the resource and an indication of its confidentiality. Who can access this data? how do they access? What are the restrictions on access?"@en .
 
-ands:rights unimelb-rdr:fieldInfo "What are the rules around reuse and potential publication based on this data?  Who owns the IP on the data? if pre-existing data is used, are there any copyright or licensing issues associated with the storage and re-use of the data?"@en .
+ands:rights vitro:publicDescriptionAnnot "What are the rules around reuse and potential publication based on this data?  Who owns the IP on the data? if pre-existing data is used, are there any copyright or licensing issues associated with the storage and re-use of the data?"@en .
 
-unimelb-rdr:retentionPeriod unimelb-rdr:fieldInfo "How long do we need to keep the data? Select one from drop down box. Retention is for a period of 5, 7, or 15 years (from the date of the most recent publication using this data), or permanent.  The additional option of 'To be determined' is for research data that you think may have long term value but are unsure at this stage."@en .
+unimelb-rdr:retentionPeriod vitro:publicDescriptionAnnot "How long do we need to keep the data? Select one from drop down box. Retention is for a period of 5, 7, or 15 years (from the date of the most recent publication using this data), or permanent.  The additional option of 'To be determined' is for research data that you think may have long term value but are unsure at this stage."@en .
 
-ands:isManagedBy unimelb-rdr:fieldInfo "Which part of the University is responsible for managing and making decisions about the data? Should in most cases be the same as the location of the Chief Investigator researcher. Select one only."@en .
+ands:isManagedBy vitro:publicDescriptionAnnot "Which part of the University is responsible for managing and making decisions about the data? Should in most cases be the same as the location of the Chief Investigator researcher. Select one only."@en .
 
-ands:associatedPrincipleInvestigator unimelb-rdr:fieldInfo ""@en .
+ands:associatedPrincipleInvestigator vitro:publicDescriptionAnnot ""@en .
 
-vivo:hasSubjectArea unimelb-rdr:fieldInfo ""@en .
+vivo:hasSubjectArea vitro:publicDescriptionAnnot ""@en .

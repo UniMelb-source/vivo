@@ -159,7 +159,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "ands:kml",
                 "ands:kmlPolyCoords");
 
-        return getAttribute(infoRelationships, "unimelb-rdr:fieldInfo");
+        return getAttribute(infoRelationships, "vitro:publicDescriptionAnnot");
     }
 
     @Override
