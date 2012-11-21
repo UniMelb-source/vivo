@@ -2,6 +2,7 @@
 
 <#macro print_status position_property>
     <#if position_property.statements?has_content>
+        <#local status = "Not Current">
         <#list position_property.statements as statement>
             <#if statement.dateTimeStart?? && statement.dateTimeEnd??>
                 <#local position_start_year = dt.xsdDateTimeToYear(statement.dateTimeStart)?number>
@@ -9,7 +10,6 @@
                 <#local now_string = .now?string>
                 <#assign res = now_string?matches("(\\d{1,2})/(\\d{1,2})/(\\d{4}) (\\d{1,2}):(\\d{1,2}) (.{2})")>
                 <#if ! res?has_content>
-                    <#local status = "Not Current">
                     <#break>
                 </#if>
                 <#local match = res[0]>
@@ -18,7 +18,6 @@
                     <#local status = "Current">
                     <#break>
                 </#if>
-                <#local status = "Not Current">
             </#if>
         </#list>
         <#if status??>

@@ -67,9 +67,10 @@ unimelb-rdr:isResearchDataForProject a owl:ObjectProperty ;
 # add a Project to an Agreement
 unimelb-rdr:fundingVehicleFor a owl:ObjectProperty ;
     rdfs:domain vivo:Agreement ;
+    rdfs:range vivo:Project ;
     rdfs:label "provides funding for"@en-US ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
+    vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupProject ;
     vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:selectFromExistingAnnot "true"^^xsd:boolean ;
@@ -77,6 +78,7 @@ unimelb-rdr:fundingVehicleFor a owl:ObjectProperty ;
     vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddProjectToAgreementGenerator"^^xsd:string .
 unimelb-rdr:hasFundingVehicle a owl:ObjectProperty ;
     rdfs:label "funding provided via"@en-US ;
+    rdfs:domain vivo:Project ;
     rdfs:range vivo:Agreement ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
