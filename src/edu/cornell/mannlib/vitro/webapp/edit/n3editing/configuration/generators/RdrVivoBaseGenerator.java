@@ -4,7 +4,6 @@ import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.shared.PrefixMapping;
-
 import edu.cornell.mannlib.vedit.beans.LoginStatusBean;
 import edu.cornell.mannlib.vitro.webapp.beans.UserAccount;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
@@ -15,6 +14,7 @@ import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.SetEntityReturnPreprocessor;
 import java.util.*;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 
 /**
@@ -242,5 +242,33 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
 
     protected List<String> getLiteralsOnForm() {
         return list("forwardUri");
+    }
+
+
+    protected Map<String, String> getAttribute(List<String> subjects, String predicate) {
+        Map< String, String> resultMap = new HashMap<String, String>(subjects.size());
+
+        String queryFormat = SPARQL_PREFIX
+                + "SELECT DISTINCT ?label WHERE { \n"
+                + "%s %s ?label \n"
+                + "}";
+        for (String subject : subjects) {
+            String query = String.format(queryFormat, subject);
+            List<String> results = getResults(query, "label");
+            if (!results.isEmpty()) {
+                String rawResult = results.get(0);
+                int atIndex;
+                atIndex = rawResult.indexOf('@');
+                if (atIndex > 0) {
+                    rawResult = rawResult.substring(0, atIndex);
+                }
+                rawResult = WordUtils.capitalize(rawResult);
+                resultMap.put(subject, rawResult);
+            } else {
+                resultMap.put(subject, "UNSET");
+            }
+        }
+
+        return resultMap;
     }
 }

@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang.WordUtils;
 
 /**
  *
@@ -118,7 +117,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         return getResults(query, "repository", "repositoryLabel");
     }
 
-    private Map<String, String> getAutoLabels() {
+    protected Map<String, String> getAutoLabels() {
         List<String> autoLabelRelationships = list("ands:researchDataDescription",
                 "ands:isLocatedIn",
                 "unimelb-rdr:nonDigitalLocation",
@@ -136,30 +135,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "ands:gpx",
                 "ands:kml",
                 "ands:kmlPolyCoords");
-        Map<String, String> labelMap = new HashMap<String, String>(autoLabelRelationships.size());
 
-        String labelQueryFormat = SPARQL_PREFIX
-                + "SELECT DISTINCT ?label WHERE { \n"
-                + "%s rdfs:label ?label \n"
-                + "}";
-        for (String relationship : autoLabelRelationships) {
-            String labelQuery = String.format(labelQueryFormat, relationship);
-            List<String> labelResults = getResults(labelQuery, "label");
-            if (!labelResults.isEmpty()) {
-                String rawLabel = labelResults.get(0);
-                int atIndex;
-                atIndex = rawLabel.indexOf('@');
-                if(atIndex > 0) {
-                    rawLabel = rawLabel.substring(0, atIndex);
-                }
-                rawLabel = WordUtils.capitalize(rawLabel);
-                labelMap.put(relationship, rawLabel);
-            } else {
-                labelMap.put(relationship, "UNSET");
-            }
-        }
-
-        return labelMap;
+        return getAttribute(autoLabelRelationships, "rdfs:label");
     }
 
     @Override
