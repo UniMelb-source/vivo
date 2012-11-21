@@ -37,7 +37,8 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
             + "PREFIX bibo: <http://purl.org/ontology/bibo/> \n"
             + "PREFIX core: <http://vivoweb.org/ontology/core#> \n"
             + "PREFIX ands: <http://purl.org/ands/ontologies/vivo/> \n"
-            + "PREFIX unimelb-rdr: <https://rdr.unimelb.edu.au/config/> \n";
+            + "PREFIX unimelb-rdr: <https://rdr.unimelb.edu.au/config/> \n"
+            + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n";
 
     protected abstract List<String> getN3Optional();
 

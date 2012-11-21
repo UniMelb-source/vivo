@@ -96,6 +96,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         formSpecificData.put("InheritedCustodians", getInheritedCustodians(subjectUri));
         formSpecificData.put("InheritedSubjectAreas", getInheritedItemLabelAndUri(subjectUri, "core:hasSubjectArea"));
         formSpecificData.put("AvailableResearchRepositories", getAvailableResearchRepositories());
+        formSpecificData.put("AutoLabels", getAutoLabels());
         formSpecificData.put("objectUri", "researchDataUri");
         formSpecificData.put("sparqlQueryUrl", "/vivo/ajax/sparqlQuery");
         formSpecificData.put("acUrl", "/vivo/autocomplete?tokenize=true");
@@ -115,6 +116,43 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 + "?repository rdf:type ands:ResearchRepository. \n"
                 + "?repository rdfs:label ?repositoryLabel}";
         return getResults(query, "repository", "repositoryLabel");
+    }
+
+    private Map<String, String> getAutoLabels() {
+        List<String> autoLabelRelationships = list("ands:researchDataDescription",
+                "ands:isLocatedIn",
+                "unimelb-rdr:nonDigitalLocation",
+                "unimelb-rdr:digitalLocation",
+                "unimelb-rdr:dataManagementPlanAvailable",
+                "unimelb-rdr:dataManagementPlanDescription",
+                "unimelb-rdr:accessibility",
+                "ands:rights",
+                "unimelb-rdr:retentionPeriod",
+                "ands:isManagedBy",
+                "ands:associatedPrincipleInvestigator",
+                "core:hasSubjectArea",
+                "ands:gml",
+                "ands:gmlKmlPolyCoords",
+                "ands:gpx",
+                "ands:kml",
+                "ands:kmlPolyCoords");
+        Map<String, String> labelMap = new HashMap<String, String>(autoLabelRelationships.size());
+
+        String labelQueryFormat = SPARQL_PREFIX
+                + "SELECT DISTINCT ?label WHERE { \n"
+                + "%s rdfs:label ?label \n"
+                + "}";
+        for (String relationship : autoLabelRelationships) {
+            String labelQuery = String.format(labelQueryFormat, relationship);
+            List<String> labelResults = getResults(labelQuery, "label");
+            if (!labelResults.isEmpty()) {
+                labelMap.put(relationship, labelResults.get(0));
+            } else {
+                labelMap.put(relationship, "UNSET");
+            }
+        }
+
+        return labelMap;
     }
 
     @Override
@@ -143,12 +181,12 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "kmlPolyCoords",
                 "recordCreatedOnDateTime",
                 /*"collectedDateRange",
-                "collectedDateRangeStart",*/
+                 "collectedDateRangeStart",*/
                 "collectedDateRangeStartDateTime",
                 /*"collectedDateRangeEnd",*/
                 "collectedDateRangeEndDateTime",
                 /*"coveredDateRange",
-                "coveredDateRangeStart",*/
+                 "coveredDateRangeStart",*/
                 "coveredDateRangeStartDateTime",
                 /*"coveredDateRangeEnd",*/
                 "coveredDateRangeEndDateTime");
