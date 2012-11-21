@@ -253,7 +253,7 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
                 + "%s %s ?label \n"
                 + "}";
         for (String subject : subjects) {
-            String query = String.format(queryFormat, subject);
+            String query = String.format(queryFormat, subject, predicate);
             List<String> results = getResults(query, "label");
             if (!results.isEmpty()) {
                 String rawResult = results.get(0);
