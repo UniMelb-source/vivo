@@ -244,7 +244,6 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
         return list("forwardUri");
     }
 
-
     protected Map<String, String> getAttribute(List<String> subjects, String predicate) {
         Map< String, String> resultMap = new HashMap<String, String>(subjects.size());
 

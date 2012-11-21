@@ -96,6 +96,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
         formSpecificData.put("InheritedSubjectAreas", getInheritedItemLabelAndUri(subjectUri, "core:hasSubjectArea"));
         formSpecificData.put("AvailableResearchRepositories", getAvailableResearchRepositories());
         formSpecificData.put("AutoLabels", getAutoLabels());
+        formSpecificData.put("InfoLabels", getInfoText());
         formSpecificData.put("objectUri", "researchDataUri");
         formSpecificData.put("sparqlQueryUrl", "/vivo/ajax/sparqlQuery");
         formSpecificData.put("acUrl", "/vivo/autocomplete?tokenize=true");
@@ -137,6 +138,28 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "ands:kmlPolyCoords");
 
         return getAttribute(autoLabelRelationships, "rdfs:label");
+    }
+
+    protected Map<String, String> getInfoText() {
+        List<String> infoRelationships = list("ands:researchDataDescription",
+                "ands:isLocatedIn",
+                "unimelb-rdr:nonDigitalLocation",
+                "unimelb-rdr:digitalLocation",
+                "unimelb-rdr:dataManagementPlanAvailable",
+                "unimelb-rdr:dataManagementPlanDescription",
+                "unimelb-rdr:accessibility",
+                "ands:rights",
+                "unimelb-rdr:retentionPeriod",
+                "ands:isManagedBy",
+                "ands:associatedPrincipleInvestigator",
+                "core:hasSubjectArea",
+                "ands:gml",
+                "ands:gmlKmlPolyCoords",
+                "ands:gpx",
+                "ands:kml",
+                "ands:kmlPolyCoords");
+
+        return getAttribute(infoRelationships, "unimelb-rdr:fieldInfo");
     }
 
     @Override

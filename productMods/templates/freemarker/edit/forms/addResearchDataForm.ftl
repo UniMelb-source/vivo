@@ -1,6 +1,7 @@
 <form id="addResearchDataForm" action="${urls.base}/edit/process" class="customForm rdrCustomForm noIE67">
     <#assign availableResearchRepositories = editConfiguration.pageData.AvailableResearchRepositories />
     <#assign autoLabels = editConfiguration.pageData.AutoLabels />
+    <#assign infoLabels = editConfiguration.pageData.InfoLabels />
     <#assign researchRepositoryKeys = availableResearchRepositories?keys>
     <#assign htmlForElements = editConfiguration.pageData.htmlForElements />
     <label for="researchDataLabel">Title <span class="requiredHint"> *</span></label>
@@ -9,6 +10,7 @@
     <fieldset class="property-grouping">
         <legend><h2>Descriptive Metadata</h2></legend>
         <label for="researchDataDescription">${autoLabels["ands:researchDataDescription"]}<span class="requiredHint"> *</span></label>
+        <label for="researchDataDescription">${infoLabels["ands:researchDataDescription"]}<span class="requiredHint"> *</span></label>
         <!--label for="researchDataDescription">Description of the data<span class="requiredHint"> *</span></label-->
         <textarea name="researchDataDescription" id="researchDataDescription"></textarea>
         <br>
@@ -36,6 +38,7 @@
         <legend><h2>Administrative Metadata</h2></legend>
         <#if researchRepositoryKeys?has_content>
         <label for="researchRepository">${autoLabels["ands:isLocatedIn"]}</label>
+        <label for="researchRepository">${infoLabels["ands:isLocatedIn"]}</label>
         <!--label for="researchRepository">Location</label-->
         <select id="researchRepository" name="researchRepository">
             <#list researchRepositoryKeys as key>
@@ -45,32 +48,39 @@
         <br>
         </#if>
         <label for="physicalDataLocation">${autoLabels["unimelb-rdr:nonDigitalLocation"]}</label>
+        <label for="physicalDataLocation">${infoLabels["unimelb-rdr:nonDigitalLocation"]}</label>
         <!--label for="physicalDataLocation">Location Details</label-->
         <textarea name="physicalDataLocation" id="physicalDataLocation"></textarea>
         <br>
         <label for="digitalDataLocation">${autoLabels["unimelb-rdr:digitalLocation"]}</label>
+        <label for="digitalDataLocation">${infoLabels["unimelb-rdr:digitalLocation"]}</label>
         <!--label for="digitalDataLocation">Location URI</label-->
         <textarea name="digitalDataLocation" id="digitalDataLocation"></textarea>
         <br>
         <label for="dataManagementPlanAvailable">${autoLabels["unimelb-rdr:dataManagementPlanAvailable"]}</label>
+        <label for="dataManagementPlanAvailable">${infoLabels["unimelb-rdr:dataManagementPlanAvailable"]}</label>
         <!--label for="dataManagementPlanAvailable">Data Management Plan?</label-->
         <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
         <br>
         <div id="dataManagementPlanDescriptionWrapper">
             <label for="dataManagementPlanDescription">${autoLabels["unimelb-rdr:dataManagementPlanDescription"]}</label>
+            <label for="dataManagementPlanDescription">${infoLabels["unimelb-rdr:dataManagementPlanDescription"]}</label>
             <!--label for="dataManagementPlanDescription">Data Management Plan Description</label-->
             <textarea name="dataManagementPlanDescription" id="dataManagementPlanDescription"></textarea>
             <br>
         </div>
-        <label for="accessiblity">${autoLabels["unimelb-rdr:accessibility"]}</label>
-        <!--label for="accessiblity">Access</label-->
+        <label for="accessibility">${autoLabels["unimelb-rdr:accessibility"]}</label>
+        <label for="accessibility">${infoLabels["unimelb-rdr:accessibility"]}</label>
+        <!--label for="accessibility">Access</label-->
         <textarea name="accessibility" id="accessibility"></textarea>
         <br>
         <label for="rights">${autoLabels["ands:rights"]}</label>
+        <label for="rights">${infoLabels["ands:rights"]}</label>
         <!--label for="rights">Rights</label-->
         <textarea name="rights" id="rights"></textarea>
         <br>
         <label for="retention">${autoLabels["unimelb-rdr:retentionPeriod"]}</label>
+        <label for="retention">${infoLabels["unimelb-rdr:retentionPeriod"]}</label>
         <!--label for="retention">Retention Period</label-->
         <select id="retention" name="retention">
             <option value="5 years">5 years</option>
