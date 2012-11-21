@@ -12,11 +12,11 @@ import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.validators.AntiXssValidation;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang.WordUtils;
 
 /**
  *
@@ -146,7 +146,14 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
             String labelQuery = String.format(labelQueryFormat, relationship);
             List<String> labelResults = getResults(labelQuery, "label");
             if (!labelResults.isEmpty()) {
-                labelMap.put(relationship, labelResults.get(0));
+                String rawLabel = labelResults.get(0);
+                int atIndex;
+                atIndex = rawLabel.indexOf('@');
+                if(atIndex > 0) {
+                    rawLabel = rawLabel.substring(0, atIndex);
+                }
+                rawLabel = WordUtils.capitalize(rawLabel);
+                labelMap.put(relationship, rawLabel);
             } else {
                 labelMap.put(relationship, "UNSET");
             }
