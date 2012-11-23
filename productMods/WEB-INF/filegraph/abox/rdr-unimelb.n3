@@ -283,8 +283,6 @@ ands:isDescribedBy vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchD
 
 ands:hasAssociationWith vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
 
-ands:isLocatedIn vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
-
 ands:isLocationFor vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
 
 ands:hasDerivedCollection vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
