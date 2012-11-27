@@ -9,9 +9,13 @@
     <br>
     <fieldset class="property-grouping">
         <legend><h2>Descriptive Metadata</h2></legend>
-        <label for="researchDataDescription">${autoLabels["ands:researchDataDescription"]}<span class="requiredHint"> *</span></label>
-        <label for="researchDataDescription">${infoLabels["ands:researchDataDescription"]}<span class="requiredHint"> *</span></label>
-        <!--label for="researchDataDescription">Description of the data<span class="requiredHint"> *</span></label-->
+
+        <div class="label-info">
+            <label for="researchDataDescription">${autoLabels["ands:researchDataDescription"]}<span class="requiredHint"> *</span></label>
+            <a href="#" rel="popover" data-content="${infoLabels["ands:researchDataDescription"]}"]}">
+                <i class="icon-info-sign"></i>
+            </a>
+        </div>
         <textarea name="researchDataDescription" id="researchDataDescription"></textarea>
         <br>
         <label>Date of Data Collection</label>
@@ -42,7 +46,7 @@
         <!--label for="researchRepository">Location</label-->
         <select id="researchRepository" name="researchRepository">
             <#list researchRepositoryKeys as key>
-            <option value="${key}">${availableResearchRepositories[key]}</option> 
+            <option value="${key}">${availableResearchRepositories[key]}</option>
             </#list>
         </select>
         <br>
@@ -57,31 +61,54 @@
         <!--label for="digitalDataLocation">Location URI</label-->
         <textarea name="digitalDataLocation" id="digitalDataLocation"></textarea>
         <br>
-        <label for="dataManagementPlanAvailable">${autoLabels["unimelb-rdr:dataManagementPlanAvailable"]}</label>
-        <label for="dataManagementPlanAvailable">${infoLabels["unimelb-rdr:dataManagementPlanAvailable"]}</label>
-        <!--label for="dataManagementPlanAvailable">Data Management Plan?</label-->
-        <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
-        <br>
-        <div id="dataManagementPlanDescriptionWrapper">
-            <label for="dataManagementPlanDescription">${autoLabels["unimelb-rdr:dataManagementPlanDescription"]}</label>
-            <label for="dataManagementPlanDescription">${infoLabels["unimelb-rdr:dataManagementPlanDescription"]}</label>
-            <!--label for="dataManagementPlanDescription">Data Management Plan Description</label-->
-            <textarea name="dataManagementPlanDescription" id="dataManagementPlanDescription"></textarea>
-            <br>
+        <fieldset class="property-grouping property-grouping-child">
+            <legend>Data Management Plan</legend>
+
+            <div class="inline-field">
+                <div class="label-info label-info-data-management-plan-available">
+                    <label for="dataManagementPlanAvailable">${autoLabels["unimelb-rdr:dataManagementPlanAvailable"]}</label>
+                    <a href="#" rel="popover" data-content="${infoLabels["unimelb-rdr:dataManagementPlanAvailable"]}">
+                        <i class="icon-info-sign"></i>
+                    </a>
+                </div>
+                <input type="checkbox" name="dataManagementPlanAvailable" value="true" id="dataManagementPlanAvailable">
+            </div>
+
+            <div id="dataManagementPlanDescriptionWrapper">
+                <div class="label-info">
+                    <label for="dataManagementPlanDescription">${autoLabels["unimelb-rdr:dataManagementPlanDescription"]}</label>
+                    <a href="#" rel="popover" data-content="${infoLabels["unimelb-rdr:dataManagementPlanDescription"]}">
+                        <i class="icon-info-sign"></i>
+                    </a>
+                </div>
+                <textarea name="dataManagementPlanDescription" id="dataManagementPlanDescription"></textarea>
+            </div>
+        </fieldset>
+
+        <div class="label-info">
+            <label for="accessibility">${autoLabels["unimelb-rdr:accessibility"]}</label>
+            <a href="#" rel="popover" data-content="${infoLabels["unimelb-rdr:accessibility"]}">
+                <i class="icon-info-sign"></i>
+            </a>
         </div>
-        <label for="accessibility">${autoLabels["unimelb-rdr:accessibility"]}</label>
-        <label for="accessibility">${infoLabels["unimelb-rdr:accessibility"]}</label>
-        <!--label for="accessibility">Access</label-->
         <textarea name="accessibility" id="accessibility"></textarea>
         <br>
-        <label for="rights">${autoLabels["ands:rights"]}</label>
-        <label for="rights">${infoLabels["ands:rights"]}</label>
-        <!--label for="rights">Rights</label-->
+
+        <div class="label-info">
+            <label for="rights">${autoLabels["ands:rights"]}</label>
+            <a href="#" rel="popover" data-content="${infoLabels["ands:rights"]}">
+                <i class="icon-info-sign"></i>
+            </a>
+        </div>
         <textarea name="rights" id="rights"></textarea>
         <br>
-        <label for="retention">${autoLabels["unimelb-rdr:retentionPeriod"]}</label>
-        <label for="retention">${infoLabels["unimelb-rdr:retentionPeriod"]}</label>
-        <!--label for="retention">Retention Period</label-->
+
+        <div class="label-info">
+            <label for="retention">${autoLabels["unimelb-rdr:retentionPeriod"]}</label>
+            <a href="#" rel="popover" data-content="${infoLabels["unimelb-rdr:retentionPeriod"]}">
+                <i class="icon-info-sign"></i>
+            </a>
+        </div>
         <select id="retention" name="retention">
             <option value="5 years">5 years</option>
             <option value="7 years">7 years</option>
@@ -90,6 +117,7 @@
             <option value="to be determined">To be determined</option>
         </select>
         <br>
+
         <#include "displayResearchDataInferences.ftl" />
     </fieldset>
     <fieldset class="property-grouping">

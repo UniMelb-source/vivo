@@ -16,3 +16,25 @@ section.metadata h2 {
 	padding: 0 10px 10px 10px;
 	border-radius: 7px;
 }
+
+.inline-field > * {
+	display: inline-block;
+}
+
+.label-info label,
+.label-info a {
+	display: inline-block;
+}
+
+.label-info.label-info-data-management-plan-available {
+	width: 175px;
+}
+
+input[type="checkbox"] {
+	vertical-align: baseline;
+}
+
+.tooltip {
+	opacity: 1 !important;
+	filter: alpha(opacity=1);
+}
