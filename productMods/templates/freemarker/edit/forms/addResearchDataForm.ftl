@@ -51,8 +51,12 @@
         </select>
         <br>
         </#if>
-        <label for="physicalDataLocation">${autoLabels["unimelb-rdr:nonDigitalLocation"]}</label>
-        <label for="physicalDataLocation">${infoLabels["unimelb-rdr:nonDigitalLocation"]}</label>
+        <div class="label-info">
+            <label for="physicalDataLocation">${autoLabels["unimelb-rdr:nonDigitalLocation"]}</label>
+            <a href="#" rel="popover" data-content="${infoLabels["unimelb-rdr:nonDigitalLocation"]}">
+                <i class="icon-info-sign"></i>
+            </a>
+        </div>
         <!--label for="physicalDataLocation">Location Details</label-->
         <textarea name="physicalDataLocation" id="physicalDataLocation"></textarea>
         <br>
