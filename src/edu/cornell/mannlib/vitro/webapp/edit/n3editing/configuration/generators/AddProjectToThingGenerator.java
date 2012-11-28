@@ -79,6 +79,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
     protected final Map<String, String> getNewResources(VitroRequest vreq) {
         Map<String, String> newResources = new HashMap<String, String>();
         newResources.put("projectUri", DEFAULT_NS_TOKEN);
+        newResources.put("roles", DEFAULT_NS_TOKEN);
         return newResources;
     }
 
