@@ -245,7 +245,7 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
         return list("forwardUri");
     }
 
-    protected Map<String, String> getAttribute(List<String> subjects, String predicate) {
+    protected Map<String, String> getAttribute(List<String> subjects, String predicate, boolean process) {
         Map< String, String> resultMap = new HashMap<String, String>(subjects.size());
 
         String queryFormat = SPARQL_PREFIX
@@ -262,7 +262,9 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
                 if (atIndex > 0) {
                     rawResult = rawResult.substring(0, atIndex);
                 }
-                rawResult = WordUtils.capitalize(rawResult);
+                if (process) {
+                    rawResult = WordUtils.capitalize(rawResult);
+                }
                 resultMap.put(subject, rawResult);
             } else {
                 resultMap.put(subject, "UNSET");

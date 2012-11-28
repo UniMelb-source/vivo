@@ -137,7 +137,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "ands:kml",
                 "ands:kmlPolyCoords");
 
-        return getAttribute(autoLabelRelationships, "rdfs:label");
+        return getAttribute(autoLabelRelationships, "rdfs:label", true);
     }
 
     protected Map<String, String> getInfoText() {
@@ -159,7 +159,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerat
                 "ands:kml",
                 "ands:kmlPolyCoords");
 
-        return getAttribute(infoRelationships, "vitro:publicDescriptionAnnot");
+        return getAttribute(infoRelationships, "vitro:publicDescriptionAnnot", false);
     }
 
     @Override
