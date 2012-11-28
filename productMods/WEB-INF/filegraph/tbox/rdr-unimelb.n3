@@ -181,6 +181,7 @@ unimelb-rdr:digitalLocation a owl:DatatypeProperty ;
     rdfs:domain ands:ResearchData ;
     rdfs:label "location identifier"@en ;
     rdfs:subPropertyOf unimelb-rdr:digitalLocation, owl:topDataProperty ;
+    vitro:publicDescriptionAnnot "TBC"@en ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:nonDigitalLocation a owl:DatatypeProperty ;
@@ -188,6 +189,7 @@ unimelb-rdr:nonDigitalLocation a owl:DatatypeProperty ;
     rdfs:domain ands:ResearchData ;
     rdfs:label "location details"@en ;
     rdfs:subPropertyOf unimelb-rdr:nonDigitalLocation, owl:topDataProperty ;
+    vitro:publicDescriptionAnnot "TBC"@en ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:retentionPeriod a owl:DatatypeProperty ;
@@ -195,6 +197,7 @@ unimelb-rdr:retentionPeriod a owl:DatatypeProperty ;
     rdfs:domain ands:ResearchData ;
     rdfs:label "retention period"@en ;
     rdfs:subPropertyOf unimelb-rdr:retentionPeriod, owl:topDataProperty ;
+    vitro:publicDescriptionAnnot "How long do we need to keep the data? Select one from drop down box. Retention is for a period of 5, 7, or 15 years (from the date of the most recent publication using this data), or permanent.  The additional option of 'To be determined' is for research data that you think may have long term value but are unsure at this stage."@en ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:accessibility a owl:DatatypeProperty ;
@@ -202,6 +205,7 @@ unimelb-rdr:accessibility a owl:DatatypeProperty ;
     rdfs:domain ands:ResearchData ;
     rdfs:label "access"@en ;
     rdfs:subPropertyOf unimelb-rdr:accessibility, owl:topDataProperty ;
+    vitro:publicDescriptionAnnot "Information about who can access the resource and an indication of its confidentiality. Who can access this data? how do they access? What are the restrictions on access?"@en ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:dataManagementPlanAvailable a owl:DatatypeProperty ;
@@ -218,6 +222,7 @@ unimelb-rdr:dataManagementPlanDescription a owl:DatatypeProperty ;
     rdfs:domain ands:ResearchData ;
     rdfs:label "data management plan description"@en ;
     rdfs:subPropertyOf unimelb-rdr:dataManagementPlanDescription, owl:topDataProperty ;
+    vitro:publicDescriptionAnnot "All researchers are encouraged to create a data management plan as part of their project planning for the research to be undertaken. Provide a text description of the location of the plan and an identifier ID if one exists."@en ;
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:recordCreator a owl:DatatypeProperty ;
@@ -299,6 +304,7 @@ ands:associatedPrincipleInvestigator rdfs:label "associated investigators"@en ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearcher ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
+    vitro:publicDescriptionAnnot ""@en ;
     rdfs:comment "Associated investigators"^^xsd:string .
 
 ands:associatedSupervisor rdfs:label "graduate supervisor"@en ;
@@ -308,9 +314,11 @@ ands:associatedSupervisor rdfs:label "graduate supervisor"@en ;
     rdfs:comment "Graduate supervisor"^^xsd:string .
 
 ands:isLocatedIn rdfs:label "location"@en ;
+    vitro:publicDescriptionAnnot "TBC"@en ;
     rdfs:comment "Location"^^xsd:string .
 
 ands:isManagedBy rdfs:label "managed by"@en ;
+    vitro:publicDescriptionAnnot "Which part of the University is responsible for managing and making decisions about the data? Should in most cases be the same as the location of the Chief Investigator researcher. Select one only."@en ;
     rdfs:comment "Managed by"^^xsd:string .
 
 vivo:Project vitro:customDisplayViewAnnot "individual--vivo-project.ftl"^^xsd:string .
@@ -326,24 +334,6 @@ rdfs:label vitro:publicDescriptionAnnot "A name by which the data resource is kn
 
 ands:researchDataDescription vitro:publicDescriptionAnnot "Free text description of the data including where the data was collected; what it covers; format(s). Include sufficient detail  to ensure that the full set of materials can be identified and retrieved."@en .
 
-ands:isLocatedIn vitro:publicDescriptionAnnot "TBC"@en .
-
-unimelb-rdr:nonDigitalLocation vitro:publicDescriptionAnnot "TBC"@en .
-
-unimelb-rdr:digitalLocation vitro:publicDescriptionAnnot "TBC"@en .
-
-unimelb-rdr:dataManagementPlanAvailable vitro:publicDescriptionAnnot "TBC"@en .
-
-unimelb-rdr:dataManagementPlanDescription vitro:publicDescriptionAnnot "All researchers are encouraged to create a data management plan as part of their project planning for the research to be undertaken. Provide a text description of the location of the plan and an identifier ID if one exists."@en .
-
-unimelb-rdr:accessibility vitro:publicDescriptionAnnot "Information about who can access the resource and an indication of its confidentiality. Who can access this data? how do they access? What are the restrictions on access?"@en .
-
 ands:rights vitro:publicDescriptionAnnot "What are the rules around reuse and potential publication based on this data?  Who owns the IP on the data? if pre-existing data is used, are there any copyright or licensing issues associated with the storage and re-use of the data?"@en .
-
-unimelb-rdr:retentionPeriod vitro:publicDescriptionAnnot "How long do we need to keep the data? Select one from drop down box. Retention is for a period of 5, 7, or 15 years (from the date of the most recent publication using this data), or permanent.  The additional option of 'To be determined' is for research data that you think may have long term value but are unsure at this stage."@en .
-
-ands:isManagedBy vitro:publicDescriptionAnnot "Which part of the University is responsible for managing and making decisions about the data? Should in most cases be the same as the location of the Chief Investigator researcher. Select one only."@en .
-
-ands:associatedPrincipleInvestigator vitro:publicDescriptionAnnot ""@en .
 
 vivo:hasSubjectArea vitro:publicDescriptionAnnot ""@en .
