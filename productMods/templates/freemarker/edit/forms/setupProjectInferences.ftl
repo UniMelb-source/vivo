@@ -1,6 +1,6 @@
 <#--Retrieve certain page specific information information-->
 <#assign inheritedSubjectAreas = editConfiguration.pageData.InheritedSubjectAreas />
-<#assign inheritedRoles = editConfiguration.pageData.InheritedRoles />
+<#assign inheritedPersons = editConfiguration.pageData.InheritedPersons />
 
 <#assign subjectAreaKeys = inheritedSubjectAreas?keys>
-<#assign rolesKeys = inheritedRoles?keys>
+<#assign personsKeys = inheritedPersons?keys>

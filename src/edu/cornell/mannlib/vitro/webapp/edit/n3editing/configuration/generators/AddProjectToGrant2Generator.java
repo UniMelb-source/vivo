@@ -29,7 +29,7 @@ public class AddProjectToGrant2Generator extends AddProjectToThingGenerator {
     }
     
     @Override
-    protected final Map<String, String> getInheritedRolesLabelAndUri(String subjectUri) {
+    protected final Map<String, String> getInheritedPersonsLabelAndUri(String subjectUri) {
         String query = SPARQL_PREFIX
         + "SELECT DISTINCT ?role ?roleLabel WHERE { \n"
         + "<" + subjectUri + "> core:contributingRole ?role . \n"

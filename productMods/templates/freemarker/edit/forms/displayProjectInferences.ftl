@@ -7,11 +7,11 @@
     	<br>
 	</#list>
 </#if>
-<#if rolesKeys?has_content>
+<#if personsKeys?has_content>
 	<br>
 	<label>Inherited Role</label>
-	<#list rolesKeys as key>
-		<input type="checkbox" name="roles" value="${key}" id="roles${key_index}"> ${inheritedRoles[key]}
+	<#list personsKeys as key>
+		<input type="checkbox" name="persons" value="${key}" id="persons${key_index}"> ${inheritedPersons[key]}
 		<br>
 	</#list>
 </#if>

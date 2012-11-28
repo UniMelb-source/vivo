@@ -28,7 +28,7 @@ public class AddProjectToContractGenerator extends AddProjectToThingGenerator {
         return "addProjectToContract.ftl";
     }
 
-    protected Map<String, String> getInheritedRolesLabelAndUri(String subjectUri) {
+    protected Map<String, String> getInheritedPersonsLabelAndUri(String subjectUri) {
         String query = SPARQL_PREFIX
                 + "SELECT DISTINCT ?role ?roleLabel WHERE { \n"
                 + "<" + subjectUri + "> core:contributingRole ?role . \n"
