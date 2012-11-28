@@ -42,7 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <#include "headScripts.ftl">
 
-<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-custom.min.js"></script>
+<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui.custom.min.js"></script>
 <script type="text/javascript" src="${urls.theme}/js/rdr.js"></script>
 <script type="text/javascript" src="${urls.theme}/js/tabs.js"></script>
 <!--script type="text/javascript" src="${urls.theme}/js/custom-form.js"></script-->
