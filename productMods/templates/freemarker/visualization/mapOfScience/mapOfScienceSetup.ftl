@@ -102,7 +102,7 @@ ${scripts.add('<script type="text/javascript" src="http://maps.google.com/maps/a
 
 <#-- CSS files -->
 
-${stylesheets.add(,
+${stylesheets.add(
                   '<link rel="stylesheet" href="${urls.base}/js/visualization/entitycomparison/jquery_plugins/datatable/demo_table.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/visualization/mapofscience/layout.css" />')}
 
