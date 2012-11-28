@@ -40,7 +40,7 @@ public class AddProjectToAgreementGenerator extends AddProjectToThingGenerator {
                 + "?role ?roleProp ?person . \n"
                 + "?roleProp rdfs:subPropertyOf core:roleOf . \n"
                 + "?person rdfs:label ?personLabel}";
-        return getResults(query, "role", "roleLabel");
+        return getResults(query, "person", "personLabel");
     }
 
     @Override
