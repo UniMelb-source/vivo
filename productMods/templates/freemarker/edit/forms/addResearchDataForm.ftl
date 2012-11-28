@@ -12,7 +12,7 @@
 
         <div class="label-info">
             <label for="researchDataDescription">${autoLabels["ands:researchDataDescription"]}<span class="requiredHint"> *</span></label>
-            <a href="#" rel="popover" data-content="${infoLabels["ands:researchDataDescription"]}"]}">
+            <a href="#" rel="popover" data-content="${infoLabels["ands:researchDataDescription"]}">
                 <i class="icon-info-sign"></i>
             </a>
         </div>
@@ -42,7 +42,12 @@
         <legend><h2>Administrative Metadata</h2></legend>
         <#if researchRepositoryKeys?has_content>
         <label for="researchRepository">${autoLabels["ands:isLocatedIn"]}</label>
-        <label for="researchRepository">${infoLabels["ands:isLocatedIn"]}</label>
+        <div class="label-info">
+            <label for="physicalDataLocation">${autoLabels["ands:isLocatedIn"]}</label>
+            <a href="#" rel="popover" data-content="${infoLabels["ands:isLocatedIn"]}">
+                <i class="icon-info-sign"></i>
+            </a>
+        </div>
         <!--label for="researchRepository">Location</label-->
         <select id="researchRepository" name="researchRepository">
             <#list researchRepositoryKeys as key>
@@ -60,8 +65,12 @@
         <!--label for="physicalDataLocation">Location Details</label-->
         <textarea name="physicalDataLocation" id="physicalDataLocation"></textarea>
         <br>
-        <label for="digitalDataLocation">${autoLabels["unimelb-rdr:digitalLocation"]}</label>
-        <label for="digitalDataLocation">${infoLabels["unimelb-rdr:digitalLocation"]}</label>
+        <div class="label-info">
+            <label for="physicalDataLocation">${autoLabels["unimelb-rdr:digitalLocation"]}</label>
+            <a href="#" rel="popover" data-content="${infoLabels["unimelb-rdr:digitalLocation"]}">
+                <i class="icon-info-sign"></i>
+            </a>
+        </div>
         <!--label for="digitalDataLocation">Location URI</label-->
         <textarea name="digitalDataLocation" id="digitalDataLocation"></textarea>
         <br>
