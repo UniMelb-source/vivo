@@ -46,7 +46,6 @@
 </form>
 
 ${stylesheets.add(
-    ,
 	'<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />',
 	'<link rel="stylesheet" href="${urls.base}/edit/forms/css/autocomplete.css" />')}
 

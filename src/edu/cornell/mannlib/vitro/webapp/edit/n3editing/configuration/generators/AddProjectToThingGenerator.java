@@ -21,12 +21,24 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
     protected abstract Map<String, String> getInheritedPersonsLabelAndUri(String subjectUri);
 
     @Override
+    protected List<String> getN3Required() {
+        return list(N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .");
+        //person unimelb-rdr:hasProjectRole role
+        //role unimelb-rdr:projectRoleIn project
+        //project unimelb-rdr:relatedProjectRole role
+        //role unimelb-rdr:projectRoleOf person
+    }
+
+    @Override
     protected final List<String> getN3Optional() {
         return list(
                 N3_PREFIX + "?projectUri rdfs:label ?projectLabel .",
                 N3_PREFIX + "?projectUri core:hasSubjectArea ?subjectAreas .",
-                N3_PREFIX + "?projectUri core:hasRole ?roles .",
-                N3_PREFIX + "?projectUri core:description ?projectDescription .");
+                N3_PREFIX + "?projectUri unimelb-rdr:relatedProjectRole ?roles .",
+                N3_PREFIX + "?roles unimelb-rdr:projectRoleIn ?projectUri .",
+                N3_PREFIX + "?projectUri core:description ?projectDescription .",
+                N3_PREFIX + "?roles unimelb-rdr:projectRoleOf ?persons .",
+                N3_PREFIX + "?persons unimelb-rdr:hasProjectRole ?roles .");
     }
 
     @Override
@@ -49,7 +61,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
     @Override
     protected final List<String> getUrisOnForm() {
-        return list("subjectAreas", "roles");
+        return list("subjectAreas", "persons");
     }
 
     @Override
@@ -59,7 +71,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
         fields.add(new CustomFieldVTwo("projectDescription", list("nonempty", "datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("redirectForward", null, XSD.xboolean.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("subjectAreas", null, null, null, null, null));
-        fields.add(new CustomFieldVTwo("roles", null, null, null, null, null));
+        fields.add(new CustomFieldVTwo("persons", null, null, null, null, null));
         return fields;
     }
 
