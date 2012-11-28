@@ -22,7 +22,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
     @Override
     protected List<String> getN3Required() {
-        return list(N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .");
+        return list();
         //person unimelb-rdr:hasProjectRole role
         //role unimelb-rdr:projectRoleIn project
         //project unimelb-rdr:relatedProjectRole role
@@ -32,6 +32,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
     @Override
     protected final List<String> getN3Optional() {
         return list(
+                N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .",
                 N3_PREFIX + "?projectUri rdfs:label ?projectLabel .",
                 N3_PREFIX + "?projectUri core:hasSubjectArea ?subjectAreas .",
                 N3_PREFIX + "?projectUri unimelb-rdr:relatedProjectRole ?roles .",
