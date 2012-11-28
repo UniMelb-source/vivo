@@ -17,8 +17,8 @@ public class AddProjectToAgreementGenerator extends AddProjectToThingGenerator {
     @Override
     protected final List<String> getN3Required() {
         return list(N3_PREFIX
-                + "?grant unimelb-rdr:fundingVehicleFor ?projectUri . \n"
-                + "?projectUri unimelb-rdr:hasFundingVehicle ?grant . \n"
+                + "?agreement unimelb-rdr:fundingVehicleFor ?projectUri . \n"
+                + "?projectUri unimelb-rdr:hasFundingVehicle ?agreement . \n"
                 + "?projectUri a core:Project;");
     }
 
@@ -33,19 +33,19 @@ public class AddProjectToAgreementGenerator extends AddProjectToThingGenerator {
     }
 
     @Override
-    protected final Map<String, String> getInheritedRolesLabelAndUri(String subjectUri) {
+    protected final Map<String, String> getInheritedPersonsLabelAndUri(String subjectUri) {
         String query = SPARQL_PREFIX
-                + "SELECT DISTINCT ?role ?roleLabel WHERE { \n"
+                + "SELECT DISTINCT ?person ?personLabel WHERE { \n"
                 + "<" + subjectUri + "> core:contributingRole ?role . \n"
                 + "?role ?roleProp ?person . \n"
                 + "?roleProp rdfs:subPropertyOf core:roleOf . \n"
-                + "?role rdfs:label ?roleLabel}";
-        return getResults(query, "role", "roleLabel");
+                + "?person rdfs:label ?personLabel}";
+        return getResults(query, "person", "personLabel");
     }
 
     @Override
     protected final String getSubjectName() {
-        return "grant";
+        return "agreement";
     }
 
     @Override

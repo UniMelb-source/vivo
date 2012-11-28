@@ -18,14 +18,14 @@ import java.util.Map;
  */
 public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
-    protected abstract Map<String, String> getInheritedRolesLabelAndUri(String subjectUri);
+    protected abstract Map<String, String> getInheritedPersonsLabelAndUri(String subjectUri);
 
     @Override
     protected final List<String> getN3Optional() {
         return list(
                 N3_PREFIX + "?projectUri rdfs:label ?projectLabel .",
                 N3_PREFIX + "?projectUri core:hasSubjectArea ?subjectAreas .",
-                N3_PREFIX + "?projectUri core:hasRole ?role .",
+                N3_PREFIX + "?projectUri core:hasRole ?roles .",
                 N3_PREFIX + "?projectUri core:description ?projectDescription .");
     }
 
@@ -35,7 +35,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
         String subjectUri = EditConfigurationUtils.getSubjectUri(vreq);
         formSpecificData.put("InheritedSubjectAreas", getInheritedItemLabelAndUri(subjectUri, "core:hasSubjectArea"));
-        formSpecificData.put("InheritedRoles", getInheritedRolesLabelAndUri(subjectUri));
+        formSpecificData.put("InheritedPersons", getInheritedPersonsLabelAndUri(subjectUri));
 
         return formSpecificData;
     }
