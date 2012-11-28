@@ -15,10 +15,10 @@
 
 
 <#if organizationLocalName?has_content >
-    
+
     <#assign organizationPublicationTemporalGraphURL = '${urls.base}${shortVisualizationURLRoot}/publication-graph/${organizationLocalName}'>
     <#assign organizationGrantTemporalGraphURL = "${urls.base}${shortVisualizationURLRoot}/grant-graph/${organizationLocalName}">
-    
+
 <#else>
 
     <#assign organizationPublicationTemporalGraphURL = '${urls.base}${shortVisualizationURLRoot}/publication-graph/?uri=${organizationURI}'>
@@ -37,31 +37,31 @@
 <#assign publicationParameter = {   "name": "publication",
                                     "pluralName": "publications",
                                     "verbName": "published",
-                                    "dropDownText": "by Publications", 
+                                    "dropDownText": "by Publications",
                                     "viewLink": "${organizationPublicationTemporalGraphURL}",
                                     "viewBaseLink": "${subOrganizationPublicationTemporalGraphCommonURL}",
                                     "dataLink": "${organizationPublicationTemporalGraphDataURL}",
-                                    "csvLink": "${temporalGraphDownloadCSVCommonURL}&vis=entity_comparison", 
+                                    "csvLink": "${temporalGraphDownloadCSVCommonURL}&vis=entity_comparison",
                                     "value": "Publications" }>
-                                    
+
 <#assign grantParameter = {   "name": "grant",
                               "pluralName": "grants",
                               "verbName": "granted",
-                              "dropDownText": "by Grants", 
+                              "dropDownText": "by Grants",
                               "viewLink": "${organizationGrantTemporalGraphURL}",
-                              "viewBaseLink": "${subOrganizationGrantTemporalGraphCommonURL}", 
+                              "viewBaseLink": "${subOrganizationGrantTemporalGraphCommonURL}",
                               "dataLink": "${organizationGrantTemporalGraphDataURL}",
                               "csvLink": "${temporalGraphDownloadCSVCommonURL}&vis=entity_grant_count",
                               "value": "Grants" }>
-                              
+
 <#assign parameterOptions = [publicationParameter, grantParameter]>
 
 <#assign entityCheckboxSelectorDOMClass = "entity-selector-checkbox">
-                                    
+
 <#-- Javascript files -->
 
 <#-- Currently we are using the developer build version for both flot & excanvas libraries,
-this is because IE 9 complains about certain properties. After testing it seems that dev 
+this is because IE 9 complains about certain properties. After testing it seems that dev
 build version is stable enough. If in next couple of days we feel that there are some issues
 we will default to using the stable version unless the request comes from IE 9 in which case
 we will use rev 293 (dev build version) of the flot & excanvas files.
@@ -73,33 +73,33 @@ var activitiesLabel = {
         singular: 'activity',
         plural: 'activities'
     };
-    
+
 </script>
 
 ${scripts.add('<!--[if IE]><script type="text/javascript" src="${urls.base}/js/visualization/entitycomparison/jquery_plugins/flot/r293/excanvas.min.js"></script><![endif]-->',
               '<script type="text/javascript" src="${urls.base}/js/visualization/entitycomparison/jquery_plugins/flot/r293/jquery.flot.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/visualization/entitycomparison/jquery_plugins/fliptext/jquery.mb.flipText.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
+              ,
               '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.blockUI.min.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.dataTables.min.js"></script>', 
+              '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.dataTables.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/visualization/entitycomparison/util.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/visualization/entitycomparison/constants.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/visualization/visualization-helper-functions.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.notify.min.js"></script>')}              
+              '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.notify.min.js"></script>')}
 
 <#-- CSS files -->
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />',
+${stylesheets.add(,
                   '<link rel="stylesheet" href="${urls.base}/js/visualization/entitycomparison/jquery_plugins/datatable/demo_table.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/visualization/entitycomparison/layout.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/visualization/visualization.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/jquery_plugins/ui.notify.css" />',
                   '<!--[if IE]><link href="${urls.base}/css/visualization/entitycomparison/layout-ie.css" rel="stylesheet" type="text/css" /><![endif]-->',
-                  '<!--[if lt IE 8]><link href="${urls.base}/css/visualization/entitycomparison/layout-ie-67.css" rel="stylesheet" type="text/css" /><![endif]-->')}                  
- 
+                  '<!--[if lt IE 8]><link href="${urls.base}/css/visualization/entitycomparison/layout-ie-67.css" rel="stylesheet" type="text/css" /><![endif]-->')}
+
 <#-- variables passed from server-side code -->
 <script language="JavaScript" type="text/javascript">
-    
+
 var contextPath = "${urls.base}";
 var temporalGraphDrillUpIcon = "${temporalGraphDrillUpIcon}";
 var temporalGraphDrillDownIcon = "${temporalGraphDrillDownIcon}";
@@ -134,11 +134,11 @@ var COMPARISON_PARAMETERS_INFO = {
     <#list parameter?keys as key>
         ${key}:"${parameter[key]}"<#if key_has_next>,</#if>
     </#list>
-    
+
     }<#if parameter_has_next>,</#if>
 
 </#list>
-    
+
 }
 
 </script>

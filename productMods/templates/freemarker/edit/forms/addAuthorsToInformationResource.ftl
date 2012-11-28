@@ -43,7 +43,7 @@
         <#list submissionErrors?keys as errorFieldName>
         		  ${submissionErrors[errorFieldName]} <br/>
         </#list>
-        
+
         </p>
     </section>
 </#if>
@@ -65,14 +65,14 @@
 
 	<li class="authorship">
 			<#-- span.author will be used in the next phase, when we display a message that the author has been
-			removed. That text will replace the a.authorName, which will be removed. -->    
+			removed. That text will replace the a.authorName, which will be removed. -->
 			<span class="author">
 					<#-- This span is here to assign a width to. We can't assign directly to the a.authorName,
 					for the case when it's followed by an em tag - we want the width to apply to the whole thing. -->
 					<span class="authorNameWrapper">
 							<#if (authorUri?length > 0)>
 									<span class="authorName">${authorName}</span>
-								<#else>      
+								<#else>
 									<span class="authorName">${authorship.authorshipName}</span><em> (no linked author)</em>
 							</#if>
 					</span>
@@ -85,12 +85,12 @@
 			authorshipData.push({
 					"authorshipUri": "${authorship.authorshipUri}",
 					"authorUri": "${authorUri}",
-					"authorName": "${authorName}"                
+					"authorName": "${authorName}"
 			});
 	</script>
 </#list>
 
-   
+
 
 </ul>
 
@@ -100,7 +100,7 @@
 
     <span class="or"> or </span>
     <a class="cancel" href="${cancelUrl}&url=/individual" title="Cancel">Return to Publication</a>
-</section> 
+</section>
 
 <form id="addAuthorForm" action ="${submitUrl}" class="customForm noIE67">
     <h3>Add an Author</h3>
@@ -110,18 +110,18 @@
         <label for="lastName">Last name <span class='requiredHint'> *</span></label>
         <input class="acSelector" size="35"  type="text" id="lastName" name="lastName" value="${lastNameValue}" role="input" />
         </p>
-				
+
 				<p class="inline">
         <label for="firstName">First name ${requiredHint} ${initialHint}</label>
         <input  size="20"  type="text" id="firstName" name="firstName" value="${firstNameValue}"  role="input" />
         </p>
-        
+
 
 				<p class="inline">
 				<label for="middleName">Middle name <span class='hint'>(initial okay)</span></label>
         <input  size="20"  type="text" id="middleName" name="middleName" value="${middleNameValue}"  role="input" />
         </p>
-      
+
         <input type="hidden" id="label" name="label" value=""  role="input" />  <!-- Field value populated by JavaScript -->
 
         <div id="selectedAuthor" class="acSelection">
@@ -133,13 +133,13 @@
             </p>
         </div>
         <input type="hidden" name="rank" id="rank" value="${newRank}" role="input" />
-    
+
         <p class="submit">
             <input type="hidden" name = "editKey" value="${editKey}" role="input" />
             <input type="submit" id="submit" value="Add Author" role="button" role="input" />
-            
+
             <span class="or"> or </span>
-            
+
             <a class="cancel" href="${cancelUrl}" title="Cancel">Cancel</a>
         </p>
 
@@ -154,13 +154,10 @@ var customFormData = {
 };
 </script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />',
-									'<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />',
-									'<link rel="stylesheet" href="${urls.base}/edit/forms/css/autocomplete.css" />',
-									'<link rel="stylesheet" href="${urls.base}/edit/forms/css/addAuthorsToInformationResource.css" />')}
+${stylesheets.add(  '<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />',
+				    '<link rel="stylesheet" href="${urls.base}/edit/forms/css/autocomplete.css" />',
+					'<link rel="stylesheet" href="${urls.base}/edit/forms/css/addAuthorsToInformationResource.css" />')}
 
-
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/edit/forms/js/addAuthorsToInformationResource.js"></script>')}

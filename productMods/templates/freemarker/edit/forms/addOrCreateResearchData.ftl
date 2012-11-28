@@ -17,19 +17,15 @@
 <#include "addExistingForm.ftl" />
 
 <p>If you don't find the appropriate entry on the selection list above:</p>
-<form class="editForm" action="${urls.base}/editRequestDispatch" role="input" />        
-    <input type="hidden" value="${editConfiguration.subjectUri}" name="subjectUri" role="input" />  
-    <input type="hidden" value="${editConfiguration.predicateUri}" name="predicateUri" role="input" />    
+<form class="editForm" action="${urls.base}/editRequestDispatch" role="input" />
+    <input type="hidden" value="${editConfiguration.subjectUri}" name="subjectUri" role="input" />
+    <input type="hidden" value="${editConfiguration.predicateUri}" name="predicateUri" role="input" />
     <input type="hidden" value="${editForm}" name="editForm" role="input"/>
-    <input type="submit" id="submit" value="Create a new item" role="button" />  
+    <input type="submit" id="submit" value="Create a new item" role="button" />
 </form>
 
-${stylesheets.add(
-	'<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />',
-	'<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />',
-	'<link rel="stylesheet" href="${urls.base}/edit/forms/css/autocomplete.css" />')}
+${stylesheets.add(	'<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />',
+					'<link rel="stylesheet" href="${urls.base}/edit/forms/css/autocomplete.css" />')}
 
-
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>')}

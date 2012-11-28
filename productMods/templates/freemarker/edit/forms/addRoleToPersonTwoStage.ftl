@@ -99,19 +99,19 @@
         <#if lvf.submissionErrorExists(editSubmission, "roleLabel")>
     	    Please specify a role for this activity.
         </#if>
-        
+
         </p>
     </section>
 </#if>
 
-<@lvf.unsupportedBrowser urls.base /> 
+<@lvf.unsupportedBrowser urls.base />
 
-<section id="add${roleDescriptor?capitalize}RoleToPersonTwoStage" role="region">        
-    
+<section id="add${roleDescriptor?capitalize}RoleToPersonTwoStage" role="region">
+
     <form id="add${roleDescriptor?capitalize}RoleToPersonTwoStage" class="customForm noIE67" action="${submitUrl}"  role="add/edit grant role">
 
        <p class="inline"><label for="typeSelector">${typeSelectorLabel?capitalize} ${requiredHint}</label>
-           <select id="typeSelector" name="roleActivityType" 
+           <select id="typeSelector" name="roleActivityType"
            <#if disabledVal?has_content>
            	disabled = "${disabledVal}"
            </#if>
@@ -129,21 +129,21 @@
                 </#list>
            </select>
        </p>
-       
-       
-   <div class="fullViewOnly">        
+
+
+   <div class="fullViewOnly">
             <p>
                 <label for="relatedIndLabel">### Name ${requiredHint}</label>
-                <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="activityLabel"  value="${activityLabelValue}" 
+                <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="activityLabel"  value="${activityLabelValue}"
                 <#if disabledVal?has_content>
                 	disabled=${disabledVal}
                 </#if>
                 />
             </p>
-            
+
             <input type="hidden" id="roleToActivityPredicate" name="roleToActivityPredicate" value="" />
             <!--Populated or modified by JavaScript based on type of activity, type returned from AJAX request-->
-            
+
             <#if editMode = "edit">
             	<input type="hidden" id="roleActivityType" name="roleActivityType" value="${activityTypeValue}"/>
             	<input type="hidden" id="activityLabel" name="activityLabel" value="${activityLabelValue}"/>
@@ -155,7 +155,7 @@
                 <input  size="50"  type="text" id="roleLabel" name="roleLabel" value="${roleLabel}" />
             </p>
         	</#if>
-        	
+
             <#if numDateFields == 1 >
                <#--Generated html is a map with key name mapping to html string-->
                <#if htmlForElements?keys?seq_contains("startField")>
@@ -183,8 +183,8 @@
         <p id="requiredLegend" class="requiredHint">* required fields</p>
     </form>
 
-<#--Specifying form-specific script and adding stylesheets and scripts-->    
-    
+<#--Specifying form-specific script and adding stylesheets and scripts-->
+
  <script type="text/javascript">
 	var customFormData  = {
 	    acUrl: '${urls.base}/autocomplete?tokenize=true',
@@ -194,13 +194,13 @@
 	};
 	</script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+${stylesheets.add()}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customFormWithAutocomplete.css" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>')}
+
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/edit/forms/js/customFormWithAutocomplete.js"></script>')}
 
-</section>   
+</section>

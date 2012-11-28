@@ -38,9 +38,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <#include "stylesheets.ftl">
 <link rel="stylesheet" href="${urls.theme}/css/screen.css" />
+<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui.custom.css" />
 
 <#include "headScripts.ftl">
 
+<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-custom.min.js"></script>
+<script type="text/javascript" src="${urls.theme}/js/rdr.js"></script>
 <script type="text/javascript" src="${urls.theme}/js/tabs.js"></script>
 <!--script type="text/javascript" src="${urls.theme}/js/custom-form.js"></script-->
 <script type="text/javascript" src="${urls.base}/edit/forms/js/custom-form.js"></script>
@@ -57,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <script type="text/javascript" src="${urls.base}/js/selectivizr.js"></script>
 <![endif]-->
 
-<#-- Inject head content specified in the controller. Currently this is used only to generate an rdf link on 
+<#-- Inject head content specified in the controller. Currently this is used only to generate an rdf link on
 an individual profile page. -->
 ${headContent!}
 

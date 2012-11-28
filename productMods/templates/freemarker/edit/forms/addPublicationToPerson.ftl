@@ -20,12 +20,12 @@
 <#--In case of submission error, may already have publication type or title - although latter not likely, but storing values to be on safe side-->
 <#assign publicationTypeValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "pubType") />
 <#assign titleValue = lvf.getFormFieldValue(editSubmission, editConfiguration, "title") />
-<#if editMode == "edit">        
-        <#assign titleVerb="Edit">        
+<#if editMode == "edit">
+        <#assign titleVerb="Edit">
         <#assign submitButtonText="Edit Publication">
         <#assign disabledVal="disabled">
 <#else>
-        <#assign titleVerb="Create">        
+        <#assign titleVerb="Create">
         <#assign submitButtonText="Publication">
         <#assign disabledVal=""/>
 </#if>
@@ -40,7 +40,7 @@
         <#list submissionErrors?keys as errorFieldName>
         	${submissionErrors[errorFieldName]} <br/>
         </#list>
-        
+
         </p>
     </section>
 </#if>
@@ -50,15 +50,15 @@
 <#assign yearHint     = "<span class='hint'>(YYYY)</span>" />
 
 <#if editMode = "error">
- <div>This form is unable to handle the editing of this position because it is associated with 
-      multiple Position individuals.</div>      
+ <div>This form is unable to handle the editing of this position because it is associated with
+      multiple Position individuals.</div>
 <#else>
 
-<section id="addPublicationToPerson" role="region">        
-    
+<section id="addPublicationToPerson" role="region">
+
 <@lvf.unsupportedBrowser urls.base/>
 <form id="addpublicationToPerson" class="customForm noIE67" action="${submitUrl}"  role="add/edit publication">
-        
+
         <#--TODO: Check if possible to have existing publication options here in order to select-->
     <p class="inline"><label for="typeSelector">Publication Type ${requiredHint}</label>
         <select id="typeSelector" name="pubType" <#if (disabledVal?length > 0)>disabled="${disabledVal}"</#if> >
@@ -68,10 +68,10 @@
              </#list>
         </select>
     </p>
-    <div class="fullViewOnly">        
+    <div class="fullViewOnly">
         <p>
             <label for="relatedIndLabel">Title ${requiredHint}</label>
-            <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="title" 
+            <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="title"
             <#if (disabledVal?length > 0)>disabled="${disabledVal}"</#if> value="" />
         </p>
 
@@ -83,7 +83,7 @@
             </p>
             <input class="acUriReceiver" type="hidden" id="pubUri" name="pubUri" value="" />
         </div>
-        
+
    </div>
        <p class="submit">
             <input type="hidden" name = "editKey" value="${editKey}"/>
@@ -109,12 +109,12 @@
 </section>
 </#if>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+${stylesheets.add()}
  ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />')}
  ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customFormWithAutocomplete.css" />')}
 
 
- ${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
+ ${scripts.add(,
               '<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>',             
+              '<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>',
               '<script type="text/javascript" src="${urls.base}/edit/forms/js/customFormWithAutocomplete.js"></script>')}

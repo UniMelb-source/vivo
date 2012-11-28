@@ -16,9 +16,9 @@
 
 
 <#if entityLocalName?has_content >
-    
+
     <#assign entityMapOfScienceURL = "${urls.base}${shortVisualizationURLRoot}/${mapOfScienceVisParam}/${entityLocalName}">
-    
+
 <#else>
 
     <#assign entityMapOfScienceURL = '${urls.base}${shortVisualizationURLRoot}/${mapOfScienceVisParam}/?uri=${entityURI}'>
@@ -49,7 +49,7 @@ var disciplineBlackLabelImageUrlPrefix = disciplineLabelImageUrlPrefix + "black/
 
 var infoIconUrl = "${urls.images}/iconInfo.png";
 var drillDownIconUrl = "${urls.images}/visualization/drill_down_icon.png";
-											
+
 var entityLabel = '${entityLabel}';
 
 var ENTITY_TYPE = '${entityType}';
@@ -61,19 +61,19 @@ var ENTITY_TYPE = '${entityType}';
 
 var loadingImageLink = contextPath + "/images/visualization/ajax-loader-indicator.gif";
 var refreshPageImageLink = contextPath + "/images/visualization/refresh-green.png";
-											
+
 var comparisonScienceMapCsvDataUrlPrefix = "${urls.base}${dataVisualizationURLRoot}?labelField=label&vis=entity_comparison&uri=";
 var entityMapOfScienceSubDisciplineCSVURLPrefix = "${urls.base}${dataVisualizationURLRoot}?vis=${mapOfScienceVisParam}&output=csv&vis_mode=subdiscipline&&uri="
 var entityMapOfScienceDisciplineCSVURL = "${entityMapOfScienceDisciplineCSVURL}";
-var entityMapOfScienceSubDisciplineCSVURL = "${entityMapOfScienceSubDisciplineCSVURL}";											
+var entityMapOfScienceSubDisciplineCSVURL = "${entityMapOfScienceSubDisciplineCSVURL}";
 
 </script>
 
 ${scripts.add('<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
+			  ,
 			  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.blockUI.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/datatable/1.7.6/jquery.dataTables.min.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/visualization/dataTables.helper.js"></script>', 
+			  '<script type="text/javascript" src="${urls.base}/js/visualization/dataTables.helper.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/visualization/visualization-helper-functions.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.notify.min.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/visualization/mapofscience/ClassExtendUtils.js"></script>',
@@ -98,11 +98,11 @@ ${scripts.add('<script type="text/javascript" src="http://maps.google.com/maps/a
 			  '<script type="text/javascript" src="${urls.base}/js/visualization/mapofscience/ComparisonDataTableWidget.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/visualization/mapofscience/VisModeControllers.js"></script>',
 			  '<script type="text/javascript" src="${urls.base}/js/visualization/mapofscience/VisCommonControl.js"></script>',
-			  '<script type="text/javascript" src="${urls.base}/js/visualization/mapofscience/InitializeMap.js"></script>')}              
+			  '<script type="text/javascript" src="${urls.base}/js/visualization/mapofscience/InitializeMap.js"></script>')}
 
 <#-- CSS files -->
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />',
+${stylesheets.add(,
                   '<link rel="stylesheet" href="${urls.base}/js/visualization/entitycomparison/jquery_plugins/datatable/demo_table.css" />',
                   '<link rel="stylesheet" href="${urls.base}/css/visualization/mapofscience/layout.css" />')}
 

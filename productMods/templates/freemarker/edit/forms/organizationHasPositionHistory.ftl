@@ -10,12 +10,12 @@
     <#assign editMode = "add">
 </#if>
 
-<#if editMode == "edit">        
-        <#assign titleVerb="Edit">        
+<#if editMode == "edit">
+        <#assign titleVerb="Edit">
         <#assign submitButtonText="Edit Position">
         <#assign disabledVal="disabled">
 <#else>
-        <#assign titleVerb="Create">        
+        <#assign titleVerb="Create">
         <#assign submitButtonText="Position">
         <#assign disabledVal=""/>
 </#if>
@@ -40,14 +40,14 @@
         <p>
         <#if lvf.submissionErrorExists(editSubmission, "positionTitle")>
             Please enter a value in the Position Title field.<br />
-        </#if> 
+        </#if>
         <#if lvf.submissionErrorExists(editSubmission, "positionType")>
             Please select a value in the Position Type field.<br />
         </#if>
         <#if lvf.submissionErrorExists(editSubmission, "personLabel")>
  	        Please select an existing value or enter a new value in the Person field.
-        </#if> 
-        
+        </#if>
+
         <#list submissionErrors?keys as errorFieldName>
         	<#if errorFieldName == "startField">
         	    <#if submissionErrors[errorFieldName]?contains("before")>
@@ -55,7 +55,7 @@
         	    <#else>
         	        ${submissionErrors[errorFieldName]}
         	    </#if>
-        	    
+
         	<#elseif errorFieldName == "endField">
     	        <#if submissionErrors[errorFieldName]?contains("after")>
     	            The End Year must be later than the Start Year.
@@ -70,14 +70,14 @@
 
 <@lvf.unsupportedBrowser urls.base/>
 
-<section id="organizationHasPositionHistory" role="region">        
-    
+<section id="organizationHasPositionHistory" role="region">
+
 	<form id="organizationHasPositionHistory" class="customForm noIE67" action="${submitUrl}"  role="add/edit position history">
 	    <p>
 	        <label for="positionTitle">Position Title ${requiredHint}</label>
 	        <input size="30" type="text" id="positionTitle" name="positionTitle" value="${positionTitleValue}" />
 	    </p>
-	    
+
 	    <label for="positionType">Position Type ${requiredHint}</label>
         <#assign posnTypeOpts = editConfiguration.pageData.positionType />
 	    <select id="positionType" name="positionType">
@@ -85,10 +85,10 @@
 	        <#if (posnTypeOpts?keys)??>
 		        <#list posnTypeOpts?keys as key>
                     <#if positionTypeValue?has_content && positionTypeValue = key>
-                        <option value="${key}" selected >${posnTypeOpts[key]}</option>     
+                        <option value="${key}" selected >${posnTypeOpts[key]}</option>
                     <#else>
                         <option value="${key}">${posnTypeOpts[key]}</option>
-                    </#if>        
+                    </#if>
                 </#list>
 	        </#if>
 	    </select>
@@ -101,7 +101,7 @@
 	            <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="personLabel" value="${personLabelValue}" >
 	        </#if>
 	    </p>
-	
+
 	    <div class="acSelection">
 	        <p class="inline">
 	            <label>Selected Person:</label>
@@ -110,7 +110,7 @@
 	        </p>
 	        <input class="acUriReceiver" type="hidden" id="personUri" name="person" value="${personValue}" />
 	    </div>
-        
+
         <br />
         <#--Need to draw edit elements for dates here-->
         <#assign htmlForElements = editConfiguration.pageData.htmlForElements />
@@ -131,12 +131,12 @@
             <input type="submit" id="submit" value="${submitButtonText}"/>
             <span class="or"> or </span><a class="cancel" href="${cancelUrl}" title="Cancel">Cancel</a>
         </p>
-	
+
 	    <p id="requiredLegend" class="requiredHint">* required fields</p>
 
 	</form>
-	
-	
+
+
 	<script type="text/javascript">
 	var customFormData  = {
 	    acUrl: '${urls.base}/autocomplete?type=http://xmlns.com/foaf/0.1/Person&tokenize=true&stem=true',
@@ -148,12 +148,12 @@
 
 </section>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+${stylesheets.add()}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customFormWithAutocomplete.css" />')}
 
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
+${scripts.add(,
              '<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>',
              '<script type="text/javascript" src="${urls.base}/js/extensions/String.js"></script>',
              '<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>',

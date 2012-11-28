@@ -8,14 +8,14 @@
 
 <section id="individual-intro" class="vcard person" role="region">
 
-    <section id="share-contact" role="region"> 
-        <#-- Image -->           
+    <section id="share-contact" role="region">
+        <#-- Image -->
         <#assign individualImage>
-            <@p.image individual=individual 
-                      propertyGroups=propertyGroups 
-                      namespaces=namespaces 
-                      editable=editable 
-                      showPlaceholder="always" 
+            <@p.image individual=individual
+                      propertyGroups=propertyGroups
+                      namespaces=namespaces
+                      editable=editable
+                      showPlaceholder="always"
                       placeholder="${urls.images}/placeholders/person.thumbnail.jpg" />
         </#assign>
 
@@ -24,24 +24,24 @@
         </#if>
 
         <div id="photo-wrapper">${individualImage}</div>
-    
+
         <nav role="navigation">
-        
+
             <ul id ="individual-tools-people" role="list">
                 <li role="listitem"><img id="uriIcon" title="${individual.uri}" class="middle" src="${urls.images}/individual/uriIcon.gif" alt="uri icon"/></li>
-                
+
                 <@qr.renderCode />
             </ul>
         </nav>
-            
-            <#include "individual-contactInfo.ftl">  
-                
-        <#-- Links -->  
+
+            <#include "individual-contactInfo.ftl">
+
+        <#-- Links -->
         <@vp.webpages propertyGroups editable "individual-urls-people" />
     </section>
 
     <section id="individual-info" ${infoClass!} role="region">
-        <#include "individual-visualizationFoafPerson.ftl">    
+        <#include "individual-visualizationFoafPerson.ftl">
         <#-- Disable for now until controller sends data -->
         <#--
         <section id="co-authors" role="region">
@@ -57,14 +57,14 @@
             <p class="view-all-coauthors"><a class="view-all-style" href="#" title="view all">View All <img src="${urls.images}/arrowIcon.gif" alt="arrow icon" /></a></p>
         </section>
         -->
-        
+
         <#include "individual-adminPanel.ftl">
-        
+
         <header>
             <#if relatedSubject??>
                 <h2>${relatedSubject.relatingPredicateDomainPublic} for ${relatedSubject.name}</h2>
                 <p><a href="${relatedSubject.url}" title="return to">&larr; return to ${relatedSubject.name}</a></p>
-            <#else>                
+            <#else>
                 <h1 class="vcard foaf-person">
                     <#-- Label -->
                     <span class="fn"><@p.label individual editable /></span>
@@ -81,27 +81,27 @@
                     <#-- If preferredTitle is unpopulated, display mostSpecificTypes -->
                     <#if ! (title.statements)?has_content>
                         <@p.mostSpecificTypes individual />
-                    </#if>                        
+                    </#if>
                 </h1>
             </#if>
-               
+
             <#-- Positions -->
             <#assign positions = propertyGroups.pullProperty("${core}personInPosition")!>
             <#if positions?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
                 <@p.objectPropertyListing positions editable />
-            </#if> 
+            </#if>
         </header>
-         
+
         <#-- Overview -->
         <#include "individual-overview.ftl">
-        
+
         <#-- Research Areas -->
-        <#assign researchAreas = propertyGroups.pullProperty("${core}hasResearchArea")!> 
+        <#assign researchAreas = propertyGroups.pullProperty("${core}hasResearchArea")!>
         <#if researchAreas?has_content> <#-- true when the property is in the list, even if not populated (when editing) -->
             <@p.objectPropertyListing researchAreas editable />
-        </#if>   
+        </#if>
     </section>
-    
+
 </section>
 
 <#assign nameForOtherGroup = "other"> <#-- used by both individual-propertyGroupMenu.ftl and individual-properties.ftl -->
@@ -121,8 +121,7 @@
 </#if>
 
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
-                  '<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />')}
 
 ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>',
                   '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>',
@@ -130,6 +129,5 @@ ${headScripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/
 
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/individual/individualUriRdf.js"></script>',
-              '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
               '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>')}
-              
+

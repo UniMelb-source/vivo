@@ -28,12 +28,12 @@
 	<#assign submissionErrors = editSubmission.validationErrors/>
 </#if>
 
-<#if editMode == "edit">    
-        <#assign titleVerb="Edit">        
+<#if editMode == "edit">
+        <#assign titleVerb="Edit">
         <#assign submitButtonText="Edit Educational Training">
         <#assign disabledVal="disabled">
 <#else>
-        <#assign titleVerb="Create">        
+        <#assign titleVerb="Create">
         <#assign submitButtonText="Educational Training">
         <#assign disabledVal=""/>
 </#if>
@@ -74,76 +74,76 @@
          <#if lvf.submissionErrorExists(editSubmission, "orgLabel")>
  	        Please enter or select a value in the Name field.
         </#if>
-        
+
         </p>
     </section>
 </#if>
 
-<@lvf.unsupportedBrowser urls.base /> 
+<@lvf.unsupportedBrowser urls.base />
 
-<section id="personHasEducationalTraining" role="region">        
-    
+<section id="personHasEducationalTraining" role="region">
+
     <form id="personHasEducationalTraining" class="customForm noIE67" action="${submitUrl}"  role="add/edit educational training">
 
-    
-    <p class="inline">    
+
+    <p class="inline">
         <label for="orgType">Organization Type ${requiredHint}</label>
         <#assign orgTypeOpts = editConfiguration.pageData.orgType />
         <select id="typeSelector" name="orgType"  ${disabledVal}>
-            <option value="" selected="selected">Select one</option>                
-            <#list orgTypeOpts?keys as key>             
+            <option value="" selected="selected">Select one</option>
+            <#list orgTypeOpts?keys as key>
                 <#if orgTypeValue = key>
-                    <option value="${key}"  selected >${orgTypeOpts[key]}</option>     
+                    <option value="${key}"  selected >${orgTypeOpts[key]}</option>
                 <#else>
                     <option value="${key}">${orgTypeOpts[key]}</option>
-                </#if>             
+                </#if>
             </#list>
-        </select>   
-    </p>     
+        </select>
+    </p>
 
-  <div class="fullViewOnly">        
-    
+  <div class="fullViewOnly">
+
     <p>
         <label for="relatedIndLabel">### Name ${requiredHint}</label>
         <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="orgLabel" value="${orgLabelValue}" <#if (disabledVal!?length > 0)>disabled="${disabledVal}"</#if> />
     </p>
-    
+
     <#--Store values in hidden fields-->
     <#if editMode="edit">
     	<input type="hidden" name="orgType" id="orgType" value="${orgTypeValue}"/>
     	<input type="hidden" name="orgLabel" id="orgLabel" value="${orgLabelValue}"/>
     </#if>
-    
+
     <@lvf.acSelection urls.base "org" "org" existingOrgValue/>
-    
+
     <p>
         <label for="dept">Department or School Name within the ###</label>
         <input  size="60"  type="text" id="dept" name="dept" value="${deptValue}" />
     </p>
-    
+
     <div class="entry">
-      <label for="degreeUri">Degree</label>      
-    
-      <#assign degreeOpts = editConfiguration.pageData.degree />  
+      <label for="degreeUri">Degree</label>
+
+      <#assign degreeOpts = editConfiguration.pageData.degree />
       <select name="degree" id="degreeUri" >
-        <option value="" <#if degreeValue = "">selected</#if>>Select one</option>        
-               <#list degreeOpts?keys as key>                 
-        <option value="${key}" <#if degreeValue = key>selected</#if>>${degreeOpts[key]}</option>                    
-        </#list>                                
-      </select>    
+        <option value="" <#if degreeValue = "">selected</#if>>Select one</option>
+               <#list degreeOpts?keys as key>
+        <option value="${key}" <#if degreeValue = key>selected</#if>>${degreeOpts[key]}</option>
+        </#list>
+      </select>
     </div>
-    
-    <p>    
+
+    <p>
         <label for="majorField">Major Field of Degree</label>
-        <input type="text" id="majorField" name="majorField" size="30" value="${majorFieldValue}"/>   
-    </p>   
-          
-    <p>    
-        <label for="info">Supplemental Information 
+        <input type="text" id="majorField" name="majorField" size="30" value="${majorFieldValue}"/>
+    </p>
+
+    <p>
+        <label for="info">Supplemental Information
             <span class="hint">&nbsp;(e.g., Postdoctoral training or Transferred)</span>
         </label>
         <input  size="60"  type="text" id="info" name="info" value="${infoValue}" />
-        
+
     </p>
     <p></p>
     <#--Need to draw edit elements for dates here-->
@@ -156,9 +156,9 @@
 			<label class="dateTime" for="endField">End</label>
 		 	${htmlForElements["endField"]} ${yearHint}
      </#if>
-                                    
+
   	<#--End draw elements-->
-  </div>    
+  </div>
     <input type="hidden" id="editKey" name="editKey" value="${editKey}"/>
     <p class="submit">
         <input type="submit" id="submit" value="${submitButtonText}"/><span class="or"> or </span>
@@ -180,13 +180,13 @@ var customFormData  = {
 </script>
 
 </section>
- 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+
+${stylesheets.add()}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customFormWithAutocomplete.css" />')}
 
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
+${scripts.add(,
              '<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>',
              '<script type="text/javascript" src="${urls.base}/js/extensions/String.js"></script>',
              '<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>',
