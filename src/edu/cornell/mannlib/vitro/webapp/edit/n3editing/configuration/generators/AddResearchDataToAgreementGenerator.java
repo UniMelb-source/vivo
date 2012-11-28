@@ -17,6 +17,7 @@ public class AddResearchDataToAgreementGenerator extends AddResearchDataToThingG
 
     private static final Log log = LogFactory.getLog(AddResearchDataToAgreementGenerator.class);
 
+    @Override
     protected List<String> getN3Required() {
         List<String> n3Required = super.getN3Required();
         n3Required.addAll(list(N3_PREFIX

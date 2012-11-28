@@ -17,8 +17,8 @@ public class AddProjectToAgreementGenerator extends AddProjectToThingGenerator {
     @Override
     protected final List<String> getN3Required() {
         return list(N3_PREFIX
-                + "?grant unimelb-rdr:fundingVehicleFor ?projectUri . \n"
-                + "?projectUri unimelb-rdr:hasFundingVehicle ?grant . \n"
+                + "?agreement unimelb-rdr:fundingVehicleFor ?projectUri . \n"
+                + "?projectUri unimelb-rdr:hasFundingVehicle ?agreement . \n"
                 + "?projectUri a core:Project;");
     }
 
@@ -45,7 +45,7 @@ public class AddProjectToAgreementGenerator extends AddProjectToThingGenerator {
 
     @Override
     protected final String getSubjectName() {
-        return "grant";
+        return "agreement";
     }
 
     @Override

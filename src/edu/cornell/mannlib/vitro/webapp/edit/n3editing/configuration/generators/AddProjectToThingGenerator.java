@@ -25,7 +25,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
         return list(
                 N3_PREFIX + "?projectUri rdfs:label ?projectLabel .",
                 N3_PREFIX + "?projectUri core:hasSubjectArea ?subjectAreas .",
-                N3_PREFIX + "?projectUri core:hasRole ?role .",
+                N3_PREFIX + "?projectUri core:hasRole ?roles .",
                 N3_PREFIX + "?projectUri core:description ?projectDescription .");
     }
 
