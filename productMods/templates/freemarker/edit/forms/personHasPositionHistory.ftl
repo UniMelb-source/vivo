@@ -21,17 +21,17 @@
 </#if>
 
 <#assign disabledVal = ""/>
-<#if editMode == "edit">        
-        <#assign formAction="Edit">        
+<#if editMode == "edit">
+        <#assign formAction="Edit">
         <#assign submitButtonText="Edit Position">
         <#assign disabledVal="disabled">
 <#else>
-        <#assign formAction="Create">        
+        <#assign formAction="Create">
         <#assign submitButtonText="Position">
         <#assign disabledVal="">
 </#if>
 
-<#assign requiredHint="<span class='requiredHint'> *</span>"/> 
+<#assign requiredHint="<span class='requiredHint'> *</span>"/>
 <#assign yearHint     = "<span class='hint'>(YYYY)</span>" />
 
 <h2>${formAction} position entry for ${editConfiguration.subjectName}</h2>
@@ -74,26 +74,26 @@
          <#if lvf.submissionErrorExists(editSubmission, "positionType")>
  	        Please select a value in the Position Type field.<br />
         </#if>
-        
+
         </p>
     </section>
 </#if>
 
-<@lvf.unsupportedBrowser urls.base /> 
+<@lvf.unsupportedBrowser urls.base />
 
 <form class="customForm" action ="${submitUrl}" class="customForm noIE67" role="${formAction} position entry">
-  <p class="inline">    
+  <p class="inline">
     <label for="orgType">Organization Type ${requiredHint}</label>
     <#assign orgTypeOpts = editConfiguration.pageData.orgType />
     <select id="typeSelector" name="orgType"  ${disabledVal} >
-        <option value="" selected="selected">Select one</option>                
-        <#list orgTypeOpts?keys as key>             
-            <option value="${key}"  <#if orgTypeValue = key>selected</#if>>${orgTypeOpts[key]}</option>            
+        <option value="" selected="selected">Select one</option>
+        <#list orgTypeOpts?keys as key>
+            <option value="${key}"  <#if orgTypeValue = key>selected</#if>>${orgTypeOpts[key]}</option>
         </#list>
     </select>
   </p>
 
-  <div class="fullViewOnly">        
+  <div class="fullViewOnly">
   <p>
     <label for="relatedIndLabel">### Name ${requiredHint}</label>
     <input type="text" name="orgLabel" id="relatedIndLabel" size="50" class="acSelector" value="${orgLabelValue}" <#if (disabledVal!?length > 0)>disabled="${disabledVal}"</#if>  >
@@ -111,9 +111,9 @@
       <label for="positionType">Position Type ${requiredHint}</label>
       <#assign posnTypeOpts = editConfiguration.pageData.positionType />
       <select name="positionType" style="margin-top:-2px" >
-          <option value="" <#if positionTypeValue == "">selected</#if>>Select one</option>                
-          <#list posnTypeOpts?keys as key>             
-              <option value="${key}"  <#if positionTypeValue == key>selected</#if>>${posnTypeOpts[key]}</option>         
+          <option value="" <#if positionTypeValue == "">selected</#if>>Select one</option>
+          <#list posnTypeOpts?keys as key>
+              <option value="${key}"  <#if positionTypeValue == key>selected</#if>>${posnTypeOpts[key]}</option>
           </#list>
       </select>
       <p></p>
@@ -129,21 +129,21 @@
        </#if>
 
     	<#--End draw elements-->
-    	
+
       <input type="hidden" name = "editKey" value="${editKey}" role="input"/>
 
    </div>
       <p class="submit">
-        <#if editMode == "edit">  
-            <input type="submit" id="submit" name="submit-${formAction}" value="${submitButtonText}" class="submit" /> 
+        <#if editMode == "edit">
+            <input type="submit" id="submit" name="submit-${formAction}" value="${submitButtonText}" class="submit" />
         <#else>
-            <input type="submit" id="submit" name="submit-${formAction}" value="${submitButtonText}" class="submit" /> 
+            <input type="submit" id="submit" name="submit-${formAction}" value="${submitButtonText}" class="submit" />
         </#if>
 
         <span class="or"> or </span><a class="cancel" href="${editConfiguration.cancelUrl}" title="Cancel">Cancel</a>
       </p>
       <p class="requiredHint"  id="requiredLegend" >* required fields</p>
-      
+
 </form>
 
 <script type="text/javascript">
@@ -155,12 +155,12 @@ var customFormData  = {
 };
 </script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+${stylesheets.add()}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customFormWithAutocomplete.css" />')}
 
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>',
+${scripts.add(,
              '<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>',
              '<script type="text/javascript" src="${urls.base}/js/extensions/String.js"></script>',
              '<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>',

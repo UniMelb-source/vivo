@@ -104,9 +104,9 @@
 </section>
 </#if>
 
-<@lvf.unsupportedBrowser urls.base /> 
+<@lvf.unsupportedBrowser urls.base />
 
-<section id="add${roleDescriptor?capitalize}RoleToPersonTwoStage" role="region">        
+<section id="add${roleDescriptor?capitalize}RoleToPersonTwoStage" role="region">
 
     <form id="add${roleDescriptor?capitalize}RoleToPersonTwoStage" class="customForm noIE67" action="${submitUrl}"  role="add/edit grant role">
 
@@ -114,7 +114,7 @@
             <#assign projectTypeValues = editConfiguration.pageData.projectType />
             <#assign projectTypeKeys = projectTypeValues?keys />
             <#if (projectTypeKeys?size > 1)>
-                <select id="typeSelector" name="projectType" 
+                <select id="typeSelector" name="projectType"
                     <#if disabledVal?has_content>
                         disabled = "${disabledVal}"
                     </#if>
@@ -134,7 +134,7 @@
         <!--div class="fullViewOnly"-->
             <p>
                 <label for="relatedIndLabel">Project Name ${requiredHint}</label>
-                <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="projectLabel"  value="${projectLabelValue}" 
+                <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="projectLabel"  value="${projectLabelValue}"
                        <#if disabledVal?has_content>
                        disabled=${disabledVal}
                        </#if>
@@ -185,7 +185,7 @@
         <p id="requiredLegend" class="requiredHint">* required fields</p>
     </form>
 
-    <#--Specifying form-specific script and adding stylesheets and scripts-->    
+    <#--Specifying form-specific script and adding stylesheets and scripts-->
 
     <script type="text/javascript">
         var customFormData  = {
@@ -198,13 +198,13 @@
         };
     </script>
 
-    ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+    ${stylesheets.add()}
     ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />')}
     ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customFormWithAutocomplete.css" />')}
 
-    ${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>')}
+
     ${scripts.add('<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>')}
     ${scripts.add('<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>')}
     ${scripts.add('<script type="text/javascript" src="${urls.base}/edit/forms/js/customFormWithAutocomplete.js"></script>')}
 
-</section>   
+</section>

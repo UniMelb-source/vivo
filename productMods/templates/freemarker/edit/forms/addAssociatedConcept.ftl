@@ -13,7 +13,7 @@
 
 
 <h2>Manage Concepts</h2>
-    
+
 
 <#if submissionErrors?has_content>
     <section id="error-alert" role="alert">
@@ -23,8 +23,8 @@
         <#list submissionErrors?keys as errorFieldName>
         	${errorFieldName} :  ${submissionErrors[errorFieldName]}
         </#list>
-       
-        
+
+
         </p>
     </section>
 </#if>
@@ -33,53 +33,53 @@
 
 <div class="noIE67">
 
-    
-    
+
+
 <ul id="existingConcepts" >
-      
+
     <script type="text/javascript">
         var existingConceptsData = [];
     </script>
-    
+
     <#list existingConcepts as existingConcept>
         <li class="existingConcept">
-              
+
             <span class="concept">
 
                 <span class="conceptWrapper">
-                   <span class="conceptLabel"> ${existingConcept.conceptLabel} 
+                   <span class="conceptLabel"> ${existingConcept.conceptLabel}
                    	<#if existingConcept.vocabURI?has_content && existingConcept.vocabLabel?has_content>
                    		(${existingConcept.vocabLabel})
                    	</#if>
-                   </span> 
+                   </span>
                 </span>
                 &nbsp;<a href="${urls.base}/edit/primitiveRdfEdit" class="remove">Remove</a>
             </span>
-        </li>    
-        
+        </li>
+
         <script type="text/javascript">
             existingConceptsData.push({
                 "conceptNodeUri": "${existingConcept.conceptURI}",
-                "conceptLabel": "${existingConcept.conceptLabel}"      
+                "conceptLabel": "${existingConcept.conceptLabel}"
             });
-        </script>         
+        </script>
 
-      </#list>    
+      </#list>
 
 </ul>
-       
 
-<#if (existingConcepts?size = 0) >   
+
+<#if (existingConcepts?size = 0) >
         <p>There are currently no concepts specified.</p>
 <#else>
         &nbsp;
 </#if>
 
 <div id="showAddForm">
-    
-    <input type="submit" value="Add Concept" id="showAddFormButton" name="showAddFormButton">  or 
+
+    <input type="submit" value="Add Concept" id="showAddFormButton" name="showAddFormButton">  or
     <a class="cancel" href="${cancelUrl}&url=/individual">Return to Profile Page</a>
-</div> 
+</div>
     <form id="addConceptForm" class="customForm" action="${submitUrl}">
 		<#assign checkedSource = false />
 	<h4 class="services">External Vocabulary Services</h4>
@@ -102,16 +102,16 @@
         <!-- Search results populated by JavaScript -->
     </div>
     <div id="errors" name="errors"></div>
-    
+
     <input type="hidden" name="editKey" id="editKey" value="${editKey}"/>
     <p class="submit">
         <input type="submit" id="submit" name="submit" value="Add Selected Concept" />
-        
+
     </p>
     <div id="createOwnTwo"><br />
         <a href="${userDefinedConceptUrl}" > Can't find the concept you want? Create your own.</a>
-        
-    </div>	
+
+    </div>
         <p>
             <span class="or"> or </span><a class="cancel" href="${cancelUrl}&url=/individual">Return to Profile Page</a>
         </p>
@@ -129,11 +129,9 @@
     };
     </script>
 
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />')}
-
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/addConcept.css" />')}
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>')}
+
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/edit/forms/js/addConcept.js"></script>')}

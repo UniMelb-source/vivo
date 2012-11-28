@@ -55,8 +55,8 @@
 <#assign yearHint     = "<span class='hint'>(YYYY)</span>" />
 
 <#if editMode = "error">
- <div>This form is unable to handle the editing of this position because it is associated with 
-      multiple Position individuals.</div>      
+ <div>This form is unable to handle the editing of this position because it is associated with
+      multiple Position individuals.</div>
 <#else>
 
 <h2>${formHeading} ${editConfiguration.subjectName}</h2>
@@ -87,18 +87,18 @@
          <#if lvf.submissionErrorExists(editSubmission, "grantLabel")>
  	        Please enter or select a value in the Grant Name field.
         </#if>
-        
+
         </p>
     </section>
 </#if>
 
-<section id="addGrantRoleToPerson" role="region">        
-    
+<section id="addGrantRoleToPerson" role="region">
+
 <@lvf.unsupportedBrowser  urls.base />
 
 
     <form id="addGrantRoleToPerson" class="customForm noIE67" action="${submitUrl}"  role="add/edit grant role">
-        
+
         <p>
             <label for="relatedIndLabel">Grant Name ${requiredHint}</label>
             <input class="acSelector" size="50"  type="text" id="relatedIndLabel" name="grantLabel" ${disabledVal} value="${grantLabel}" />
@@ -110,7 +110,7 @@
 
         <@lvf.acSelection urls.base "grant" "grant" existingGrantValue "Selected Grant"/>
 
-        <h4>Years of Participation in Grant</h4>							 
+        <h4>Years of Participation in Grant</h4>
 			 						<#if htmlForElements?keys?seq_contains("startField")>
 			 							 <label class="dateTime" for="startField">Start</label>
 			 							${htmlForElements["startField"]} ${yearHint}
@@ -120,7 +120,7 @@
 			 							<label class="dateTime" for="endField">End</label>
 			 							${htmlForElements["endField"]} ${yearHint}
 					 	</#if>
-					 
+
             <p class="submit">
                 <input type="hidden" name = "editKey" value="${editKey}"/>
                 <input type="submit" id="submit" value="${submitButtonLabel}"/><span class="or"> or </span><a class="cancel" href="${cancelUrl}" title="Cancel">Cancel</a>
@@ -133,7 +133,7 @@
 <#assign acUrl="/autocomplete?tokenize=true" />
 <#assign sparqlQueryUrl ="/ajax/sparqlQuery" />
 
-    
+
 <script type="text/javascript">
 var customFormData  = {
     sparqlForAcFilter: '${sparqlForAcFilter}',
@@ -142,14 +142,13 @@ var customFormData  = {
     acType: 'http://vivoweb.org/ontology/core#Grant',
     editMode: '${editMode}',
     submitButtonTextType: 'compound',
-    typeName: 'Grant'         
+    typeName: 'Grant'
 };
 </script>
-${stylesheets.add('<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.8.9.custom.css" />')}
+
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customForm.css" />')}
 ${stylesheets.add('<link rel="stylesheet" href="${urls.base}/edit/forms/css/customFormWithAutocomplete.css" />')}
 
-${scripts.add('<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.8.9.custom.min.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/customFormUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/js/browserUtils.js"></script>')}
 ${scripts.add('<script type="text/javascript" src="${urls.base}/edit/forms/js/customFormWithAutocomplete.js"></script>')}
