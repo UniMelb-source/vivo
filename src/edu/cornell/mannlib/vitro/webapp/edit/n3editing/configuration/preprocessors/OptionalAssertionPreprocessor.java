@@ -12,14 +12,14 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author tom
  */
-public class OptionalRolePreprocessor extends BaseEditSubmissionPreprocessorVTwo {
+public class OptionalAssertionPreprocessor extends BaseEditSubmissionPreprocessorVTwo {
 
     protected static final Log log = LogFactory.getLog(BaseEditSubmissionPreprocessorVTwo.class);
-    private Map<String, String> dependencies;
+    private Map<String, String> assertionMap;
 
-    public OptionalRolePreprocessor(EditConfigurationVTwo editConfig, Map<String, String> dependencies) {
+    public OptionalAssertionPreprocessor(EditConfigurationVTwo editConfig, Map<String, String> assertionMap) {
         super(editConfig);
-        this.dependencies = dependencies;
+        this.assertionMap = assertionMap;
     }
 
     public void preprocess(MultiValueEditSubmission editSubmission) {
@@ -28,10 +28,9 @@ public class OptionalRolePreprocessor extends BaseEditSubmissionPreprocessorVTwo
 
         urisFromForm = editSubmission.getUrisFromForm();
         n3Required = editConfiguration.getN3Required();
-        for (String dependencyKey : dependencies.keySet()) {
-            if (urisFromForm.containsKey(dependencyKey)) {
-                String assertion = dependencies.get(dependencyKey);
-                n3Required.remove(assertion);
+        for (String assertionUri : assertionMap.keySet()) {
+            if (urisFromForm.containsKey(assertionUri)) {
+                n3Required.add(assertionMap.get(assertionUri));
             }
         }
         editConfiguration.setN3Required(n3Required);
