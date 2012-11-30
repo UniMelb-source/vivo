@@ -103,6 +103,6 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
         
         dependencies = new HashMap<String, String>(1);
         dependencies.put("persons", N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .");
-        editConfiguration.addEditSubmissionPreprocessor(new OptionalRolePreprocessor(editConfiguration, null));
+        editConfiguration.addEditSubmissionPreprocessor(new OptionalRolePreprocessor(editConfiguration, dependencies));
     }
 }
