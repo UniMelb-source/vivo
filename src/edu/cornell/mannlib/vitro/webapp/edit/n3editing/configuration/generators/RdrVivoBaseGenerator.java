@@ -63,6 +63,9 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
 
     protected abstract String getObjectName();
 
+    protected void additionalProcessing(EditConfigurationVTwo editConfiguration) {
+    }
+
     public EditConfigurationVTwo getEditConfiguration(VitroRequest vreq, HttpSession session) {
         userAccount = LoginStatusBean.getCurrentUser(vreq);
         EditConfigurationVTwo editConfiguration = new EditConfigurationVTwo();
@@ -107,6 +110,9 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
         if (null != forwardUri) {
             editConfiguration.addEditSubmissionPreprocessor(new SetEntityReturnPreprocessor(editConfiguration, forwardUri));
         }
+        
+        additionalProcessing(editConfiguration);
+        
         prepare(vreq, editConfiguration);
 
         return editConfiguration;

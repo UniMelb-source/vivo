@@ -6,6 +6,7 @@ import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationUti
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.OptionalRolePreprocessor;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.validators.AntiXssValidation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
     @Override
     protected List<String> getN3Required() {
-        return list();
+        return list(N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .");
         //person unimelb-rdr:hasProjectRole role
         //role unimelb-rdr:projectRoleIn project
         //project unimelb-rdr:relatedProjectRole role
@@ -32,7 +33,6 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
     @Override
     protected final List<String> getN3Optional() {
         return list(
-                N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .",
                 N3_PREFIX + "?projectUri rdfs:label ?projectLabel .",
                 N3_PREFIX + "?projectUri core:hasSubjectArea ?subjectAreas .",
                 N3_PREFIX + "?projectUri unimelb-rdr:relatedProjectRole ?roles .",
@@ -95,5 +95,14 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
     @Override
     protected final String getForwardUri() {
         return "?projectUri";
+    }
+
+    @Override
+    protected void additionalProcessing(EditConfigurationVTwo editConfiguration) {
+        Map<String, String> dependencies;
+        
+        dependencies = new HashMap<String, String>(1);
+        dependencies.put("persons", N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .");
+        editConfiguration.addEditSubmissionPreprocessor(new OptionalRolePreprocessor(editConfiguration, null));
     }
 }
