@@ -35,11 +35,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
         return list(
                 N3_PREFIX + "?projectUri rdfs:label ?projectLabel .",
                 N3_PREFIX + "?projectUri core:hasSubjectArea ?subjectAreas .",
-                N3_PREFIX + "?projectUri unimelb-rdr:relatedProjectRole ?roles .",
-                N3_PREFIX + "?roles unimelb-rdr:projectRoleIn ?projectUri .",
-                N3_PREFIX + "?projectUri core:description ?projectDescription .",
-                N3_PREFIX + "?roles unimelb-rdr:projectRoleOf ?persons .",
-                N3_PREFIX + "?persons unimelb-rdr:hasProjectRole ?roles .");
+                N3_PREFIX + "?projectUri core:description ?projectDescription .");
     }
 
     @Override
@@ -99,10 +95,14 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
     @Override
     protected void additionalProcessing(EditConfigurationVTwo editConfiguration) {
-        Map<String, String> assertionMap;
-        
-        assertionMap = new HashMap<String, String>(1);
-        assertionMap.put("persons", N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .");
+        Map<String, List<String>> assertionMap;
+
+        assertionMap = new HashMap<String, List<String>>();
+        assertionMap.put("persons", list(N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .",
+                N3_PREFIX + "?projectUri unimelb-rdr:relatedProjectRole ?roles .",
+                N3_PREFIX + "?roles unimelb-rdr:projectRoleIn ?projectUri .",
+                N3_PREFIX + "?roles unimelb-rdr:projectRoleOf ?persons .",
+                N3_PREFIX + "?persons unimelb-rdr:hasProjectRole ?roles ."));
         editConfiguration.addEditSubmissionPreprocessor(new OptionalAssertionPreprocessor(editConfiguration, assertionMap));
     }
 }

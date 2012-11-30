@@ -15,9 +15,9 @@ import org.apache.commons.logging.LogFactory;
 public class OptionalAssertionPreprocessor extends BaseEditSubmissionPreprocessorVTwo {
 
     protected static final Log log = LogFactory.getLog(BaseEditSubmissionPreprocessorVTwo.class);
-    private Map<String, String> assertionMap;
+    private Map<String, List<String>> assertionMap;
 
-    public OptionalAssertionPreprocessor(EditConfigurationVTwo editConfig, Map<String, String> assertionMap) {
+    public OptionalAssertionPreprocessor(EditConfigurationVTwo editConfig, Map<String, List<String>> assertionMap) {
         super(editConfig);
         this.assertionMap = assertionMap;
     }
@@ -30,7 +30,7 @@ public class OptionalAssertionPreprocessor extends BaseEditSubmissionPreprocesso
         n3Required = editConfiguration.getN3Required();
         for (String assertionUri : assertionMap.keySet()) {
             if (urisFromForm.containsKey(assertionUri)) {
-                n3Required.add(assertionMap.get(assertionUri));
+                n3Required.addAll(assertionMap.get(assertionUri));
             }
         }
         editConfiguration.setN3Required(n3Required);
