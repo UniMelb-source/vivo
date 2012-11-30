@@ -30,7 +30,8 @@ public class OptionalRolePreprocessor extends BaseEditSubmissionPreprocessorVTwo
         n3Required = editConfiguration.getN3Required();
         for (String dependencyKey : dependencies.keySet()) {
             if (urisFromForm.containsKey(dependencyKey)) {
-                n3Required.remove(dependencies.get(dependencyKey));
+                String assertion = dependencies.get(dependencyKey);
+                n3Required.remove(assertion);
             }
         }
         editConfiguration.setN3Required(n3Required);
