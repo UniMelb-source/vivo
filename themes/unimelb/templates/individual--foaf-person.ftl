@@ -49,7 +49,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <#assign infoClass = 'class="withThumb"'/>
             </#if>
 
-            <div id="photo-wrapper">${individualImage}</div>
+            <!--div id="photo-wrapper">${individualImage}</div-->
             <nav role="navigation">
                 <ul id ="individual-tools-people" role="list">
                     <li role="listitem"><img id="uriIcon" title="${individual.uri}" class="middle" src="${urls.images}/individual/uriIcon.gif" alt="uri icon"/></li>
