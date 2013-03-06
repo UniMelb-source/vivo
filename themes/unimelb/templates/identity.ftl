@@ -38,13 +38,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <fieldset>
             <legend>Search form</legend>
             
-			<form id="search-form" action="http://bureau2-query.funnelback.com/search/search.cgi" name="search" role="search" accept-charset="UTF-8" method="GET"> 
+			<!--form id="search-form" action="http://bureau2-query.funnelback.com/search/search.cgi" name="search" role="search" accept-charset="UTF-8" method="GET"> 
                 <div id="search-field">
                     <input type="text" name="query" class="search-vivo" value="" autocapitalize="off">
                     <input type="hidden" name="collection" value="go8_melb_local">
                     <input type="hidden" name="form" value="vivo">
                     <input type="submit" value="Search" class="search">
                 </div>
+            </form-->
+            <form id="search-home-vivo" action="/vivo/search" method="post" name="search-home" role="search">
+              <div id="search-home-field">
+                <input type="text" name="querytext" class="search-home-vivo" value="">
+                <input type="submit" value="Search" class="search">
+              </div>
             </form>
         </fieldset>
     </section>
