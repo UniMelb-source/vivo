@@ -41,7 +41,6 @@
     <fieldset class="property-grouping">
         <legend><h2>Administrative Metadata</h2></legend>
         <#if researchRepositoryKeys?has_content>
-        <label for="researchRepository">${autoLabels["ands:isLocatedIn"]}</label>
         <div class="label-info">
             <label for="physicalDataLocation">${autoLabels["ands:isLocatedIn"]}</label>
             <a href="#" rel="popover" data-content="${infoLabels["ands:isLocatedIn"]}">
