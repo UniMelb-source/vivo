@@ -7,6 +7,7 @@ import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTw
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.OptionalAssertionPreprocessor;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.OptionalAssertionPreprocessor.IndirectRelationship;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.validators.AntiXssValidation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,11 +24,8 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
     @Override
     protected List<String> getN3Required() {
+        /* All required N3 assertions are generated via the preprocessors */
         return list();
-        //person unimelb-rdr:hasProjectRole role
-        //role unimelb-rdr:projectRoleIn project
-        //project unimelb-rdr:relatedProjectRole role
-        //role unimelb-rdr:projectRoleOf person
     }
 
     @Override
@@ -58,7 +56,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
     @Override
     protected final List<String> getUrisOnForm() {
-        return list("subjectAreas", "persons");
+        return list("subjectAreas", "person");
     }
 
     @Override
@@ -68,7 +66,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
         fields.add(new CustomFieldVTwo("projectDescription", list("nonempty", "datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("redirectForward", null, XSD.xboolean.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("subjectAreas", null, null, null, null, null));
-        fields.add(new CustomFieldVTwo("persons", null, null, null, null, null));
+        fields.add(new CustomFieldVTwo("person", null, null, null, null, null));
         return fields;
     }
 
@@ -76,7 +74,6 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
     protected final Map<String, String> getNewResources(VitroRequest vreq) {
         Map<String, String> newResources = new HashMap<String, String>();
         newResources.put("projectUri", DEFAULT_NS_TOKEN);
-        newResources.put("roles", DEFAULT_NS_TOKEN);
         return newResources;
     }
 
@@ -95,14 +92,20 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
 
     @Override
     protected void additionalProcessing(EditConfigurationVTwo editConfiguration) {
-        Map<String, List<String>> assertionMap;
+        Map<String, OptionalAssertionPreprocessor.IndirectRelationship> assertionMap;
 
-        assertionMap = new HashMap<String, List<String>>();
-        assertionMap.put("persons", list(N3_PREFIX + "?roles a unimelb-rdr:ProjectRole .",
-                N3_PREFIX + "?projectUri unimelb-rdr:relatedProjectRole ?roles .",
-                N3_PREFIX + "?roles unimelb-rdr:projectRoleIn ?projectUri .",
-                N3_PREFIX + "?roles unimelb-rdr:projectRoleOf ?persons .",
-                N3_PREFIX + "?persons unimelb-rdr:hasProjectRole ?roles ."));
+        assertionMap = new HashMap<String, OptionalAssertionPreprocessor.IndirectRelationship>();
+        assertionMap.put("person", new OptionalAssertionPreprocessor.IndirectRelationship(
+          N3_PREFIX,
+          "projectUri",
+          "role",
+          "unimelb-rdr:ProjectRole",
+          "person", 
+          "unimelb-rdr:relatedProjectRole", 
+          "unimelb-rdr:projectRoleIn", 
+          "unimelb-rdr:projectRoleOf", 
+          "unimelb-rdr:hasProjectRole" 
+        ));
         editConfiguration.addEditSubmissionPreprocessor(new OptionalAssertionPreprocessor(editConfiguration, assertionMap));
     }
 }

@@ -11,7 +11,7 @@
 	<br>
 	<label>Inherited Role</label>
 	<#list personsKeys as key>
-		<input type="checkbox" name="persons" value="${key}" id="persons${key_index}"> ${inheritedPersons[key]}
+		<input type="checkbox" name="person" value="${key}" id="person${key_index}"> ${inheritedPersons[key]}
 		<br>
 	</#list>
 </#if>
