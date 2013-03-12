@@ -41,7 +41,7 @@ unimelb-rdr:isResearchDataForAgreement a owl:ObjectProperty ;
     rdfs:domain ands:ResearchData ;
     rdfs:range vivo:Agreement ;
     owl:inverseOf unimelb-rdr:agreementHasResearchDataOutput ;
-    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddAgreementToResearchDataGenerator"^^xsd:string
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddAgreementToResearchDataGenerator"^^xsd:string ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupAgreement ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> .
