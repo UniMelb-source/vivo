@@ -5,6 +5,7 @@ import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationUtils;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.BaseEditSubmissionPreprocessorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.OptionalAssertionPreprocessor;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.OptionalAssertionPreprocessor.IndirectRelationship;
@@ -18,7 +19,7 @@ import java.util.Map;
  *
  * @author tom
  */
-public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
+public abstract class AddProjectToThingGenerator extends RdrReturnEntityBaseGenerator {
 
     protected abstract Map<String, String> getInheritedPersonsLabelAndUri(String subjectUri);
 
@@ -91,7 +92,8 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
     }
 
     @Override
-    protected void additionalProcessing(EditConfigurationVTwo editConfiguration) {
+    protected List<BaseEditSubmissionPreprocessorVTwo> getPreprocessors(EditConfigurationVTwo editConfiguration) {
+        List<BaseEditSubmissionPreprocessorVTwo> preprocessors = super.getPreprocessors(editConfiguration);
         Map<String, OptionalAssertionPreprocessor.IndirectRelationship> assertionMap;
 
         assertionMap = new HashMap<String, OptionalAssertionPreprocessor.IndirectRelationship>();
@@ -106,6 +108,7 @@ public abstract class AddProjectToThingGenerator extends RdrVivoBaseGenerator {
           "unimelb-rdr:projectRoleOf", 
           "unimelb-rdr:hasProjectRole" 
         ));
-        editConfiguration.addEditSubmissionPreprocessor(new OptionalAssertionPreprocessor(editConfiguration, assertionMap));
+        preprocessors.add(new OptionalAssertionPreprocessor(editConfiguration, assertionMap));
+        return preprocessors;
     }
 }

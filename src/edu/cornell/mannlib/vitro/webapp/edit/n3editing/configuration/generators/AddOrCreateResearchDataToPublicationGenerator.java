@@ -34,11 +34,6 @@ public class AddOrCreateResearchDataToPublicationGenerator extends AddOrCreateGe
     }
 
     @Override
-    protected final String getForwardUri() {
-        return "?researchDataUri";
-    }
-
-    @Override
     protected final String getSubjectName() {
         return subjectName;
     }

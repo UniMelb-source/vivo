@@ -11,6 +11,7 @@ import edu.cornell.mannlib.vitro.webapp.dao.jena.ModelContext;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.BaseEditSubmissionPreprocessorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.SetEntityReturnPreprocessor;
 import java.util.*;
 import javax.servlet.http.HttpSession;
@@ -25,7 +26,7 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
 
     protected Model queryModel;
     protected UserAccount userAccount;
-    protected static final String DEFAULT_NS_TOKEN = null; //null forces the default NS
+    protected static final String DEFAULT_NS_TOKEN = null;
     protected static final String N3_PREFIX = "@prefix core: <" + vivoCore + "> .\n"
             + "@prefix rdfs: <" + rdfs + "> .\n"
             + "@prefix ands: <http://purl.org/ands/ontologies/vivo/> .\n"
@@ -51,8 +52,6 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
 
     protected abstract String getTemplate();
 
-    protected abstract String getForwardUri();
-
     protected abstract List<String> getN3Required();
 
     protected abstract Map<String, String> getNewResources(VitroRequest vreq);
@@ -62,6 +61,8 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
     protected abstract String getPredicateName();
 
     protected abstract String getObjectName();
+
+    protected abstract List<BaseEditSubmissionPreprocessorVTwo> getPreprocessors(EditConfigurationVTwo editConfiguration);
 
     protected void additionalProcessing(EditConfigurationVTwo editConfiguration) {
     }
@@ -79,7 +80,6 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
 
         //Overriding URL to return to (as we won't be editing)
         //setUrlToReturnTo(editConfiguration, vreq);
-        editConfiguration.setEntityToReturnTo("?childOrParent");
 
         editConfiguration.setVarNameForSubject(getSubjectName());
         editConfiguration.setVarNameForPredicate(getPredicateName());
@@ -106,9 +106,10 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
         }
 
         editConfiguration.setFormSpecificData(getFormSpecificData(editConfiguration, vreq));
-        String forwardUri = getForwardUri();
-        if (null != forwardUri) {
-            editConfiguration.addEditSubmissionPreprocessor(new SetEntityReturnPreprocessor(editConfiguration, forwardUri));
+
+        /* Add all specified preprocessors */
+        for (BaseEditSubmissionPreprocessorVTwo preprocessor : getPreprocessors(editConfiguration)) {
+            editConfiguration.addEditSubmissionPreprocessor(preprocessor);
         }
         
         additionalProcessing(editConfiguration);
@@ -232,26 +233,18 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
     }
 
     protected HashMap<String, Object> getFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
-        HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
-
-        formSpecificData.put("forwardUri", getForwardUri());
-
-        return formSpecificData;
+        return new HashMap<String, Object>();
     }
 
     protected List<FieldVTwo> getFields() {
-        List<FieldVTwo> fields = new ArrayList<FieldVTwo>();
-
-        fields.add(new CustomFieldVTwo("forwardUri", null, null, null, null, null));
-
-        return fields;
+        return new ArrayList<FieldVTwo>();
     }
 
     protected List<String> getLiteralsOnForm() {
-        return list("forwardUri");
+        return new ArrayList<String>();
     }
 
-    protected Map<String, String> getAttribute(List<String> subjects, String predicate, boolean process) {
+    protected final Map<String, String> getAttribute(List<String> subjects, String predicate, boolean process) {
         Map< String, String> resultMap = new HashMap<String, String>(subjects.size());
 
         String queryFormat = SPARQL_PREFIX

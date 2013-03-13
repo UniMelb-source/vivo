@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author tom
  */
-public abstract class AddPersonToThingGenerator extends RdrVivoBaseGenerator {
+public abstract class AddPersonToThingGenerator extends RdrReturnEntityBaseGenerator {
 
     @Override
     protected List<String> getN3Optional() {

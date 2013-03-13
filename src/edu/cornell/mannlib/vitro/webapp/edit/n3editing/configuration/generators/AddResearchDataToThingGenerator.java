@@ -21,7 +21,7 @@ import java.util.Map;
  *
  * @author tom
  */
-public abstract class AddResearchDataToThingGenerator extends RdrVivoBaseGenerator {
+public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBaseGenerator {
 
     protected abstract Map<String, String> getInheritedCustodians(String subjectUri);
 

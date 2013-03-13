@@ -1,6 +1,7 @@
 package edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators;
 
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.BaseEditSubmissionPreprocessorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
@@ -68,14 +69,15 @@ public abstract class AddPublicationToThingGenerator extends RdrVivoBaseGenerato
     }
 
     @Override
-    protected String getForwardUri() {
-        return "?publicationUri";
-    }
-
-    @Override
     protected Map<String, String> getNewResources(VitroRequest vreq) {
         Map<String, String> newResources = new HashMap<String, String>();
         newResources.put("publicationUri", DEFAULT_NS_TOKEN);
         return newResources;
     }
+
+    @Override
+    protected List<BaseEditSubmissionPreprocessorVTwo> getPreprocessors(EditConfigurationVTwo editConfiguration) {
+        return Collections.<BaseEditSubmissionPreprocessorVTwo>emptyList();
+
+    }   
 }
