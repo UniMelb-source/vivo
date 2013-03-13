@@ -130,7 +130,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 + "?subType rdfs:subClassOf ands:ResearchData. \n"
                 + "?subType rdfs:label ?subTypeLabel}";
         results = getResults(query, "subType", "subTypeLabel");
-        results.put("<http://purl.org/ands/ontologies/vivo/ResearchData>", "General Research Data");
+        results.put("http://purl.org/ands/ontologies/vivo/ResearchData", "General Research Data");
         return results;
     }
 
