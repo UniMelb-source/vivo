@@ -111,11 +111,14 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
     }
 
     private Map<String, String> getAvailableResearchRepositories() {
+        Map<String,String> results;
         String query = SPARQL_PREFIX
                 + "SELECT DISTINCT ?repository ?repositoryLabel WHERE { \n"
                 + "?repository rdf:type ands:ResearchRepository. \n"
                 + "?repository rdfs:label ?repositoryLabel}";
-        return getResults(query, "repository", "repositoryLabel");
+        results = getResults(query, "repository", "repositoryLabel");
+        results.put("","None specified");
+        return results;
     }
 
     protected Map<String, String> getAutoLabels() {
