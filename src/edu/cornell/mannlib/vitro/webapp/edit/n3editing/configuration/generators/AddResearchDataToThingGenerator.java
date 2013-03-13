@@ -117,7 +117,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 + "?repository rdf:type ands:ResearchRepository. \n"
                 + "?repository rdfs:label ?repositoryLabel}";
         results = getResults(query, "repository", "repositoryLabel");
-        results.put("","None specified");
+        results.put("","Not specified");
         return results;
     }
 
