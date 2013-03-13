@@ -95,6 +95,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
         formSpecificData.put("InheritedCustodians", getInheritedCustodians(subjectUri));
         formSpecificData.put("InheritedSubjectAreas", getInheritedItemLabelAndUri(subjectUri, "core:hasSubjectArea"));
         formSpecificData.put("AvailableResearchRepositories", getAvailableResearchRepositories());
+        formSpecificData.put("ResearchDataSpecificTypes", getResearchDataSpecificTypes());
         formSpecificData.put("AutoLabels", getAutoLabels());
         formSpecificData.put("InfoLabels", getInfoText());
         formSpecificData.put("objectUri", "researchDataUri");
@@ -118,6 +119,16 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 + "?repository rdfs:label ?repositoryLabel}";
         results = getResults(query, "repository", "repositoryLabel");
         results.put("","Not specified");
+        return results;
+    }
+
+    private Map<String, String> getResearchDataSpecificTypes() {
+        Map<String,String> results;
+        String query = SPARQL_PREFIX
+                + "SELECT DISTINCT ?subType ?subTypeLabel WHERE { \n"
+                + "?subType rdfs:subClassOf ands:ResearchData. \n"
+                + "?subType rdfs:label ?subTypeLabel}";
+        results = getResults(query, "subType", "subTypeLabel");
         return results;
     }
 
@@ -204,7 +215,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
 
     @Override
     protected final List<String> getUrisOnForm() {
-        return list("subjectAreas",
+        return list("researchDataSpecificType",
+                "subjectAreas",
                 "custodianDepartments",
                 "custodians",
                 "researchRepository");
@@ -214,6 +226,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
     protected final List<FieldVTwo> getFields() {
         List<FieldVTwo> fields = new ArrayList<FieldVTwo>(20);
         fields.add(new CustomFieldVTwo("researchDataLabel", list("nonempty", "datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
+        fields.add(new CustomFieldVTwo("researchDataSpecificType", list("nonempty", "datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("researchDataDescription", list("nonempty", "datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("digitalDataLocation", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));
         fields.add(new CustomFieldVTwo("retention", list("datatype:" + XSD.xstring.toString()), XSD.xstring.toString(), null, null, null));

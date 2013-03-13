@@ -18,7 +18,7 @@ public class AddResearchDataToContractGenerator extends AddResearchDataToThingGe
         n3Required.addAll(list(N3_PREFIX
                 + "?contract unimelb-rdr:agreementHasResearchDataOutput ?researchDataUri. \n"
                 + "?researchDataUri unimelb-rdr:isResearchDataForAgreement ?contract. \n"
-                + "?researchDataUri a ands:ResearchData ;"));
+                + "?researchDataUri a ?researchDataSpecificType ;"));
         return n3Required;
     }
 

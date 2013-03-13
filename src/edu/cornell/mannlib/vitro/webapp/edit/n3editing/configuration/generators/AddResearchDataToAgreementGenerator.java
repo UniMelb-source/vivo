@@ -23,7 +23,7 @@ public class AddResearchDataToAgreementGenerator extends AddResearchDataToThingG
         n3Required.addAll(list(N3_PREFIX
                 + "?agreement unimelb-rdr:agreementHasResearchDataOutput ?researchDataUri. \n"
                 + "?researchDataUri unimelb-rdr:isResearchDataForAgreement ?agreement. \n"
-                + "?researchDataUri a ands:ResearchData ;"));
+                + "?researchDataUri a ?researchDataSpecificType ;"));
         return n3Required;
     }
 

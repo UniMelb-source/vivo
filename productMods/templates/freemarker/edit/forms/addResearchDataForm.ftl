@@ -1,8 +1,10 @@
 <form id="addResearchDataForm" action="${urls.base}/edit/process" class="customForm rdrCustomForm noIE67">
     <#assign availableResearchRepositories = editConfiguration.pageData.AvailableResearchRepositories />
+    <#assign researchDataSpecificTypes = editConfiguration.pageData.ResearchDataSpecificTypes />
     <#assign autoLabels = editConfiguration.pageData.AutoLabels />
     <#assign infoLabels = editConfiguration.pageData.InfoLabels />
     <#assign researchRepositoryKeys = availableResearchRepositories?keys>
+    <#assign researchDataSpecificTypesKeys = researchDataSpecificTypes?keys>
     <#assign htmlForElements = editConfiguration.pageData.htmlForElements />
     <label for="researchDataLabel">Title <span class="requiredHint"> *</span></label>
     <input size="60" type="text" id="researchDataLabel" name="researchDataLabel" value="">
@@ -10,6 +12,20 @@
     <fieldset class="property-grouping">
         <legend><h2>Descriptive Metadata</h2></legend>
 
+        <#if researchDataSpecificTypesKeys?has_content>
+        <div class="label-info">
+            <label for="researchDataSpecificType">Specific Type</label>
+            <a href="#" rel="popover" data-content="Specific type of Research Data element">
+                <i class="icon-info-sign"></i>
+            </a>
+        </div>
+        <select id="researchDataSpecificType" name="researchDataSpecificType">
+            <#list researchDataSpecificTypesKeys as key>
+            <option value="${key}">${researchDataSpecificTypes[key]}</option>
+            </#list>
+        </select>
+        <br>
+        </#if>
         <div class="label-info">
             <label for="researchDataDescription">${autoLabels["ands:researchDataDescription"]}<span class="requiredHint"> *</span></label>
             <a href="#" rel="popover" data-content="${infoLabels["ands:researchDataDescription"]}">

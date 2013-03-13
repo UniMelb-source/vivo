@@ -29,7 +29,7 @@ public class AddResearchDataToProjectGenerator extends AddResearchDataToThingGen
         n3Required.addAll(list(N3_PREFIX
                 + "?project unimelb-rdr:projectHasResearchDataOutput ?researchDataUri. \n"
                 + "?researchDataUri unimelb-rdr:isResearchDataForProject ?project. \n"
-                + "?researchDataUri a ands:ResearchData ;"));
+                + "?researchDataUri a ?researchDataSpecificType ;"));
         return n3Required;
     }
 

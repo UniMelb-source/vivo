@@ -20,7 +20,7 @@ public class AddResearchDataToResearcherGenerator extends AddResearchDataToThing
         n3Required.addAll(list(N3_PREFIX
                 + "?researcher ands:isCollectorOf ?researchDataUri. \n"
                 + "?researchDataUri ands:hasCollector ?researcher. \n"
-                + "?researchDataUri a ands:ResearchData ;"));
+                + "?researchDataUri a ?researchDataSpecificType ;"));
         return n3Required;
     }
 

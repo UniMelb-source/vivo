@@ -29,7 +29,7 @@ public class AddResearchDataToGrantGenerator extends AddResearchDataToThingGener
         n3Required.addAll(list(N3_PREFIX
                 + "?grant ands:lMBHOYvDLl ?researchDataUri. \n"
                 + "?researchDataUri ands:5amkGFuiu9 ?grant. \n"
-                + "?researchDataUri a ands:ResearchData ;"));
+                + "?researchDataUri a ?researchDataSpecificType ;"));
         return n3Required;
     }
 

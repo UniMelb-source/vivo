@@ -19,7 +19,7 @@ public class AddResearchDataToPublicationGenerator extends AddResearchDataToThin
         n3Required.addAll(list(N3_PREFIX
                 + "?publication ands:relatedResearchData ?researchDataUri. \n"
                 + "?researchDataUri ands:relatedInformationResource ?publication. \n"
-                + "?researchDataUri a ands:ResearchData ;"));
+                + "?researchDataUri a ?researchDataSpecificType ;"));
         return n3Required;
     }
 
