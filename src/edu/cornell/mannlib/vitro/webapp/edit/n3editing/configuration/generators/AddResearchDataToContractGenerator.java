@@ -15,10 +15,9 @@ public class AddResearchDataToContractGenerator extends AddResearchDataToThingGe
 
     protected List<String> getN3Required() {
         List<String> n3Required = super.getN3Required();
-        n3Required.addAll(list(N3_PREFIX
-                + "?contract unimelb-rdr:agreementHasResearchDataOutput ?researchDataUri. \n"
-                + "?researchDataUri unimelb-rdr:isResearchDataForAgreement ?contract. \n"
-                + "?researchDataUri a ?researchDataSpecificType ;"));
+        n3Required.addAll(list(
+            N3_PREFIX + "?contract unimelb-rdr:agreementHasResearchDataOutput ?researchDataUri .",
+            N3_PREFIX + "?researchDataUri unimelb-rdr:isResearchDataForAgreement ?contract ."));
         return n3Required;
     }
 

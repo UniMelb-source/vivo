@@ -16,10 +16,9 @@ public class AddResearchDataToPublicationGenerator extends AddResearchDataToThin
     @Override
     protected final List<String> getN3Required() {
         List<String> n3Required = super.getN3Required();
-        n3Required.addAll(list(N3_PREFIX
-                + "?publication ands:relatedResearchData ?researchDataUri. \n"
-                + "?researchDataUri ands:relatedInformationResource ?publication. \n"
-                + "?researchDataUri a ?researchDataSpecificType ;"));
+        n3Required.addAll(list(
+            N3_PREFIX + "?publication ands:relatedResearchData ?researchDataUri .",
+            N3_PREFIX + "?researchDataUri ands:relatedInformationResource ?publication ."));
         return n3Required;
     }
 

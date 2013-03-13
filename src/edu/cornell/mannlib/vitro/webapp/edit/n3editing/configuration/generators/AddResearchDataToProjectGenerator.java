@@ -26,10 +26,9 @@ public class AddResearchDataToProjectGenerator extends AddResearchDataToThingGen
     @Override
     protected final List<String> getN3Required() {
         List<String> n3Required = super.getN3Required();
-        n3Required.addAll(list(N3_PREFIX
-                + "?project unimelb-rdr:projectHasResearchDataOutput ?researchDataUri. \n"
-                + "?researchDataUri unimelb-rdr:isResearchDataForProject ?project. \n"
-                + "?researchDataUri a ?researchDataSpecificType ;"));
+        n3Required.addAll(list(
+            N3_PREFIX + "?project unimelb-rdr:projectHasResearchDataOutput ?researchDataUri .",
+            N3_PREFIX + "?researchDataUri unimelb-rdr:isResearchDataForProject ?project ."));
         return n3Required;
     }
 

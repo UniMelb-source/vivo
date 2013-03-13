@@ -20,10 +20,9 @@ public class AddResearchDataToAgreementGenerator extends AddResearchDataToThingG
     @Override
     protected List<String> getN3Required() {
         List<String> n3Required = super.getN3Required();
-        n3Required.addAll(list(N3_PREFIX
-                + "?agreement unimelb-rdr:agreementHasResearchDataOutput ?researchDataUri. \n"
-                + "?researchDataUri unimelb-rdr:isResearchDataForAgreement ?agreement. \n"
-                + "?researchDataUri a ?researchDataSpecificType ;"));
+        n3Required.addAll(list(
+            N3_PREFIX + "?agreement unimelb-rdr:agreementHasResearchDataOutput ?researchDataUri .",
+            N3_PREFIX + "?researchDataUri unimelb-rdr:isResearchDataForAgreement ?agreement ."));
         return n3Required;
     }
 

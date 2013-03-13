@@ -35,7 +35,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 N3_PREFIX + "?collectedDateRange a core:DateTimeInterval .",
                 N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue .",
                 N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue .",
-                N3_PREFIX + "?coveredDateRange a core:DateTimeInterval .");
+                N3_PREFIX + "?coveredDateRange a core:DateTimeInterval .",
+                N3_PREFIX + "?researchDataUri a ?researchDataSpecificType .");
     }
 
     @Override
@@ -129,6 +130,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 + "?subType rdfs:subClassOf ands:ResearchData. \n"
                 + "?subType rdfs:label ?subTypeLabel}";
         results = getResults(query, "subType", "subTypeLabel");
+        results.put("<http://purl.org/ands/ontologies/vivo/ResearchData>", "General Research Data");
         return results;
     }
 

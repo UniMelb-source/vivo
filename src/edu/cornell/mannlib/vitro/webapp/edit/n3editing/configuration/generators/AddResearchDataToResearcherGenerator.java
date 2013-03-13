@@ -17,10 +17,9 @@ public class AddResearchDataToResearcherGenerator extends AddResearchDataToThing
     @Override
     protected List<String> getN3Required() {
         List<String> n3Required = super.getN3Required();
-        n3Required.addAll(list(N3_PREFIX
-                + "?researcher ands:isCollectorOf ?researchDataUri. \n"
-                + "?researchDataUri ands:hasCollector ?researcher. \n"
-                + "?researchDataUri a ?researchDataSpecificType ;"));
+        n3Required.addAll(list(
+            N3_PREFIX + "?researcher ands:isCollectorOf ?researchDataUri .",
+            N3_PREFIX + "?researchDataUri ands:hasCollector ?researcher ."));
         return n3Required;
     }
 
