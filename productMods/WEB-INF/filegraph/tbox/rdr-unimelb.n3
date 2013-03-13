@@ -31,7 +31,7 @@ unimelb-rdr:agreementHasResearchDataOutput a owl:ObjectProperty ;
     rdfs:domain vivo:Agreement ;
     rdfs:range ands:ResearchData ;
     owl:inverseOf unimelb-rdr:isResearchDataForAgreement ;
-    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToAgreementGenerator"^^xsd:string ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToAgreementGenerator"^^xsd:string ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
@@ -52,7 +52,7 @@ unimelb-rdr:projectHasResearchDataOutput a owl:ObjectProperty ;
     rdfs:domain vivo:Project ;
     rdfs:range ands:ResearchData ;
     owl:inverseOf unimelb-rdr:isResearchDataForProject ;
-    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToProjectGenerator"^^xsd:string ;
+    vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToProjectGenerator"^^xsd:string ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData ;
     vitro:hiddenFromDisplayBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
     vitro:prohibitedFromUpdateBelowRoleLevelAnnot <http://vitro.mannlib.cornell.edu/ns/vitro/role#public> ;
@@ -252,7 +252,7 @@ vivo:hasPrincipalInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannli
     vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
     vitro:offerCreateNewOptionAnnot "true"^^xsd:boolean .
 
-ands:isCollectorOf vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearchDataToResearcherGenerator"^^xsd:string ;
+ands:isCollectorOf vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToResearcherGenerator"^^xsd:string ;
     vitro:inPropertyGroupAnnot unimelb-rdr:propertyGroupResearchData .
 
 ands:relatedResearchData vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOrCreateResearchDataToPublicationGenerator"^^xsd:string ;
