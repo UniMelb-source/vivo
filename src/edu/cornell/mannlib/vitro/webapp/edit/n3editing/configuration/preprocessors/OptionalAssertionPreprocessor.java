@@ -18,11 +18,12 @@ import org.apache.commons.logging.LogFactory;
 public class OptionalAssertionPreprocessor extends BaseEditSubmissionPreprocessorVTwo {
 
     protected static final Log log = LogFactory.getLog(BaseEditSubmissionPreprocessorVTwo.class);
-    private Map<String, IndirectRelationship> assertionMap;
+    private Map<String, IndirectRelationship> indirectAssertionMap;
 
-    public OptionalAssertionPreprocessor(EditConfigurationVTwo editConfig, Map<String, IndirectRelationship> assertionMap) {
+    public OptionalAssertionPreprocessor( EditConfigurationVTwo editConfig,
+                                          Map<String, IndirectRelationship> indirectAssertionMap) {
         super(editConfig);
-        this.assertionMap = assertionMap;
+        this.indirectAssertionMap = indirectAssertionMap;
     }
 
     public void preprocess(MultiValueEditSubmission editSubmission) {
@@ -33,11 +34,11 @@ public class OptionalAssertionPreprocessor extends BaseEditSubmissionPreprocesso
         urisFromForm = editSubmission.getUrisFromForm();
         n3Required = editConfiguration.getN3Required();
         newResources = editConfiguration.getNewResources();
-        for (String assertionUri : assertionMap.keySet()) {
+        for (String assertionUri : indirectAssertionMap.keySet()) {
             if (urisFromForm.containsKey(assertionUri)) {
                 IndirectRelationship relationship;
 
-                relationship = assertionMap.get(assertionUri);
+                relationship = indirectAssertionMap.get(assertionUri);
                 for (int i = 0; i < urisFromForm.get(assertionUri).size(); i++) {
                   n3Required.addAll(relationship.getAssertions(i));
                   urisFromForm.put(assertionUri + i, Collections.singletonList(urisFromForm.get(assertionUri).get(i)));
@@ -66,7 +67,15 @@ public class OptionalAssertionPreprocessor extends BaseEditSubmissionPreprocesso
       private String intermediateObjectForwardUri;
       private String intermediateObjectBackwardUri;
 
-      public IndirectRelationship(String n3Prefix, String subjectUri, String intermediateUriBase, String intermediateType, String objectUriBase, String subjectIntermediateForwardUri, String subjectIntermediateBackwardUri, String intermediateObjectForwardUri, String intermediateObjectBackwardUri) {
+      public IndirectRelationship(String n3Prefix,
+                                  String subjectUri,
+                                  String intermediateUriBase,
+                                  String intermediateType,
+                                  String objectUriBase,
+                                  String subjectIntermediateForwardUri,
+                                  String subjectIntermediateBackwardUri,
+                                  String intermediateObjectForwardUri,
+                                  String intermediateObjectBackwardUri) {
         this.n3Prefix = n3Prefix;
         this.subjectUri = subjectUri;
         this.intermediateUriBase = intermediateUriBase;

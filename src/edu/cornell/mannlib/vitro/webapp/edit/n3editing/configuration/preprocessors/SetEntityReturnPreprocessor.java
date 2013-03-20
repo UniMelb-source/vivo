@@ -14,9 +14,6 @@ import org.apache.commons.logging.LogFactory;
 public class SetEntityReturnPreprocessor extends BaseEditSubmissionPreprocessorVTwo {
 
     protected static final Log log = LogFactory.getLog(SetEntityReturnPreprocessor.class);
-    protected static String itemType;
-    protected static String roleToItemPredicate;
-    protected static String itemToRolePredicate;
     private String forwardUri;
 
     public SetEntityReturnPreprocessor(EditConfigurationVTwo editConfig, String forwardUri) {

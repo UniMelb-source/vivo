@@ -3,6 +3,7 @@ package edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators
 import com.hp.hpl.jena.vocabulary.XSD;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.BaseEditSubmissionPreprocessorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.DateTimeIntervalValidationVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.DateTimeWithPrecisionVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationUtils;
@@ -10,6 +11,7 @@ import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.EditConfigurationVTw
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.FieldVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.VTwo.N3ValidatorVTwo;
 import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.validators.AntiXssValidation;
+import edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.preprocessors.AddMultipleChildrenPreprocessor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,7 +55,9 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 N3_PREFIX + "?researchDataUri ands:isLocatedIn ?researchRepository .",
                 N3_PREFIX + "?researchDataUri core:hasSubjectArea ?subjectAreas .",
                 N3_PREFIX + "?researchDataUri ands:isManagedBy ?custodianDepartments .",
-                N3_PREFIX + "?researchDataUri ands:associatedPrincipleInvestigator ?custodians .",
+                /* inverse handled in preprocessor */
+                N3_PREFIX + "?researchDataUri ands:hasCollector ?custodians .",
+                /* inverse handled in preprocessor */
                 N3_PREFIX + "?researchDataUri ands:researchDataDescription ?researchDataDescription .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:recordCreator ?recordCreator .",
                 N3_PREFIX + "?researchDataUri ands:gml ?gml .",
@@ -74,7 +78,6 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 N3_PREFIX + "?collectedDateRange core:end ?collectedDateRangeEnd .",
                 N3_PREFIX + "?researchDataUri unimelb-rdr:collectedDateRange ?collectedDateRange .",
                 N3_PREFIX + "?collectedDateRange unimelb-rdr:collectedDateRangeFor ?researchDataUri .",
-                //collectedDateRangeFor
                 /* Create date time interval for covered */
                 N3_PREFIX + "?coveredDateRangeStart core:dateTime ?coveredDateRangeStartDateTime-value .",
                 N3_PREFIX + "?coveredDateRangeStart core:dateTimePrecision ?coveredDateRangeStartDateTime-precision .",
@@ -119,7 +122,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 + "?repository rdf:type ands:ResearchRepository. \n"
                 + "?repository rdfs:label ?repositoryLabel}";
         results = getResults(query, "repository", "repositoryLabel");
-        results.put("","Not specified");
+        results.put("","Repository not specified");
         return results;
     }
 
@@ -145,7 +148,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 "ands:rights",
                 "unimelb-rdr:retentionPeriod",
                 "ands:isManagedBy",
-                "ands:associatedPrincipleInvestigator",
+                "ands:hasCollector",
                 "core:hasSubjectArea",
                 "ands:gml",
                 "ands:gmlKmlPolyCoords",
@@ -167,7 +170,7 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 "ands:rights",
                 "unimelb-rdr:retentionPeriod",
                 "ands:isManagedBy",
-                "ands:associatedPrincipleInvestigator",
+                "ands:hasCollector",
                 "core:hasSubjectArea",
                 "ands:gml",
                 "ands:gmlKmlPolyCoords",
@@ -203,15 +206,9 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 "kml",
                 "kmlPolyCoords",
                 "recordCreatedOnDateTime",
-                /*"collectedDateRange",
-                 "collectedDateRangeStart",*/
                 "collectedDateRangeStartDateTime",
-                /*"collectedDateRangeEnd",*/
                 "collectedDateRangeEndDateTime",
-                /*"coveredDateRange",
-                 "coveredDateRangeStart",*/
                 "coveredDateRangeStartDateTime",
-                /*"coveredDateRangeEnd",*/
                 "coveredDateRangeEndDateTime");
     }
 
@@ -307,4 +304,14 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
     protected final String getForwardUri() {
         return "?researchDataUri";
     }
+
+    @Override
+    protected List<BaseEditSubmissionPreprocessorVTwo> getPreprocessors(EditConfigurationVTwo editConfiguration) {
+        List<BaseEditSubmissionPreprocessorVTwo> preprocessors;
+
+        preprocessors = super.getPreprocessors(editConfiguration);
+        preprocessors.add(new AddMultipleChildrenPreprocessor(editConfiguration, N3_PREFIX, "custodianDepartments", "ands:isManagerOf", "researchDataUri"));
+        preprocessors.add(new AddMultipleChildrenPreprocessor(editConfiguration, N3_PREFIX, "custodians", "ands:isCollectorOf", "researchDataUri"));
+        return preprocessors;
+    }  
 }
