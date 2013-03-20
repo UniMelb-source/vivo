@@ -5,7 +5,13 @@
 
 vivo:Project vitro:customDisplayViewAnnot "individual--vivo-project.ftl"^^xsd:string .
 
+ands:ResearchCatalog vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string .
+ands:ResearchCollection vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string .
 ands:ResearchData vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string .
+ands:ResearchDataSet vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string .
+ands:ResearchRecordsCollection vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string .
+ands:ResearchRegistry vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string .
+ands:ResearchRepository vitro:customDisplayViewAnnot "individual--ands-researchdata.ftl"^^xsd:string .
 
 vivo:Agreement vitro:customDisplayViewAnnot "individual--vivo-agreement.ftl"^^xsd:string .
 

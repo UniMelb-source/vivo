@@ -38,7 +38,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
                 N3_PREFIX + "?coveredDateRangeStart a core:DateTimeValue .",
                 N3_PREFIX + "?coveredDateRangeEnd a core:DateTimeValue .",
                 N3_PREFIX + "?coveredDateRange a core:DateTimeInterval .",
-                N3_PREFIX + "?researchDataUri a ?researchDataSpecificType .");
+                N3_PREFIX + "?researchDataUri a ?researchDataSpecificType .",
+                N3_PREFIX + "?researchDataUri unimelb-rdr:contentVerified \"false\" .");
     }
 
     @Override
