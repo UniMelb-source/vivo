@@ -34,7 +34,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </#list>
     </ul>
 	<ul style="float: right;">
-		<li class="last"><a href="${urls.index}">Index</a></li>
+            <li><a href="${urls.index}">Index</a></li>
+
+            <#if user.loggedIn>
+                <#if user.hasSiteAdminAccess>
+                    <li role="listitem"><a href="${urls.siteAdmin}" title="site admin">Site Admin</a></li>
+                </#if>
+                <li><a href="#" title="user">${user.loginName}</a></li>
+                <li class="last"><a href="${urls.logout}" title="log out">Log out</a></li>
+
+            <#else>
+                <li class="last"><a class="log-out" title="log in to manage this site" href="${urls.login}">Log in</a></li>
+            </#if>
 	</ul>
   </div>
 </div>
