@@ -90,6 +90,16 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+   <!--filter>
+    <filter-name>JSessionSecureFilter</filter-name>
+    <filter-class>edu.cornell.mannlib.vitro.webapp.filters.JSessionSecureFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JSessionSecureFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping-->
+  
+
   <filter>
     <filter-name>URL Rewriter Filter</filter-name>
     <filter-class>edu.cornell.mannlib.vitro.webapp.filters.URLRewriterFilter</filter-class>
@@ -128,7 +138,7 @@
     <url-pattern>/*</url-pattern>
     <dispatcher>request</dispatcher>
   </filter-mapping>
-  
+
   <!--  Spring setup ****************************************************  -->
 <!--
   <context-param>
@@ -1535,24 +1545,23 @@
   <!-- 	</error-page>
  -->
     <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>HTTPSOnly</web-resource-name>
-            <url-pattern>/login</url-pattern>
-            <url-pattern>/authenticate</url-pattern>
-        </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
+       <web-resource-collection>
+          <web-resource-name>HTTPSOnly</web-resource-name>
+          <url-pattern>/login</url-pattern>
+          <url-pattern>/authenticate</url-pattern>
+       </web-resource-collection>
+       <user-data-constraint>
+          <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+       </user-data-constraint>
     </security-constraint>
     <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>HTTPSOrHTTP</web-resource-name>
-            <url-pattern>/*</url-pattern>
-        </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>NONE</transport-guarantee>
-        </user-data-constraint>
+       <web-resource-collection>
+          <web-resource-name>HTTPSOrHTTP</web-resource-name>
+          <url-pattern>/*</url-pattern>
+       </web-resource-collection>
+       <user-data-constraint>
+          <transport-guarantee>NONE</transport-guarantee>
+       </user-data-constraint>
     </security-constraint>
 
-  
 </web-app>
