@@ -215,8 +215,7 @@ unimelb-rdr:dataManagementPlanAvailable a owl:DatatypeProperty ;
     rdfs:range xsd:boolean ;
     rdfs:label "data management plan?"@en ;
     rdfs:subPropertyOf unimelb-rdr:dataManagementPlanAvailable, owl:topDataProperty ;
-    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> ;
-    vitro:publicDescriptionAnnot "Valid entries are either 'true' or 'false' (without the quotes)"^^xsd:string .
+    vitro:inPropertyGroupAnnot <http://vivoweb.org/ontology#vitroPropertyGroupresearch> .
 
 unimelb-rdr:dataManagementPlanDescription a owl:DatatypeProperty ;
     rdfs:comment "Data Management Plan Description"^^xsd:string ;
@@ -239,8 +238,7 @@ unimelb-rdr:contentVerified a owl:DatatypeProperty ;
     rdfs:range xsd:boolean ;
     rdfs:label "content verified?"@en ;
     rdfs:subPropertyOf unimelb-rdr:contentVerified, owl:topDataProperty ;
-    vitro:offerCreateNewOptionAnnot "false"^^xsd:boolean ;
-    vitro:publicDescriptionAnnot "Valid entries are either 'true' or 'false' (without the quotes)"^^xsd:string .
+    vitro:offerCreateNewOptionAnnot "false"^^xsd:boolean .
 
 # modifying existing elements
 vivo:hasInvestigatorRole vitro:customEntryFormAnnot "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddGrantRoleToPersonGenerator"^^xsd:string ;

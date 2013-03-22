@@ -32,8 +32,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <title>${title}</title>
 
-<link rel="stylesheet" href="http://brand.unimelb.edu.au/web-templates/1-1/css/complete.css">
-<script type="text/javascript" src="http://brand.unimelb.edu.au/global-header/js/injection.js"></script>
+<link rel="stylesheet" href="//brand.unimelb.edu.au/web-templates/1-1/css/complete.css">
+<script type="text/javascript" src="//brand.unimelb.edu.au/global-header/js/injection.js"></script>
 
 
 <#include "stylesheets.ftl">
