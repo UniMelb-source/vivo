@@ -37,7 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <section id="search" role="region">
         <fieldset>
             <legend>Search form</legend>
-            <form id="search-home-vivo" action="/vivo/search" method="post" name="search-home" role="search">
+            <form id="search-home-vivo" action="/search" method="post" name="search-home" role="search">
               <div id="search-home-field">
                 <input type="text" name="querytext" class="search-home-vivo" value="">
                 <input type="submit" value="Search" class="search">
