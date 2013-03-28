@@ -30,8 +30,7 @@ $(document).ready(function() {
         var hash = window.location.hash;		
         var extraParam = getURLParameter('extra');
 
-        if(extraParam == 'true')
-        {
+        if(extraParam == 'true' && !$(hash).parent().parent().hasClass('metadata')) {
             //for h3 - i.e. returning from an edit
             $(hash).parent().parent().show();
 
@@ -42,17 +41,13 @@ $(document).ready(function() {
 
             //the tab we want
             $('a[href="' + hrefForAnchor + '"]').parent().addClass('activeTab');
-        }
-        else
-        {
+        } else {
             //Non existent anchor, or misspelled bookmark etc.
-            if(!($('a[href="' + hash + '"]').parent().exists()))
-            {
+	    //Also, if the field is in the global field section and not within a tab
+            if(!($('a[href="' + hash + '"]').parent().exists())) {
                 $('.property-group').first().show();
                 $("#property-group-menu ul li").first().addClass("activeTab");				
-            }
-            else
-            {
+            } else {
                 //for h2 - Clicking back from a page perhaps, or bookmarks.
                 //Regardless, it should be here.
                 $(hash).show();
