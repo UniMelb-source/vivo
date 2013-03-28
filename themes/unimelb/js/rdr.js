@@ -32,7 +32,7 @@ $(document).ready(function() {
      */
     var heading = $('div[role=main] h2 em').text();
 
-    if (heading.indexOf('content verified') >= 0) {
+    if (heading.indexOf('content verified') >= 0 || heading.indexOf('data management plan') >= 0) {
         var textField = $('form textarea[name=literal]');
         var radioField = $(
             '<div class="radio-set">' +

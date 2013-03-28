@@ -38,3 +38,19 @@ input[type="checkbox"] {
 	opacity: 1 !important;
 	filter: alpha(opacity=1);
 }
+
+/**
+ * Custom radio set for when we replace textarea with true/false radio buttons
+ */
+.radio-set input[type=radio],
+.radio-set label {
+	display: inline-block;
+}
+
+.radio-set input[type=radio] {
+	margin: 0 5px;
+}
+
+.radio-set label {
+	margin-right: 10px;
+}
