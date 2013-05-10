@@ -2,3 +2,4 @@
 deploy.properties
 .build
 deploy-vivo-tomcat
+vitro-core
