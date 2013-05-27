@@ -1,10 +1,17 @@
 #!/bin/bash
 
+if [ ${#} != 1 ]
+then
+	echo "Usage: ${BASH_SOURCE[0]} <mysql-password>"
+	exit
+fi
+
 SCRIPT_PATH=$(pwd)
 
 BUILD_DIR=$(mktemp -d)
 
 MYSQL_ADMIN_USER="root"
+MYSQL_ADMIN_PASSWORD=${1}
 
 VITRO_DB="vivo"
 VITRO_DB_USERNAME="vivo"
@@ -15,20 +22,16 @@ TOMCAT_GROUP="tomcat6"
 
 echo $(date +%s%N | cut -b1-13) "- starting"
 
-echo -n "MySQL Password:"
-read -s MYSQL_PASSWORD
-echo
-
 START_TIME=$(date +%s%N | cut -b1-13)
 echo "${START_TIME} - preparing database"
-echo "DROP DATABASE IF EXISTS ${VITRO_DB}; CREATE DATABASE IF NOT EXISTS ${VITRO_DB}; GRANT ALL PRIVILEGES ON ${VITRO_DB}.* TO ${VITRO_DB_USERNAME}@localhost IDENTIFIED BY '${VITRO_DB_PASSWORD}';" | mysql --user=${MYSQL_ADMIN_USER} --password=${MYSQL_PASSWORD}
+echo "DROP DATABASE IF EXISTS ${VITRO_DB}; CREATE DATABASE IF NOT EXISTS ${VITRO_DB}; GRANT ALL PRIVILEGES ON ${VITRO_DB}.* TO ${VITRO_DB_USERNAME}@localhost IDENTIFIED BY '${VITRO_DB_PASSWORD}';" | mysql --user=${MYSQL_ADMIN_USER} --password=${MYSQL_ADMIN_PASSWORD}
 
 VIVO_GIT="git://github.com/UniMelb-source/vivo.git"
 VIVO_GIT_BRANCH="vivo-crdr"
 VIVO_DIR=${BUILD_DIR}/vivo
 
 NETWORK_START_TIME=$(date +%s%N | cut -b1-13)
-echo "${NETWORK_START_TIME}- cloning VIVO"
+echo "${NETWORK_START_TIME} - cloning VIVO"
 git clone ${VIVO_GIT} ${VIVO_DIR} 1>${SCRIPT_PATH}/vivo-installer.log 2>${SCRIPT_PATH}/vivo-installer.err
 pushd ${VIVO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}vivo-installer.err
 git checkout ${VIVO_GIT_BRANCH} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
