@@ -23,24 +23,23 @@ START_TIME=$(date +%s%N | cut -b1-13)
 echo "${START_TIME} - preparing database"
 echo "DROP DATABASE IF EXISTS ${VITRO_DB}; CREATE DATABASE IF NOT EXISTS ${VITRO_DB}; GRANT ALL PRIVILEGES ON ${VITRO_DB}.* TO ${VITRO_DB_USERNAME}@localhost IDENTIFIED BY '${VITRO_DB_PASSWORD}';" | mysql --user=${MYSQL_ADMIN_USER} --password=${MYSQL_PASSWORD}
 
-#VIVO_GIT="git://github.com/UniMelb-source/vivo.git"
-VIVO_GIT="/home/tom/development/vivo"
+VIVO_GIT="git://github.com/UniMelb-source/vivo.git"
 VIVO_GIT_BRANCH="vivo-crdr"
 VIVO_DIR=${BUILD_DIR}/vivo
 
-echo $(date +%s%N | cut -b1-13) "- cloning VIVO"
+NETWORK_START_TIME=$(date +%s%N | cut -b1-13)
+echo "${NETWORK_START_TIME}- cloning VIVO"
 git clone ${VIVO_GIT} ${VIVO_DIR} 1>${SCRIPT_PATH}/vivo-installer.log 2>${SCRIPT_PATH}/vivo-installer.err
 pushd ${VIVO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}vivo-installer.err
 git checkout ${VIVO_GIT_BRANCH} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
 
 echo $(date +%s%N | cut -b1-13) "- fetching VITRO"
-#VITRO_TARBALL="https://github.com/downloads/vivo-project/Vitro/vitro-rel-1.4.1.tar.gz"
-VITRO_TARBALL="file:///home/tom/development/vitro-rel-1.4.1.tar.gz"
+VITRO_TARBALL="https://github.com/downloads/vivo-project/Vitro/vitro-rel-1.4.1.tar.gz"
 VITRO_DIR=${BUILD_DIR}/vitro
 
 mkdir -p ${VITRO_DIR}
 pushd ${VITRO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
-curl ${VITRO_TARBALL} 2>>${SCRIPT_PATH}/vivo-installer.err | tar --strip-components=1 -xzf -
+curl -L ${VITRO_TARBALL} 2>>${SCRIPT_PATH}/vivo-installer.err | tar --strip-components=1 -xzf -
 
 # Prepare VIVO properties
 ADMIN_EMAIL="tsullivan@unimelb.edu.au"
@@ -49,7 +48,8 @@ TOMCAT_HOME="/var/lib/tomcat6"
 VITRO_HOME="/usr/local/vivo/data"
 VIVO_LOG_DIR="/usr/share/tomcat6/logs"
 
-echo $(date +%s%N | cut -b1-13) "- preparing settings"
+NETWORK_END_TIME=$(date +%s%N | cut -b1-13)
+echo "${NETWORK_END_TIME} - preparing settings"
 cp ${VIVO_DIR}/example.deploy.properties ${VIVO_DIR}/deploy.properties
 sed -i -e "s#^vitro.core.dir = .*\$#vitro.core.dir = ${VITRO_DIR}#g" ${VIVO_DIR}/deploy.properties
 sed -i -e "s#^tomcat.home = .*\$#tomcat.home = ${TOMCAT_HOME}#g" ${VIVO_DIR}/deploy.properties
@@ -81,3 +81,6 @@ curl http://localhost:8080/vivo 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT
 END_TIME=$(date +%s%N | cut -b1-13)
 echo "${END_TIME} - done"
 echo "$((END_TIME - START_TIME))ms elapsed"
+echo "- $((NETWORK_START_TIME - START_TIME))ms setup"
+echo "- $((NETWORK_END_TIME - NETWORK_START_TIME))ms network"
+echo "- $((END_TIME - NETWORK_END_TIME))ms build and deploy"
