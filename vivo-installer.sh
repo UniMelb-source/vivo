@@ -20,6 +20,8 @@ VITRO_DB_PASSWORD="vivo"
 TOMCAT_USER="tomcat6"
 TOMCAT_GROUP="tomcat6"
 
+VIVO_URL="http://localhost/vivo"
+
 echo $(date +%s%N | cut -b1-13) "- starting"
 
 START_TIME=$(date +%s%N | cut -b1-13)
@@ -70,6 +72,12 @@ pushd ${VIVO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-in
 echo $(date +%s%N | cut -b1-13) "- cleaning and deploying"
 ant clean deploy 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
 
+touch /etc/authbind/byport/{80,443}
+chown ${TOMCAT_USER} /etc/authbind/byport/{80,443}
+chmod 775 /etc/authbind/byport/{80,443}
+
+sed -i -e "s/^#AUTHBIND=no/AUTHBIND=yes/g" /etc/default/tomcat6
+
 # Post-build setup
 chown -R ${TOMCAT_USER}:${TOMCAT_GROUP} ${VITRO_HOME}
 chown -R ${TOMCAT_USER}:${TOMCAT_GROUP} ${VIVO_LOG_DIR}
@@ -80,7 +88,7 @@ echo $(date +%s%N | cut -b1-13) "- restarting Tomcat"
 dirs -c
 rm -rf ${BUILD_DIR}
 echo $(date +%s%N | cut -b1-13) "- fetching homepage"
-curl http://localhost:8080/vivo 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
+curl ${VIVO_URL} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
 END_TIME=$(date +%s%N | cut -b1-13)
 echo "${END_TIME} - done"
 echo "$((END_TIME - START_TIME))ms elapsed"
