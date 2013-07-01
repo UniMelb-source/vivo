@@ -7,6 +7,11 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
   version="2.4">
 
+  <display-name>VIVO CRDR</display-name>
+  <description>
+    The VIVO implementation for Melbourne Research
+  </description>
+
   <!-- Environment variables for the Vitro web application -->
   <!-- Example: -->
   <!-- <env-entry><env-entry-name>somename/required</env-entry-name> -->
