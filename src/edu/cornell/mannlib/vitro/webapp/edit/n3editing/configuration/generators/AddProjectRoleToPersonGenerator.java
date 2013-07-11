@@ -594,7 +594,7 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
 
         fields.put(field.getName(), field);
     }
-    
+
     private void getRoleLabelField(EditConfigurationVTwo editConfiguration,
             VitroRequest vreq, Map<String, FieldVTwo> fields) {
         String fieldName = "roleLabel";
@@ -685,12 +685,10 @@ public class AddProjectRoleToPersonGenerator extends BaseEditConfigurationGenera
         //Add preprocessor that will replace the role to activity predicate and inverse
         //with correct properties based on the activity type
         /*editConfiguration.addEditSubmissionPreprocessor(
-                new RoleToActivityPredicatePreprocessor(editConfiguration, wadf));*/
-
+         new RoleToActivityPredicatePreprocessor(editConfiguration, wadf));*/
     }
 
     //Ensure when overwritten that this includes the <> b/c otherwise the query won't work
-
     //Some values will have a default value
     public List<String> getRoleToProjectPredicates() {
         List<String> predicates = new ArrayList<String>();

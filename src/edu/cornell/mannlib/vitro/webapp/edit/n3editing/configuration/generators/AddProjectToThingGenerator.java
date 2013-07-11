@@ -98,16 +98,15 @@ public abstract class AddProjectToThingGenerator extends RdrReturnEntityBaseGene
 
         assertionMap = new HashMap<String, OptionalAssertionPreprocessor.IndirectRelationship>();
         assertionMap.put("person", new OptionalAssertionPreprocessor.IndirectRelationship(
-          N3_PREFIX,
-          "projectUri",
-          "role",
-          "unimelb-rdr:ProjectRole",
-          "person", 
-          "unimelb-rdr:relatedProjectRole", 
-          "unimelb-rdr:projectRoleIn", 
-          "unimelb-rdr:projectRoleOf", 
-          "unimelb-rdr:hasProjectRole" 
-        ));
+                N3_PREFIX,
+                "projectUri",
+                "role",
+                "unimelb-rdr:ProjectRole",
+                "person",
+                "unimelb-rdr:relatedProjectRole",
+                "unimelb-rdr:projectRoleIn",
+                "unimelb-rdr:projectRoleOf",
+                "unimelb-rdr:hasProjectRole"));
         preprocessors.add(new OptionalAssertionPreprocessor(editConfiguration, assertionMap));
         return preprocessors;
     }

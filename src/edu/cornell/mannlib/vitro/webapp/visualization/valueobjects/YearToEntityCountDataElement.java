@@ -2,34 +2,34 @@
 package edu.cornell.mannlib.vitro.webapp.visualization.valueobjects;
 
 /**
- * This object is used to store information about the yearToEntityCount Map in the format
- * easily expressed to Google Visualization's DataTableAPI. 
+ * This object is used to store information about the yearToEntityCount Map in
+ * the format easily expressed to Google Visualization's DataTableAPI.
+ *
  * @author cdtank
  *
  */
 public class YearToEntityCountDataElement {
 
-	private int yearToEntityCounter;
-	private String year;
-	private int currentEntitiesCount;
-	
-	public YearToEntityCountDataElement(int yearToEntityCounter,
-			String year, int currentEntitiesCount) {
-		this.yearToEntityCounter = yearToEntityCounter;
-		this.year = year;
-		this.currentEntitiesCount = currentEntitiesCount;
-	}
+    private int yearToEntityCounter;
+    private String year;
+    private int currentEntitiesCount;
 
-	public int getYearToEntityCounter() {
-		return yearToEntityCounter;
-	}
+    public YearToEntityCountDataElement(int yearToEntityCounter,
+            String year, int currentEntitiesCount) {
+        this.yearToEntityCounter = yearToEntityCounter;
+        this.year = year;
+        this.currentEntitiesCount = currentEntitiesCount;
+    }
 
-	public String getYear() {
-		return year;
-	}
+    public int getYearToEntityCounter() {
+        return yearToEntityCounter;
+    }
 
-	public int getCurrentEntitiesCount() {
-		return currentEntitiesCount;
-	}
-	
+    public String getYear() {
+        return year;
+    }
+
+    public int getCurrentEntitiesCount() {
+        return currentEntitiesCount;
+    }
 }

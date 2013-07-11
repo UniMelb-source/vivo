@@ -13,9 +13,7 @@
  * agreement you entered into with Revolution Health Group.
  *
  */
-
 package edu.cornell.mannlib.semservices.util;
-
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,10 +30,10 @@ import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 public final class DateConverter implements Converter {
+
     private static final Logger LOG = Logger.getLogger(DateConverter.class);
 
     //  Constructors
-
     /**
      * Create a {@link Converter} that will throw a {@link ConversionException}
      * if a conversion error occurs.
@@ -49,16 +47,13 @@ public final class DateConverter implements Converter {
      * Create a {@link Converter} that will return the specified default value
      * if a conversion error occurs.
      *
-     * @param defaultValue
-     *            The default value to be returned
+     * @param defaultValue The default value to be returned
      */
     public DateConverter(Object defaultValue) {
         this.defaultValue = defaultValue;
         converter = new XMLGregorianCalendarConverter(defaultValue);
     }
-
     //  Instance Variables
-
     /**
      * The default value specified to our Constructor, if any.
      */
@@ -66,22 +61,19 @@ public final class DateConverter implements Converter {
     private XMLGregorianCalendarConverter converter = null;
 
     // --------------------------------------------------------- Public Methods
-
     /**
      * Convert the specified input object into an output object of the specified
      * type.
      *
-     * @param type
-     *   XMLGregorianCalendar type to which this value should be
-     *   converted
-     * @param value
-     *   The input value to be converted
+     * @param type XMLGregorianCalendar type to which this value should be
+     * converted
+     * @param value The input value to be converted
      *
-     * @exception ConversionException
-     *    if conversion cannot be performed successfully
+     * @exception ConversionException if conversion cannot be performed
+     * successfully
      */
-    @SuppressWarnings({ "unchecked", "deprecation" })
-   public Object convert(Class type, Object value) {
+    @SuppressWarnings({"unchecked", "deprecation"})
+    public Object convert(Class type, Object value) {
 
         String dateValue = value.toString();
 
@@ -103,9 +95,9 @@ public final class DateConverter implements Converter {
         try {
             result = calendar.toGregorianCalendar().getTime();
         } catch (Exception exception) { /*
-                                         * empty, had some error parsing the
-                                         * time
-                                         */
+             * empty, had some error parsing the
+             * time
+             */
             LOG.debug("Error converting the time");
             if (result == null) {
                 try {

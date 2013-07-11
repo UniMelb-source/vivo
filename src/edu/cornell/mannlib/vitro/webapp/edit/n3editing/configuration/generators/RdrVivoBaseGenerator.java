@@ -111,9 +111,9 @@ public abstract class RdrVivoBaseGenerator extends VivoBaseGenerator implements 
         for (BaseEditSubmissionPreprocessorVTwo preprocessor : getPreprocessors(editConfiguration)) {
             editConfiguration.addEditSubmissionPreprocessor(preprocessor);
         }
-        
+
         additionalProcessing(editConfiguration);
-        
+
         prepare(vreq, editConfiguration);
 
         return editConfiguration;

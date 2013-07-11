@@ -25,7 +25,7 @@ public abstract class RdrReturnEntityBaseGenerator extends RdrVivoBaseGenerator 
         String forwardUri = getForwardUri();
         if (null != forwardUri) {
             preprocessors.add(new SetEntityReturnPreprocessor(editConfiguration, forwardUri));
-        }   
+        }
         return preprocessors;
     }
 

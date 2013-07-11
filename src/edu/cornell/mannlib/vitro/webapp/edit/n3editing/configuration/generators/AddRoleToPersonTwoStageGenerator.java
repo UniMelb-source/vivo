@@ -36,12 +36,11 @@ import edu.cornell.mannlib.vitro.webapp.utils.FrontEndEditingUtils.EditMode;
 import edu.cornell.mannlib.vitro.webapp.utils.generators.EditModeUtils;
 
 /**
- * Generates the edit configuration for adding a Role to a Person.  *
- * Stage one is selecting the type of the non-person thing associated with the
- * Role with the intention of reducing the number of Individuals that the user
- * has to select from. Stage two is selecting the non-person Individual to
- * associate with the Role.  *
- * This is intended to create a set of statements like:
+ * Generates the edit configuration for adding a Role to a Person. * Stage one
+ * is selecting the type of the non-person thing associated with the Role with
+ * the intention of reducing the number of Individuals that the user has to
+ * select from. Stage two is selecting the non-person Individual to associate
+ * with the Role. * This is intended to create a set of statements like:
  *
  * ?person core:hasResearchActivityRole ?newRole. ?newRole rdf:type
  * core:ResearchActivityRole ; roleToActivityPredicate ?someActivity .
@@ -56,7 +55,7 @@ import edu.cornell.mannlib.vitro.webapp.utils.generators.EditModeUtils;
  * roleToActivityPredicate and activityToRolePredicate are both dependent on the
  * type of the activity itself. For a new statement, the predicate type is not
  * known. For an existing statement, the predicate is known but may change based
- * on the type of the activity newly selected.  *
+ * on the type of the activity newly selected. *
  *
  * bdc34: TODO: figure out what needs to be customized per role form, document
  * it here in comments TODO: rewrite class as an abstract class with simple,

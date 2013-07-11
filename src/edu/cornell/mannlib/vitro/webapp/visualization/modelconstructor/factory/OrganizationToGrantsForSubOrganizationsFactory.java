@@ -10,37 +10,36 @@ import edu.cornell.mannlib.vitro.webapp.visualization.valueobjects.ConstructedMo
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.ModelConstructor;
 
 public class OrganizationToGrantsForSubOrganizationsFactory implements
-		ModelFactoryInterface {
+        ModelFactoryInterface {
 
-	@Override
-	public Model getOrCreateModel(String uri, Dataset dataset)
-			throws MalformedQueryParametersException {
+    @Override
+    public Model getOrCreateModel(String uri, Dataset dataset)
+            throws MalformedQueryParametersException {
 
-		Model candidateModel = ConstructedModelTracker.getModel(
-				ConstructedModelTracker
-				.generateModelIdentifier(
-						uri, 
-						OrganizationToGrantsForSubOrganizationsModelConstructor.MODEL_TYPE));
-		
-		if (candidateModel != null) {
-			
-			return candidateModel;
-			
-		} else {
-		
-			ModelConstructor model = new OrganizationToGrantsForSubOrganizationsModelConstructor(uri, dataset);
-			
-			Model constructedModel = model.getConstructedModel();
-			ConstructedModelTracker.trackModel(
-					ConstructedModelTracker
-						.generateModelIdentifier(
-								uri, 
-								OrganizationToGrantsForSubOrganizationsModelConstructor.MODEL_TYPE),
-								constructedModel);
-			
-			return constructedModel;
-		}
-	
-	}
+        Model candidateModel = ConstructedModelTracker.getModel(
+                ConstructedModelTracker
+                .generateModelIdentifier(
+                uri,
+                OrganizationToGrantsForSubOrganizationsModelConstructor.MODEL_TYPE));
 
+        if (candidateModel != null) {
+
+            return candidateModel;
+
+        } else {
+
+            ModelConstructor model = new OrganizationToGrantsForSubOrganizationsModelConstructor(uri, dataset);
+
+            Model constructedModel = model.getConstructedModel();
+            ConstructedModelTracker.trackModel(
+                    ConstructedModelTracker
+                    .generateModelIdentifier(
+                    uri,
+                    OrganizationToGrantsForSubOrganizationsModelConstructor.MODEL_TYPE),
+                    constructedModel);
+
+            return constructedModel;
+        }
+
+    }
 }

@@ -117,18 +117,18 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
     }
 
     private Map<String, String> getAvailableResearchRepositories() {
-        Map<String,String> results;
+        Map<String, String> results;
         String query = SPARQL_PREFIX
                 + "SELECT DISTINCT ?repository ?repositoryLabel WHERE { \n"
                 + "?repository rdf:type ands:ResearchRepository. \n"
                 + "?repository rdfs:label ?repositoryLabel}";
         results = getResults(query, "repository", "repositoryLabel");
-        results.put("","Repository not specified");
+        results.put("", "Repository not specified");
         return results;
     }
 
     private Map<String, String> getResearchDataSpecificTypes() {
-        Map<String,String> results;
+        Map<String, String> results;
         String query = SPARQL_PREFIX
                 + "SELECT DISTINCT ?subType ?subTypeLabel WHERE { \n"
                 + "?subType rdfs:subClassOf ands:ResearchData. \n"
@@ -314,5 +314,5 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
         preprocessors.add(new AddMultipleChildrenPreprocessor(editConfiguration, N3_PREFIX, "custodianDepartments", "ands:isManagerOf", "researchDataUri"));
         preprocessors.add(new AddMultipleChildrenPreprocessor(editConfiguration, N3_PREFIX, "custodians", "ands:isCollectorOf", "researchDataUri"));
         return preprocessors;
-    }  
+    }
 }

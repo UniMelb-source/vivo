@@ -1,5 +1,4 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
-
 package org.vivoweb.reasoner.plugin;
 
 import org.apache.commons.logging.Log;
@@ -20,10 +19,9 @@ import edu.cornell.mannlib.vitro.webapp.reasoner.ReasonerPlugin;
 
 public class DCTitleForDocuments extends SimplePropertyAndTypeRule implements ReasonerPlugin {
 
-	public DCTitleForDocuments() {
-		super(RDFS.label.getURI(), 
-		      "http://purl.org/ontology/bibo/Document", 
-		      "http://purl.org/dc/terms/title");
-	}
-			   
+    public DCTitleForDocuments() {
+        super(RDFS.label.getURI(),
+                "http://purl.org/ontology/bibo/Document",
+                "http://purl.org/dc/terms/title");
+    }
 }

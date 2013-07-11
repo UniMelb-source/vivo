@@ -1,5 +1,4 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
-
 package edu.cornell.mannlib.vitro.webapp.visualization.visutils;
 
 import java.util.Map;
@@ -15,42 +14,36 @@ import com.hp.hpl.jena.rdf.model.Model;
 import edu.cornell.mannlib.vitro.webapp.visualization.constants.QueryConstants;
 import edu.cornell.mannlib.vitro.webapp.visualization.exceptions.MalformedQueryParametersException;
 
-
-
 /**
- * This query runner is used to run a generic sparql query based on the "select", 
- * "where" & "filter" rules provided to it.  
- * 
+ * This query runner is used to run a generic sparql query based on the
+ * "select", "where" & "filter" rules provided to it.
+ *
  * @author cdtank
  */
 public class GenericQueryRunnerOnModel implements QueryRunner<ResultSet> {
 
-	protected static final Syntax SYNTAX = Syntax.syntaxARQ;
+    protected static final Syntax SYNTAX = Syntax.syntaxARQ;
+    private String whereClause;
+    private Model model;
+    private Map<String, String> fieldLabelToOutputFieldLabel;
+    private String groupOrderClause;
+    private String aggregationRules;
 
-	private String whereClause;
-	private Model model;
+    public GenericQueryRunnerOnModel(Map<String, String> fieldLabelToOutputFieldLabel,
+            String aggregationRules,
+            String whereClause,
+            String groupOrderClause,
+            Model model) {
 
-	private Map<String, String> fieldLabelToOutputFieldLabel;
+        this.fieldLabelToOutputFieldLabel = fieldLabelToOutputFieldLabel;
+        this.aggregationRules = aggregationRules;
+        this.whereClause = whereClause;
+        this.groupOrderClause = groupOrderClause;
+        this.model = model;
+    }
 
-	private String groupOrderClause;
-
-	private String aggregationRules;
-
-	public GenericQueryRunnerOnModel(Map<String, String> fieldLabelToOutputFieldLabel,
-							   String aggregationRules, 
-							   String whereClause,
-							   String groupOrderClause, 
-							   Model model) {
-
-		this.fieldLabelToOutputFieldLabel = fieldLabelToOutputFieldLabel;
-		this.aggregationRules = aggregationRules;
-		this.whereClause = whereClause;
-		this.groupOrderClause = groupOrderClause;
-		this.model = model;
-	}
-
-	private ResultSet executeQuery(String queryText,
-								   Model dataset) {
+    private ResultSet executeQuery(String queryText,
+            Model dataset) {
 
         QueryExecution queryExecution = null;
         Query query = QueryFactory.create(queryText, SYNTAX);
@@ -58,40 +51,39 @@ public class GenericQueryRunnerOnModel implements QueryRunner<ResultSet> {
         return queryExecution.execSelect();
     }
 
-	private String generateGenericSparqlQuery() {
+    private String generateGenericSparqlQuery() {
 
-		StringBuilder sparqlQuery = new StringBuilder();
-		sparqlQuery.append(QueryConstants.getSparqlPrefixQuery());
-		
-		sparqlQuery.append("SELECT\n");
-		
-		for (Map.Entry<String, String> currentfieldLabelToOutputFieldLabel 
-				: this.fieldLabelToOutputFieldLabel.entrySet()) {
-			
-			sparqlQuery.append("\t(str(?" + currentfieldLabelToOutputFieldLabel.getKey() + ") as ?" 
-									+ currentfieldLabelToOutputFieldLabel.getValue() + ")\n");
-			
-		}
-		
-		sparqlQuery.append("\n" + this.aggregationRules + "\n");
-		
-		sparqlQuery.append("WHERE {\n");
-		
-		sparqlQuery.append(this.whereClause);
-		
-		sparqlQuery.append("}\n");
-		
-		sparqlQuery.append(this.groupOrderClause);
-		
-		return sparqlQuery.toString();
-	}
-	
-	public ResultSet getQueryResult()
-			throws MalformedQueryParametersException {
+        StringBuilder sparqlQuery = new StringBuilder();
+        sparqlQuery.append(QueryConstants.getSparqlPrefixQuery());
 
-		ResultSet resultSet	= executeQuery(generateGenericSparqlQuery(),
-										   this.model);
+        sparqlQuery.append("SELECT\n");
 
-		return resultSet;
-	}
+        for (Map.Entry<String, String> currentfieldLabelToOutputFieldLabel : this.fieldLabelToOutputFieldLabel.entrySet()) {
+
+            sparqlQuery.append("\t(str(?" + currentfieldLabelToOutputFieldLabel.getKey() + ") as ?"
+                    + currentfieldLabelToOutputFieldLabel.getValue() + ")\n");
+
+        }
+
+        sparqlQuery.append("\n" + this.aggregationRules + "\n");
+
+        sparqlQuery.append("WHERE {\n");
+
+        sparqlQuery.append(this.whereClause);
+
+        sparqlQuery.append("}\n");
+
+        sparqlQuery.append(this.groupOrderClause);
+
+        return sparqlQuery.toString();
+    }
+
+    public ResultSet getQueryResult()
+            throws MalformedQueryParametersException {
+
+        ResultSet resultSet = executeQuery(generateGenericSparqlQuery(),
+                this.model);
+
+        return resultSet;
+    }
 }

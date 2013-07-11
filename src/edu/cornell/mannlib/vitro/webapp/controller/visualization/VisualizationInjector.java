@@ -6,14 +6,14 @@ import java.util.Map;
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.VisualizationRequestHandler;
 
 public class VisualizationInjector {
-	private Map<String, VisualizationRequestHandler> visualizationIDToClass;
 
-	public Map<String, VisualizationRequestHandler> getVisualizationIDToClass() {
-		return visualizationIDToClass;
-	}
+    private Map<String, VisualizationRequestHandler> visualizationIDToClass;
 
-	public void setVisualizations(Map<String, VisualizationRequestHandler> visualizationIDToClass) {
-		this.visualizationIDToClass = visualizationIDToClass;
-	}
+    public Map<String, VisualizationRequestHandler> getVisualizationIDToClass() {
+        return visualizationIDToClass;
+    }
 
+    public void setVisualizations(Map<String, VisualizationRequestHandler> visualizationIDToClass) {
+        this.visualizationIDToClass = visualizationIDToClass;
+    }
 }

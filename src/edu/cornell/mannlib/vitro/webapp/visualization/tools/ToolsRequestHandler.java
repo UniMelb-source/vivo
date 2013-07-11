@@ -1,5 +1,4 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
-
 package edu.cornell.mannlib.vitro.webapp.visualization.tools;
 
 import java.util.HashMap;
@@ -18,51 +17,50 @@ import edu.cornell.mannlib.vitro.webapp.visualization.exceptions.MalformedQueryP
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.VisualizationRequestHandler;
 
 public class ToolsRequestHandler implements VisualizationRequestHandler {
-	
-	public static final Actions REQUIRED_ACTIONS = new Actions(new RefreshVisualizationCacheAction());
 
-	@Override
-	public Object generateAjaxVisualization(VitroRequest vitroRequest, Log log,
-			Dataset dataSource) throws MalformedQueryParametersException {
-		throw new UnsupportedOperationException("Visualization Tool does not provide Ajax Response.");
-	}
+    public static final Actions REQUIRED_ACTIONS = new Actions(new RefreshVisualizationCacheAction());
 
-	@Override
-	public Map<String, String> generateDataVisualization(
-			VitroRequest vitroRequest, Log log, Dataset dataset)
-			throws MalformedQueryParametersException {
-		throw new UnsupportedOperationException("Visualization Tool does not provide Data Response.");
-	}
+    @Override
+    public Object generateAjaxVisualization(VitroRequest vitroRequest, Log log,
+            Dataset dataSource) throws MalformedQueryParametersException {
+        throw new UnsupportedOperationException("Visualization Tool does not provide Ajax Response.");
+    }
 
-	@Override
-	public ResponseValues generateStandardVisualization(
-			VitroRequest vitroRequest, Log log, Dataset dataSource)
-			throws MalformedQueryParametersException {
-		return renderToolsMenu(vitroRequest, log, dataSource);
-	}
+    @Override
+    public Map<String, String> generateDataVisualization(
+            VitroRequest vitroRequest, Log log, Dataset dataset)
+            throws MalformedQueryParametersException {
+        throw new UnsupportedOperationException("Visualization Tool does not provide Data Response.");
+    }
 
-	@Override
-	public ResponseValues generateVisualizationForShortURLRequests(
-			Map<String, String> parameters, VitroRequest vitroRequest, Log log,
-			Dataset dataSource) throws MalformedQueryParametersException {
-		
-		return renderToolsMenu(vitroRequest, log, dataSource);
-	}
+    @Override
+    public ResponseValues generateStandardVisualization(
+            VitroRequest vitroRequest, Log log, Dataset dataSource)
+            throws MalformedQueryParametersException {
+        return renderToolsMenu(vitroRequest, log, dataSource);
+    }
 
-	@Override
-	public Actions getRequiredPrivileges() {
-		return REQUIRED_ACTIONS;
-	}
-	
-	private ResponseValues renderToolsMenu(VitroRequest vitroRequest,
-			Log log, Dataset dataSource) {
+    @Override
+    public ResponseValues generateVisualizationForShortURLRequests(
+            Map<String, String> parameters, VitroRequest vitroRequest, Log log,
+            Dataset dataSource) throws MalformedQueryParametersException {
 
-		String standaloneTemplate = "tools.ftl";
+        return renderToolsMenu(vitroRequest, log, dataSource);
+    }
 
-		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("title", "Visualization Tools");
+    @Override
+    public Actions getRequiredPrivileges() {
+        return REQUIRED_ACTIONS;
+    }
 
-		return new TemplateResponseValues(standaloneTemplate, body);
-	} 
+    private ResponseValues renderToolsMenu(VitroRequest vitroRequest,
+            Log log, Dataset dataSource) {
 
+        String standaloneTemplate = "tools.ftl";
+
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("title", "Visualization Tools");
+
+        return new TemplateResponseValues(standaloneTemplate, body);
+    }
 }

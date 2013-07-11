@@ -1,5 +1,4 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
-
 package edu.cornell.mannlib.vitro.webapp.visualization.personpubcount;
 
 import java.util.HashMap;
@@ -28,7 +27,7 @@ import edu.cornell.mannlib.vitro.webapp.visualization.visutils.UtilityFunctions;
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.VisualizationRequestHandler;
 
 /**
- * 
+ *
  * This request handler is used to serve the content related to an individual's
  * publications over the years like, 1. Sprakline representing this 2. An entire
  * page dedicated to the sparkline vis which will also have links to download
@@ -37,257 +36,257 @@ import edu.cornell.mannlib.vitro.webapp.visualization.visutils.VisualizationRequ
  * years. 4. Downloadable PDf file containing the publications content, among
  * other things. Currently this is disabled because the feature is half-baked.
  * We plan to activate this in the next major release.
- * 
+ *
  * @author cdtank
  */
 public class PersonPublicationCountRequestHandler implements
-VisualizationRequestHandler {
+        VisualizationRequestHandler {
 
-	@Override
-	public Object generateAjaxVisualization(VitroRequest vitroRequest, Log log,
-			Dataset dataset) throws MalformedQueryParametersException {
+    @Override
+    public Object generateAjaxVisualization(VitroRequest vitroRequest, Log log,
+            Dataset dataset) throws MalformedQueryParametersException {
 
-		String personURI = vitroRequest
-								.getParameter(
-										VisualizationFrameworkConstants.INDIVIDUAL_URI_KEY);
+        String personURI = vitroRequest
+                .getParameter(
+                VisualizationFrameworkConstants.INDIVIDUAL_URI_KEY);
 
-		String visMode = vitroRequest
-								.getParameter(
-										VisualizationFrameworkConstants.VIS_MODE_KEY);
+        String visMode = vitroRequest
+                .getParameter(
+                VisualizationFrameworkConstants.VIS_MODE_KEY);
 
-		String visContainer = vitroRequest
-								.getParameter(
-										VisualizationFrameworkConstants.VIS_CONTAINER_KEY);
+        String visContainer = vitroRequest
+                .getParameter(
+                VisualizationFrameworkConstants.VIS_CONTAINER_KEY);
 
-		QueryRunner<Set<Activity>> queryManager = new PersonPublicationCountQueryRunner(
-															personURI, 
-															dataset, 
-															log);
+        QueryRunner<Set<Activity>> queryManager = new PersonPublicationCountQueryRunner(
+                personURI,
+                dataset,
+                log);
 
-		Set<Activity> authorDocuments = queryManager.getQueryResult();
+        Set<Activity> authorDocuments = queryManager.getQueryResult();
 
-		/*
-		 * Create a map from the year to number of publications. Use the
-		 * BiboDocument's parsedPublicationYear to populate the data.
-		 */
-		Map<String, Integer> yearToPublicationCount = 
-				UtilityFunctions.getYearToActivityCount(authorDocuments);
+        /*
+         * Create a map from the year to number of publications. Use the
+         * BiboDocument's parsedPublicationYear to populate the data.
+         */
+        Map<String, Integer> yearToPublicationCount =
+                UtilityFunctions.getYearToActivityCount(authorDocuments);
 
-		boolean shouldVIVOrenderVis = 
-				yearToPublicationCount.size() > 0 ? true : false;
+        boolean shouldVIVOrenderVis =
+                yearToPublicationCount.size() > 0 ? true : false;
 
-		/*
-		 * Computations required to generate HTML for the sparkline & related
-		 * context.
-		 */
-		PersonPublicationCountVisCodeGenerator visualizationCodeGenerator = 
-				new PersonPublicationCountVisCodeGenerator(
-						personURI, 
-						visMode, 
-						visContainer, 
-						yearToPublicationCount,
-						log);
+        /*
+         * Computations required to generate HTML for the sparkline & related
+         * context.
+         */
+        PersonPublicationCountVisCodeGenerator visualizationCodeGenerator =
+                new PersonPublicationCountVisCodeGenerator(
+                personURI,
+                visMode,
+                visContainer,
+                yearToPublicationCount,
+                log);
 
-		SparklineData sparklineData = visualizationCodeGenerator.getValueObjectContainer();
+        SparklineData sparklineData = visualizationCodeGenerator.getValueObjectContainer();
 
-		return prepareDynamicResponse(vitroRequest, sparklineData,
-				shouldVIVOrenderVis);
+        return prepareDynamicResponse(vitroRequest, sparklineData,
+                shouldVIVOrenderVis);
 
-	}
-	
-	@Override
-	public ResponseValues generateVisualizationForShortURLRequests(
-			Map<String, String> parameters, VitroRequest vitroRequest, Log log,
-			Dataset dataSource) throws MalformedQueryParametersException {
-		throw new UnsupportedOperationException("Person Publication Count Visualization does not provide " 
-					+ "Short URL Response.");
-	}
+    }
 
-	@Override
-	public Map<String, String> generateDataVisualization(VitroRequest vitroRequest, Log log,
-			Dataset dataset) throws MalformedQueryParametersException {
+    @Override
+    public ResponseValues generateVisualizationForShortURLRequests(
+            Map<String, String> parameters, VitroRequest vitroRequest, Log log,
+            Dataset dataSource) throws MalformedQueryParametersException {
+        throw new UnsupportedOperationException("Person Publication Count Visualization does not provide "
+                + "Short URL Response.");
+    }
 
-		String personURI = vitroRequest
-		.getParameter(VisualizationFrameworkConstants.INDIVIDUAL_URI_KEY);
+    @Override
+    public Map<String, String> generateDataVisualization(VitroRequest vitroRequest, Log log,
+            Dataset dataset) throws MalformedQueryParametersException {
 
-		QueryRunner<Set<Activity>> queryManager = new PersonPublicationCountQueryRunner(
-																personURI, 
-																dataset, 
-																log);
+        String personURI = vitroRequest
+                .getParameter(VisualizationFrameworkConstants.INDIVIDUAL_URI_KEY);
 
-		Set<Activity> authorDocuments = queryManager.getQueryResult();
+        QueryRunner<Set<Activity>> queryManager = new PersonPublicationCountQueryRunner(
+                personURI,
+                dataset,
+                log);
 
-		/*
-		 * Create a map from the year to number of publications. Use the
-		 * BiboDocument's parsedPublicationYear to populate the data.
-		 */
-		Map<String, Integer> yearToPublicationCount = 
-				UtilityFunctions.getYearToActivityCount(authorDocuments);
+        Set<Activity> authorDocuments = queryManager.getQueryResult();
 
-		Individual author = ((PersonPublicationCountQueryRunner) queryManager).getAuthor();
+        /*
+         * Create a map from the year to number of publications. Use the
+         * BiboDocument's parsedPublicationYear to populate the data.
+         */
+        Map<String, Integer> yearToPublicationCount =
+                UtilityFunctions.getYearToActivityCount(authorDocuments);
 
-		return prepareDataResponse(author, 
-								   authorDocuments,
-								   yearToPublicationCount);
+        Individual author = ((PersonPublicationCountQueryRunner) queryManager).getAuthor();
 
-	}
+        return prepareDataResponse(author,
+                authorDocuments,
+                yearToPublicationCount);
 
-	@Override
-	public ResponseValues generateStandardVisualization(
-			VitroRequest vitroRequest, Log log, Dataset dataset)
-		throws MalformedQueryParametersException {
+    }
 
-		String personURI = vitroRequest.getParameter(
-									VisualizationFrameworkConstants.INDIVIDUAL_URI_KEY);
+    @Override
+    public ResponseValues generateStandardVisualization(
+            VitroRequest vitroRequest, Log log, Dataset dataset)
+            throws MalformedQueryParametersException {
 
-		String visMode = vitroRequest.getParameter(
-									VisualizationFrameworkConstants.VIS_MODE_KEY);
+        String personURI = vitroRequest.getParameter(
+                VisualizationFrameworkConstants.INDIVIDUAL_URI_KEY);
 
-		String visContainer = vitroRequest.getParameter(
-									VisualizationFrameworkConstants.VIS_CONTAINER_KEY);
+        String visMode = vitroRequest.getParameter(
+                VisualizationFrameworkConstants.VIS_MODE_KEY);
 
-		QueryRunner<Set<Activity>> queryManager = new PersonPublicationCountQueryRunner(
-																personURI, 
-																dataset, 
-																log);
+        String visContainer = vitroRequest.getParameter(
+                VisualizationFrameworkConstants.VIS_CONTAINER_KEY);
 
-		Set<Activity> authorDocuments = queryManager.getQueryResult();
+        QueryRunner<Set<Activity>> queryManager = new PersonPublicationCountQueryRunner(
+                personURI,
+                dataset,
+                log);
 
-		/*
-		 * Create a map from the year to number of publications. Use the
-		 * BiboDocument's parsedPublicationYear to populate the data.
-		 */
-		Map<String, Integer> yearToPublicationCount = 
-				UtilityFunctions.getYearToActivityCount(authorDocuments);
+        Set<Activity> authorDocuments = queryManager.getQueryResult();
 
-		/*
-		 * Computations required to generate HTML for the sparkline & related
-		 * context.
-		 */
-		PersonPublicationCountVisCodeGenerator visualizationCodeGenerator = 
-				new PersonPublicationCountVisCodeGenerator(
-						personURI, 
-						visMode, 
-						visContainer, 
-						yearToPublicationCount,
-						log);
+        /*
+         * Create a map from the year to number of publications. Use the
+         * BiboDocument's parsedPublicationYear to populate the data.
+         */
+        Map<String, Integer> yearToPublicationCount =
+                UtilityFunctions.getYearToActivityCount(authorDocuments);
 
-		SparklineData sparklineData = 
-				visualizationCodeGenerator.getValueObjectContainer();
+        /*
+         * Computations required to generate HTML for the sparkline & related
+         * context.
+         */
+        PersonPublicationCountVisCodeGenerator visualizationCodeGenerator =
+                new PersonPublicationCountVisCodeGenerator(
+                personURI,
+                visMode,
+                visContainer,
+                yearToPublicationCount,
+                log);
 
-		return prepareStandaloneResponse(vitroRequest, sparklineData);
-	}
+        SparklineData sparklineData =
+                visualizationCodeGenerator.getValueObjectContainer();
 
-	private String getPublicationsOverTimeCSVContent(
-			Map<String, Integer> yearToPublicationCount) {
+        return prepareStandaloneResponse(vitroRequest, sparklineData);
+    }
 
-		StringBuilder csvFileContent = new StringBuilder();
+    private String getPublicationsOverTimeCSVContent(
+            Map<String, Integer> yearToPublicationCount) {
 
-		csvFileContent.append("Year, Publications\n");
+        StringBuilder csvFileContent = new StringBuilder();
 
-		for (Entry<String, Integer> currentEntry : yearToPublicationCount
-				.entrySet()) {
-			csvFileContent.append(StringEscapeUtils.escapeCsv(currentEntry
-					.getKey()));
-			csvFileContent.append(",");
-			csvFileContent.append(currentEntry.getValue());
-			csvFileContent.append("\n");
-		}
+        csvFileContent.append("Year, Publications\n");
 
-		return csvFileContent.toString();
-	}
+        for (Entry<String, Integer> currentEntry : yearToPublicationCount
+                .entrySet()) {
+            csvFileContent.append(StringEscapeUtils.escapeCsv(currentEntry
+                    .getKey()));
+            csvFileContent.append(",");
+            csvFileContent.append(currentEntry.getValue());
+            csvFileContent.append("\n");
+        }
 
-	/**
-	 * Provides response when csv file containing the publication count over the
-	 * years is requested.
-	 * 
-	 * @param author
-	 * @param authorDocuments
-	 * @param yearToPublicationCount
-	 * @return
-	 */
-	private Map<String, String> prepareDataResponse(Individual author,
-			Set<Activity> authorDocuments,
-			Map<String, Integer> yearToPublicationCount) {
+        return csvFileContent.toString();
+    }
 
-		String authorName = null;
+    /**
+     * Provides response when csv file containing the publication count over the
+     * years is requested.
+     *
+     * @param author
+     * @param authorDocuments
+     * @param yearToPublicationCount
+     * @return
+     */
+    private Map<String, String> prepareDataResponse(Individual author,
+            Set<Activity> authorDocuments,
+            Map<String, Integer> yearToPublicationCount) {
 
-		/*
-		 * To protect against cases where there are no author documents
-		 * associated with the individual.
-		 */
-		if (authorDocuments.size() > 0) {
-			authorName = author.getIndividualLabel();
-		}
+        String authorName = null;
 
-		/*
-		 * To make sure that null/empty records for author names do not cause
-		 * any mischief.
-		 */
-		if (StringUtils.isBlank(authorName)) {
-			authorName = "no-author";
-		}
+        /*
+         * To protect against cases where there are no author documents
+         * associated with the individual.
+         */
+        if (authorDocuments.size() > 0) {
+            authorName = author.getIndividualLabel();
+        }
 
-		String outputFileName = UtilityFunctions.slugify(authorName)
-									+ "_publications-per-year" + ".csv";
+        /*
+         * To make sure that null/empty records for author names do not cause
+         * any mischief.
+         */
+        if (StringUtils.isBlank(authorName)) {
+            authorName = "no-author";
+        }
 
-		Map<String, String> fileData = new HashMap<String, String>();
-		fileData.put(DataVisualizationController.FILE_NAME_KEY, 
-					 outputFileName);
-		fileData.put(DataVisualizationController.FILE_CONTENT_TYPE_KEY, 
-					 "application/octet-stream");
-		fileData.put(DataVisualizationController.FILE_CONTENT_KEY, 
-					 getPublicationsOverTimeCSVContent(yearToPublicationCount));
+        String outputFileName = UtilityFunctions.slugify(authorName)
+                + "_publications-per-year" + ".csv";
 
-		return fileData;
-	}
+        Map<String, String> fileData = new HashMap<String, String>();
+        fileData.put(DataVisualizationController.FILE_NAME_KEY,
+                outputFileName);
+        fileData.put(DataVisualizationController.FILE_CONTENT_TYPE_KEY,
+                "application/octet-stream");
+        fileData.put(DataVisualizationController.FILE_CONTENT_KEY,
+                getPublicationsOverTimeCSVContent(yearToPublicationCount));
 
-	/**
-	 * Provides response when an entire page dedicated to publication sparkline
-	 * is requested.
-	 * 
-	 * @param vreq
-	 * @param valueObjectContainer
-	 * @return
-	 */
-	private TemplateResponseValues prepareStandaloneResponse(VitroRequest vreq,
-			SparklineData valueObjectContainer) {
+        return fileData;
+    }
 
-		String standaloneTemplate = "personPublicationCountStandaloneActivator.ftl";
+    /**
+     * Provides response when an entire page dedicated to publication sparkline
+     * is requested.
+     *
+     * @param vreq
+     * @param valueObjectContainer
+     * @return
+     */
+    private TemplateResponseValues prepareStandaloneResponse(VitroRequest vreq,
+            SparklineData valueObjectContainer) {
 
-		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("title", "Individual Publication Count visualization");
-		body.put("sparklineVO", valueObjectContainer);
+        String standaloneTemplate = "personPublicationCountStandaloneActivator.ftl";
 
-		return new TemplateResponseValues(standaloneTemplate, body);
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("title", "Individual Publication Count visualization");
+        body.put("sparklineVO", valueObjectContainer);
 
-	}
+        return new TemplateResponseValues(standaloneTemplate, body);
 
-	/**
-	 * Provides response when the publication sparkline has to be rendered in
-	 * already existing page, e.g. profile page.
-	 * 
-	 * @param vreq
-	 * @param valueObjectContainer
-	 * @param yearToPublicationCount
-	 * @return
-	 */
-	private TemplateResponseValues prepareDynamicResponse(VitroRequest vreq,
-			SparklineData valueObjectContainer, boolean shouldVIVOrenderVis) {
+    }
 
-		String dynamicTemplate = "personPublicationCountDynamicActivator.ftl";
+    /**
+     * Provides response when the publication sparkline has to be rendered in
+     * already existing page, e.g. profile page.
+     *
+     * @param vreq
+     * @param valueObjectContainer
+     * @param yearToPublicationCount
+     * @return
+     */
+    private TemplateResponseValues prepareDynamicResponse(VitroRequest vreq,
+            SparklineData valueObjectContainer, boolean shouldVIVOrenderVis) {
 
-		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("sparklineVO", valueObjectContainer);
-		body.put("shouldVIVOrenderVis", shouldVIVOrenderVis);
+        String dynamicTemplate = "personPublicationCountDynamicActivator.ftl";
 
-		return new TemplateResponseValues(dynamicTemplate, body);
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("sparklineVO", valueObjectContainer);
+        body.put("shouldVIVOrenderVis", shouldVIVOrenderVis);
 
-	}
+        return new TemplateResponseValues(dynamicTemplate, body);
 
-	@Override
-	public Actions getRequiredPrivileges() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
+
+    @Override
+    public Actions getRequiredPrivileges() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -26,10 +26,10 @@ public abstract class AddOrCreateGenerator extends RdrVivoBaseGenerator {
     private Class editForm;
     private String objectUriVar;
 
-    public AddOrCreateGenerator(String acType, 
-        String typeName,
-        String objectUriVar,
-        Class editForm) {
+    public AddOrCreateGenerator(String acType,
+            String typeName,
+            String objectUriVar,
+            Class editForm) {
         this.acType = acType;
         this.typeName = typeName;
         this.editForm = editForm;
@@ -101,5 +101,5 @@ public abstract class AddOrCreateGenerator extends RdrVivoBaseGenerator {
     @Override
     protected List<BaseEditSubmissionPreprocessorVTwo> getPreprocessors(EditConfigurationVTwo editConfiguration) {
         return Collections.<BaseEditSubmissionPreprocessorVTwo>emptyList();
-    } 
+    }
 }
