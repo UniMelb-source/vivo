@@ -1,0 +1,12 @@
+diff -urw vitro-rel-1.4.1/webapp/src/edu/cornell/mannlib/vitro/webapp/dao/jena/IndividualDaoSDB.java ../vitro-rel-1.4.1/webapp/src/edu/cornell/mannlib/vitro/webapp/dao/jena/IndividualDaoSDB.java
+--- vitro-rel-1.4.1/webapp/src/edu/cornell/mannlib/vitro/webapp/dao/jena/IndividualDaoSDB.java	2012-02-07 23:41:01.000000000 +1100
++++ ../vitro-rel-1.4.1/webapp/src/edu/cornell/mannlib/vitro/webapp/dao/jena/IndividualDaoSDB.java	2013-07-12 15:34:02.000000000 +1000
+@@ -105,7 +105,7 @@
+ 
+     @Override
+     protected OntModel getOntModel() {
+-    	return getOntModelSelector().getABoxModel();
++    	return getOntModelSelector().getFullModel();
+     }
+     
+     private static final boolean SKIP_INITIALIZATION = true;
