@@ -20,6 +20,8 @@ VITRO_DB_PASSWORD="vivo"
 TOMCAT_USER="tomcat6"
 TOMCAT_GROUP="tomcat6"
 
+VITRO_VERSION="1.4.1"
+
 VIVO_URL="http://localhost/vivo"
 
 echo $(date +%s%N | cut -b1-13) "- starting"
@@ -39,7 +41,7 @@ pushd ${VIVO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}vivo-ins
 git checkout ${VIVO_GIT_BRANCH} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
 
 echo $(date +%s%N | cut -b1-13) "- fetching VITRO"
-VITRO_TARBALL="https://github.com/downloads/vivo-project/Vitro/vitro-rel-1.4.1.tar.gz"
+VITRO_TARBALL="https://github.com/downloads/vivo-project/Vitro/vitro-rel-${VITRO_VERSION}.tar.gz"
 VITRO_DIR=${BUILD_DIR}/vitro
 
 mkdir -p ${VITRO_DIR}
