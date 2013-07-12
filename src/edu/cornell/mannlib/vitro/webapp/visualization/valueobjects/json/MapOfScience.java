@@ -7,137 +7,129 @@ import java.util.Map;
 import java.util.Set;
 
 public class MapOfScience {
+	
+	private String uri;
+	private String label;
+	private String type;
+	private int pubsMapped;
+	private int pubsWithNoJournals;
+	private int pubsWithInvalidJournals;
+	private String lastCachedAtDateTime;
+	private Map<Integer, Float> subdisciplineActivity = new HashMap<Integer, Float>();
+	private Set<SubEntityInfo> subEntities = new HashSet<SubEntityInfo>();
 
-    private String uri;
-    private String label;
-    private String type;
-    private int pubsMapped;
-    private int pubsWithNoJournals;
-    private int pubsWithInvalidJournals;
-    private String lastCachedAtDateTime;
-    private Map<Integer, Float> subdisciplineActivity = new HashMap<Integer, Float>();
-    private Set<SubEntityInfo> subEntities = new HashSet<SubEntityInfo>();
+	public MapOfScience(String uri) {
+		this.uri = uri;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	public String getUri() {
+		return uri;
+	}
 
-    public MapOfScience(String uri) {
-        this.uri = uri;
-    }
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	public String getLabel() {
+		return label;
+	}
+	public void setPubsMapped(int pubsMapped) {
+		this.pubsMapped = pubsMapped;
+	}
+	public int getPubsMapped() {
+		return pubsMapped;
+	}
+	public void setPubsWithNoJournals(int pubsUnmapped) {
+		this.pubsWithNoJournals = pubsUnmapped;
+	}
+	public int getPubsWithNoJournals() {
+		return pubsWithNoJournals;
+	}
+	public void setPubsWithInvalidJournals(int pubsWithInvalidJournals) {
+		this.pubsWithInvalidJournals = pubsWithInvalidJournals;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public int getPubsWithInvalidJournals() {
+		return pubsWithInvalidJournals;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setSubdisciplineActivity(Map<Integer, Float> subdisciplineActivity) {
+		this.subdisciplineActivity = subdisciplineActivity;
+	}
+	public Map<Integer, Float> getSubdisciplineActivity() {
+		return subdisciplineActivity;
+	}
 
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
+	public void setLastCachedAtDateTime(String lastCachedAtDateTime) {
+		this.lastCachedAtDateTime = lastCachedAtDateTime;
+	}
 
-    public String getUri() {
-        return uri;
-    }
+	public String getLastCachedAtDateTime() {
+		return lastCachedAtDateTime;
+	}
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
+	public void addSubEntity(String uri, String label, String type, int pubs) {
+		this.subEntities.add(new SubEntityInfo(uri, label, type, pubs));
+	}
 
-    public String getLabel() {
-        return label;
-    }
+	public Set<SubEntityInfo> getSubEntities() {
+		return subEntities;
+	}
 
-    public void setPubsMapped(int pubsMapped) {
-        this.pubsMapped = pubsMapped;
-    }
+	private class SubEntityInfo {
+		
+		private String uri;
+		private String label;
+		private String type;
+		private int pubs;
+		
+		public SubEntityInfo(String uri, String label, String type, int pubs) {
+			this.uri = uri;
+			this.label = label;
+			this.type = type;
+			this.pubs = pubs;
+		}
 
-    public int getPubsMapped() {
-        return pubsMapped;
-    }
+		public String getUri() {
+			return uri;
+		}
 
-    public void setPubsWithNoJournals(int pubsUnmapped) {
-        this.pubsWithNoJournals = pubsUnmapped;
-    }
+		public void setUri(String uri) {
+			this.uri = uri;
+		}
 
-    public int getPubsWithNoJournals() {
-        return pubsWithNoJournals;
-    }
+		public String getLabel() {
+			return label;
+		}
 
-    public void setPubsWithInvalidJournals(int pubsWithInvalidJournals) {
-        this.pubsWithInvalidJournals = pubsWithInvalidJournals;
-    }
+		public void setLabel(String label) {
+			this.label = label;
+		}
 
-    public int getPubsWithInvalidJournals() {
-        return pubsWithInvalidJournals;
-    }
+		public String getType() {
+			return type;
+		}
 
-    public void setSubdisciplineActivity(Map<Integer, Float> subdisciplineActivity) {
-        this.subdisciplineActivity = subdisciplineActivity;
-    }
+		public void setType(String type) {
+			this.type = type;
+		}
 
-    public Map<Integer, Float> getSubdisciplineActivity() {
-        return subdisciplineActivity;
-    }
+		public int getPubs() {
+			return pubs;
+		}
 
-    public void setLastCachedAtDateTime(String lastCachedAtDateTime) {
-        this.lastCachedAtDateTime = lastCachedAtDateTime;
-    }
-
-    public String getLastCachedAtDateTime() {
-        return lastCachedAtDateTime;
-    }
-
-    public void addSubEntity(String uri, String label, String type, int pubs) {
-        this.subEntities.add(new SubEntityInfo(uri, label, type, pubs));
-    }
-
-    public Set<SubEntityInfo> getSubEntities() {
-        return subEntities;
-    }
-
-    private class SubEntityInfo {
-
-        private String uri;
-        private String label;
-        private String type;
-        private int pubs;
-
-        public SubEntityInfo(String uri, String label, String type, int pubs) {
-            this.uri = uri;
-            this.label = label;
-            this.type = type;
-            this.pubs = pubs;
-        }
-
-        public String getUri() {
-            return uri;
-        }
-
-        public void setUri(String uri) {
-            this.uri = uri;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-
-        public void setLabel(String label) {
-            this.label = label;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public int getPubs() {
-            return pubs;
-        }
-
-        public void setPubs(int pubs) {
-            this.pubs = pubs;
-        }
-    }
+		public void setPubs(int pubs) {
+			this.pubs = pubs;
+		}
+		
+		
+	}
 }

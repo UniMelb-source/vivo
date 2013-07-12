@@ -1,5 +1,6 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
-package edu.cornell.mannlib.vitro.webapp.servlet;
+
+package edu.cornell.mannlib.vitro.webapp.servlet; 
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,10 +26,10 @@ import edu.cornell.mannlib.vitro.webapp.utils.ConceptSearchService.BeanToJsonSer
 import edu.cornell.mannlib.vitro.webapp.utils.ConceptSearchService.ConceptSearchServiceUtils;
 
 public class ConceptSearchServlet extends VitroHttpServlet {
-
+    
     private static final long serialVersionUID = 1L;
     private static final Log log = LogFactory.getLog(ConceptSearchServlet.class);
-
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
@@ -39,35 +40,36 @@ public class ConceptSearchServlet extends VitroHttpServlet {
         super.doGet(req, resp);
         VitroRequest vreq = new VitroRequest(req);
 
-        try {
-            ServletContext ctx = vreq.getSession().getServletContext();
-            //Captures both concept list and any errors if they exist
-            ConceptInfo conceptInfo = new ConceptInfo();
-            conceptInfo.setSemanticServicesError(null);
+        try{
+        	ServletContext ctx = vreq.getSession().getServletContext();
+        	//Captures both concept list and any errors if they exist
+        	ConceptInfo conceptInfo = new ConceptInfo();
+    		conceptInfo.setSemanticServicesError(null);
 
-            //Json output should be written out
-            List<Concept> results = null;
-            try {
-                results = ConceptSearchServiceUtils.getSearchResults(ctx, vreq);
-            } catch (Exception ex) {
-                SemanticServicesError semanticServicesError = new SemanticServicesError(
-                        "Exception encountered ", ex.getMessage(), "fatal");
-                log.error("An error occurred retrieving search results");
-                conceptInfo.setSemanticServicesError(semanticServicesError);
-            }
-            conceptInfo.setConceptList(results);
-            String json = renderJson(conceptInfo);
-            json = StringUtils.replaceChars(json, "\r\t\n", "");
+        	//Json output should be written out
+        	List<Concept> results =  null;
+        	try {
+        		results = ConceptSearchServiceUtils.getSearchResults(ctx, vreq);
+        	} 
+        	catch (Exception ex) {
+        		 SemanticServicesError semanticServicesError = new SemanticServicesError(
+        	               "Exception encountered ", ex.getMessage(), "fatal");
+        		 log.error("An error occurred retrieving search results");
+        		 conceptInfo.setSemanticServicesError(semanticServicesError);
+        	}
+        	conceptInfo.setConceptList(results);
+        	String json = renderJson(conceptInfo);
+        	json = StringUtils.replaceChars(json, "\r\t\n", "");
             PrintWriter writer = resp.getWriter();
             resp.setContentType("application/json");
             writer.write(json);
             writer.close();
-
-        } catch (Exception ex) {
-            log.warn(ex, ex);
-        }
+        	
+        }catch(Exception ex){
+            log.warn(ex,ex);            
+        }        
     }
-
+    
     protected String renderJson(ConceptInfo conceptInfo) {
 
         JSONObject jsonObject = null;
@@ -75,4 +77,5 @@ public class ConceptSearchServlet extends VitroHttpServlet {
         log.debug(jsonObject.toString());
         return jsonObject.toString();
     }
+
 }

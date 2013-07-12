@@ -27,10 +27,10 @@ public class AddOrCreateResearchDataToAgreementGenerator extends AddOrCreateGene
     private static final Log log = LogFactory.getLog(AddOrCreateResearchDataToAgreementGenerator.class);
 
     public AddOrCreateResearchDataToAgreementGenerator() {
-        super("http://purl.org/ands/ontologies/vivo/ResearchData",
-                "Research Data",
-                objectName,
-                AddResearchDataToAgreementGenerator.class);
+        super("http://purl.org/ands/ontologies/vivo/ResearchData", 
+            "Research Data",
+            objectName,
+            AddResearchDataToAgreementGenerator.class);
     }
 
     @Override

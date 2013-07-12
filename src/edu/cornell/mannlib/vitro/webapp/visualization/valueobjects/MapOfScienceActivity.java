@@ -3,17 +3,18 @@ package edu.cornell.mannlib.vitro.webapp.visualization.valueobjects;
 
 public class MapOfScienceActivity extends Activity {
 
-    private String publishedInJournal;
+	private String publishedInJournal;
+	
+	public MapOfScienceActivity(String activityURI) {
+		super(activityURI);
+	}
 
-    public MapOfScienceActivity(String activityURI) {
-        super(activityURI);
-    }
+	public void setPublishedInJournal(String publishedInJournal) {
+		this.publishedInJournal = publishedInJournal;
+	}
 
-    public void setPublishedInJournal(String publishedInJournal) {
-        this.publishedInJournal = publishedInJournal;
-    }
+	public String getPublishedInJournal() {
+		return publishedInJournal;
+	}
 
-    public String getPublishedInJournal() {
-        return publishedInJournal;
-    }
 }

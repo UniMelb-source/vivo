@@ -1,4 +1,5 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.vitro.webapp.visualization.visutils;
 
 import java.awt.BasicStroke;
@@ -30,127 +31,130 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFDocument {
 
-    static Stroke stroke = new BasicStroke(5.f, BasicStroke.CAP_ROUND,
+	
+	static Stroke stroke = new BasicStroke(5.f, BasicStroke.CAP_ROUND,
             BasicStroke.JOIN_ROUND);
+
     final static Color bg = Color.green;
+
     final static Color fg = Color.black;
-
-    public PDFDocument(String authorName,
-            Map<String, Integer> yearToPublicationCount,
-            Document document,
-            PdfWriter pdfWriter) {
-
+    
+	public PDFDocument(String authorName,
+					   Map<String, Integer> yearToPublicationCount, 
+					   Document document,
+					   PdfWriter pdfWriter) {
+		
 //        setPreferredSize(new Dimension(600,400));
+		
+		try {
+			
+		document.addTitle("PDF Pipeline iText Prototype");
+		document.addAuthor(authorName);
+		document.addSubject("This example tests text, color, image, transparency & table functionality.");
+		document.addKeywords("text, color, image, transparency, table");
+		document.addCreator("Standalone PDF Renderer using iText");
 
-        try {
+		Paragraph header = new Paragraph();
+		
+		Font pageHeaderStyle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 15, Font.BOLDITALIC | Font.UNDERLINE);
+		Font featureHeaderStyle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 10, new BaseColor(Color.red));
+		
+		header.add(new Chunk("PDF Pipeline Prototype v2 using iText\n", 
+							 pageHeaderStyle));
+		
+		header.setSpacingAfter(15f);
+		
+		
+			document.add(header);
+		
+		
+		Paragraph content = new Paragraph();
+		
+		content.add(new Chunk("Publication Count - Author Name - " + authorName, 
+							 featureHeaderStyle));
+		
+		content.setSpacingAfter(15f);
+		
+		document.add(content);
+		// step4
+		
+		PdfPTable publicationCount = createTable(yearToPublicationCount);
+		
+		document.add(publicationCount);
+		
+		content = new Paragraph();
+		
+		content.add(new Chunk("Transparency of Shapes", 
+				 featureHeaderStyle));
 
-            document.addTitle("PDF Pipeline iText Prototype");
-            document.addAuthor(authorName);
-            document.addSubject("This example tests text, color, image, transparency & table functionality.");
-            document.addKeywords("text, color, image, transparency, table");
-            document.addCreator("Standalone PDF Renderer using iText");
-
-            Paragraph header = new Paragraph();
-
-            Font pageHeaderStyle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 15, Font.BOLDITALIC | Font.UNDERLINE);
-            Font featureHeaderStyle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 10, new BaseColor(Color.red));
-
-            header.add(new Chunk("PDF Pipeline Prototype v2 using iText\n",
-                    pageHeaderStyle));
-
-            header.setSpacingAfter(15f);
-
-
-            document.add(header);
-
-
-            Paragraph content = new Paragraph();
-
-            content.add(new Chunk("Publication Count - Author Name - " + authorName,
-                    featureHeaderStyle));
-
-            content.setSpacingAfter(15f);
-
-            document.add(content);
-            // step4
-
-            PdfPTable publicationCount = createTable(yearToPublicationCount);
-
-            document.add(publicationCount);
-
-            content = new Paragraph();
-
-            content.add(new Chunk("Transparency of Shapes",
-                    featureHeaderStyle));
-
-            content.setSpacingAfter(15f);
-
-            document.add(content);
-
-            createTransparencyShapes(document, pdfWriter);
-
-
-            createImage(document, pdfWriter, featureHeaderStyle);
-
-        } catch (DocumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+		content.setSpacingAfter(15f);
+		
+		document.add(content);
+		
+		createTransparencyShapes(document, pdfWriter);
+		
+		
+        createImage(document, pdfWriter, featureHeaderStyle);
+		
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+						
     }
+	
+	
+	private void createImage(Document document, PdfWriter writer,
+			Font featureHeaderStyle) throws BadElementException,
+			MalformedURLException, IOException, DocumentException {
+		Image imageSprite = Image.getInstance(new URL("http://lh3.ggpht.com/_4msVPAgKJv8/SCRYD-pPVKI/AAAAAAAAAYU/zUN963EPoZc/s1024/102_0609.JPG"));
+		imageSprite.setAbsolutePosition(400, 500);
+		imageSprite.scaleAbsolute(171.0f, 250.0f);
+		float imageSpriteY = document.getPageSize().getHeight() * 0.60f;
+		float imageSpriteX = document.getPageSize().getWidth() * 0.65f;
+		imageSprite.setAlignment(Image.UNDERLYING);
 
-    private void createImage(Document document, PdfWriter writer,
-            Font featureHeaderStyle) throws BadElementException,
-            MalformedURLException, IOException, DocumentException {
-        Image imageSprite = Image.getInstance(new URL("http://lh3.ggpht.com/_4msVPAgKJv8/SCRYD-pPVKI/AAAAAAAAAYU/zUN963EPoZc/s1024/102_0609.JPG"));
-        imageSprite.setAbsolutePosition(400, 500);
-        imageSprite.scaleAbsolute(171.0f, 250.0f);
-        float imageSpriteY = document.getPageSize().getHeight() * 0.60f;
-        float imageSpriteX = document.getPageSize().getWidth() * 0.65f;
-        imageSprite.setAlignment(Image.UNDERLYING);
+		document.add(imageSprite);
+		
+		PdfContentByte cb = writer.getDirectContent();
+		ColumnText ct = new ColumnText(cb);
+		Chunk imageHeader = new Chunk("Images",
+									  featureHeaderStyle);
+		ct.addText(imageHeader);
+		ct.setAlignment(Element.ALIGN_LEFT);
+		ct.setSimpleColumn(imageSpriteX, imageSpriteY - imageSprite.getScaledHeight(), 
+				   imageSpriteX + imageSprite.getScaledWidth(), imageSpriteY + imageSprite.getScaledHeight() + 20);
+		ct.go();
+		
+		ct = new ColumnText(cb);
+		Chunk imageFooter = new Chunk("Footer to be set for a figure. Similar to 'image cpation'.",
+									  FontFactory.getFont(FontFactory.TIMES_ROMAN, 8));
+		ct.addText(imageFooter);
+		ct.setAlignment(Element.ALIGN_CENTER);
+		ct.setSimpleColumn(imageSpriteX, imageSpriteY - 150, imageSpriteX + imageSprite.getScaledWidth(), imageSpriteY);
+		ct.go();
+	}
 
-        document.add(imageSprite);
-
-        PdfContentByte cb = writer.getDirectContent();
-        ColumnText ct = new ColumnText(cb);
-        Chunk imageHeader = new Chunk("Images",
-                featureHeaderStyle);
-        ct.addText(imageHeader);
-        ct.setAlignment(Element.ALIGN_LEFT);
-        ct.setSimpleColumn(imageSpriteX, imageSpriteY - imageSprite.getScaledHeight(),
-                imageSpriteX + imageSprite.getScaledWidth(), imageSpriteY + imageSprite.getScaledHeight() + 20);
-        ct.go();
-
-        ct = new ColumnText(cb);
-        Chunk imageFooter = new Chunk("Footer to be set for a figure. Similar to 'image cpation'.",
-                FontFactory.getFont(FontFactory.TIMES_ROMAN, 8));
-        ct.addText(imageFooter);
-        ct.setAlignment(Element.ALIGN_CENTER);
-        ct.setSimpleColumn(imageSpriteX, imageSpriteY - 150, imageSpriteX + imageSprite.getScaledWidth(), imageSpriteY);
-        ct.go();
-    }
-
-    private void createTransparencyShapes(Document document,
-            PdfWriter writer) throws Exception {
-        PdfContentByte cb = writer.getDirectContent();
-
-        pictureBackdrop(document.leftMargin(), 350, cb);
-        cb.saveState();
-        PdfGState gs1 = new PdfGState();
-        gs1.setFillOpacity(0.5f);
-        cb.setGState(gs1);
-        pictureCircles(document.leftMargin(), 350, cb);
-        cb.restoreState();
-
+	private void createTransparencyShapes(Document document,
+			PdfWriter writer) throws Exception {
+		PdfContentByte cb = writer.getDirectContent();
+		
+		pictureBackdrop(document.leftMargin(), 350, cb);
+		cb.saveState();
+		PdfGState gs1 = new PdfGState();
+		gs1.setFillOpacity(0.5f);
+		cb.setGState(gs1);
+		pictureCircles(document.leftMargin(), 350, cb);
+		cb.restoreState();
+		
         cb.resetRGBColorFill();
-    }
-
+	}
+	
     /**
      * Prints a square and fills half of it with a gray rectangle.
-     *
      * @param x
      * @param y
      * @param cb
@@ -168,22 +172,21 @@ public class PDFDocument {
 
     /**
      * Prints 3 circles in different colors that intersect with eachother.
-     *
      * @param x
      * @param y
      * @param cb
      * @throws Exception
      */
     public void pictureCircles(float x, float y, PdfContentByte cb) throws Exception {
-
-        cb.saveState();
-        PdfGState gs1 = new PdfGState();
-        gs1.setFillOpacity(1.0f);
-        cb.setGState(gs1);
+    	
+		cb.saveState();
+		PdfGState gs1 = new PdfGState();
+		gs1.setFillOpacity(1.0f);
+		cb.setGState(gs1);
         cb.setColorFill(new BaseColor(Color.red));
         cb.circle(x + 70, y + 70, 50);
         cb.fill();
-        cb.restoreState();
+		cb.restoreState();
 
         cb.setColorFill(new BaseColor(Color.yellow));
         cb.circle(x + 100, y + 130, 50);
@@ -193,101 +196,102 @@ public class PDFDocument {
         cb.fill();
     }
 
-    private PdfPTable createTable(Map<String, Integer> yearToPublicationCount) {
+	private PdfPTable createTable(Map<String, Integer> yearToPublicationCount) {
+		
+		Font normalContentStyle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 11);
+		Font summaryContentStyle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 11, Font.BOLDITALIC);
+		BaseColor summaryBackgroundColor = new BaseColor(0xEE, 0xEE, 0xEE);
+		BaseColor headerBackgroundColor = new BaseColor(0xC3, 0xD9, 0xFF);
+		BaseColor bodyBackgroundColor = new BaseColor(Color.white);
+		
+		PdfPTable table = new PdfPTable(2);
+		table.setWidthPercentage(36.0f);
+		
+		table.setHorizontalAlignment(Element.ALIGN_LEFT);
+		table.getDefaultCell().setBorderWidth(0.0f);
+		table.setHeaderRows(2);
+		
+		PdfPCell cell;
+		cell = new PdfPCell(new Phrase("Publications per year", normalContentStyle));
+		setTableCaptionStyle(summaryBackgroundColor, cell);
+		table.addCell(cell);
+		
+		cell = new PdfPCell(new Phrase("Year", normalContentStyle));
+		setTableHeaderStyle(headerBackgroundColor, cell);
+		table.addCell(cell);
+		
+		cell.setPhrase(new Phrase("Publications", normalContentStyle));
+		table.addCell(cell);
+		
+		
+		
+		setTableBodyStyle(bodyBackgroundColor, cell);
+		int totalPublications = 0;
+		
+		for (Entry<String, Integer> currentEntry : yearToPublicationCount.entrySet()) {
+			
+			cell.setPhrase(new Phrase(currentEntry.getKey(), normalContentStyle));
+			table.addCell(cell);
+			
+			cell.setPhrase(new Phrase(currentEntry.getValue().toString(), normalContentStyle));
+			table.addCell(cell);
+			
+			totalPublications += currentEntry.getValue();
+		}
+		
+		setTableFooterStyle(summaryBackgroundColor, cell);
+		cell.setPhrase(new Phrase("Total", summaryContentStyle));
+		table.addCell(cell);
+		
+		cell.setPhrase(new Phrase(String.valueOf(totalPublications), summaryContentStyle));
+		table.addCell(cell);
+		
+		return table;
+	}
+	
+	private void setTableFooterStyle(BaseColor footerBackgroundColor,
+			  PdfPCell cell) {
+		cell.setBorderWidth(0.0f);
+		cell.setBackgroundColor(footerBackgroundColor);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setPaddingTop(5f);
+		cell.setPaddingRight(10f);
+		cell.setPaddingBottom(5f);
+		cell.setPaddingLeft(10f);
+	}
 
-        Font normalContentStyle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 11);
-        Font summaryContentStyle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 11, Font.BOLDITALIC);
-        BaseColor summaryBackgroundColor = new BaseColor(0xEE, 0xEE, 0xEE);
-        BaseColor headerBackgroundColor = new BaseColor(0xC3, 0xD9, 0xFF);
-        BaseColor bodyBackgroundColor = new BaseColor(Color.white);
+	private void setTableBodyStyle(BaseColor bodyBackgroundColor,
+										  PdfPCell cell) {
+		cell.setBorderWidth(0.0f);
+		cell.setBackgroundColor(bodyBackgroundColor);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setPaddingTop(5f);
+		cell.setPaddingRight(10f);
+		cell.setPaddingBottom(5f);
+		cell.setPaddingLeft(10f);
+	}
 
-        PdfPTable table = new PdfPTable(2);
-        table.setWidthPercentage(36.0f);
+	private void setTableHeaderStyle(BaseColor headerBackgroundColor,
+			PdfPCell cell) {
+		cell.setBorderWidth(0.0f);
+		cell.setBackgroundColor(headerBackgroundColor);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setPaddingTop(5f);
+		cell.setPaddingRight(10f);
+		cell.setPaddingBottom(5f);
+		cell.setPaddingLeft(10f);
+	}
+	
+	private void setTableCaptionStyle(BaseColor summaryBackgroundColor,
+			PdfPCell cell) {
+		cell.setBorderWidth(0.0f);
+		cell.setBackgroundColor(summaryBackgroundColor);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setPaddingTop(5.0f);
+		cell.setPaddingRight(10.0f);
+		cell.setPaddingBottom(5.0f);
+		cell.setPaddingLeft(10.0f);
+		cell.setColspan(2);
+	}
 
-        table.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.getDefaultCell().setBorderWidth(0.0f);
-        table.setHeaderRows(2);
-
-        PdfPCell cell;
-        cell = new PdfPCell(new Phrase("Publications per year", normalContentStyle));
-        setTableCaptionStyle(summaryBackgroundColor, cell);
-        table.addCell(cell);
-
-        cell = new PdfPCell(new Phrase("Year", normalContentStyle));
-        setTableHeaderStyle(headerBackgroundColor, cell);
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("Publications", normalContentStyle));
-        table.addCell(cell);
-
-
-
-        setTableBodyStyle(bodyBackgroundColor, cell);
-        int totalPublications = 0;
-
-        for (Entry<String, Integer> currentEntry : yearToPublicationCount.entrySet()) {
-
-            cell.setPhrase(new Phrase(currentEntry.getKey(), normalContentStyle));
-            table.addCell(cell);
-
-            cell.setPhrase(new Phrase(currentEntry.getValue().toString(), normalContentStyle));
-            table.addCell(cell);
-
-            totalPublications += currentEntry.getValue();
-        }
-
-        setTableFooterStyle(summaryBackgroundColor, cell);
-        cell.setPhrase(new Phrase("Total", summaryContentStyle));
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase(String.valueOf(totalPublications), summaryContentStyle));
-        table.addCell(cell);
-
-        return table;
-    }
-
-    private void setTableFooterStyle(BaseColor footerBackgroundColor,
-            PdfPCell cell) {
-        cell.setBorderWidth(0.0f);
-        cell.setBackgroundColor(footerBackgroundColor);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setPaddingTop(5f);
-        cell.setPaddingRight(10f);
-        cell.setPaddingBottom(5f);
-        cell.setPaddingLeft(10f);
-    }
-
-    private void setTableBodyStyle(BaseColor bodyBackgroundColor,
-            PdfPCell cell) {
-        cell.setBorderWidth(0.0f);
-        cell.setBackgroundColor(bodyBackgroundColor);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setPaddingTop(5f);
-        cell.setPaddingRight(10f);
-        cell.setPaddingBottom(5f);
-        cell.setPaddingLeft(10f);
-    }
-
-    private void setTableHeaderStyle(BaseColor headerBackgroundColor,
-            PdfPCell cell) {
-        cell.setBorderWidth(0.0f);
-        cell.setBackgroundColor(headerBackgroundColor);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setPaddingTop(5f);
-        cell.setPaddingRight(10f);
-        cell.setPaddingBottom(5f);
-        cell.setPaddingLeft(10f);
-    }
-
-    private void setTableCaptionStyle(BaseColor summaryBackgroundColor,
-            PdfPCell cell) {
-        cell.setBorderWidth(0.0f);
-        cell.setBackgroundColor(summaryBackgroundColor);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setPaddingTop(5.0f);
-        cell.setPaddingRight(10.0f);
-        cell.setPaddingBottom(5.0f);
-        cell.setPaddingLeft(10.0f);
-        cell.setColspan(2);
-    }
 }

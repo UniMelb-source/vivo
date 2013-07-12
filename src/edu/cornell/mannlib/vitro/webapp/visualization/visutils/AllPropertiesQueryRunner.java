@@ -1,4 +1,5 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.vitro.webapp.visualization.visutils;
 
 import org.apache.commons.lang.StringUtils;
@@ -22,54 +23,58 @@ import edu.cornell.mannlib.vitro.webapp.visualization.constants.QueryFieldLabels
 import edu.cornell.mannlib.vitro.webapp.visualization.exceptions.MalformedQueryParametersException;
 import edu.cornell.mannlib.vitro.webapp.visualization.valueobjects.GenericQueryMap;
 
+
+
 /**
- * This query runner is used to execute a sparql query that will fetch all the
- * properties available for the provided individual URI.
- *
+ * This query runner is used to execute a sparql query that will fetch all the 
+ * properties  available for the provided individual URI.
+ * 
  * @author cdtank
  */
 public class AllPropertiesQueryRunner implements QueryRunner<GenericQueryMap> {
 
-    protected static final Syntax SYNTAX = Syntax.syntaxARQ;
-    private String filterRule, individualURI;
-    private Dataset dataset;
-    private Log log;
+	protected static final Syntax SYNTAX = Syntax.syntaxARQ;
 
-    public AllPropertiesQueryRunner(String individualURI,
-            String filterRule,
-            Dataset dataset,
-            Log log) {
+	private String filterRule, individualURI;
+	private Dataset dataset;
 
-        this.individualURI = individualURI;
-        this.filterRule = filterRule;
-        this.dataset = dataset;
-        this.log = log;
+	private Log log;
 
-    }
+	public AllPropertiesQueryRunner(String individualURI,
+							   String filterRule,
+							   Dataset dataset, 
+							   Log log) {
 
-    private GenericQueryMap createJavaValueObjects(ResultSet resultSet) {
+		this.individualURI = individualURI;
+		this.filterRule = filterRule;
+		this.dataset = dataset;
+		this.log = log;
+		
+	}
 
-        GenericQueryMap queryResult = new GenericQueryMap();
+	private GenericQueryMap createJavaValueObjects(ResultSet resultSet) {
+		
+		GenericQueryMap queryResult = new GenericQueryMap();
+		
+		while (resultSet.hasNext()) {
+			QuerySolution solution = resultSet.nextSolution();
+			
+			
+			RDFNode predicateNode = solution.get(QueryFieldLabels.PREDICATE);
+			RDFNode objectNode = solution.get(QueryFieldLabels.OBJECT);
+			
+			if (predicateNode != null && objectNode != null) {
+				queryResult.addEntry(predicateNode.toString(), 
+									   objectNode.toString());
+			} 
+			
+		}
+		
+		return queryResult;
+	}
 
-        while (resultSet.hasNext()) {
-            QuerySolution solution = resultSet.nextSolution();
-
-
-            RDFNode predicateNode = solution.get(QueryFieldLabels.PREDICATE);
-            RDFNode objectNode = solution.get(QueryFieldLabels.OBJECT);
-
-            if (predicateNode != null && objectNode != null) {
-                queryResult.addEntry(predicateNode.toString(),
-                        objectNode.toString());
-            }
-
-        }
-
-        return queryResult;
-    }
-
-    private ResultSet executeQuery(String queryText,
-            Dataset dataset) {
+	private ResultSet executeQuery(String queryText,
+								   Dataset dataset) {
 
         QueryExecution queryExecution = null;
         Query query = QueryFactory.create(queryText, SYNTAX);
@@ -78,52 +83,52 @@ public class AllPropertiesQueryRunner implements QueryRunner<GenericQueryMap> {
         return queryExecution.execSelect();
     }
 
-    private String generateGenericSparqlQuery(String queryURI, String filterRule) {
+	private String generateGenericSparqlQuery(String queryURI, String filterRule) {
 //		Resource uri1 = ResourceFactory.createResource(queryURI);
-        String filterClause;
+		String filterClause;
+		
+		if (StringUtils.isNotBlank(filterRule)) {
+			filterClause = "FILTER ( " + filterRule + " ) . ";
+		} else {
+			filterClause = "";			
+		}
 
-        if (StringUtils.isNotBlank(filterRule)) {
-            filterClause = "FILTER ( " + filterRule + " ) . ";
-        } else {
-            filterClause = "";
-        }
+		String sparqlQuery = QueryConstants.getSparqlPrefixQuery()
+							+ "SELECT "
+							+ "		(str(?predicate) as ?" + QueryFieldLabels.PREDICATE + ") " 
+							+ "		(str(?object) as ?" + QueryFieldLabels.OBJECT + ") "
+							+ "WHERE { "
+							+ "<" + queryURI + "> ?predicate ?object.  "
+							+ filterClause
+							+ "}";
 
-        String sparqlQuery = QueryConstants.getSparqlPrefixQuery()
-                + "SELECT "
-                + "		(str(?predicate) as ?" + QueryFieldLabels.PREDICATE + ") "
-                + "		(str(?object) as ?" + QueryFieldLabels.OBJECT + ") "
-                + "WHERE { "
-                + "<" + queryURI + "> ?predicate ?object.  "
-                + filterClause
-                + "}";
-
-        return sparqlQuery;
-    }
-
-    public GenericQueryMap getQueryResult()
-            throws MalformedQueryParametersException {
-        if (StringUtils.isNotBlank(this.individualURI)) {
-            /*
-             * To test for the validity of the URI submitted.
-             * */
-            IRIFactory iRIFactory = IRIFactory.jenaImplementation();
-            IRI iri = iRIFactory.create(this.individualURI);
+		return sparqlQuery;
+	}
+	
+	public GenericQueryMap getQueryResult()
+			throws MalformedQueryParametersException {
+		if (StringUtils.isNotBlank(this.individualURI)) {
+        	/*
+        	 * To test for the validity of the URI submitted.
+        	 * */
+        	IRIFactory iRIFactory = IRIFactory.jenaImplementation();
+    		IRI iri = iRIFactory.create(this.individualURI);
             if (iri.hasViolation(false)) {
                 String errorMsg = ((Violation) iri.violations(false).next()).getShortMessage();
                 log.error("Generic Query " + errorMsg);
                 throw new MalformedQueryParametersException(
-                        "URI provided for an individual is malformed.");
+                			"URI provided for an individual is malformed.");
             }
-
+            
         } else {
             throw new MalformedQueryParametersException("URI parameter is either null or empty.");
         }
 
-        ResultSet resultSet = executeQuery(generateGenericSparqlQuery(
-                this.individualURI,
-                this.filterRule),
-                this.dataset);
+		ResultSet resultSet	= executeQuery(generateGenericSparqlQuery(
+												this.individualURI, 
+												this.filterRule),
+										   this.dataset);
 
-        return createJavaValueObjects(resultSet);
-    }
+		return createJavaValueObjects(resultSet);
+	}
 }

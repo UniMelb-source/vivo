@@ -11,34 +11,35 @@ import edu.cornell.mannlib.vitro.webapp.visualization.visutils.ModelConstructor;
 
 public class PersonToPublicationsFactory implements ModelFactoryInterface {
 
-    @Override
-    public Model getOrCreateModel(String uri, Dataset dataset)
-            throws MalformedQueryParametersException {
+	@Override
+	public Model getOrCreateModel(String uri, Dataset dataset)
+			throws MalformedQueryParametersException {
+		
+		Model candidateModel = ConstructedModelTracker.getModel(
+				ConstructedModelTracker
+				.generateModelIdentifier(
+						uri, 
+						PersonToPublicationsModelConstructor.MODEL_TYPE));
+		
+		if (candidateModel != null) {
+			
+			return candidateModel;
+			
+		} else {
+		
+			ModelConstructor model = new PersonToPublicationsModelConstructor(uri, dataset);
+			
+			Model constructedModel = model.getConstructedModel();
+			ConstructedModelTracker.trackModel(
+					ConstructedModelTracker
+						.generateModelIdentifier(
+								uri, 
+								PersonToPublicationsModelConstructor.MODEL_TYPE),
+								constructedModel);
+			
+			return constructedModel;
+		}
+		
+	}
 
-        Model candidateModel = ConstructedModelTracker.getModel(
-                ConstructedModelTracker
-                .generateModelIdentifier(
-                uri,
-                PersonToPublicationsModelConstructor.MODEL_TYPE));
-
-        if (candidateModel != null) {
-
-            return candidateModel;
-
-        } else {
-
-            ModelConstructor model = new PersonToPublicationsModelConstructor(uri, dataset);
-
-            Model constructedModel = model.getConstructedModel();
-            ConstructedModelTracker.trackModel(
-                    ConstructedModelTracker
-                    .generateModelIdentifier(
-                    uri,
-                    PersonToPublicationsModelConstructor.MODEL_TYPE),
-                    constructedModel);
-
-            return constructedModel;
-        }
-
-    }
 }

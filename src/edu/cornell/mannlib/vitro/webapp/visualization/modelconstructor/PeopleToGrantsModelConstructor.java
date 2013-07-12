@@ -21,147 +21,151 @@ import edu.cornell.mannlib.vitro.webapp.visualization.exceptions.MalformedQueryP
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.ModelConstructor;
 
 public class PeopleToGrantsModelConstructor implements ModelConstructor {
+	
+	protected static final Syntax SYNTAX = Syntax.syntaxARQ;
+	
+	private Dataset dataset;
+	
+	public static final String MODEL_TYPE = "PEOPLE_TO_GRANTS"; 
+	public static final String MODEL_TYPE_HUMAN_READABLE = "Grants for all people via all roles";
+	
+	private Log log = LogFactory.getLog(PeopleToGrantsModelConstructor.class.getName());
+	
+	private long before, after;
+	
+	public PeopleToGrantsModelConstructor(Dataset dataset) {
+		this.dataset = dataset;
+	}
+	
+private Set<String> constructPersonGrantsQueryTemplate(String constructProperty, String roleTypeProperty) {
+		
+		Set<String> differentPerspectiveQueries = new HashSet<String>();
+		
+		String justGrantsQuery = ""
+			+ " CONSTRUCT {  "
+			+ "     ?person vivosocnet:lastCachedAt ?now . "
+			+ "     ?person vivosocnet:" + constructProperty + " ?Grant . "
+			+ "      "
+			+ "     ?Grant rdf:type core:Grant . "
+			+ "     ?Grant rdfs:label ?grantLabel . "
+			+ "      "
+			+ " } "
+			+ " WHERE { "
+			+ "     ?person core:" + roleTypeProperty + " ?Role .  "
+			+ "     ?Role core:roleContributesTo ?Grant . "
+			+ "     ?Grant rdfs:label ?grantLabel . "
+			+ "      "
+			+ "     LET(?now := afn:now()) "
+			+ " } ";
 
-    protected static final Syntax SYNTAX = Syntax.syntaxARQ;
-    private Dataset dataset;
-    public static final String MODEL_TYPE = "PEOPLE_TO_GRANTS";
-    public static final String MODEL_TYPE_HUMAN_READABLE = "Grants for all people via all roles";
-    private Log log = LogFactory.getLog(PeopleToGrantsModelConstructor.class.getName());
-    private long before, after;
+		String justDateTimeOnGrantsQuery = ""
+			+ " CONSTRUCT {  "
+			+ "     ?person vivosocnet:lastCachedAt ?now . "
+			+ "     ?Grant vivosocnet:startDateTimeOnGrant ?startDateTimeValueForGrant . "
+//			+ "     ?Grant vivosocnet:endDateTimeOnGrant ?endDateTimeValueForGrant . "
+			+ "      "
+			+ " } "
+			+ " WHERE { "
+			+ "     ?person core:" + roleTypeProperty + " ?Role .  "
+			+ "     ?Role core:roleContributesTo ?Grant . "
+			+ "      "
+			+ "         ?Grant core:dateTimeInterval ?dateTimeIntervalValueForGrant .          "
+//			+ "         OPTIONAL { "
+			+ "             ?dateTimeIntervalValueForGrant core:start ?startDateForGrant .  "
+			+ "             ?startDateForGrant core:dateTime ?startDateTimeValueForGrant . "
+//			+ "         } "
+//			+ "         OPTIONAL { "
+//			+ "             ?dateTimeIntervalValueForGrant core:end ?endDateForGrant .  "
+//			+ "             ?endDateForGrant core:dateTime ?endDateTimeValueForGrant   "
+//			+ "         }     "
+			+ "      "
+			+ "     LET(?now := afn:now()) "
+			+ " } ";
+		
+		String justDateTimeOnRolesQuery = ""
+			+ " CONSTRUCT {  "
+			+ "     ?person vivosocnet:lastCachedAt ?now . "
+			+ "     ?Grant vivosocnet:startDateTimeOnRole ?startDateTimeValue . "
+//			+ "     ?Grant vivosocnet:endDateTimeOnRole ?endDateTimeValue . "
+			+ " } "
+			+ " WHERE { "
+			+ "     ?person core:" + roleTypeProperty + " ?Role .  "
+			+ "     ?Role core:roleContributesTo ?Grant . "
+			+ "      "
+			+ "         ?Role core:dateTimeInterval ?dateTimeIntervalValue . "
+//			+ "         OPTIONAL { "
+			+ "             ?dateTimeIntervalValue core:start ?startDate .  "
+			+ "             ?startDate core:dateTime ?startDateTimeValue . "
+//			+ "         } "
+//			+ "          "
+//			+ "         OPTIONAL { "
+//			+ "             ?dateTimeIntervalValue core:end ?endDate .  "
+//			+ "             ?endDate core:dateTime ?endDateTimeValue .           "
+//			+ "         }     "
+			+ "      "
+			+ "     LET(?now := afn:now()) "
+			+ " } ";
+		
+		differentPerspectiveQueries.add(justGrantsQuery);
+		differentPerspectiveQueries.add(justDateTimeOnGrantsQuery);
+		differentPerspectiveQueries.add(justDateTimeOnRolesQuery);
+		
+		return differentPerspectiveQueries;
+	}
+	
+	private Set<String> constructPeopleToGrantsQuery() {
 
-    public PeopleToGrantsModelConstructor(Dataset dataset) {
-        this.dataset = dataset;
-    }
+		Set<String> differentInvestigatorTypeQueries = new HashSet<String>();
+		
+		Set<String> investigatorRoleQuery = constructPersonGrantsQueryTemplate("hasGrantAsAnInvestigator", "hasInvestigatorRole");
+		Set<String> piRoleQuery = constructPersonGrantsQueryTemplate("hasGrantAsPI", "hasPrincipalInvestigatorRole");
+		Set<String> coPIRoleQuery = constructPersonGrantsQueryTemplate("hasGrantAsCoPI", "hasCo-PrincipalInvestigatorRole");
 
-    private Set<String> constructPersonGrantsQueryTemplate(String constructProperty, String roleTypeProperty) {
+		differentInvestigatorTypeQueries.addAll(investigatorRoleQuery);
+		differentInvestigatorTypeQueries.addAll(piRoleQuery);
+		differentInvestigatorTypeQueries.addAll(coPIRoleQuery);
+		
+		return differentInvestigatorTypeQueries;
+	}
+	
+	private Model executeQuery(Set<String> constructQueries) {
+		
+		Model constructedModel = ModelFactory.createDefaultModel();
 
-        Set<String> differentPerspectiveQueries = new HashSet<String>();
+		before = System.currentTimeMillis();
+		log.debug("CONSTRUCT query string : " + constructQueries);
+		
+		for (String currentQuery : constructQueries) {
 
-        String justGrantsQuery = ""
-                + " CONSTRUCT {  "
-                + "     ?person vivosocnet:lastCachedAt ?now . "
-                + "     ?person vivosocnet:" + constructProperty + " ?Grant . "
-                + "      "
-                + "     ?Grant rdf:type core:Grant . "
-                + "     ?Grant rdfs:label ?grantLabel . "
-                + "      "
-                + " } "
-                + " WHERE { "
-                + "     ?person core:" + roleTypeProperty + " ?Role .  "
-                + "     ?Role core:roleContributesTo ?Grant . "
-                + "     ?Grant rdfs:label ?grantLabel . "
-                + "      "
-                + "     LET(?now := afn:now()) "
-                + " } ";
+			
+			Query query = null;
 
-        String justDateTimeOnGrantsQuery = ""
-                + " CONSTRUCT {  "
-                + "     ?person vivosocnet:lastCachedAt ?now . "
-                + "     ?Grant vivosocnet:startDateTimeOnGrant ?startDateTimeValueForGrant . "
-                //			+ "     ?Grant vivosocnet:endDateTimeOnGrant ?endDateTimeValueForGrant . "
-                + "      "
-                + " } "
-                + " WHERE { "
-                + "     ?person core:" + roleTypeProperty + " ?Role .  "
-                + "     ?Role core:roleContributesTo ?Grant . "
-                + "      "
-                + "         ?Grant core:dateTimeInterval ?dateTimeIntervalValueForGrant .          "
-                //			+ "         OPTIONAL { "
-                + "             ?dateTimeIntervalValueForGrant core:start ?startDateForGrant .  "
-                + "             ?startDateForGrant core:dateTime ?startDateTimeValueForGrant . "
-                //			+ "         } "
-                //			+ "         OPTIONAL { "
-                //			+ "             ?dateTimeIntervalValueForGrant core:end ?endDateForGrant .  "
-                //			+ "             ?endDateForGrant core:dateTime ?endDateTimeValueForGrant   "
-                //			+ "         }     "
-                + "      "
-                + "     LET(?now := afn:now()) "
-                + " } ";
-
-        String justDateTimeOnRolesQuery = ""
-                + " CONSTRUCT {  "
-                + "     ?person vivosocnet:lastCachedAt ?now . "
-                + "     ?Grant vivosocnet:startDateTimeOnRole ?startDateTimeValue . "
-                //			+ "     ?Grant vivosocnet:endDateTimeOnRole ?endDateTimeValue . "
-                + " } "
-                + " WHERE { "
-                + "     ?person core:" + roleTypeProperty + " ?Role .  "
-                + "     ?Role core:roleContributesTo ?Grant . "
-                + "      "
-                + "         ?Role core:dateTimeInterval ?dateTimeIntervalValue . "
-                //			+ "         OPTIONAL { "
-                + "             ?dateTimeIntervalValue core:start ?startDate .  "
-                + "             ?startDate core:dateTime ?startDateTimeValue . "
-                //			+ "         } "
-                //			+ "          "
-                //			+ "         OPTIONAL { "
-                //			+ "             ?dateTimeIntervalValue core:end ?endDate .  "
-                //			+ "             ?endDate core:dateTime ?endDateTimeValue .           "
-                //			+ "         }     "
-                + "      "
-                + "     LET(?now := afn:now()) "
-                + " } ";
-
-        differentPerspectiveQueries.add(justGrantsQuery);
-        differentPerspectiveQueries.add(justDateTimeOnGrantsQuery);
-        differentPerspectiveQueries.add(justDateTimeOnRolesQuery);
-
-        return differentPerspectiveQueries;
-    }
-
-    private Set<String> constructPeopleToGrantsQuery() {
-
-        Set<String> differentInvestigatorTypeQueries = new HashSet<String>();
-
-        Set<String> investigatorRoleQuery = constructPersonGrantsQueryTemplate("hasGrantAsAnInvestigator", "hasInvestigatorRole");
-        Set<String> piRoleQuery = constructPersonGrantsQueryTemplate("hasGrantAsPI", "hasPrincipalInvestigatorRole");
-        Set<String> coPIRoleQuery = constructPersonGrantsQueryTemplate("hasGrantAsCoPI", "hasCo-PrincipalInvestigatorRole");
-
-        differentInvestigatorTypeQueries.addAll(investigatorRoleQuery);
-        differentInvestigatorTypeQueries.addAll(piRoleQuery);
-        differentInvestigatorTypeQueries.addAll(coPIRoleQuery);
-
-        return differentInvestigatorTypeQueries;
-    }
-
-    private Model executeQuery(Set<String> constructQueries) {
-
-        Model constructedModel = ModelFactory.createDefaultModel();
-
-        before = System.currentTimeMillis();
-        log.debug("CONSTRUCT query string : " + constructQueries);
-
-        for (String currentQuery : constructQueries) {
-
-
-            Query query = null;
-
-            try {
-                query = QueryFactory.create(QueryConstants.getSparqlPrefixQuery() + currentQuery, SYNTAX);
-            } catch (Throwable th) {
-                log.error("Could not create CONSTRUCT SPARQL query for query "
-                        + "string. " + th.getMessage());
-                log.error(currentQuery);
-            }
-
-
-            QueryExecution qe = QueryExecutionFactory.create(query, dataset);
-
-            try {
-                qe.execConstruct(constructedModel);
-            } finally {
-                qe.close();
-            }
-        }
-
-        after = System.currentTimeMillis();
-        log.debug("Time taken to execute the CONSTRUCT queries is in milliseconds: "
-                + (after - before));
-
-        return constructedModel;
-    }
-
-    public Model getConstructedModel() throws MalformedQueryParametersException {
-        return executeQuery(constructPeopleToGrantsQuery());
-    }
+			try {
+				query = QueryFactory.create(QueryConstants.getSparqlPrefixQuery() + currentQuery, SYNTAX);
+			} catch (Throwable th) {
+				log.error("Could not create CONSTRUCT SPARQL query for query "
+						+ "string. " + th.getMessage());
+				log.error(currentQuery);
+			}
+			
+			
+			QueryExecution qe = QueryExecutionFactory.create(query, dataset);
+			
+			try {
+				qe.execConstruct(constructedModel);
+			} finally {
+				qe.close();
+			}
+		}
+		
+		after = System.currentTimeMillis();
+		log.debug("Time taken to execute the CONSTRUCT queries is in milliseconds: "
+				+ (after - before));
+		
+		return constructedModel;
+	}	
+	
+	public Model getConstructedModel() throws MalformedQueryParametersException {
+		return executeQuery(constructPeopleToGrantsQuery());
+	}
 }

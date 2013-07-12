@@ -11,32 +11,32 @@ import edu.cornell.mannlib.vitro.webapp.visualization.visutils.ModelConstructor;
 
 public class OrganizationModelWithTypesFactory implements ModelFactoryInterface {
 
-    @Override
-    public Model getOrCreateModel(String uri, Dataset dataset) throws MalformedQueryParametersException {
+	@Override
+	public Model getOrCreateModel(String uri, Dataset dataset) throws MalformedQueryParametersException {
+		
+		Model candidateModel = ConstructedModelTracker.getModel(
+					ConstructedModelTracker
+					.generateModelIdentifier(
+							null, 
+							OrganizationModelWithTypesConstructor.MODEL_TYPE));
 
-        Model candidateModel = ConstructedModelTracker.getModel(
-                ConstructedModelTracker
-                .generateModelIdentifier(
-                null,
-                OrganizationModelWithTypesConstructor.MODEL_TYPE));
-
-        if (candidateModel != null) {
-
-            return candidateModel;
-
-        } else {
-
-            ModelConstructor model = new OrganizationModelWithTypesConstructor(dataset);
-            Model constructedModel = model.getConstructedModel();
-
-            ConstructedModelTracker.trackModel(
-                    ConstructedModelTracker
-                    .generateModelIdentifier(
-                    null,
-                    OrganizationModelWithTypesConstructor.MODEL_TYPE),
-                    constructedModel);
-
-            return constructedModel;
-        }
-    }
+		if (candidateModel != null) {
+		
+			return candidateModel;
+		
+		} else {
+		
+			ModelConstructor model = new OrganizationModelWithTypesConstructor(dataset);
+			Model constructedModel = model.getConstructedModel();
+			
+			ConstructedModelTracker.trackModel(
+					ConstructedModelTracker
+						.generateModelIdentifier(
+								null, 
+								OrganizationModelWithTypesConstructor.MODEL_TYPE),
+								constructedModel);
+			
+			return constructedModel;
+		}
+	}
 }

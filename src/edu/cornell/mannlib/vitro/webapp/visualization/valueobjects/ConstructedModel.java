@@ -4,35 +4,36 @@ package edu.cornell.mannlib.vitro.webapp.visualization.valueobjects;
 import edu.cornell.mannlib.vitro.webapp.visualization.modelconstructor.ModelConstructorUtilities;
 
 public class ConstructedModel {
+	
+	private String uri;
+	private String individualLabel;
+	private String type;
+	private String humanReadableType;
 
-    private String uri;
-    private String individualLabel;
-    private String type;
-    private String humanReadableType;
+	public ConstructedModel(String type, String uri) {
+		this.type = type;
+		this.humanReadableType = ModelConstructorUtilities.modelTypeToHumanReadableName.get(type);
+		this.uri = uri == null ? "" : uri;
+	}
+	
+	public String getUri() {
+		return uri;
+	}
 
-    public ConstructedModel(String type, String uri) {
-        this.type = type;
-        this.humanReadableType = ModelConstructorUtilities.modelTypeToHumanReadableName.get(type);
-        this.uri = uri == null ? "" : uri;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getUri() {
-        return uri;
-    }
+	public String getHumanReadableType() {
+		return humanReadableType;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setIndividualLabel(String indiviualLabel) {
+		this.individualLabel = indiviualLabel;
+	}
 
-    public String getHumanReadableType() {
-        return humanReadableType;
-    }
+	public String getIndividualLabel() {
+		return individualLabel;
+	}
 
-    public void setIndividualLabel(String indiviualLabel) {
-        this.individualLabel = indiviualLabel;
-    }
-
-    public String getIndividualLabel() {
-        return individualLabel;
-    }
 }

@@ -1,11 +1,13 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.semservices.service;
 
-import edu.cornell.mannlib.semservices.bo.Concept;
 import java.util.List;
 
-public interface ExternalConceptService {
-    // this is the only method that needs to be exposed
+import edu.cornell.mannlib.semservices.bo.Concept;
 
-    List<Concept> processResults(String term) throws Exception;
+public interface ExternalConceptService {
+   // this is the only method that needs to be exposed
+   List<Concept> processResults(String term) throws Exception;
+
 }

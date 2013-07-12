@@ -1,4 +1,5 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.semservices.util;
 
 import java.io.BufferedWriter;
@@ -46,14 +47,15 @@ import edu.cornell.mannlib.semservices.util.MetadataNamespaceContext;
  * retrieval.
  */
 public class XMLUtils {
-
     private static DocumentBuilder parser;
     public static Writer writer;
     static private String indent = "";
     protected static final Log logger = LogFactory.getLog(XMLUtils.class);
 
+
     /**
-     * @return @throws ParserConfigurationException
+     * @return
+     * @throws ParserConfigurationException
      */
     public static DocumentBuilder getDocumentBuilder()
             throws ParserConfigurationException {
@@ -79,7 +81,7 @@ public class XMLUtils {
     public synchronized static Document parse(String xmlString)
             throws IOException, SAXException, ParserConfigurationException {
         StringReader reader = new StringReader(xmlString);
-        InputSource inputSource = new InputSource(reader);
+        InputSource inputSource = new InputSource(reader); 
         return getDocumentBuilder().parse(inputSource);
     }
 
@@ -103,7 +105,7 @@ public class XMLUtils {
     public static String getElementByName(Document document, String name) {
         NodeList nodes = document.getElementsByTagName(name);
         String s = null;
-        for (int i = 0; i < nodes.getLength(); i++) {
+        for (int i=0; i < nodes.getLength() ; i++) {
             Node node = nodes.item(i);
             s = node.getTextContent().trim();
         }
@@ -111,200 +113,190 @@ public class XMLUtils {
     }
 
     /**
-     * @param doc
-     * @throws IOException
-     */
-    public static void serializeDoc(Document doc) throws IOException {
-        XMLSerializer serializer = new XMLSerializer();
-        serializer.setOutputByteStream(System.out);
-        serializer.serialize(doc);
+    * @param doc
+    * @throws IOException
+    */
+   public static void serializeDoc(Document doc) throws IOException {
+       XMLSerializer serializer = new XMLSerializer();
+       serializer.setOutputByteStream(System.out);
+       serializer.serialize(doc);
     }
 
     /**
-     * @param xml
-     */
-    public static void prettyPrint(String xml) {
-        Source xmlInput = new StreamSource(new StringReader(xml));
-        StreamResult xmlOutput = new StreamResult(new StringWriter());
-        Transformer transformer = null;
-        try {
-            transformer = TransformerFactory.newInstance().newTransformer();
-        } catch (TransformerConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TransformerFactoryConfigurationError e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        //transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "testing.dtd");
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        try {
-            transformer.transform(xmlInput, xmlOutput);
-        } catch (TransformerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        String formattedxml = xmlOutput.getWriter().toString();
-        System.out.println(formattedxml);
+    * @param xml
+    */
+   public static void prettyPrint(String xml) {
+       Source xmlInput = new StreamSource(new StringReader(xml));
+       StreamResult xmlOutput = new StreamResult(new StringWriter());
+       Transformer transformer = null;
+      try {
+         transformer = TransformerFactory.newInstance().newTransformer();
+      } catch (TransformerConfigurationException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      } catch (TransformerFactoryConfigurationError e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+       //transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "testing.dtd");
+       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+       try {
+         transformer.transform(xmlInput, xmlOutput);
+      } catch (TransformerException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+       String formattedxml=xmlOutput.getWriter().toString();
+       System.out.println(formattedxml);
 
     }
 
     /**
-     * @param node
-     */
-    public static void displayNodeInfo(Node node) {
-        switch (node.getNodeType()) {
-            case Node.DOCUMENT_NODE:
-                System.out.println("Document Node ");
-                break;
-            case Node.ELEMENT_NODE:
-                System.out.println("Element Node: " + node.getNodeName());
-                break;
-            case Node.TEXT_NODE:
-                System.out.println("Text Node: " + node.getNodeName());
-                break;
-            case Node.CDATA_SECTION_NODE:
-                System.out.println("CDATA Section Node: ");
-                break;
-            case Node.COMMENT_NODE:
-                System.out.println("Comment Node ");
-                break;
-            case Node.PROCESSING_INSTRUCTION_NODE:
-                System.out.println("Processing Instruction Node ");
-                break;
-            case Node.ENTITY_REFERENCE_NODE:
-                System.out.println("Entity Reference Node ");
-                break;
-            case Node.DOCUMENT_TYPE_NODE:
-                System.out.println("Document Type Node ");
-                break;
-        }
+    * @param node
+    */
+   public static void displayNodeInfo(Node node) {
+       switch (node.getNodeType()) {
+       case Node.DOCUMENT_NODE:
+         System.out.println("Document Node ");
+         break;
+       case Node.ELEMENT_NODE:
+         System.out.println("Element Node: "+ node.getNodeName());
+         break;
+       case Node.TEXT_NODE:
+         System.out.println("Text Node: "+ node.getNodeName());
+         break;
+       case Node.CDATA_SECTION_NODE:
+         System.out.println("CDATA Section Node: ");
+         break;
+       case Node.COMMENT_NODE:
+         System.out.println("Comment Node ");
+         break;
+       case Node.PROCESSING_INSTRUCTION_NODE:
+         System.out.println("Processing Instruction Node ");
+         break;
+       case Node.ENTITY_REFERENCE_NODE:
+         System.out.println("Entity Reference Node ");
+         break;
+       case Node.DOCUMENT_TYPE_NODE:
+         System.out.println("Document Type Node ");
+         break;
+       }
     }
 
     /**
-     * @param node
-     * @throws IOException
-     */
-    public static void serializeNode(Node node) throws IOException {
-        if (writer == null) {
-            writer = new BufferedWriter(new OutputStreamWriter(System.out));
-        }
+    * @param node
+    * @throws IOException
+    */
+   public static void serializeNode(Node node) throws IOException {
+       if (writer == null) writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        switch (node.getNodeType()) {
-            case Node.DOCUMENT_NODE:
-                Document doc = (Document) node;
-                writer.write("<?xml version=\"");
-                writer.write(doc.getXmlVersion());
-                writer.write("\" encoding=\"UTF-8\" standalone=\"");
-                if (doc.getXmlStandalone()) {
-                    writer.write("yes");
-                } else {
-                    writer.write("no");
-                }
-                writer.write("\"?>\n");
+       switch (node.getNodeType()) {
+       case Node.DOCUMENT_NODE:
+         Document doc = (Document) node;
+         writer.write("<?xml version=\"");
+         writer.write(doc.getXmlVersion());
+         writer.write("\" encoding=\"UTF-8\" standalone=\"");
+         if (doc.getXmlStandalone())
+           writer.write("yes");
+         else
+           writer.write("no");
+         writer.write("\"?>\n");
 
-                NodeList nodes = node.getChildNodes();
-                if (nodes != null) {
-                    for (int i = 0; i < nodes.getLength(); i++) {
-                        serializeNode(nodes.item(i));
-                    }
-                }
-                break;
-            case Node.ELEMENT_NODE:
-                String name = node.getNodeName();
-                writer.write("<" + name);
-                NamedNodeMap attributes = node.getAttributes();
-                for (int i = 0; i < attributes.getLength(); i++) {
-                    Node current = attributes.item(i);
-                    writer.write(" " + current.getNodeName() + "=\"");
-                    print(current.getNodeValue());
-                    writer.write("\"");
-                }
-                writer.write(">");
+         NodeList nodes = node.getChildNodes();
+         if (nodes != null)
+           for (int i = 0; i < nodes.getLength(); i++)
+             serializeNode(nodes.item(i));
+         break;
+       case Node.ELEMENT_NODE:
+         String name = node.getNodeName();
+         writer.write("<" + name);
+         NamedNodeMap attributes = node.getAttributes();
+         for (int i = 0; i < attributes.getLength(); i++) {
+           Node current = attributes.item(i);
+           writer.write(" " + current.getNodeName() + "=\"");
+           print(current.getNodeValue());
+           writer.write("\"");
+         }
+         writer.write(">");
 
-                NodeList children = node.getChildNodes();
-                if (children != null) {
-                    //if ((children.item(0) != null) && (children.item(0).getNodeType() == Node.ELEMENT_NODE))
-                    //  writer.write("\n");
+         NodeList children = node.getChildNodes();
+         if (children != null) {
+           //if ((children.item(0) != null) && (children.item(0).getNodeType() == Node.ELEMENT_NODE))
+           //  writer.write("\n");
 
-                    for (int i = 0; i < children.getLength(); i++) {
-                        serializeNode(children.item(i));
-                    }
-                    if ((children.item(0) != null)
-                            && (children.item(children.getLength() - 1).getNodeType() == Node.ELEMENT_NODE)) {
-                        writer.write("");
-                    }
-                }
+           for (int i = 0; i < children.getLength(); i++)
+             serializeNode(children.item(i));
+           if ((children.item(0) != null)
+               && (children.item(children.getLength() - 1).getNodeType() == Node.ELEMENT_NODE))
+             writer.write("");
+         }
 
-                writer.write("</" + name + ">");
-                break;
-            case Node.TEXT_NODE:
-                print(node.getNodeValue());
-                break;
-            case Node.CDATA_SECTION_NODE:
-                writer.write("CDATA");
-                print(node.getNodeValue());
-                writer.write("");
-                break;
-            case Node.COMMENT_NODE:
-                writer.write("<!-- " + node.getNodeValue() + " -->\n");
-                break;
-            case Node.PROCESSING_INSTRUCTION_NODE:
-                writer.write("<?" + node.getNodeName() + " " + node.getNodeValue() + "?>\n");
-                break;
-            case Node.ENTITY_REFERENCE_NODE:
-                writer.write("&" + node.getNodeName() + ";");
-                break;
-            case Node.DOCUMENT_TYPE_NODE:
-                DocumentType docType = (DocumentType) node;
-                String publicId = docType.getPublicId();
-                String systemId = docType.getSystemId();
-                String internalSubset = docType.getInternalSubset();
-                writer.write("<!DOCTYPE " + docType.getName());
-                if (publicId != null) {
-                    writer.write(" PUBLIC \"" + publicId + "\" ");
-                } else {
-                    writer.write(" SYSTEM ");
-                }
-                writer.write("\"" + systemId + "\"");
-                if (internalSubset != null) {
-                    writer.write(" [" + internalSubset + "]");
-                }
-                writer.write(">\n");
-                break;
-        }
-        writer.flush();
-    }
+         writer.write("</" + name + ">");
+         break;
+       case Node.TEXT_NODE:
+         print(node.getNodeValue());
+         break;
+       case Node.CDATA_SECTION_NODE:
+         writer.write("CDATA");
+         print(node.getNodeValue());
+         writer.write("");
+         break;
+       case Node.COMMENT_NODE:
+         writer.write("<!-- " + node.getNodeValue() + " -->\n");
+         break;
+       case Node.PROCESSING_INSTRUCTION_NODE:
+         writer.write("<?" + node.getNodeName() + " " + node.getNodeValue() + "?>\n");
+         break;
+       case Node.ENTITY_REFERENCE_NODE:
+         writer.write("&" + node.getNodeName() + ";");
+         break;
+       case Node.DOCUMENT_TYPE_NODE:
+         DocumentType docType = (DocumentType) node;
+         String publicId = docType.getPublicId();
+         String systemId = docType.getSystemId();
+         String internalSubset = docType.getInternalSubset();
+         writer.write("<!DOCTYPE " + docType.getName());
+         if (publicId != null)
+           writer.write(" PUBLIC \"" + publicId + "\" ");
+         else
+           writer.write(" SYSTEM ");
+         writer.write("\"" + systemId + "\"");
+         if (internalSubset != null)
+           writer.write(" [" + internalSubset + "]");
+         writer.write(">\n");
+         break;
+       }
+       writer.flush();
+     }
 
     /**
-     * @param s
-     * @throws IOException
-     */
-    private static void print(String s) throws IOException {
-        if (s == null) {
-            return;
-        }
-        for (int i = 0, len = s.length(); i < len; i++) {
-            char c = s.charAt(i);
-            switch (c) {
-                case '<':
-                    writer.write("&lt;");
-                    break;
-                case '>':
-                    writer.write("&gt;");
-                    break;
-                case '&':
-                    writer.write("&amp;");
-                    break;
-                case '\r':
-                    writer.write("&#xD;");
-                    break;
-                default:
-                    writer.write(c);
-            }
-        }
-    }
+    * @param s
+    * @throws IOException
+    */
+   private static void print(String s) throws IOException {
+       if (s == null)
+         return;
+       for (int i = 0, len = s.length(); i < len; i++) {
+         char c = s.charAt(i);
+         switch (c) {
+         case '<':
+           writer.write("&lt;");
+           break;
+         case '>':
+           writer.write("&gt;");
+           break;
+         case '&':
+           writer.write("&amp;");
+           break;
+         case '\r':
+           writer.write("&#xD;");
+           break;
+         default:
+           writer.write(c);
+         }
+       }
+     }
 
     /**
      * @param doc (either a Document or a Node)
@@ -312,13 +304,13 @@ public class XMLUtils {
      * @return string contents
      */
     public static Node getNodeWithXpath(Object obj, String expression) {
-        Object root = null;
-        if (obj instanceof Document) {
-            Document doc = (Document) obj;
-            root = doc.getDocumentElement();
-        } else {
-            root = (Node) obj;
-        }
+       Object root = null;
+       if (obj instanceof Document) {
+          Document doc = (Document) obj;
+          root = doc.getDocumentElement();
+       } else {
+          root = (Node) obj;
+       }
 
         XPath xpath = XPathFactory.newInstance().newXPath();
         xpath.setNamespaceContext(new MetadataNamespaceContext());
@@ -332,4 +324,5 @@ public class XMLUtils {
             return null;
         }
     }
+
 }

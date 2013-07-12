@@ -1,4 +1,5 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.semservices.bo;
 
 import java.util.Date;
@@ -13,240 +14,246 @@ import org.apache.commons.logging.LogFactory;
  * of the moment, and defines the time within the day to millisecond accuracy.
  *
  * @author Jacob Dreyer (<a
- * href="mailto:jacob.dreyer@geosoft.no">jacob.dreyer@geosoft.no</a>)
+ *         href="mailto:jacob.dreyer@geosoft.no">jacob.dreyer@geosoft.no</a>)
  */
 public class Time extends Day {
+   protected final Log logger = LogFactory.getLog(getClass());
 
-    protected final Log logger = LogFactory.getLog(getClass());
-    protected static final Log staticlogger = LogFactory.getLog(Time.class);
+   protected static final Log staticlogger = LogFactory.getLog(Time.class);
 
-    /**
-     * Instantiate a Time object. The time is lenient meaning that illegal day
-     * parameters can be specified and results in a recomputed day with legal
-     * month/day values.
-     *
-     * @param year Year of this time
-     * @param month Month of this time
-     * @param dayOfMonth Day of month of this time.
-     * @param hourOfDay Hours of this time [0-23]
-     * @param minutes Minutes of this time [0-23]
-     * @param seconds Seconds of this time [0-23]
-     */
-    public Time(int year, int month, int dayOfMonth, int hourOfDay, int minutes,
-            int seconds) {
-        super(year, month, dayOfMonth);
-        setHourOfDay(hourOfDay);
-        setMinutes(minutes);
-        setSeconds(seconds);
-    }
+   /**
+    * Instantiate a Time object. The time is lenient meaning that illegal day
+    * parameters can be specified and results in a recomputed day with legal
+    * month/day values.
+    *
+    * @param year  Year of this time
+    * @param month Month of this time
+    * @param dayOfMonth Day of month of this time.
+    * @param hourOfDay Hours of this time [0-23]
+    * @param minutes Minutes of this time [0-23]
+    * @param seconds Seconds of this time [0-23]
+    */
+   public Time(int year, int month, int dayOfMonth, int hourOfDay, int minutes,
+         int seconds) {
+      super(year, month, dayOfMonth);
+      setHourOfDay(hourOfDay);
+      setMinutes(minutes);
+      setSeconds(seconds);
+   }
 
-    /**
-     * Constructor
-     *
-     * @param day
-     * @param hourOfDay
-     * @param minutes
-     * @param seconds
-     */
-    public Time(Day day, int hourOfDay, int minutes, int seconds) {
-        this(day.getYear(), day.getMonth(), day.getDayOfMonth(), hourOfDay,
-                minutes, seconds);
-    }
+   /**
+    * Constructor
+    * @param day
+    * @param hourOfDay
+    * @param minutes
+    * @param seconds
+    */
+   public Time(Day day, int hourOfDay, int minutes, int seconds) {
+      this(day.getYear(), day.getMonth(), day.getDayOfMonth(), hourOfDay,
+            minutes, seconds);
+   }
 
-    /**
-     * Constructor
-     *
-     * @param hourOfDay
-     * @param minutes
-     * @param seconds
-     */
-    public Time(int hourOfDay, int minutes, int seconds) {
-        this(new Day(), hourOfDay, minutes, seconds);
-    }
 
-    /**
-     * Constructor
-     */
-    public Time() {
-        calendar_ = new GregorianCalendar(); // Now
-    }
+   /**
+    * Constructor
+    * @param hourOfDay
+    * @param minutes
+    * @param seconds
+    */
+   public Time(int hourOfDay, int minutes, int seconds) {
+      this(new Day(), hourOfDay, minutes, seconds);
+   }
 
-    // end of constructors
-    // Get Methods
-    public Date getDay() {
-        return calendar_.getTime();
-    }
+   /**
+    * Constructor
+    */
+   public Time() {
+      calendar_ = new GregorianCalendar(); // Now
+   }
 
-    public int getHour() {
-        return calendar_.get(Calendar.HOUR);
-    }
+   // end of constructors
 
-    public int getHourOfDay() {
-        return calendar_.get(Calendar.HOUR_OF_DAY);
-    }
+   // Get Methods
 
-    public int getMinutes() {
-        return calendar_.get(Calendar.MINUTE);
-    }
+   public Date getDay() {
+      return calendar_.getTime();
+   }
 
-    public int getSeconds() {
-        return calendar_.get(Calendar.SECOND);
-    }
+   public int getHour() {
+      return calendar_.get(Calendar.HOUR);
+   }
 
-    public int getMilliSeconds() {
-        return calendar_.get(Calendar.MILLISECOND);
-    }
+   public int getHourOfDay() {
+      return calendar_.get(Calendar.HOUR_OF_DAY);
+   }
 
-    public int getAmPm() {
-        return calendar_.get(Calendar.AM_PM);
-    }
+   public int getMinutes() {
+      return calendar_.get(Calendar.MINUTE);
+   }
 
-    // set Methods
-    public void setDay(Day day) {
-        setYear(day.getYear());
-        setMonth(day.getMonth());
-        setDayOfMonth(day.getDayOfMonth());
-    }
+   public int getSeconds() {
+      return calendar_.get(Calendar.SECOND);
+   }
 
-    public void setYear(int year) {
-        calendar_.set(Calendar.YEAR, year);
-    }
+   public int getMilliSeconds() {
+      return calendar_.get(Calendar.MILLISECOND);
+   }
 
-    public void setMonth(int month) {
-        calendar_.set(Calendar.MONTH, month);
-    }
+   public int getAmPm() {
+      return calendar_.get(Calendar.AM_PM);
+   }
 
-    public void setDayOfMonth(int dayOfMonth) {
-        calendar_.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-    }
+   // set Methods
 
-    public void setHourOfDay(int hourOfDay) {
-        calendar_.set(Calendar.HOUR_OF_DAY, hourOfDay);
-    }
+   public void setDay(Day day) {
+      setYear(day.getYear());
+      setMonth(day.getMonth());
+      setDayOfMonth(day.getDayOfMonth());
+   }
 
-    public void setHour(int hour) {
-        calendar_.set(Calendar.HOUR, hour);
-    }
+   public void setYear(int year) {
+      calendar_.set(Calendar.YEAR, year);
+   }
 
-    public void setAmPm(int amPm) {
-        calendar_.set(Calendar.AM_PM, amPm);
-    }
+   public void setMonth(int month) {
+      calendar_.set(Calendar.MONTH, month);
+   }
 
-    public void setMinutes(int minutes) {
-        calendar_.set(Calendar.MINUTE, minutes);
-    }
+   public void setDayOfMonth(int dayOfMonth) {
+      calendar_.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+   }
 
-    public void setSeconds(int seconds) {
-        calendar_.set(Calendar.SECOND, seconds);
-    }
+   public void setHourOfDay(int hourOfDay) {
+      calendar_.set(Calendar.HOUR_OF_DAY, hourOfDay);
+   }
 
-    public void setMilliSeconds(int milliSeconds) {
-        calendar_.set(Calendar.MILLISECOND, milliSeconds);
-    }
+   public void setHour(int hour) {
+      calendar_.set(Calendar.HOUR, hour);
+   }
 
-    // Time modification methods
-    public void addHours(int nHours) {
-        calendar_.add(Calendar.HOUR_OF_DAY, nHours);
-    }
+   public void setAmPm(int amPm) {
+      calendar_.set(Calendar.AM_PM, amPm);
+   }
 
-    public void addMinutes(int nMinutes) {
-        calendar_.add(Calendar.MINUTE, nMinutes);
-    }
+   public void setMinutes(int minutes) {
+      calendar_.set(Calendar.MINUTE, minutes);
+   }
 
-    public void addSeconds(int nSeconds) {
-        calendar_.add(Calendar.SECOND, nSeconds);
-    }
+   public void setSeconds(int seconds) {
+      calendar_.set(Calendar.SECOND, seconds);
+   }
 
-    public void addMilliSeconds(int nMilliSeconds) {
-        calendar_.add(Calendar.MILLISECOND, nMilliSeconds);
-    }
+   public void setMilliSeconds(int milliSeconds) {
+      calendar_.set(Calendar.MILLISECOND, milliSeconds);
+   }
 
-    public void subtractHours(int nHours) {
-        addHours(-nHours);
-    }
+   // Time modification methods
 
-    public void subtractMinutes(int nMinutes) {
-        addMinutes(-nMinutes);
-    }
+   public void addHours(int nHours) {
+      calendar_.add(Calendar.HOUR_OF_DAY, nHours);
+   }
 
-    public void subtractSeconds(int nSeconds) {
-        addSeconds(-nSeconds);
-    }
+   public void addMinutes(int nMinutes) {
+      calendar_.add(Calendar.MINUTE, nMinutes);
+   }
 
-    // Time test methods
-    public boolean isAfter(Time time) {
-        return calendar_.after(time.calendar_);
-    }
+   public void addSeconds(int nSeconds) {
+      calendar_.add(Calendar.SECOND, nSeconds);
+   }
 
-    public boolean isBefore(Time time) {
-        return calendar_.before(time.calendar_);
-    }
+   public void addMilliSeconds(int nMilliSeconds) {
+      calendar_.add(Calendar.MILLISECOND, nMilliSeconds);
+   }
 
-    public boolean equals(Time time) {
-        return calendar_.equals(time.calendar_);
-    }
+   public void subtractHours(int nHours) {
+      addHours(-nHours);
+   }
 
-    // Time difference methods
-    public long milliSecondsBetween(Time time) {
-        long millisBetween = calendar_.getTime().getTime()
-                - time.calendar_.getTime().getTime();
-        return millisBetween;
-    }
+   public void subtractMinutes(int nMinutes) {
+      addMinutes(-nMinutes);
+   }
 
-    public double secondsBetween(Time time) {
-        long millisBetween = calendar_.getTime().getTime()
-                - time.calendar_.getTime().getTime();
-        return millisBetween / 1000;
-    }
+   public void subtractSeconds(int nSeconds) {
+      addSeconds(-nSeconds);
+   }
 
-    public double minutesBetween(Time time) {
-        long millisBetween = calendar_.getTime().getTime()
-                - time.calendar_.getTime().getTime();
-        return millisBetween / (1000 * 60);
-    }
+   // Time test methods
 
-    public double hoursBetween(Time time) {
-        long millisBetween = calendar_.getTime().getTime()
-                - time.calendar_.getTime().getTime();
-        return millisBetween / (1000 * 60 * 60);
-    }
+   public boolean isAfter(Time time) {
+      return calendar_.after(time.calendar_);
+   }
 
-    // Display methods
-    public String toString() {
-        StringBuffer string = new StringBuffer();
+   public boolean isBefore(Time time) {
+      return calendar_.before(time.calendar_);
+   }
 
-        if (getHour() == 0) {
-            string.append("12"); // display "12" for midnight
-        } else {
-            string.append(getHour());
-        }
-        string.append(':');
-        if (getMinutes() < 10) {
-            string.append('0');
-        }
-        string.append(getMinutes());
+   public boolean equals(Time time) {
+      return calendar_.equals(time.calendar_);
+   }
 
-        if (getAmPm() == Calendar.AM) {
-            string.append(" AM");
-        } else {
-            string.append(" PM");
-        }
-        return string.toString();
-    }
+   // Time difference methods
 
-    // Misc. methods
-    public static Time getTimeFromSqlTime(java.sql.Time sqlTime) {
-        // staticlogger.info("sqlTime "+ sqlTime.toString());
-        long ms = sqlTime.getTime();
-        java.util.Calendar gcal = GregorianCalendar.getInstance();
-        gcal.setTime(new Date(ms));
-        Time time = new Time(gcal.get(Calendar.HOUR_OF_DAY), gcal
-                .get(Calendar.MINUTE), gcal.get(Calendar.SECOND));
-        return time;
-    }
+   public long milliSecondsBetween(Time time) {
+      long millisBetween = calendar_.getTime().getTime()
+            - time.calendar_.getTime().getTime();
+      return millisBetween;
+   }
 
-    public static void main(String args[]) {
-        Time time = new Time(12, 00, 00);
-        System.out.println(time);
-    }
+   public double secondsBetween(Time time) {
+      long millisBetween = calendar_.getTime().getTime()
+            - time.calendar_.getTime().getTime();
+      return millisBetween / 1000;
+   }
+
+   public double minutesBetween(Time time) {
+      long millisBetween = calendar_.getTime().getTime()
+            - time.calendar_.getTime().getTime();
+      return millisBetween / (1000 * 60);
+   }
+
+   public double hoursBetween(Time time) {
+      long millisBetween = calendar_.getTime().getTime()
+            - time.calendar_.getTime().getTime();
+      return millisBetween / (1000 * 60 * 60);
+   }
+
+   // Display methods
+
+   public String toString() {
+      StringBuffer string = new StringBuffer();
+
+      if (getHour() == 0) {
+         string.append("12"); // display "12" for midnight
+      } else {
+         string.append(getHour());
+      }
+      string.append(':');
+      if (getMinutes() < 10)
+         string.append('0');
+      string.append(getMinutes());
+
+      if (getAmPm() == Calendar.AM) {
+         string.append(" AM");
+      } else {
+         string.append(" PM");
+      }
+      return string.toString();
+   }
+
+   // Misc. methods
+
+   public static Time getTimeFromSqlTime(java.sql.Time sqlTime) {
+      // staticlogger.info("sqlTime "+ sqlTime.toString());
+      long ms = sqlTime.getTime();
+      java.util.Calendar gcal = GregorianCalendar.getInstance();
+      gcal.setTime(new Date(ms));
+      Time time = new Time(gcal.get(Calendar.HOUR_OF_DAY), gcal
+            .get(Calendar.MINUTE), gcal.get(Calendar.SECOND));
+      return time;
+   }
+
+   public static void main(String args[]) {
+      Time time = new Time(12, 00, 00);
+      System.out.println(time);
+   }
 }

@@ -8,42 +8,42 @@ import java.util.Set;
 import edu.cornell.mannlib.vitro.webapp.visualization.valueobjects.Individual;
 
 public class SubjectEntityJSON {
+	
+	private String subjectEntityLabel;
+	private String subjectEntityURI;
+	private Map<String, String> parentURIToLabel = new HashMap<String, String>();
+	
+	public SubjectEntityJSON(String subjectEntityURI, String label,
+			Set<Individual> parentOrganizations) {
+		this.subjectEntityURI = subjectEntityURI;
+		this.subjectEntityLabel = label;
+		
+		this.setParentURIToLabel(parentOrganizations);
+	}
 
-    private String subjectEntityLabel;
-    private String subjectEntityURI;
-    private Map<String, String> parentURIToLabel = new HashMap<String, String>();
+	public String getSubjectEntityURI() {
+		return subjectEntityURI;
+	}
 
-    public SubjectEntityJSON(String subjectEntityURI, String label,
-            Set<Individual> parentOrganizations) {
-        this.subjectEntityURI = subjectEntityURI;
-        this.subjectEntityLabel = label;
+	public void setSubjectEntityURI(String subjectEntityURI) {
+		this.subjectEntityURI = subjectEntityURI;
+	}
 
-        this.setParentURIToLabel(parentOrganizations);
-    }
+	public String getSubjectEntityLabel() {
+		return subjectEntityLabel;
+	}
 
-    public String getSubjectEntityURI() {
-        return subjectEntityURI;
-    }
+	public void setSubjectEntityLabel(String label) {
+		this.subjectEntityLabel = label;
+	}
 
-    public void setSubjectEntityURI(String subjectEntityURI) {
-        this.subjectEntityURI = subjectEntityURI;
-    }
+	public Map<String, String> getParentURIToLabel() {
+		return parentURIToLabel;
+	}
 
-    public String getSubjectEntityLabel() {
-        return subjectEntityLabel;
-    }
-
-    public void setSubjectEntityLabel(String label) {
-        this.subjectEntityLabel = label;
-    }
-
-    public Map<String, String> getParentURIToLabel() {
-        return parentURIToLabel;
-    }
-
-    public void setParentURIToLabel(Set<Individual> parentOrganizations) {
-        for (Individual parentOrganization : parentOrganizations) {
-            this.parentURIToLabel.put(parentOrganization.getIndividualURI(), parentOrganization.getIndividualLabel());
-        }
-    }
+	public void setParentURIToLabel(Set<Individual> parentOrganizations) {
+		for (Individual parentOrganization : parentOrganizations) {
+			this.parentURIToLabel.put(parentOrganization.getIndividualURI(), parentOrganization.getIndividualLabel());
+		}
+	}
 }

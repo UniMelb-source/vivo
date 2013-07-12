@@ -1,4 +1,5 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.vitro.webapp.edit.n3editing;
 
 import java.util.HashMap;
@@ -15,28 +16,28 @@ import edu.cornell.mannlib.vitro.webapp.edit.n3editing.processEdit.EditSubmissio
 public class PersonHasPublicationValidatorOld implements N3Validator {
 
     private static String MISSING_PUB_TYPE_ERROR = "Must specify a publication type.";
-    private static String MISSING_PUB_TITLE_ERROR = "Must specify a publication title.";
-
+    private static String MISSING_PUB_TITLE_ERROR = "Must specify a publication title."; 
+    
     @Override
     public Map<String, String> validate(EditConfiguration editConfig,
             EditSubmission editSub) {
 
-        Map<String, String> urisFromForm = editSub.getUrisFromForm();
-        Map<String, Literal> literalsFromForm = editSub.getLiteralsFromForm();
+        Map<String,String> urisFromForm = editSub.getUrisFromForm();
+        Map<String,Literal> literalsFromForm = editSub.getLiteralsFromForm();
 
-        Map<String, String> errors = new HashMap<String, String>();
-
+        Map<String,String> errors = new HashMap<String,String>();   
+        
         // If there's a pubUri, then we're done. The other fields are disabled and so don't get submitted.
         String pubUri = urisFromForm.get("pubUri");
         if (!StringUtils.isEmpty(pubUri)) {
             return null;
         }
-
+        
         String pubType = urisFromForm.get("pubType");
         if ("".equals(pubType)) {
             pubType = null;
         }
-
+        
         Literal title = literalsFromForm.get("title");
         if (title != null) {
             String titleValue = title.getLexicalForm();
@@ -44,14 +45,15 @@ public class PersonHasPublicationValidatorOld implements N3Validator {
                 title = null;
             }
         }
-
+        
         if (pubType == null) {
             errors.put("pubType", MISSING_PUB_TYPE_ERROR);
         }
         if (title == null) {
             errors.put("title", MISSING_PUB_TITLE_ERROR);
         }
-
+        
         return errors.size() != 0 ? errors : null;
     }
+
 }

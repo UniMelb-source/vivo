@@ -10,36 +10,37 @@ import edu.cornell.mannlib.vitro.webapp.visualization.valueobjects.ConstructedMo
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.ModelConstructor;
 
 public class OrganizationToPublicationsForSubOrganizationsFactory implements
-        ModelFactoryInterface {
+		ModelFactoryInterface {
 
-    @Override
-    public Model getOrCreateModel(String uri, Dataset dataset)
-            throws MalformedQueryParametersException {
+	@Override
+	public Model getOrCreateModel(String uri, Dataset dataset)
+			throws MalformedQueryParametersException {
 
-        Model candidateModel = ConstructedModelTracker.getModel(
-                ConstructedModelTracker
-                .generateModelIdentifier(
-                uri,
-                OrganizationToPublicationsForSubOrganizationsModelConstructor.MODEL_TYPE));
+		Model candidateModel = ConstructedModelTracker.getModel(
+				ConstructedModelTracker
+				.generateModelIdentifier(
+						uri, 
+						OrganizationToPublicationsForSubOrganizationsModelConstructor.MODEL_TYPE));
+		
+		if (candidateModel != null) {
+			
+			return candidateModel;
+			
+		} else {
+		
+			ModelConstructor model = new OrganizationToPublicationsForSubOrganizationsModelConstructor(uri, dataset);
+			
+			Model constructedModel = model.getConstructedModel();
+			ConstructedModelTracker.trackModel(
+					ConstructedModelTracker
+						.generateModelIdentifier(
+								uri, 
+								OrganizationToPublicationsForSubOrganizationsModelConstructor.MODEL_TYPE),
+								constructedModel);
+			
+			return constructedModel;
+		}
+	
+	}
 
-        if (candidateModel != null) {
-
-            return candidateModel;
-
-        } else {
-
-            ModelConstructor model = new OrganizationToPublicationsForSubOrganizationsModelConstructor(uri, dataset);
-
-            Model constructedModel = model.getConstructedModel();
-            ConstructedModelTracker.trackModel(
-                    ConstructedModelTracker
-                    .generateModelIdentifier(
-                    uri,
-                    OrganizationToPublicationsForSubOrganizationsModelConstructor.MODEL_TYPE),
-                    constructedModel);
-
-            return constructedModel;
-        }
-
-    }
 }

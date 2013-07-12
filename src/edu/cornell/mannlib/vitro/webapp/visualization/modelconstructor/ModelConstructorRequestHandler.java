@@ -1,4 +1,5 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.vitro.webapp.visualization.modelconstructor;
 
 import java.util.ArrayList;
@@ -27,116 +28,117 @@ import edu.cornell.mannlib.vitro.webapp.visualization.visutils.UtilityFunctions;
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.VisualizationRequestHandler;
 
 public class ModelConstructorRequestHandler implements
-        VisualizationRequestHandler {
+		VisualizationRequestHandler {
 
     public static final Actions REQUIRED_ACTIONS = new Actions(new RefreshVisualizationCacheAction());
+    
+	@Override
+	public Object generateAjaxVisualization(VitroRequest vitroRequest, Log log,
+			Dataset dataSource) throws MalformedQueryParametersException {
+		return regenerateConstructedModels(vitroRequest, dataSource);
+	}
 
-    @Override
-    public Object generateAjaxVisualization(VitroRequest vitroRequest, Log log,
-            Dataset dataSource) throws MalformedQueryParametersException {
-        return regenerateConstructedModels(vitroRequest, dataSource);
-    }
+	@Override
+	public Map<String, String> generateDataVisualization(
+			VitroRequest vitroRequest, Log log, Dataset dataset)
+			throws MalformedQueryParametersException {
+		throw new UnsupportedOperationException(
+				"Cached Model does not provide Data Response.");
+	}
 
-    @Override
-    public Map<String, String> generateDataVisualization(
-            VitroRequest vitroRequest, Log log, Dataset dataset)
-            throws MalformedQueryParametersException {
-        throw new UnsupportedOperationException(
-                "Cached Model does not provide Data Response.");
-    }
+	private ResponseValues renderRefreshCacheMarkup(VitroRequest vitroRequest,
+			Log log, Dataset dataSource) {
 
-    private ResponseValues renderRefreshCacheMarkup(VitroRequest vitroRequest,
-            Log log, Dataset dataSource) {
+		String standaloneTemplate = "regenerateConstructedModels.ftl";
 
-        String standaloneTemplate = "regenerateConstructedModels.ftl";
+		List<ConstructedModel> currentConstructedModels = new ArrayList<ConstructedModel>();
+		List<String> unidentifiedModels = new ArrayList<String>();
 
-        List<ConstructedModel> currentConstructedModels = new ArrayList<ConstructedModel>();
-        List<String> unidentifiedModels = new ArrayList<String>();
+		for (String currentIdentifier : ConstructedModelTracker.getAllModels()
+				.keySet()) {
+			try {
+				ConstructedModel parseModelIdentifier = ConstructedModelTracker
+						.parseModelIdentifier(currentIdentifier);
 
-        for (String currentIdentifier : ConstructedModelTracker.getAllModels()
-                .keySet()) {
-            try {
-                ConstructedModel parseModelIdentifier = ConstructedModelTracker
-                        .parseModelIdentifier(currentIdentifier);
+				parseModelIdentifier.setIndividualLabel(UtilityFunctions
+						.getIndividualLabelFromDAO(vitroRequest,
+								parseModelIdentifier.getUri()));
 
-                parseModelIdentifier.setIndividualLabel(UtilityFunctions
-                        .getIndividualLabelFromDAO(vitroRequest,
-                        parseModelIdentifier.getUri()));
+				currentConstructedModels.add(parseModelIdentifier);
+			} catch (IllegalConstructedModelIdentifierException e) {
+				unidentifiedModels.add(e.getMessage());
+			}
+		}
 
-                currentConstructedModels.add(parseModelIdentifier);
-            } catch (IllegalConstructedModelIdentifierException e) {
-                unidentifiedModels.add(e.getMessage());
-            }
-        }
+		Map<String, Object> body = new HashMap<String, Object>();
+		body.put("title", "Regenerate Constructed Models");
+		body.put("vivoDefaultNamespace", vitroRequest.getWebappDaoFactory()
+				.getDefaultNamespace());
+		body.put("currentModels", currentConstructedModels);
+		body.put("unidentifiedModels", unidentifiedModels);
 
-        Map<String, Object> body = new HashMap<String, Object>();
-        body.put("title", "Regenerate Constructed Models");
-        body.put("vivoDefaultNamespace", vitroRequest.getWebappDaoFactory()
-                .getDefaultNamespace());
-        body.put("currentModels", currentConstructedModels);
-        body.put("unidentifiedModels", unidentifiedModels);
+		return new TemplateResponseValues(standaloneTemplate, body);
+	}
 
-        return new TemplateResponseValues(standaloneTemplate, body);
-    }
+	private Map<String, String> regenerateConstructedModels(VitroRequest vitroRequest, 
+															Dataset dataSource) {
 
-    private Map<String, String> regenerateConstructedModels(VitroRequest vitroRequest,
-            Dataset dataSource) {
+		List<ConstructedModel> refreshedModels = new ArrayList<ConstructedModel>();
 
-        List<ConstructedModel> refreshedModels = new ArrayList<ConstructedModel>();
+		Set<String> currentModelIdentifiers = new HashSet<String>(ConstructedModelTracker.getAllModels().keySet());
+		
+		for (String currentIdentifier : currentModelIdentifiers) {
+			try {
 
-        Set<String> currentModelIdentifiers = new HashSet<String>(ConstructedModelTracker.getAllModels().keySet());
+				ConstructedModel parseModelIdentifier = ConstructedModelTracker
+																.parseModelIdentifier(currentIdentifier);
 
-        for (String currentIdentifier : currentModelIdentifiers) {
-            try {
+				ConstructedModelTracker.removeModel(parseModelIdentifier.getUri(), 
+													parseModelIdentifier.getType());
 
-                ConstructedModel parseModelIdentifier = ConstructedModelTracker
-                        .parseModelIdentifier(currentIdentifier);
+				ModelConstructorUtilities.getOrConstructModel(parseModelIdentifier.getUri(), 
+															  parseModelIdentifier.getType(), dataSource);
+				refreshedModels.add(parseModelIdentifier);
 
-                ConstructedModelTracker.removeModel(parseModelIdentifier.getUri(),
-                        parseModelIdentifier.getType());
+			} catch (IllegalConstructedModelIdentifierException e) {
+				e.printStackTrace();
+			} catch (MalformedQueryParametersException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
-                ModelConstructorUtilities.getOrConstructModel(parseModelIdentifier.getUri(),
-                        parseModelIdentifier.getType(), dataSource);
-                refreshedModels.add(parseModelIdentifier);
+		Map<String, String> fileData = new HashMap<String, String>();
 
-            } catch (IllegalConstructedModelIdentifierException e) {
-                e.printStackTrace();
-            } catch (MalformedQueryParametersException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+		fileData.put(DataVisualizationController.FILE_CONTENT_TYPE_KEY,
+				"application/octet-stream");
+		
+		Gson json = new Gson();
+		
+		fileData.put(DataVisualizationController.FILE_CONTENT_KEY,
+				json.toJson(refreshedModels));
+		return fileData;
+	}
 
-        Map<String, String> fileData = new HashMap<String, String>();
+	@Override
+	public ResponseValues generateStandardVisualization(
+			VitroRequest vitroRequest, Log log, Dataset dataSource)
+			throws MalformedQueryParametersException {
 
-        fileData.put(DataVisualizationController.FILE_CONTENT_TYPE_KEY,
-                "application/octet-stream");
+		return renderRefreshCacheMarkup(vitroRequest, log, dataSource);
+	}
 
-        Gson json = new Gson();
+	@Override
+	public ResponseValues generateVisualizationForShortURLRequests(
+			Map<String, String> parameters, VitroRequest vitroRequest, Log log,
+			Dataset dataSource) throws MalformedQueryParametersException {
 
-        fileData.put(DataVisualizationController.FILE_CONTENT_KEY,
-                json.toJson(refreshedModels));
-        return fileData;
-    }
+		return renderRefreshCacheMarkup(vitroRequest, log, dataSource);
+	}
 
-    @Override
-    public ResponseValues generateStandardVisualization(
-            VitroRequest vitroRequest, Log log, Dataset dataSource)
-            throws MalformedQueryParametersException {
+	@Override
+	public Actions getRequiredPrivileges() {
+		return REQUIRED_ACTIONS;
+	}
 
-        return renderRefreshCacheMarkup(vitroRequest, log, dataSource);
-    }
-
-    @Override
-    public ResponseValues generateVisualizationForShortURLRequests(
-            Map<String, String> parameters, VitroRequest vitroRequest, Log log,
-            Dataset dataSource) throws MalformedQueryParametersException {
-
-        return renderRefreshCacheMarkup(vitroRequest, log, dataSource);
-    }
-
-    @Override
-    public Actions getRequiredPrivileges() {
-        return REQUIRED_ACTIONS;
-    }
 }

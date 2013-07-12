@@ -1,5 +1,6 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
-package edu.cornell.mannlib.vitro.webapp.controller;
+
+package edu.cornell.mannlib.vitro.webapp.controller; 
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ import edu.cornell.mannlib.vitro.webapp.controller.freemarker.responsevalues.Res
 import edu.cornell.mannlib.vitro.webapp.controller.freemarker.responsevalues.TemplateResponseValues;
 
 public class AboutQrCodesController extends FreemarkerHttpServlet {
-
+    
     private static final long serialVersionUID = 1L;
     private static final Log log = LogFactory.getLog(ExportQrCodeController.class);
     private static final String TEMPLATE_DEFAULT = "aboutQrCodes.ftl";
@@ -23,7 +24,7 @@ public class AboutQrCodesController extends FreemarkerHttpServlet {
     protected ResponseValues processRequest(VitroRequest vreq) {
         try {
             Map<String, Object> body = new HashMap<String, Object>();
-
+            
             return new TemplateResponseValues(TEMPLATE_DEFAULT, body);
         } catch (Throwable e) {
             log.error(e, e);
@@ -35,4 +36,5 @@ public class AboutQrCodesController extends FreemarkerHttpServlet {
     protected String getTitle(String siteName, VitroRequest vreq) {
         return "About QR Codes";
     }
+
 }

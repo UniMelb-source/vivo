@@ -79,5 +79,5 @@ public abstract class AddPublicationToThingGenerator extends RdrVivoBaseGenerato
     protected List<BaseEditSubmissionPreprocessorVTwo> getPreprocessors(EditConfigurationVTwo editConfiguration) {
         return Collections.<BaseEditSubmissionPreprocessorVTwo>emptyList();
 
-    }
+    }   
 }

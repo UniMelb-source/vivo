@@ -4,14 +4,13 @@ package edu.cornell.mannlib.vitro.webapp.edit.n3editing;
 import java.util.HashMap;
 import java.util.Map;
 
-public class N3TransitionToV2Mapping extends HashMap<String, String> {
-
-    public N3TransitionToV2Mapping() {
-        Map<String, String> map = this;
-
+public class N3TransitionToV2Mapping extends HashMap<String, String>{        
+    public N3TransitionToV2Mapping(){
+        Map<String,String> map = this;
+        
         // vivo forms:
 
-        map.put("addAuthorsToInformationResource.jsp",
+        map.put("addAuthorsToInformationResource.jsp",                
                 edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddAuthorsToInformationResourceGenerator.class.getName());
         map.put("manageWebpagesForIndividual.jsp",
                 edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.ManageWebpagesForIndividualGenerator.class.getName());
@@ -22,7 +21,7 @@ public class N3TransitionToV2Mapping extends HashMap<String, String> {
         map.put("personHasEducationalTraining.jsp",
                 edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.PersonHasEducationalTraining.class.getName());
         map.put("personHasPositionHistory.jsp",
-                edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.PersonHasPositionHistoryGenerator.class.getName());
+                edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.PersonHasPositionHistoryGenerator.class.getName());                
         map.put("addGrantRoleToPerson.jsp",
                 edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddGrantRoleToPersonGenerator.class.getName());
         map.put("addEditWebpageForm.jsp",
@@ -55,7 +54,7 @@ public class N3TransitionToV2Mapping extends HashMap<String, String> {
         map.put("addOutreachRoleToPerson.jsp",
                 edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddOutreachProviderRoleToPersonGenerator.class.getName());
         map.put("addPresenterRoleToPerson.jsp",
-                edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddPresenterRoleToPersonGenerator.class.getName());
+                edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddPresenterRoleToPersonGenerator.class.getName());                
         map.put("addResearcherRoleToPerson.jsp",
                 edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddResearcherRoleToPersonGenerator.class.getName());
         map.put("addReviewerRoleToPerson.jsp",
@@ -66,6 +65,6 @@ public class N3TransitionToV2Mapping extends HashMap<String, String> {
                 edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddServiceProviderRoleToPersonGenerator.class.getName());
         map.put("addTeacherRoleToPerson.jsp",
                 edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.AddTeacherRoleToPersonGenerator.class.getName());
-
+    
     }
 }

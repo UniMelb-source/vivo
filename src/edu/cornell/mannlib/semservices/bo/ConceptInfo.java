@@ -1,7 +1,10 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.semservices.bo;
 
+
 import java.util.List;
+
 
 public class ConceptInfo extends SemanticServicesInfoBase {
 
@@ -27,4 +30,5 @@ public class ConceptInfo extends SemanticServicesInfoBase {
     public void setConceptList(List<Concept> inputConceptList) {
         this.conceptList = inputConceptList;
     }
+
 }

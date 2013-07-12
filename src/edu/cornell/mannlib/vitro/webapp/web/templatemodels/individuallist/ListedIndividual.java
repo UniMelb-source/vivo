@@ -1,4 +1,5 @@
 /* $This file is distributed under the terms of the license in /doc/license.txt$ */
+
 package edu.cornell.mannlib.vitro.webapp.web.templatemodels.individuallist;
 
 import org.apache.commons.logging.Log;
@@ -12,14 +13,17 @@ import edu.cornell.mannlib.vitro.webapp.web.templatemodels.individuallist.Listed
 public class ListedIndividual extends BaseListedIndividual {
 
     private static final Log log = LogFactory.getLog(ListedIndividual.class);
-    private static final String CORE = "http://vivoweb.org/ontology/core#";
 
+    private static final String CORE = "http://vivoweb.org/ontology/core#";
+    
     public ListedIndividual(Individual individual, VitroRequest vreq) {
         super(individual, vreq);
     }
-
+    
     /* Template properties */
+    
     public String getPreferredTitle() {
-        return cleanTextForDisplay(individual.getDataValue(CORE + "preferredTitle"));
+        return cleanTextForDisplay( individual.getDataValue(CORE + "preferredTitle") );
     }
+    
 }

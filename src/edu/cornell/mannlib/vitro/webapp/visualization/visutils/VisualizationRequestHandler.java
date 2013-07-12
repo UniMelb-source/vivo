@@ -13,35 +13,35 @@ import edu.cornell.mannlib.vitro.webapp.controller.freemarker.responsevalues.Res
 import edu.cornell.mannlib.vitro.webapp.visualization.exceptions.MalformedQueryParametersException;
 
 /**
- * This interface is being implemented by all the visualization request handlers
- * like PersonLevelRequestHandler, PersonPublicationCountRequestHandler,
- * UtilitiesRequestHandler etc. All the future visualizations <b>must</b>
- * implement this because the ability of a visualization to be served to the
- * users is dependent on it. We have implemented dependency injection mechanism
- * & one of the conditions that is used to enable a visualization handler is its
- * implementation of VisualizationRequestHandler.
- *
+ * This interface is being implemented by all the visualization request handlers like
+ * PersonLevelRequestHandler, PersonPublicationCountRequestHandler, UtilitiesRequestHandler
+ * etc. All the future visualizations <b>must</b> implement this because the ability of 
+ * a visualization to be served to the users is dependent on it. We have implemented 
+ * dependency injection mechanism & one of the conditions that is used to enable a visualization 
+ * handler is its implementation of VisualizationRequestHandler.
+ * 
  * @author cdtank
  */
 public interface VisualizationRequestHandler {
+	
+	Actions getRequiredPrivileges();
 
-    Actions getRequiredPrivileges();
-
-    ResponseValues generateStandardVisualization(VitroRequest vitroRequest,
-            Log log,
-            Dataset dataSource) throws MalformedQueryParametersException;
-
-    ResponseValues generateVisualizationForShortURLRequests(
-            Map<String, String> parameters,
-            VitroRequest vitroRequest,
-            Log log,
-            Dataset dataSource) throws MalformedQueryParametersException;
-
-    Object generateAjaxVisualization(VitroRequest vitroRequest,
-            Log log,
-            Dataset dataSource) throws MalformedQueryParametersException;
-
-    Map<String, String> generateDataVisualization(VitroRequest vitroRequest,
-            Log log,
-            Dataset dataset) throws MalformedQueryParametersException;
+	ResponseValues generateStandardVisualization(VitroRequest vitroRequest,
+							   Log log, 
+							   Dataset dataSource) throws MalformedQueryParametersException;
+	
+	ResponseValues generateVisualizationForShortURLRequests(
+						Map<String, String> parameters,
+						VitroRequest vitroRequest,
+						Log log,
+						Dataset dataSource) throws MalformedQueryParametersException;
+	
+	Object generateAjaxVisualization(VitroRequest vitroRequest,
+								     Log log, 
+								     Dataset dataSource) throws MalformedQueryParametersException;
+	
+	Map<String, String> generateDataVisualization(VitroRequest vitroRequest,
+								   	 Log log, 
+								   	 Dataset dataset) throws MalformedQueryParametersException;
+	
 }

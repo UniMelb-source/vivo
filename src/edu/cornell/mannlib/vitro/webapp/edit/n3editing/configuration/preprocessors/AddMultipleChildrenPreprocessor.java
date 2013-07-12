@@ -20,11 +20,11 @@ public class AddMultipleChildrenPreprocessor extends BaseEditSubmissionPreproces
     private String predicateUri;
     private String subjectUri;
 
-    public AddMultipleChildrenPreprocessor(EditConfigurationVTwo editConfig,
-            String n3Prefix,
-            String childrenUri,
-            String predicateUri,
-            String subjectUri) {
+    public AddMultipleChildrenPreprocessor( EditConfigurationVTwo editConfig,
+                                            String n3Prefix,
+                                            String childrenUri,
+                                            String predicateUri,
+                                            String subjectUri) {
         super(editConfig);
         this.n3Prefix = n3Prefix;
         this.childrenUri = childrenUri;
@@ -38,11 +38,11 @@ public class AddMultipleChildrenPreprocessor extends BaseEditSubmissionPreproces
 
         urisFromForm = submission.getUrisFromForm();
         n3Required = editConfiguration.getN3Required();
-        if (urisFromForm.containsKey(childrenUri)) {
+        if(urisFromForm.containsKey(childrenUri)) {
             for (int i = 0; i < urisFromForm.get(childrenUri).size(); i++) {
                 n3Required.add(String.format("%s ?%s %s ?%s .", n3Prefix, childrenUri + i, predicateUri, subjectUri));
                 urisFromForm.put(childrenUri + i, Collections.singletonList(urisFromForm.get(childrenUri).get(i)));
-            }
+            }   
         }
         editConfiguration.setN3Required(n3Required);
         submission.setUrisFromForm(urisFromForm);

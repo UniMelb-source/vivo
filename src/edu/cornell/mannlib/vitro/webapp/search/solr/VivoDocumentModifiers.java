@@ -13,28 +13,28 @@ import com.hp.hpl.jena.query.DatasetFactory;
 
 import edu.cornell.mannlib.vitro.webapp.dao.jena.ModelContext;
 
-public class VivoDocumentModifiers implements javax.servlet.ServletContextListener {
-
+public class VivoDocumentModifiers implements javax.servlet.ServletContextListener{
+    
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
+        
         ServletContext context = sce.getServletContext();
-
+        
         Dataset dataset = DatasetFactory.create(ModelContext.getJenaOntModel(context));
         OntModel jenaOntModel = ModelContext.getJenaOntModel(context);
-
-        /* put DocumentModifiers into servlet context for use later in startup by SolrSetup */
-
-        List<DocumentModifier> modifiers = new ArrayList<DocumentModifier>();
+        
+        /* put DocumentModifiers into servlet context for use later in startup by SolrSetup */        
+        
+        List<DocumentModifier> modifiers = new ArrayList<DocumentModifier>();                                        
         modifiers.add(new CalculateParameters(dataset));        //
         modifiers.add(new VivoAgentContextNodeFields(jenaOntModel));
         modifiers.add(new VivoInformationResourceContextNodeFields(jenaOntModel));
-
+        
         context.setAttribute("DocumentModifiers", modifiers);
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         // do nothing.        
-    }
+    }    
 }

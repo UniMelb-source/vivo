@@ -26,282 +26,287 @@ import edu.cornell.mannlib.vitro.webapp.visualization.visutils.ModelConstructor;
 
 public class CoPIGrantCountConstructQueryRunner implements ModelConstructor {
 
-    protected static final Syntax SYNTAX = Syntax.syntaxARQ;
-    private String egoURI;
-    private Dataset dataset;
-    private long before, after;
-    private Log log = LogFactory
-            .getLog(CoPIGrantCountConstructQueryRunner.class.getName());
-    private static final String SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING =
-            "?Role core:roleContributesTo ?Grant . "
-            //			+ "?Grant rdfs:label ?GrantLabel . "
-            + "?Grant core:contributingRole ?RelatedRole . ";
+	protected static final Syntax SYNTAX = Syntax.syntaxARQ;
 
-    public CoPIGrantCountConstructQueryRunner(String egoURI, Dataset dataset,
-            Log log) {
-        this.egoURI = egoURI;
-        this.dataset = dataset;
-        // this.log = log;
-    }
+	private String egoURI;
 
-    private String generateConstructQueryForInvestigatorLabel(String queryURI) {
+	private Dataset dataset;
 
-        String sparqlQuery = "CONSTRUCT { " + "<" + queryURI
-                + ">  rdfs:label ?investigatorLabel ." + "}" + "WHERE {" + "<"
-                + queryURI + ">  rdfs:label ?investigatorLabel " + "}";
+	private long before, after;
 
-        return sparqlQuery;
-    }
+	private Log log = LogFactory
+			.getLog(CoPIGrantCountConstructQueryRunner.class.getName());
 
-    private String generateConstructQueryForInvestigatorRoleOfProperty(
-            String queryURI, String preboundProperty) {
+	private static final String SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING = 
+			"?Role core:roleContributesTo ?Grant . "
+//			+ "?Grant rdfs:label ?GrantLabel . "
+			+ "?Grant core:contributingRole ?RelatedRole . ";
 
-        String sparqlQuery = "CONSTRUCT { " + "<" + queryURI + ">"
-                + preboundProperty + " ?Role . "
-                + SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
-                + "?RelatedRole core:investigatorRoleOf ?coInvestigator ."
-                + "?coInvestigator rdfs:label ?coInvestigatorLabel . " + "}"
-                + "WHERE { " + "<" + queryURI + ">" + preboundProperty
-                + " ?Role . " + SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
-                + "?RelatedRole core:investigatorRoleOf ?coInvestigator ."
-                + "?coInvestigator rdfs:label ?coInvestigatorLabel . " + "}";
+	public CoPIGrantCountConstructQueryRunner(String egoURI, Dataset dataset,
+			Log log) {
+		this.egoURI = egoURI;
+		this.dataset = dataset;
+		// this.log = log;
+	}
 
-        return sparqlQuery;
-    }
+	private String generateConstructQueryForInvestigatorLabel(String queryURI) {
 
-    private String generateConstructQueryForPrincipalInvestigatorRoleOfProperty(
-            String queryURI, String preboundProperty) {
+		String sparqlQuery = "CONSTRUCT { " + "<" + queryURI
+				+ ">  rdfs:label ?investigatorLabel ." + "}" + "WHERE {" + "<"
+				+ queryURI + ">  rdfs:label ?investigatorLabel " + "}";
 
-        String sparqlQuery = "CONSTRUCT { "
-                + "<"
-                + queryURI
-                + ">"
-                + preboundProperty
-                + " ?Role . "
-                + SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
-                + "?RelatedRole core:principalInvestigatorRoleOf ?coInvestigator ."
-                + "?coInvestigator rdfs:label ?coInvestigatorLabel . "
-                + "}"
-                + "WHERE { "
-                + "<"
-                + queryURI
-                + ">"
-                + preboundProperty
-                + " ?Role . "
-                + SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
-                + "?RelatedRole core:principalInvestigatorRoleOf ?coInvestigator ."
-                + "?coInvestigator rdfs:label ?coInvestigatorLabel . " + "}";
+		return sparqlQuery;
+	}
 
-        return sparqlQuery;
-    }
+	private String generateConstructQueryForInvestigatorRoleOfProperty(
+			String queryURI, String preboundProperty) {
 
-    private String generateConstructQueryForCoPrincipalInvestigatorRoleOfProperty(
-            String queryURI, String preboundProperty) {
+		String sparqlQuery = "CONSTRUCT { " + "<" + queryURI + ">"
+				+ preboundProperty + " ?Role . "
+				+ SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
+				+ "?RelatedRole core:investigatorRoleOf ?coInvestigator ."
+				+ "?coInvestigator rdfs:label ?coInvestigatorLabel . " + "}"
+				+ "WHERE { " + "<" + queryURI + ">" + preboundProperty
+				+ " ?Role . " + SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
+				+ "?RelatedRole core:investigatorRoleOf ?coInvestigator ."
+				+ "?coInvestigator rdfs:label ?coInvestigatorLabel . " + "}";
 
-        String sparqlQuery = "CONSTRUCT { "
-                + "<"
-                + queryURI
-                + ">"
-                + preboundProperty
-                + " ?Role . "
-                + SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
-                + "?RelatedRole core:co-PrincipalInvestigatorRoleOf ?coInvestigator ."
-                + "?coInvestigator rdfs:label ?coInvestigatorLabel . "
-                + "}"
-                + "WHERE { "
-                + "<"
-                + queryURI
-                + ">"
-                + preboundProperty
-                + " ?Role . "
-                + SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
-                + "?RelatedRole core:co-PrincipalInvestigatorRoleOf ?coInvestigator ."
-                + "?coInvestigator rdfs:label ?coInvestigatorLabel . " + "}";
+		return sparqlQuery;
+	}
 
-        return sparqlQuery;
-    }
+	private String generateConstructQueryForPrincipalInvestigatorRoleOfProperty(
+			String queryURI, String preboundProperty) {
 
-    private String generateConstructQueryForDateTimeValueofRole(
-            String queryURI, String preboundProperty) {
+		String sparqlQuery = "CONSTRUCT { "
+				+ "<"
+				+ queryURI
+				+ ">"
+				+ preboundProperty
+				+ " ?Role . "
+				+ SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
+				+ "?RelatedRole core:principalInvestigatorRoleOf ?coInvestigator ."
+				+ "?coInvestigator rdfs:label ?coInvestigatorLabel . "
+				+ "}"
+				+ "WHERE { "
+				+ "<"
+				+ queryURI
+				+ ">"
+				+ preboundProperty
+				+ " ?Role . "
+				+ SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
+				+ "?RelatedRole core:principalInvestigatorRoleOf ?coInvestigator ."
+				+ "?coInvestigator rdfs:label ?coInvestigatorLabel . " + "}";
 
-        String sparqlQuery = "CONSTRUCT { " + "<" + queryURI + ">"
-                + preboundProperty + " ?Role . "
-                + "?Role core:dateTimeInterval ?dateTimeIntervalValue . "
-                + "?dateTimeIntervalValue core:start ?startDate . "
-                + "?startDate core:dateTime ?startDateTimeValue . "
-                //				+ "?dateTimeIntervalValue core:end ?endDate . "
-                //				+ "?endDate core:dateTime ?endDateTimeValue . " 
-                + "}"
-                + "WHERE { " + "{" + "<" + queryURI + ">" + preboundProperty
-                + " ?Role . "
-                + "?Role core:dateTimeInterval ?dateTimeIntervalValue . "
-                + "?dateTimeIntervalValue core:start ?startDate . "
-                + "?startDate core:dateTime ?startDateTimeValue . "
-                //				+ "} UNION " + "{" + "<" + queryURI + ">" + preboundProperty
-                //				+ " ?Role . "
-                //				+ "?Role core:dateTimeInterval ?dateTimeIntervalValue . "
-                //				+ "?dateTimeIntervalValue core:end ?endDate . "
-                //				+ "?endDate core:dateTime ?endDateTimeValue . " 
-                + "}" + "}";
+		return sparqlQuery;
+	}
 
-        return sparqlQuery;
-    }
+	private String generateConstructQueryForCoPrincipalInvestigatorRoleOfProperty(
+			String queryURI, String preboundProperty) {
 
-    private String generateConstructQueryForDateTimeValueofGrant(
-            String queryURI, String preboundProperty) {
+		String sparqlQuery = "CONSTRUCT { "
+				+ "<"
+				+ queryURI
+				+ ">"
+				+ preboundProperty
+				+ " ?Role . "
+				+ SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
+				+ "?RelatedRole core:co-PrincipalInvestigatorRoleOf ?coInvestigator ."
+				+ "?coInvestigator rdfs:label ?coInvestigatorLabel . "
+				+ "}"
+				+ "WHERE { "
+				+ "<"
+				+ queryURI
+				+ ">"
+				+ preboundProperty
+				+ " ?Role . "
+				+ SPARQL_QUERY_COMMON_CONSTRUCT_AND_WHERE_STRING
+				+ "?RelatedRole core:co-PrincipalInvestigatorRoleOf ?coInvestigator ."
+				+ "?coInvestigator rdfs:label ?coInvestigatorLabel . " + "}";
 
-        String sparqlQuery = "CONSTRUCT { " + "<"
-                + queryURI
-                + ">"
-                + preboundProperty
-                + " ?Role . "
-                + "?Role core:roleContributesTo ?Grant ."
-                + "?Grant core:dateTimeInterval ?dateTimeIntervalValueForGrant . "
-                + "?dateTimeIntervalValueForGrant core:start ?startDateForGrant . "
-                + "?startDateForGrant core:dateTime ?startDateTimeValueForGrant . "
-                //				+ "?dateTimeIntervalValueForGrant core:end ?endDateForGrant . "
-                //				+ "?endDateForGrant core:dateTime ?endDateTimeValueForGrant . "
-                + "}"
-                + "WHERE { "
-                + "{"
-                + "<"
-                + queryURI
-                + ">"
-                + preboundProperty
-                + " ?Role . "
-                + "?Role core:roleContributesTo ?Grant ."
-                + "?Grant core:dateTimeInterval ?dateTimeIntervalValueForGrant . "
-                + "?dateTimeIntervalValueForGrant core:start ?startDateForGrant . "
-                + "?startDateForGrant core:dateTime ?startDateTimeValueForGrant . "
-                //				+ "} UNION "
-                //				+ "{"
-                //				+ "<"
-                //				+ queryURI
-                //				+ ">"
-                //				+ preboundProperty
-                //				+ " ?Role . "
-                //				+ "?Role core:roleContributesTo ?Grant ."
-                //				+ "?Grant core:dateTimeInterval ?dateTimeIntervalValueForGrant . "
-                //				+ "?dateTimeIntervalValueForGrant core:end ?endDateForGrant . "
-                //				+ "?endDateForGrant core:dateTime ?endDateTimeValueForGrant . "
-                + "}" + "}";
+		return sparqlQuery;
+	}
 
-        return sparqlQuery;
-    }
+	private String generateConstructQueryForDateTimeValueofRole(
+			String queryURI, String preboundProperty) {
 
-    private Model executeQuery(Set<String> constructQueries, Dataset dataset) {
+		String sparqlQuery = "CONSTRUCT { " + "<" + queryURI + ">"
+				+ preboundProperty + " ?Role . "
+				+ "?Role core:dateTimeInterval ?dateTimeIntervalValue . "
+				+ "?dateTimeIntervalValue core:start ?startDate . "
+				+ "?startDate core:dateTime ?startDateTimeValue . "
+//				+ "?dateTimeIntervalValue core:end ?endDate . "
+//				+ "?endDate core:dateTime ?endDateTimeValue . " 
+				+ "}"
+				+ "WHERE { " + "{" + "<" + queryURI + ">" + preboundProperty
+				+ " ?Role . "
+				+ "?Role core:dateTimeInterval ?dateTimeIntervalValue . "
+				+ "?dateTimeIntervalValue core:start ?startDate . "
+				+ "?startDate core:dateTime ?startDateTimeValue . "
+//				+ "} UNION " + "{" + "<" + queryURI + ">" + preboundProperty
+//				+ " ?Role . "
+//				+ "?Role core:dateTimeInterval ?dateTimeIntervalValue . "
+//				+ "?dateTimeIntervalValue core:end ?endDate . "
+//				+ "?endDate core:dateTime ?endDateTimeValue . " 
+				+ "}" + "}";
 
-        Model constructedModel = ModelFactory.createDefaultModel();
+		return sparqlQuery;
+	}
 
-        for (String queryString : constructQueries) {
+	private String generateConstructQueryForDateTimeValueofGrant(
+			String queryURI, String preboundProperty) {
 
-            before = System.currentTimeMillis();
+		String sparqlQuery = "CONSTRUCT { " + "<"
+				+ queryURI
+				+ ">"
+				+ preboundProperty
+				+ " ?Role . "
+				+ "?Role core:roleContributesTo ?Grant ."
+				+ "?Grant core:dateTimeInterval ?dateTimeIntervalValueForGrant . "
+				+ "?dateTimeIntervalValueForGrant core:start ?startDateForGrant . "
+				+ "?startDateForGrant core:dateTime ?startDateTimeValueForGrant . "
+//				+ "?dateTimeIntervalValueForGrant core:end ?endDateForGrant . "
+//				+ "?endDateForGrant core:dateTime ?endDateTimeValueForGrant . "
+				+ "}"
+				+ "WHERE { "
+				+ "{"
+				+ "<"
+				+ queryURI
+				+ ">"
+				+ preboundProperty
+				+ " ?Role . "
+				+ "?Role core:roleContributesTo ?Grant ."
+				+ "?Grant core:dateTimeInterval ?dateTimeIntervalValueForGrant . "
+				+ "?dateTimeIntervalValueForGrant core:start ?startDateForGrant . "
+				+ "?startDateForGrant core:dateTime ?startDateTimeValueForGrant . "
+//				+ "} UNION "
+//				+ "{"
+//				+ "<"
+//				+ queryURI
+//				+ ">"
+//				+ preboundProperty
+//				+ " ?Role . "
+//				+ "?Role core:roleContributesTo ?Grant ."
+//				+ "?Grant core:dateTimeInterval ?dateTimeIntervalValueForGrant . "
+//				+ "?dateTimeIntervalValueForGrant core:end ?endDateForGrant . "
+//				+ "?endDateForGrant core:dateTime ?endDateTimeValueForGrant . "
+				+ "}" + "}";
 
-            log.debug("CONSTRUCT query string : " + queryString);
+		return sparqlQuery;
+	}
 
-            Query query = null;
+	private Model executeQuery(Set<String> constructQueries, Dataset dataset) {
 
-            try {
-                query = QueryFactory.create(
-                        QueryConstants.getSparqlPrefixQuery() + queryString,
-                        SYNTAX);
-            } catch (Throwable th) {
-                log.error("Could not create CONSTRUCT SPARQL query for query "
-                        + "string. " + th.getMessage());
-                log.error(queryString);
-            }
+		Model constructedModel = ModelFactory.createDefaultModel();
 
-            QueryExecution qe = QueryExecutionFactory.create(query, dataset);
-            try {
-                qe.execConstruct(constructedModel);
-            } finally {
-                qe.close();
-            }
+		for (String queryString : constructQueries) {
 
-            after = System.currentTimeMillis();
-            log.debug("Time taken to execute the CONSTRUCT query is in milliseconds: "
-                    + (after - before));
+			before = System.currentTimeMillis();
 
-        }
+			log.debug("CONSTRUCT query string : " + queryString);
 
-        return constructedModel;
-    }
+			Query query = null;
 
-    public Model getConstructedModel() throws MalformedQueryParametersException {
+			try {
+				query = QueryFactory.create(
+						QueryConstants.getSparqlPrefixQuery() + queryString,
+						SYNTAX);
+			} catch (Throwable th) {
+				log.error("Could not create CONSTRUCT SPARQL query for query "
+						+ "string. " + th.getMessage());
+				log.error(queryString);
+			}
 
-        if (StringUtils.isNotBlank(this.egoURI)) {
-            /*
-             * To test for the validity of the URI submitted.
-             */
-            IRIFactory iRIFactory = IRIFactory.jenaImplementation();
-            IRI iri = iRIFactory.create(this.egoURI);
-            if (iri.hasViolation(false)) {
-                String errorMsg = ((Violation) iri.violations(false).next())
-                        .getShortMessage();
-                log.error("Ego Co-PI Vis Query " + errorMsg);
-                throw new MalformedQueryParametersException(
-                        "URI provided for an individual is malformed.");
-            }
-        } else {
-            throw new MalformedQueryParametersException(
-                    "URI parameter is either null or empty.");
-        }
+			QueryExecution qe = QueryExecutionFactory.create(query, dataset);
+			try {
+				qe.execConstruct(constructedModel);
+			} finally {
+				qe.close();
+			}
 
-        Set<String> constructQueries = new HashSet<String>();
+			after = System.currentTimeMillis();
+			log.debug("Time taken to execute the CONSTRUCT query is in milliseconds: "
+					+ (after - before));
 
-        populateConstructQueries(constructQueries);
+		}
 
-        Model model = executeQuery(constructQueries, this.dataset);
+		return constructedModel;
+	}
 
-        return model;
+	public Model getConstructedModel() throws MalformedQueryParametersException {
 
-    }
+		if (StringUtils.isNotBlank(this.egoURI)) {
+			/*
+			 * To test for the validity of the URI submitted.
+			 */
+			IRIFactory iRIFactory = IRIFactory.jenaImplementation();
+			IRI iri = iRIFactory.create(this.egoURI);
+			if (iri.hasViolation(false)) {
+				String errorMsg = ((Violation) iri.violations(false).next())
+						.getShortMessage();
+				log.error("Ego Co-PI Vis Query " + errorMsg);
+				throw new MalformedQueryParametersException(
+						"URI provided for an individual is malformed.");
+			}
+		} else {
+			throw new MalformedQueryParametersException(
+					"URI parameter is either null or empty.");
+		}
 
-    private void populateConstructQueries(Set<String> constructQueries) {
+		Set<String> constructQueries = new HashSet<String>();
 
-        constructQueries
-                .add(generateConstructQueryForInvestigatorLabel(this.egoURI));
-        constructQueries
-                .add(generateConstructQueryForInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasInvestigatorRole"));
-        constructQueries
-                .add(generateConstructQueryForCoPrincipalInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasInvestigatorRole"));
-        constructQueries
-                .add(generateConstructQueryForPrincipalInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasInvestigatorRole"));
-        constructQueries.add(generateConstructQueryForDateTimeValueofRole(
-                this.egoURI, "core:hasInvestigatorRole"));
-        constructQueries.add(generateConstructQueryForDateTimeValueofGrant(
-                this.egoURI, "core:hasInvestigatorRole"));
+		populateConstructQueries(constructQueries);
 
-        constructQueries
-                .add(generateConstructQueryForInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasPrincipalInvestigatorRole"));
-        constructQueries
-                .add(generateConstructQueryForCoPrincipalInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasPrincipalInvestigatorRole"));
-        constructQueries
-                .add(generateConstructQueryForPrincipalInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasPrincipalInvestigatorRole"));
-        constructQueries.add(generateConstructQueryForDateTimeValueofRole(
-                this.egoURI, "core:hasPrincipalInvestigatorRole"));
-        constructQueries.add(generateConstructQueryForDateTimeValueofGrant(
-                this.egoURI, "core:hasPrincipalInvestigatorRole"));
+		Model model = executeQuery(constructQueries, this.dataset);
 
-        constructQueries
-                .add(generateConstructQueryForInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
-        constructQueries
-                .add(generateConstructQueryForCoPrincipalInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
-        constructQueries
-                .add(generateConstructQueryForPrincipalInvestigatorRoleOfProperty(
-                this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
-        constructQueries.add(generateConstructQueryForDateTimeValueofRole(
-                this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
-        constructQueries.add(generateConstructQueryForDateTimeValueofGrant(
-                this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
+		return model;
 
-    }
+	}
+
+	private void populateConstructQueries(Set<String> constructQueries) {
+
+		constructQueries
+				.add(generateConstructQueryForInvestigatorLabel(this.egoURI));
+		constructQueries
+				.add(generateConstructQueryForInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasInvestigatorRole"));
+		constructQueries
+				.add(generateConstructQueryForCoPrincipalInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasInvestigatorRole"));
+		constructQueries
+				.add(generateConstructQueryForPrincipalInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasInvestigatorRole"));
+		constructQueries.add(generateConstructQueryForDateTimeValueofRole(
+				this.egoURI, "core:hasInvestigatorRole"));
+		constructQueries.add(generateConstructQueryForDateTimeValueofGrant(
+				this.egoURI, "core:hasInvestigatorRole"));
+
+		constructQueries
+				.add(generateConstructQueryForInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasPrincipalInvestigatorRole"));
+		constructQueries
+				.add(generateConstructQueryForCoPrincipalInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasPrincipalInvestigatorRole"));
+		constructQueries
+				.add(generateConstructQueryForPrincipalInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasPrincipalInvestigatorRole"));
+		constructQueries.add(generateConstructQueryForDateTimeValueofRole(
+				this.egoURI, "core:hasPrincipalInvestigatorRole"));
+		constructQueries.add(generateConstructQueryForDateTimeValueofGrant(
+				this.egoURI, "core:hasPrincipalInvestigatorRole"));
+
+		constructQueries
+				.add(generateConstructQueryForInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
+		constructQueries
+				.add(generateConstructQueryForCoPrincipalInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
+		constructQueries
+				.add(generateConstructQueryForPrincipalInvestigatorRoleOfProperty(
+						this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
+		constructQueries.add(generateConstructQueryForDateTimeValueofRole(
+				this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
+		constructQueries.add(generateConstructQueryForDateTimeValueofGrant(
+				this.egoURI, "core:hasCo-PrincipalInvestigatorRole"));
+
+	}
 }

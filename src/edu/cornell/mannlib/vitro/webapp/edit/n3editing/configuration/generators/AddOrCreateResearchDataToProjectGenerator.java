@@ -27,10 +27,10 @@ public class AddOrCreateResearchDataToProjectGenerator extends AddOrCreateGenera
     private static final Log log = LogFactory.getLog(AddOrCreateResearchDataToProjectGenerator.class);
 
     public AddOrCreateResearchDataToProjectGenerator() {
-        super("http://purl.org/ands/ontologies/vivo/ResearchData",
-                "Research Data",
-                objectName,
-                AddResearchDataToProjectGenerator.class);
+        super("http://purl.org/ands/ontologies/vivo/ResearchData", 
+            "Research Data",
+            objectName,
+            AddResearchDataToProjectGenerator.class);
     }
 
     @Override
