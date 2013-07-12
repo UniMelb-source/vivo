@@ -1,5 +1,44 @@
 #!/bin/bash
 
+function prepare_database {
+	VITRO_DB=${1}
+	VITRO_DB_USERNAME=${2}
+	VITRO_DB_PASSWORD=${3}
+	MYSQL_ADMIN_USER=${4}
+	MYSQL_ADMIN_PASSWORD=${5}
+
+	echo "DROP DATABASE IF EXISTS ${VITRO_DB}; CREATE DATABASE IF NOT EXISTS ${VITRO_DB}; GRANT ALL PRIVILEGES ON ${VITRO_DB}.* TO ${VITRO_DB_USERNAME}@localhost IDENTIFIED BY '${VITRO_DB_PASSWORD}';" | mysql --user=${MYSQL_ADMIN_USER} --password=${MYSQL_ADMIN_PASSWORD}
+}
+
+function clone_vivo {
+	VIVO_GIT=${1}
+	VIVO_DIR=${2}
+	SCRIPT_PATH=${3}
+	VIVO_GIT_BRANCH=${4}
+
+	git clone ${VIVO_GIT} ${VIVO_DIR} 1>${SCRIPT_PATH}/vivo-installer.log 2>${SCRIPT_PATH}/vivo-installer.err
+	pushd ${VIVO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}vivo-installer.err
+	git checkout ${VIVO_GIT_BRANCH} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
+}
+
+function fetch_vitro {
+	VITRO_VERSION=${1}
+	BUILD_DIR=${2}
+	VITRO_DIR=${3}
+	SCRIPT_PATH=${4}
+
+	VITRO_TARBALL="https://github.com/downloads/vivo-project/Vitro/vitro-rel-${VITRO_VERSION}.tar.gz"
+	VITRO_DIR=${BUILD_DIR}/vitro
+
+	mkdir -p ${VITRO_DIR}
+	pushd ${VITRO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
+	curl -L ${VITRO_TARBALL} 2>>${SCRIPT_PATH}/vivo-installer.err | tar --strip-components=1 -xzf -
+	for PATCH_FILE in ${VIVO_DIR}/patches/vitro-${VITRO_VERSION}/*.patch
+	do
+  	patch -p1 < ${PATCH_FILE}
+	done
+}
+
 if [ ${#} != 1 ]
 then
 	echo "Usage: ${BASH_SOURCE[0]} <mysql-password>"
@@ -28,7 +67,7 @@ echo $(date +%s%N | cut -b1-13) "- starting"
 
 START_TIME=$(date +%s%N | cut -b1-13)
 echo "${START_TIME} - preparing database"
-echo "DROP DATABASE IF EXISTS ${VITRO_DB}; CREATE DATABASE IF NOT EXISTS ${VITRO_DB}; GRANT ALL PRIVILEGES ON ${VITRO_DB}.* TO ${VITRO_DB_USERNAME}@localhost IDENTIFIED BY '${VITRO_DB_PASSWORD}';" | mysql --user=${MYSQL_ADMIN_USER} --password=${MYSQL_ADMIN_PASSWORD}
+prepare_database ${VITRO_DB} ${VITRO_DB_USERNAME} ${VITRO_DB_PASSWORD} ${MYSQL_ADMIN_USER} ${MYSQL_ADMIN_PASSWORD}
 
 VIVO_GIT="git://github.com/UniMelb-source/vivo.git"
 VIVO_GIT_BRANCH="vivo-crdr"
@@ -36,21 +75,10 @@ VIVO_DIR=${BUILD_DIR}/vivo
 
 NETWORK_START_TIME=$(date +%s%N | cut -b1-13)
 echo "${NETWORK_START_TIME} - cloning VIVO"
-git clone ${VIVO_GIT} ${VIVO_DIR} 1>${SCRIPT_PATH}/vivo-installer.log 2>${SCRIPT_PATH}/vivo-installer.err
-pushd ${VIVO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}vivo-installer.err
-git checkout ${VIVO_GIT_BRANCH} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
+clone_vivo ${VIVO_GIT} ${VIVO_DIR} ${SCRIPT_PATH} ${VIVO_GIT_BRANCH}
 
 echo $(date +%s%N | cut -b1-13) "- fetching VITRO"
-VITRO_TARBALL="https://github.com/downloads/vivo-project/Vitro/vitro-rel-${VITRO_VERSION}.tar.gz"
-VITRO_DIR=${BUILD_DIR}/vitro
-
-mkdir -p ${VITRO_DIR}
-pushd ${VITRO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
-curl -L ${VITRO_TARBALL} 2>>${SCRIPT_PATH}/vivo-installer.err | tar --strip-components=1 -xzf -
-for PATCH_FILE in ${VIVO_DIR}/patches/vitro-${VITRO_VERSION}/*.patch
-do
-  patch -p1 < ${PATCH_FILE}
-done
+fetch_vitro ${VITRO_VERSION} ${BUILD_DIR} ${VITRO_DIR} ${SCRIPT_PATH}
 
 # Prepare VIVO properties
 ADMIN_EMAIL="tsullivan@unimelb.edu.au"
