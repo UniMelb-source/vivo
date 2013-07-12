@@ -47,6 +47,10 @@ VITRO_DIR=${BUILD_DIR}/vitro
 mkdir -p ${VITRO_DIR}
 pushd ${VITRO_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
 curl -L ${VITRO_TARBALL} 2>>${SCRIPT_PATH}/vivo-installer.err | tar --strip-components=1 -xzf -
+for PATCH_FILE in ${VIVO_DIR}/patches/vitro-${VITRO_VERSION}/*.patch
+do
+  patch -p1 < ${PATCH_FILE}
+done
 
 # Prepare VIVO properties
 ADMIN_EMAIL="tsullivan@unimelb.edu.au"

@@ -1,0 +1,74 @@
+diff -urw vitro-rel-1.4.1/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/BasicAuthenticator.java ../vitro-rel-1.4.1/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/BasicAuthenticator.java
+--- vitro-rel-1.4.1/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/BasicAuthenticator.java	2012-02-07 23:41:01.000000000 +1100
++++ ../vitro-rel-1.4.1/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/BasicAuthenticator.java	2013-07-12 14:13:34.000000000 +1000
+@@ -28,6 +28,11 @@
+ 
+ package edu.cornell.mannlib.vitro.webapp.controller.authenticate;
+ 
++import com.hp.hpl.jena.query.Dataset;
++import com.hp.hpl.jena.sdb.SDBFactory;
++import com.hp.hpl.jena.sdb.Store;
++import com.hp.hpl.jena.sdb.StoreDesc;
++import com.hp.hpl.jena.sdb.sql.SDBConnection;
+ import java.util.ArrayList;
+ import java.util.Date;
+ import java.util.List;
+@@ -53,9 +58,14 @@
+ import edu.cornell.mannlib.vitro.webapp.dao.IndividualDao;
+ import edu.cornell.mannlib.vitro.webapp.dao.UserAccountsDao;
+ import edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory;
++import edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactoryConfig;
+ import edu.cornell.mannlib.vitro.webapp.dao.jena.LoginEvent;
+ import edu.cornell.mannlib.vitro.webapp.dao.jena.LogoutEvent;
++import edu.cornell.mannlib.vitro.webapp.dao.jena.OntModelSelector;
++import edu.cornell.mannlib.vitro.webapp.dao.jena.WebappDaoFactorySDB;
+ import edu.cornell.mannlib.vitro.webapp.search.indexing.IndexBuilder;
++import edu.cornell.mannlib.vitro.webapp.servlet.setup.JenaDataSourceSetupBase;
++import org.apache.commons.dbcp.BasicDataSource;
+ 
+ /**
+  * The "standard" implementation of Authenticator.
+@@ -64,6 +74,7 @@
+ 	private static final Log log = LogFactory.getLog(BasicAuthenticator.class);
+ 
+ 	private final HttpServletRequest request;
++        private WebappDaoFactory wadf;
+ 
+ 	public BasicAuthenticator(HttpServletRequest request) {
+ 		this.request = request;
+@@ -296,19 +307,31 @@
+ 	 * Get a reference to the WebappDaoFactory, or null.
+ 	 */
+ 	private WebappDaoFactory getWebappDaoFactory() {
++            if(wadf == null) {
+ 		HttpSession session = request.getSession(false);
+ 		if (session == null) {
+ 			return null;
+ 		}
+-
++                try {	
+ 		ServletContext servletContext = session.getServletContext();
+-		WebappDaoFactory wadf = (WebappDaoFactory) servletContext
+-				.getAttribute("webappDaoFactory");
++                    BasicDataSource bds = JenaDataSourceSetupBase.getApplicationDataSource(servletContext);
++                    StoreDesc storeDesc = (StoreDesc) servletContext.getAttribute("storeDesc");
++                    String defaultNamespace = (String) servletContext.getAttribute("defaultNamespace");
++                    OntModelSelector oms = (OntModelSelector) servletContext.getAttribute("unionOntModelSelector");
++                    SDBConnection conn = new SDBConnection(bds.getConnection());
++                    Store store = SDBFactory.connectStore(conn, storeDesc);
++                    Dataset dataset = SDBFactory.connectDataset(store);
++                    WebappDaoFactoryConfig config = new WebappDaoFactoryConfig();
++                    config.setDefaultNamespace(defaultNamespace);
++                    wadf = new WebappDaoFactorySDB(oms, dataset, config);
+ 		if (wadf == null) {
+ 			log.error("no WebappDaoFactory");
+ 			return null;
+ 		}
+-
++                } catch (Throwable t) {
++                    log.error("Unable to create custom WebappDaoFactory", t);
++		}
++            }
+ 		return wadf;
+ 	}
+ 
