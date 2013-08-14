@@ -54,6 +54,8 @@ edu.cornell.mannlib.vitro.webapp.auth.policy.RootUserPolicy$Setup
 
 edu.cornell.mannlib.vivo.auth.policy.SelfEditorRelationshipPolicy$Setup
 
+edu.cornell.mannlib.vivo.auth.policy.ChiefInvestigatorRelationshipPolicy$Setup
+
 edu.cornell.mannlib.vitro.webapp.auth.policy.RestrictHomeMenuItemEditingPolicy$Setup
 
 # Add VIVO specific DocumentModifers, this must come before SolrSetup
