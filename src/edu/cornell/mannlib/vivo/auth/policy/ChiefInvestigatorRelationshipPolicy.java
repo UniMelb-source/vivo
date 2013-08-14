@@ -26,7 +26,7 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
     private static final String ANDS_CORE = "http://purl.org/ands/ontologies/vivo/";
     private static final String URI_CI_PROPERTY = ANDS_CORE + "hasCollector";
     private static final String URI_CI_OF_PROPERTY = ANDS_CORE + "isCollectorOf";
-    private static final String URI_GRANT_TYPE = NS_CORE + "Grant";
+    private static final String URI_RESEARCH_DATA_TYPE = NS_CORE + "ResearchData";
 
     public ChiefInvestigatorRelationshipPolicy(ServletContext ctx, OntModel model) {
         super(ctx, model);
@@ -74,7 +74,7 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
         }
 
         for (String resourceUri : action.resourceUris) {
-            if (isResourceOfType(resourceUri, URI_GRANT_TYPE)) {
+            if (isResourceOfType(resourceUri, URI_RESEARCH_DATA_TYPE)) {
                 if (anyUrisInCommon(userUris, getUrisOfChiefInvestigators(resourceUri))) {
                     return authorizedCI(resourceUri);
                 }
