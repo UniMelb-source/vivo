@@ -26,7 +26,13 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
     private static final String ANDS_CORE = "http://purl.org/ands/ontologies/vivo/";
     private static final String URI_CI_PROPERTY = ANDS_CORE + "hasCollector";
     private static final String URI_CI_OF_PROPERTY = ANDS_CORE + "isCollectorOf";
-    private static final String URI_RESEARCH_DATA_TYPE = NS_CORE + "ResearchData";
+    private static final String URI_RESEARCH_DATA_TYPE = ANDS_CORE + "ResearchData";
+    private static final String URI_RESEARCH_CATALOG_TYPE = ANDS_CORE + "ResearchCatalog";
+    private static final String URI_RESEARCH_COLLECTION_TYPE = ANDS_CORE + "ResearchCollection";
+    private static final String URI_RESEARCH_DATASET_TYPE = ANDS_CORE + "ResearchDataSet";
+    private static final String URI_RESEARCH_RECORDS_COLLECTION_TYPE = ANDS_CORE + "ResearchRecordsCollection";
+    private static final String URI_RESEARCH_REGISTRY_TYPE = ANDS_CORE + "ResearchRegistry";
+    private static final String URI_RESEARCH_REPOSITORY_TYPE = ANDS_CORE + "ResearchRepository";
 
     public ChiefInvestigatorRelationshipPolicy(ServletContext ctx, OntModel model) {
         super(ctx, model);
@@ -74,7 +80,13 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
         }
 
         for (String resourceUri : action.resourceUris) {
-            if (isResourceOfType(resourceUri, URI_RESEARCH_DATA_TYPE)) {
+            if (isResourceOfType(resourceUri, URI_RESEARCH_DATA_TYPE)
+                    || isResourceOfType(resourceUri, URI_RESEARCH_CATALOG_TYPE)
+                    || isResourceOfType(resourceUri, URI_RESEARCH_COLLECTION_TYPE)
+                    || isResourceOfType(resourceUri, URI_RESEARCH_DATASET_TYPE)
+                    || isResourceOfType(resourceUri, URI_RESEARCH_RECORDS_COLLECTION_TYPE)
+                    || isResourceOfType(resourceUri, URI_RESEARCH_REGISTRY_TYPE)
+                    || isResourceOfType(resourceUri, URI_RESEARCH_REPOSITORY_TYPE)) {
                 if (anyUrisInCommon(userUris, getUrisOfChiefInvestigators(resourceUri))) {
                     return authorizedCI(resourceUri);
                 }
