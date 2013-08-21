@@ -73,6 +73,7 @@ endif;
     <title>Login to VIVO CRDR</title>
   </head>
   <body>
+    <h1>University of Melbourne user account</h1>
     <?php if(!empty($errors)): ?>
       <ul class=error>
       <?php foreach($errors as $error): ?>
@@ -85,10 +86,12 @@ endif;
         <label for="username" class="pull-left"></label>
         <input type="text" name="username" <?php echo empty($_POST['username']) ? '' : 'value=' . $_POST['username'] . ' ' ?>placeholder="Username">
       </div>
+      <span>Enter your staff username or your UMID</span>
       <div class="login-input-wrap">
         <label for="password" class="pull-left"></label>
         <input type="password" name="password" placeholder="Password">
       </div>
+      <span>Enter your password</span>
       <input name="login" value="Login" type="submit" class="login-button">
       <?php if(!empty($errors)): ?>
         <a href="https://idm.unimelb.edu.au/idm/user/login.jsp">Forgot username or password?</a>
