@@ -49,7 +49,7 @@
 							<p class="inline">
 							<label>Selected:</label>
 							<span class="acSelectionInfo"></span>
-							<a href="/vivo/individual?uri="
+							<a href="${urls.base}/individual?uri="
 									class="verifyMatch">(Verify this match)</a>
 							<a href="#"
 									class="cancel">(Change selection)</a>

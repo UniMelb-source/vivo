@@ -4,7 +4,7 @@
         var scriptStyles = document.createElement("link");
         scriptStyles.rel = "stylesheet";
         scriptStyles.type = "text/css";
-        scriptStyles.href = "/vivo/themes/unimelb/css/tabs.css";
+        scriptStyles.href = "/themes/unimelb/css/tabs.css";
         head.appendChild(scriptStyles);
     }
 }());

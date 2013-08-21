@@ -11,7 +11,7 @@
 <#assign submitButtonTextType = editConfiguration.pageData.submitButtonTextType />
 <#assign typeName = editConfiguration.pageData.typeName />
 
-<form id="addPublicationForm" class="customForm noIE67" action="/vivo/edit/process" role="add/edit grant role">
+<form id="addPublicationForm" class="customForm noIE67" action="${urls.base}/edit/process" role="add/edit grant role">
     <p>
         <label for="publicationName">Publication Name <span class="requiredHint"> *</span></label>
         <input class="acSelector" size="35"  type="text" id="publicationName" name="publicationName" value="" role="input" />
