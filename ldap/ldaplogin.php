@@ -8,11 +8,11 @@ function checkAuthentication($username, $password) {
     $return = false;
     try {
       if ($binding = ldap_bind($connection, $distinguishedName, $password)) {
-        $search = ldap_search($connection, $base, "(CN=$username)", array('mail'));
+        $search = ldap_search($connection, $base, "(CN=$username)", array('sAMAccountName'));
         if($entry = ldap_first_entry($connection, $search)) {
-          $emails = ldap_get_values($connection, $entry, 'mail');
-          if($emails['count'] > 0) {
-            $return = $emails[0];
+          $accountNames = ldap_get_values($connection, $entry, 'sAMAccountName');
+          if($accountNames['count'] > 0) {
+            $return = $accountNames[0];
           }
         }
         ldap_close($connection);
