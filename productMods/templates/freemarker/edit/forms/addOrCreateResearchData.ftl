@@ -14,9 +14,11 @@
 <h2>${title}</h2>
 
 <#include "displayErrors.ftl" />
-<#include "addExistingForm.ftl" />
+<#if user.hasSiteAdminAccess || editConfiguration.predicateUri != "http://purl.org/ands/ontologies/vivo/isCollectorOf">
+  <#include "addExistingForm.ftl" />
 
-<p>If you don't find the appropriate entry on the selection list above:</p>
+  <p>If you don't find the appropriate entry on the selection list above:</p>
+</#if>
 <form class="editForm" action="${urls.base}/editRequestDispatch" role="input" />
     <input type="hidden" value="${editConfiguration.subjectUri}" name="subjectUri" role="input" />
     <input type="hidden" value="${editConfiguration.predicateUri}" name="predicateUri" role="input" />

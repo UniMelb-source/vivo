@@ -71,6 +71,7 @@ endif;
 <html>
   <head>
     <title>Login to VIVO CRDR</title>
+    <link rel="stylesheet" type="text/css" href="ldaplogin.css">
   </head>
   <body>
     <h1>University of Melbourne user account</h1>
