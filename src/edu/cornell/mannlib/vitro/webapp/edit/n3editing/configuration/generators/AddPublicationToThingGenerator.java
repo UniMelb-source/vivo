@@ -58,8 +58,8 @@ public abstract class AddPublicationToThingGenerator extends RdrVivoBaseGenerato
     protected HashMap<String, Object> getFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
 
-        formSpecificData.put("sparqlQueryUrl", "/vivo/ajax/sparqlQuery");
-        formSpecificData.put("acUrl", "/vivo/autocomplete?tokenize=true");
+        formSpecificData.put("sparqlQueryUrl", "/ajax/sparqlQuery");
+        formSpecificData.put("acUrl", "/autocomplete?tokenize=true");
         formSpecificData.put("acType", "http://vivoweb.org/ontology/core#InformationResource");
         formSpecificData.put("editMode", "add");
         formSpecificData.put("submitButtonTextType", "simple");

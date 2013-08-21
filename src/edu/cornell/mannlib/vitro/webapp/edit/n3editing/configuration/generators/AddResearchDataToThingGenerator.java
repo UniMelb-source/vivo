@@ -104,8 +104,8 @@ public abstract class AddResearchDataToThingGenerator extends RdrReturnEntityBas
         formSpecificData.put("AutoLabels", getAutoLabels());
         formSpecificData.put("InfoLabels", getInfoText());
         formSpecificData.put("objectUri", "researchDataUri");
-        formSpecificData.put("sparqlQueryUrl", "/vivo/ajax/sparqlQuery");
-        formSpecificData.put("acUrl", "/vivo/autocomplete?tokenize=true");
+        formSpecificData.put("sparqlQueryUrl", "/ajax/sparqlQuery");
+        formSpecificData.put("acUrl", "/autocomplete?tokenize=true");
         formSpecificData.put("acType", "http://purl.org/ands/ontologies/vivo/ResearchData");
         formSpecificData.put("editMode", "add");
         formSpecificData.put("submitButtonTextType", "simple");

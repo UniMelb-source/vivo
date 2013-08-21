@@ -60,8 +60,8 @@ public abstract class AddPersonToThingGenerator extends RdrReturnEntityBaseGener
     protected HashMap<String, Object> getFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         HashMap<String, Object> formSpecificData = new HashMap<String, Object>();
 
-        formSpecificData.put("sparqlQueryUrl", "/vivo/ajax/sparqlQuery");
-        formSpecificData.put("acUrl", "/vivo/autocomplete?tokenize=true");
+        formSpecificData.put("sparqlQueryUrl", "/ajax/sparqlQuery");
+        formSpecificData.put("acUrl", "/autocomplete?tokenize=true");
         formSpecificData.put("acType", "http://xmlns.com/foaf/0.1/Person");
         formSpecificData.put("editMode", "add");
         formSpecificData.put("submitButtonTextType", "simple");

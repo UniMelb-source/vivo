@@ -45,8 +45,8 @@ public abstract class AddOrCreateGenerator extends RdrVivoBaseGenerator {
     protected final HashMap<String, Object> getFormSpecificData(EditConfigurationVTwo editConfiguration, VitroRequest vreq) {
         HashMap<String, Object> formSpecificData = super.getFormSpecificData(editConfiguration, vreq);
 
-        formSpecificData.put("sparqlQueryUrl", "/vivo/ajax/sparqlQuery");
-        formSpecificData.put("acUrl", "/vivo/autocomplete?tokenize=true");
+        formSpecificData.put("sparqlQueryUrl", "/ajax/sparqlQuery");
+        formSpecificData.put("acUrl", "/autocomplete?tokenize=true");
         formSpecificData.put("acType", acType);
         formSpecificData.put("editMode", "add");
         formSpecificData.put("submitButtonTextType", "simple");
