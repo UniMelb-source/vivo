@@ -8,12 +8,25 @@ function checkAuthentication($username, $password) {
     $return = false;
     try {
       if ($binding = ldap_bind($connection, $distinguishedName, $password)) {
-        $search = ldap_search($connection, $base, "(CN=$username)", array('sAMAccountName'));
+        $search = ldap_search($connection, $base, "(CN=$username)", array('sAMAccountName', 'givenName', 'sn', 'mail'));
         if($entry = ldap_first_entry($connection, $search)) {
           $accountNames = ldap_get_values($connection, $entry, 'sAMAccountName');
           if($accountNames['count'] > 0) {
-            $return = $accountNames[0];
+            $accountName = $accountNames[0];
           }
+          $givenNames = ldap_get_values($connection, $entry, 'givenName');
+          if($givenNames['count'] > 0) {
+            $givenName = $givenNames[0];
+          }
+          $sns = ldap_get_values($connection, $entry, 'sn');
+          if($sns['count'] > 0) {
+            $sn = $sns[0];
+          }
+          $emails = ldap_get_values($connection, $entry, 'mail');
+          if($emails['count'] > 0) {
+            $email = $emails[0];
+          }
+          $return = array($accountName, $givenName, $sn, $email);
         }
         ldap_close($connection);
       }
@@ -24,7 +37,7 @@ function checkAuthentication($username, $password) {
   return $return;
 }
 
-function curlSubmit($target, $token) {
+function curlSubmit($target, $token, $firstName, $lastName, $email) {
   $curl = curl_init();
   curl_setopt_array($curl, array(
     CURLOPT_RETURNTRANSFER => true,
@@ -35,7 +48,10 @@ function curlSubmit($target, $token) {
     CURLOPT_SSL_VERIFYPEER => false,
     CURLOPT_HTTPHEADER => array(
       'Content-Length: 0',
-      "X-VIVO-Token: $token"
+      "X-VIVO-Token: $token",
+      "X-VIVO-First-Name: $firstName",
+      "X-VIVO-Last-Name: $lastName",
+      "X-VIVO-Email: $email"
     ),  
     CURLOPT_HEADER => true
   )); 
@@ -60,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
     $errors[] = 'Password required';
   endif;
   if (empty($errors)):
-    if ($token = checkAuthentication($_POST['username'], $_POST['password'])):
-      echo curlSubmit($_GET['target'], $token);
+    if (list($token, $firstName, $lastName, $email) = checkAuthentication($_POST['username'], $_POST['password'])):
+      echo curlSubmit($_GET['target'], $token, $firstName, $lastName, $email);
     else:
       $errors[] = 'Invalid login';
     endif;
