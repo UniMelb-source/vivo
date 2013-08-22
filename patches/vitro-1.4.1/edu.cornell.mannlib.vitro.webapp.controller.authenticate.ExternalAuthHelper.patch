@@ -70,9 +70,9 @@
  		}
  
  		String externalAuthId = request.getHeader(externalAuthHeaderName);
-+    request.getSession().setAttribute(EXTERNAL_FIRST_NAME, request.getHeader(externalFirstNameHeaderName);
-+    request.getSession().setAttribute(EXTERNAL_LAST_NAME, request.getHeader(externalLastNameHeaderName);
-+    request.getSession().setAttribute(EXTERNAL_EMAIL, request.getHeader(externalEmailHeaderName);
++    request.getSession().setAttribute(EXTERNAL_FIRST_NAME, request.getHeader(externalFirstNameHeaderName));
++    request.getSession().setAttribute(EXTERNAL_LAST_NAME, request.getHeader(externalLastNameHeaderName));
++    request.getSession().setAttribute(EXTERNAL_EMAIL, request.getHeader(externalEmailHeaderName));
  		log.debug("externalAuthId=" + externalAuthId);
  		return externalAuthId;
  	}
