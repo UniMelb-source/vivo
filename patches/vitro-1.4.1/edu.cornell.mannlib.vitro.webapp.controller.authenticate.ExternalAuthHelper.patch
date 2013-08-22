@@ -1,0 +1,78 @@
+--- base/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/ExternalAuthHelper.java	2012-02-07 23:41:01.000000000 +1100
++++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/ExternalAuthHelper.java	2013-08-22 14:47:32.000000000 +1000
+@@ -52,7 +52,7 @@
+ 	private static final Log log = LogFactory.getLog(ExternalAuthHelper.class);
+ 
+ 	private static final ExternalAuthHelper DUMMY_HELPER = new ExternalAuthHelper(
+-			null, null);
++			null, null, null, null, null);
+ 
+ 	private static final String BEAN_ATTRIBUTE = ExternalAuthHelper.class
+ 			.getName();
+@@ -62,6 +62,13 @@
+ 
+ 	/** This configuration property says which HTTP header holds the auth ID. */
+ 	public static final String PROPERTY_EXTERNAL_AUTH_ID_HEADER = "externalAuth.netIdHeaderName";
++	public static final String PROPERTY_EXTERNAL_AUTH_FIRST_NAME_HEADER = "externalAuth.firstNameHeaderName";
++	public static final String PROPERTY_EXTERNAL_AUTH_LAST_NAME_HEADER = "externalAuth.lastNameHeaderName";
++	public static final String PROPERTY_EXTERNAL_AUTH_EMAIL_HEADER = "externalAuth.emailHeaderName";
++
++  public static final String EXTERNAL_FIRST_NAME = "externalAuth.firstName";
++  public static final String EXTERNAL_LAST_NAME = "externalAuth.lastName";
++  public static final String EXTERNAL_EMAIL = "externaAuth.email";
+ 
+ 	// ----------------------------------------------------------------------
+ 	// static methods
+@@ -109,9 +116,18 @@
+ 				.getProperty(PROPERTY_EXTERNAL_AUTH_SERVER_URL);
+ 		String externalAuthHeaderName = ConfigurationProperties.getBean(ctx)
+ 				.getProperty(PROPERTY_EXTERNAL_AUTH_ID_HEADER);
++		String externalFirstNameHeaderName = ConfigurationProperties.getBean(ctx)
++				.getProperty(PROPERTY_EXTERNAL_AUTH_FIRST_NAME_HEADER);
++		String externalLastNameHeaderName = ConfigurationProperties.getBean(ctx)
++				.getProperty(PROPERTY_EXTERNAL_AUTH_LAST_NAME_HEADER);
++		String externalEmailHeaderName = ConfigurationProperties.getBean(ctx)
++				.getProperty(PROPERTY_EXTERNAL_AUTH_EMAIL_HEADER);
+ 
+ 		return new ExternalAuthHelper(externalAuthServerUrl,
+-				externalAuthHeaderName);
++				externalAuthHeaderName,
++        externalFirstNameHeaderName,
++        externalLastNameHeaderName,
++        externalEmailHeaderName);
+ 	}
+ 
+ 	// ----------------------------------------------------------------------
+@@ -120,12 +136,21 @@
+ 
+ 	private final String externalAuthServerUrl;
+ 	private final String externalAuthHeaderName;
++	private final String externalFirstNameHeaderName;
++	private final String externalLastNameHeaderName;
++	private final String externalEmailHeaderName;
+ 
+ 	/** It would be private, but we want to allow subclasses for faking. */
+ 	protected ExternalAuthHelper(String externalAuthServerUrl,
+-			String externalAuthHeaderName) {
++			String externalAuthHeaderName,
++      String externalFirstNameHeaderName,
++      String externalLastNameHeaderName,
++      String externalEmailHeaderName) {
+ 		this.externalAuthServerUrl = trimThis(externalAuthServerUrl);
+ 		this.externalAuthHeaderName = trimThis(externalAuthHeaderName);
++    this.externalFirstNameHeaderName = trimThis(externalFirstNameHeaderName);
++    this.externalLastNameHeaderName = trimThis(externalLastNameHeaderName);
++    this.externalEmailHeaderName = trimThis(externalEmailHeaderName);
+ 	}
+ 
+ 	private String trimThis(String string) {
+@@ -174,6 +199,9 @@
+ 		}
+ 
+ 		String externalAuthId = request.getHeader(externalAuthHeaderName);
++    request.getSession().setAttribute(EXTERNAL_FIRST_NAME, request.getHeader(externalFirstNameHeaderName);
++    request.getSession().setAttribute(EXTERNAL_LAST_NAME, request.getHeader(externalLastNameHeaderName);
++    request.getSession().setAttribute(EXTERNAL_EMAIL, request.getHeader(externalEmailHeaderName);
+ 		log.debug("externalAuthId=" + externalAuthId);
+ 		return externalAuthId;
+ 	}

@@ -1,0 +1,12 @@
+--- base/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/accounts/user/UserAccountsFirstTimeExternalPage.java	2012-02-07 23:41:01.000000000 +1100
++++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/accounts/user/UserAccountsFirstTimeExternalPage.java	2013-08-22 14:48:42.000000000 +1000
+@@ -105,6 +105,9 @@
+ 		checkSessionForExternalLoginInfo();
+ 		if (externalAuthId.isEmpty()) {
+ 			parseRequestParameters();
++      this.firstName = vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_FIRST_NAME);
++      this.lastName = vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_LAST_NAME);
++      this.emailAddress = vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_EMAIL);
+ 		}
+ 
+ 		validateExternalAuthId();

@@ -66,7 +66,7 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
         List<String> userUris = new ArrayList<String>(HasAssociatedIndividual.getIndividualUris(whoToAuth));
 
         if (userUris.isEmpty()) {
-            return inconclusiveDecision("No user to check chief-investigator authoriaation.");
+            return inconclusiveDecision("No user to check chief-investigator authorisation.");
         }
 
         if (!canModifyPredicate(action.predicateUri)) {
