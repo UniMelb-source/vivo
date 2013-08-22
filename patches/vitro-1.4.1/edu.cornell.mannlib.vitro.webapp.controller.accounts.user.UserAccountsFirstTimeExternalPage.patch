@@ -1,5 +1,5 @@
 --- base/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/accounts/user/UserAccountsFirstTimeExternalPage.java	2012-02-07 23:41:01.000000000 +1100
-+++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/accounts/user/UserAccountsFirstTimeExternalPage.java	2013-08-22 15:38:08.000000000 +1000
++++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/accounts/user/UserAccountsFirstTimeExternalPage.java	2013-08-22 15:53:38.000000000 +1000
 @@ -43,6 +43,7 @@
  import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
  import edu.cornell.mannlib.vitro.webapp.controller.accounts.UserAccountsPage;
@@ -12,9 +12,9 @@
  		checkSessionForExternalLoginInfo();
  		if (externalAuthId.isEmpty()) {
  			parseRequestParameters();
-+      this.firstName = vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_FIRST_NAME);
-+      this.lastName = vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_LAST_NAME);
-+      this.emailAddress = vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_EMAIL);
++      this.firstName = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_FIRST_NAME);
++      this.lastName = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_LAST_NAME);
++      this.emailAddress = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_EMAIL);
  		}
  
  		validateExternalAuthId();
