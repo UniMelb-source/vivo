@@ -1,0 +1,11 @@
+--- base/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/FakeExternalAuthController.java	2012-02-07 23:41:01.000000000 +1100
++++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/FakeExternalAuthController.java	2013-08-22 15:39:28.000000000 +1000
+@@ -129,7 +129,7 @@
+ 		private final String username;
+ 
+ 		private FakeExternalAuthHelper(String username) {
+-			super(null, null);
++			super(null, null, null, null, null);
+ 			this.username = username;
+ 		}
+ 

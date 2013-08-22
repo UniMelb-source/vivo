@@ -1,5 +1,5 @@
 --- base/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/ExternalAuthHelper.java	2012-02-07 23:41:01.000000000 +1100
-+++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/ExternalAuthHelper.java	2013-08-22 14:47:32.000000000 +1000
++++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/authenticate/ExternalAuthHelper.java	2013-08-22 15:38:58.000000000 +1000
 @@ -52,7 +52,7 @@
  	private static final Log log = LogFactory.getLog(ExternalAuthHelper.class);
  
