@@ -1,5 +1,5 @@
 --- base/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/accounts/user/UserAccountsFirstTimeExternalPage.java	2012-02-07 23:41:01.000000000 +1100
-+++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/accounts/user/UserAccountsFirstTimeExternalPage.java	2013-08-22 15:53:38.000000000 +1000
++++ modified/webapp/src/edu/cornell/mannlib/vitro/webapp/controller/accounts/user/UserAccountsFirstTimeExternalPage.java	2013-08-22 16:38:54.000000000 +1000
 @@ -43,6 +43,7 @@
  import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
  import edu.cornell.mannlib.vitro.webapp.controller.accounts.UserAccountsPage;
@@ -8,13 +8,22 @@
  import edu.cornell.mannlib.vitro.webapp.controller.freemarker.responsevalues.ResponseValues;
  import edu.cornell.mannlib.vitro.webapp.controller.freemarker.responsevalues.TemplateResponseValues;
  
-@@ -105,6 +106,9 @@
- 		checkSessionForExternalLoginInfo();
+@@ -106,6 +107,18 @@
  		if (externalAuthId.isEmpty()) {
  			parseRequestParameters();
-+      this.firstName = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_FIRST_NAME);
-+      this.lastName = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_LAST_NAME);
-+      this.emailAddress = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_EMAIL);
  		}
++		if(null != vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_FIRST_NAME)) {
++      	this.firstName = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_FIRST_NAME);
++			vreq.getSession().removeAttribute(ExternalAuthHelper.EXTERNAL_FIRST_NAME);
++		}
++		if(null != vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_LAST_NAME)) {
++      	this.lastName = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_LAST_NAME);
++			vreq.getSession().removeAttribute(ExternalAuthHelper.EXTERNAL_LAST_NAME);
++		}
++		if(null != vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_EMAIL)) {
++      	this.emailAddress = (String)vreq.getSession().getAttribute(ExternalAuthHelper.EXTERNAL_EMAIL);
++			vreq.getSession().removeAttribute(ExternalAuthHelper.EXTERNAL_EMAIL);
++		}
  
  		validateExternalAuthId();
+ 
