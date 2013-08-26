@@ -2,54 +2,6 @@
 
 set -e
 
-function prepare_database {
-	VITRO_DB=${1}
-	VITRO_DB_USERNAME=${2}
-	VITRO_DB_PASSWORD=${3}
-	MYSQL_ADMIN_USER=${4}
-	MYSQL_ADMIN_PASSWORD=${5}
-
-	echo "DROP DATABASE IF EXISTS ${VITRO_DB}; CREATE DATABASE IF NOT EXISTS ${VITRO_DB}; GRANT ALL PRIVILEGES ON ${VITRO_DB}.* TO ${VITRO_DB_USERNAME}@localhost IDENTIFIED BY '${VITRO_DB_PASSWORD}';" | mysql --user=${MYSQL_ADMIN_USER} --password=${MYSQL_ADMIN_PASSWORD}
-}
-
-function clone_vivo {
-	VIVO_GIT=${1}
-	VIVO_BUILD_DIR=${2}
-	SCRIPT_PATH=${3}
-	VIVO_GIT_BRANCH=${4}
-
-	git clone ${VIVO_GIT} ${VIVO_BUILD_DIR} 1>${SCRIPT_PATH}/vivo-installer.log 2>${SCRIPT_PATH}/vivo-installer.err
-	pushd ${VIVO_BUILD_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
-	git checkout ${VIVO_GIT_BRANCH} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
-}
-
-function fetch_vitro {
-	VITRO_VERSION=${1}
-	BUILD_DIR=${2}
-	VITRO_BUILD_DIR=${3}
-	SCRIPT_PATH=${4}
-
-	VITRO_TARBALL="https://github.com/downloads/vivo-project/Vitro/vitro-rel-${VITRO_VERSION}.tar.gz"
-
-	mkdir -p ${VITRO_BUILD_DIR}
-	pushd ${VITRO_BUILD_DIR} 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
-	curl -L ${VITRO_TARBALL} 2>>${SCRIPT_PATH}/vivo-installer.err | tar --strip-components=1 -xzf -
-	for PATCH_FILE in ${VIVO_BUILD_DIR}/patches/vitro-${VITRO_VERSION}/*.patch
-	do
-  	patch -p1 < ${PATCH_FILE}
-	done
-}
-
-function deploy_ldap_login {
-  WWW_DIR=${1}
-  VIVO_BUILD_DIR=${2}
-  SCRIPT_PATH=${3}
-
-  apt-get install -y libapache2-mod-jk libapache2-mod-php5 php5-ldap php5-curl
-
-  cp ${VIVO_BUILD_DIR}/ldap/ldaplogin.* ${WWW_DIR} 2>>${SCRIPT_PATH}/vivo-installer.err
-}
-
 DB_CLEAN=false
 LEAVE_BUILD_DIR=false
 
@@ -93,7 +45,7 @@ START_TIME=$(date +%s%N | cut -b1-13)
 if ${DB_CLEAN}
 then
   echo "${START_TIME} - preparing database"
-  prepare_database ${VITRO_DB} ${VITRO_DB_USERNAME} ${VITRO_DB_PASSWORD} ${MYSQL_ADMIN_USER} ${MYSQL_ADMIN_PASSWORD}
+  ${SCRIPT_PATH}/prepare_database.sh ${VITRO_DB} ${VITRO_DB_USERNAME} ${VITRO_DB_PASSWORD} ${MYSQL_ADMIN_USER} ${MYSQL_ADMIN_PASSWORD}
 fi
 
 VIVO_GIT="${VIVO_GIT:=git://github.com/UniMelb-source/vivo.git}"
@@ -103,10 +55,10 @@ VITRO_BUILD_DIR=${BUILD_DIR}/vitro
 
 NETWORK_START_TIME=$(date +%s%N | cut -b1-13)
 echo "${NETWORK_START_TIME} - cloning VIVO"
-clone_vivo ${VIVO_GIT} ${VIVO_BUILD_DIR} ${SCRIPT_PATH} ${VIVO_GIT_BRANCH}
+${SCRIPT_PATH}/clone_vivo.sh ${VIVO_GIT} ${VIVO_BUILD_DIR} ${SCRIPT_PATH} ${VIVO_GIT_BRANCH}
 
 echo $(date +%s%N | cut -b1-13) "- fetching VITRO"
-fetch_vitro ${VITRO_VERSION} ${BUILD_DIR} ${VITRO_BUILD_DIR} ${SCRIPT_PATH}
+${SCRIPT_PATH}/fetch_vitro.sh ${VITRO_VERSION} ${BUILD_DIR} ${VITRO_BUILD_DIR} ${SCRIPT_PATH}
 
 # Prepare VIVO properties
 ADMIN_EMAIL="${ADMIN_EMAIL:=tsullivan@unimelb.edu.au}"
@@ -147,7 +99,7 @@ echo $(date +%s%N | cut -b1-13) "- restarting Tomcat"
 /etc/init.d/tomcat6 restart 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
 
 echo $(date +%s%N | cut -b1-13) "- deploying LDAP login"
-deploy_ldap_login ${WWW_DIR} ${VIVO_BUILD_DIR} ${SCRIPT_PATH}
+${SCRIPT_PATH}/deploy_ldap_login.sh ${WWW_DIR} ${VIVO_BUILD_DIR} ${SCRIPT_PATH}
 /etc/init.d/apache2 restart 1>>${SCRIPT_PATH}/vivo-installer.log 2>>${SCRIPT_PATH}/vivo-installer.err
 
 # CLean up
