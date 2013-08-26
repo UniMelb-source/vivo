@@ -19,7 +19,7 @@ import javax.servlet.ServletContextListener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPolicy implements PolicyIface {
+public class ChiefInvestigatorRelationshipPolicy extends BaseRelationshipPolicy {
 
     private static final Log log = LogFactory.getLog(ChiefInvestigatorRelationshipPolicy.class);
     private static final String NS_CORE = "http://vivoweb.org/ontology/core#";
@@ -39,30 +39,12 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
     }
 
     @Override
-    public PolicyDecision isAuthorized(IdentifierBundle whoToAuth, RequestedAction whatToAuth) {
-        PolicyDecision decision;
-        if (whatToAuth == null) {
-            decision = inconclusiveDecision("whatToAuth was null");
-        } else if (whatToAuth instanceof AbstractDataPropertyAction) {
-            decision = isAuthorized(whoToAuth, distill((AbstractDataPropertyAction) whatToAuth));
-        } else if (whatToAuth instanceof AbstractObjectPropertyAction) {
-            decision = isAuthorized(whoToAuth, distill((AbstractObjectPropertyAction) whatToAuth));
-        } else {
-            decision = inconclusiveDecision("Does not authorize " + whatToAuth.getClass().getSimpleName() + " actions");
-        }
-
-        if (decision == null) {
-            return userNotAuthorizedToStatement();
-        } else {
-            return decision;
-        }
-    }
-
-    private List<String> getUrisOfChiefInvestigators(String resourceUri) {
+    protected List<String> getAssociatedPrincipalUris(String resourceUri) {
         return getObjectsOfProperty(resourceUri, URI_CI_PROPERTY);
     }
 
-    private boolean isResearchDataOrSubtype(String resourceUri) {
+    @Override
+    protected boolean isTypeOrSubType(String resourceUri) {
         return isResourceOfType(resourceUri, URI_RESEARCH_DATA_TYPE)
                 || isResourceOfType(resourceUri, URI_RESEARCH_CATALOG_TYPE)
                 || isResourceOfType(resourceUri, URI_RESEARCH_COLLECTION_TYPE)
@@ -70,57 +52,6 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
                 || isResourceOfType(resourceUri, URI_RESEARCH_RECORDS_COLLECTION_TYPE)
                 || isResourceOfType(resourceUri, URI_RESEARCH_REGISTRY_TYPE)
                 || isResourceOfType(resourceUri, URI_RESEARCH_REPOSITORY_TYPE);
-    }
-
-    private PolicyDecision isAuthorized(IdentifierBundle whoToAuth, DistilledAction action) {
-        List<String> userUris = new ArrayList<String>(HasAssociatedIndividual.getIndividualUris(whoToAuth));
-
-        if (userUris.isEmpty()) {
-            return inconclusiveDecision("No user to check chief-investigator authorisation.");
-        }
-
-        if (!canModifyPredicate(action.predicateUri)) {
-            return cantModifyPredicate(action.predicateUri);
-        }
-
-        for (String resourceUri : action.resourceUris) {
-            if (!canModifyResource(resourceUri)) {
-                return cantModifyResource(resourceUri);
-            }
-        }
-
-        for (String resourceUri : action.resourceUris) {
-            if (isResearchDataOrSubtype(resourceUri)) {
-                if (anyUrisInCommon(userUris, getUrisOfChiefInvestigators(resourceUri))) {
-                    return authorizedCI(resourceUri);
-                }
-            }
-        }
-
-        return userNotAuthorizedToStatement();
-    }
-
-    private DistilledAction distill(AbstractDataPropertyAction action) {
-        return new DistilledAction(action.getPredicateUri(), action.getSubjectUri());
-    }
-
-    private DistilledAction distill(AbstractObjectPropertyAction action) {
-        return new DistilledAction(action.uriOfPredicate, action.uriOfSubject, action.uriOfObject);
-    }
-
-    private PolicyDecision authorizedCI(String resourceUri) {
-        return authorizedDecision("User is Chief Investigator of " + resourceUri);
-    }
-
-    static class DistilledAction {
-
-        final String[] resourceUris;
-        final String predicateUri;
-
-        public DistilledAction(String predicateUri, String... resourceUris) {
-            this.resourceUris = resourceUris;
-            this.predicateUri = predicateUri;
-        }
     }
 
     public static class Setup implements ServletContextListener {
