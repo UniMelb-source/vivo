@@ -57,6 +57,12 @@ public class HasInvestigatorRoleRelationshipPolicy extends AbstractRelationshipP
         return getObjectsOfLinkedProperty(resourceUri, URI_CONTRIBUTING_ROLE_PROPERTY, URI_INVESTIGATOR_ROLE_OF_PROPERTY);
     }
 
+    private boolean isAgreementOrSubtype(String resourceUri) {
+        return isResourceOfType(resourceUri, URI_AGREEMENT_TYPE)
+                || isResourceOfType(resourceUri, URI_CONTRACT_TYPE)
+                || isResourceOfType(resourceUri, URI_GRANT_TYPE);
+    }
+
     private PolicyDecision isAuthorized(IdentifierBundle whoToAuth, DistilledAction action) {
         List<String> userUris = new ArrayList<String>(HasAssociatedIndividual.getIndividualUris(whoToAuth));
 
@@ -75,9 +81,7 @@ public class HasInvestigatorRoleRelationshipPolicy extends AbstractRelationshipP
         }
 
         for (String resourceUri : action.resourceUris) {
-            if (isResourceOfType(resourceUri, URI_AGREEMENT_TYPE)
-                    || isResourceOfType(resourceUri, URI_CONTRACT_TYPE)
-                    || isResourceOfType(resourceUri, URI_GRANT_TYPE)) {
+            if (isAgreementOrSubtype(resourceUri)) {
                 if (anyUrisInCommon(userUris, getUrisOfHasInvestigatorRoles(resourceUri))) {
                     return authorizedCI(resourceUri);
                 }

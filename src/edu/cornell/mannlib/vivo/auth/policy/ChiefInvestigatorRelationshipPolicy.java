@@ -62,6 +62,16 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
         return getObjectsOfProperty(resourceUri, URI_CI_PROPERTY);
     }
 
+    private boolean isResearchDataOrSubtype(String resourceUri) {
+        return isResourceOfType(resourceUri, URI_RESEARCH_DATA_TYPE)
+                || isResourceOfType(resourceUri, URI_RESEARCH_CATALOG_TYPE)
+                || isResourceOfType(resourceUri, URI_RESEARCH_COLLECTION_TYPE)
+                || isResourceOfType(resourceUri, URI_RESEARCH_DATASET_TYPE)
+                || isResourceOfType(resourceUri, URI_RESEARCH_RECORDS_COLLECTION_TYPE)
+                || isResourceOfType(resourceUri, URI_RESEARCH_REGISTRY_TYPE)
+                || isResourceOfType(resourceUri, URI_RESEARCH_REPOSITORY_TYPE);
+    }
+
     private PolicyDecision isAuthorized(IdentifierBundle whoToAuth, DistilledAction action) {
         List<String> userUris = new ArrayList<String>(HasAssociatedIndividual.getIndividualUris(whoToAuth));
 
@@ -80,13 +90,7 @@ public class ChiefInvestigatorRelationshipPolicy extends AbstractRelationshipPol
         }
 
         for (String resourceUri : action.resourceUris) {
-            if (isResourceOfType(resourceUri, URI_RESEARCH_DATA_TYPE)
-                    || isResourceOfType(resourceUri, URI_RESEARCH_CATALOG_TYPE)
-                    || isResourceOfType(resourceUri, URI_RESEARCH_COLLECTION_TYPE)
-                    || isResourceOfType(resourceUri, URI_RESEARCH_DATASET_TYPE)
-                    || isResourceOfType(resourceUri, URI_RESEARCH_RECORDS_COLLECTION_TYPE)
-                    || isResourceOfType(resourceUri, URI_RESEARCH_REGISTRY_TYPE)
-                    || isResourceOfType(resourceUri, URI_RESEARCH_REPOSITORY_TYPE)) {
+            if (isResearchDataOrSubtype(resourceUri)) {
                 if (anyUrisInCommon(userUris, getUrisOfChiefInvestigators(resourceUri))) {
                     return authorizedCI(resourceUri);
                 }
