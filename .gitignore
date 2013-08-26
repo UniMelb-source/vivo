@@ -3,3 +3,5 @@ deploy.properties
 .build
 deploy-vivo-tomcat
 vitro-core
+vivo-installer.err
+vivo-installer.log
