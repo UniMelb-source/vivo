@@ -50,7 +50,16 @@ public class BaseRelationshipPolicy extends AbstractRelationshipPolicy implement
         return Collections.<String>emptyList();
     }
 
-    protected boolean isTypeOrSubType(String resourceUri) {
+    protected List<String> getAssociatedTypes() {
+        return Collections.<String>emptyList();
+    }
+
+    private boolean isTypeOrSubType(String resourceUri) {
+        for (String typeUri : getAssociatedTypes()) {
+            if (isResourceOfType(resourceUri, typeUri)) {
+                return true;
+            }
+        }
         return false;
     }
 

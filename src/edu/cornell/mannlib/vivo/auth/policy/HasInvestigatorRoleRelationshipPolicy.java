@@ -3,6 +3,7 @@ package edu.cornell.mannlib.vivo.auth.policy;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import edu.cornell.mannlib.vitro.webapp.auth.policy.ServletPolicyList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -16,9 +17,9 @@ public class HasInvestigatorRoleRelationshipPolicy extends BaseRelationshipPolic
     private static final String VIVO_CORE = "http://vivoweb.org/ontology/core#";
     private static final String URI_CONTRIBUTING_ROLE_PROPERTY = VIVO_CORE + "contributingRole";
     private static final String URI_INVESTIGATOR_ROLE_OF_PROPERTY = VIVO_CORE + "investigatorRoleOf";
-    private static final String URI_AGREEMENT_TYPE = VIVO_CORE + "Agreement";
-    private static final String URI_CONTRACT_TYPE = VIVO_CORE + "Contract";
-    private static final String URI_GRANT_TYPE = VIVO_CORE + "Grant";
+    private List<String> typeList = Arrays.<String>asList(VIVO_CORE + "Agreement",
+            VIVO_CORE + "Contract",
+            VIVO_CORE + "Grant");
 
     public HasInvestigatorRoleRelationshipPolicy(ServletContext ctx, OntModel model) {
         super(ctx, model);
@@ -30,10 +31,8 @@ public class HasInvestigatorRoleRelationshipPolicy extends BaseRelationshipPolic
     }
 
     @Override
-    protected boolean isTypeOrSubType(String resourceUri) {
-        return isResourceOfType(resourceUri, URI_AGREEMENT_TYPE)
-                || isResourceOfType(resourceUri, URI_CONTRACT_TYPE)
-                || isResourceOfType(resourceUri, URI_GRANT_TYPE);
+    protected List<String> getAssociatedTypes() {
+        return typeList;
     }
 
     public static class Setup implements ServletContextListener {

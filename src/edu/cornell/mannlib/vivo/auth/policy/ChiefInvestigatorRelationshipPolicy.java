@@ -2,16 +2,8 @@
 package edu.cornell.mannlib.vivo.auth.policy;
 
 import com.hp.hpl.jena.ontology.OntModel;
-import edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle;
-import edu.cornell.mannlib.vitro.webapp.auth.identifier.common.HasAssociatedIndividual;
 import edu.cornell.mannlib.vitro.webapp.auth.policy.ServletPolicyList;
-import edu.cornell.mannlib.vitro.webapp.auth.policy.ifaces.PolicyDecision;
-import edu.cornell.mannlib.vitro.webapp.auth.policy.ifaces.PolicyIface;
-import edu.cornell.mannlib.vitro.webapp.auth.policy.specialrelationships.AbstractRelationshipPolicy;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ifaces.RequestedAction;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.propstmt.AbstractDataPropertyAction;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.propstmt.AbstractObjectPropertyAction;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -25,14 +17,13 @@ public class ChiefInvestigatorRelationshipPolicy extends BaseRelationshipPolicy 
     private static final String NS_CORE = "http://vivoweb.org/ontology/core#";
     private static final String ANDS_CORE = "http://purl.org/ands/ontologies/vivo/";
     private static final String URI_CI_PROPERTY = ANDS_CORE + "hasCollector";
-    private static final String URI_CI_OF_PROPERTY = ANDS_CORE + "isCollectorOf";
-    private static final String URI_RESEARCH_DATA_TYPE = ANDS_CORE + "ResearchData";
-    private static final String URI_RESEARCH_CATALOG_TYPE = ANDS_CORE + "ResearchCatalog";
-    private static final String URI_RESEARCH_COLLECTION_TYPE = ANDS_CORE + "ResearchCollection";
-    private static final String URI_RESEARCH_DATASET_TYPE = ANDS_CORE + "ResearchDataSet";
-    private static final String URI_RESEARCH_RECORDS_COLLECTION_TYPE = ANDS_CORE + "ResearchRecordsCollection";
-    private static final String URI_RESEARCH_REGISTRY_TYPE = ANDS_CORE + "ResearchRegistry";
-    private static final String URI_RESEARCH_REPOSITORY_TYPE = ANDS_CORE + "ResearchRepository";
+    private List<String> typeList = Arrays.<String>asList(ANDS_CORE + "ResearchData",
+            ANDS_CORE + "ResearchCatalog",
+            ANDS_CORE + "ResearchCollection",
+            ANDS_CORE + "ResearchDataSet",
+            ANDS_CORE + "ResearchRecordsCollection",
+            ANDS_CORE + "ResearchRegistry",
+            ANDS_CORE + "ResearchRepository");
 
     public ChiefInvestigatorRelationshipPolicy(ServletContext ctx, OntModel model) {
         super(ctx, model);
@@ -44,14 +35,8 @@ public class ChiefInvestigatorRelationshipPolicy extends BaseRelationshipPolicy 
     }
 
     @Override
-    protected boolean isTypeOrSubType(String resourceUri) {
-        return isResourceOfType(resourceUri, URI_RESEARCH_DATA_TYPE)
-                || isResourceOfType(resourceUri, URI_RESEARCH_CATALOG_TYPE)
-                || isResourceOfType(resourceUri, URI_RESEARCH_COLLECTION_TYPE)
-                || isResourceOfType(resourceUri, URI_RESEARCH_DATASET_TYPE)
-                || isResourceOfType(resourceUri, URI_RESEARCH_RECORDS_COLLECTION_TYPE)
-                || isResourceOfType(resourceUri, URI_RESEARCH_REGISTRY_TYPE)
-                || isResourceOfType(resourceUri, URI_RESEARCH_REPOSITORY_TYPE);
+    protected List<String> getAssociatedTypes() {
+        return typeList;
     }
 
     public static class Setup implements ServletContextListener {
