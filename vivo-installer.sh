@@ -58,7 +58,7 @@ echo "${NETWORK_START_TIME} - cloning VIVO"
 ${SCRIPT_PATH}/clone_vivo.sh ${VIVO_GIT} ${VIVO_BUILD_DIR} ${SCRIPT_PATH} ${VIVO_GIT_BRANCH}
 
 echo $(date +%s%N | cut -b1-13) "- fetching VITRO"
-${SCRIPT_PATH}/fetch_vitro.sh ${VITRO_VERSION} ${BUILD_DIR} ${VITRO_BUILD_DIR} ${SCRIPT_PATH}
+${SCRIPT_PATH}/fetch_vitro.sh ${VITRO_VERSION} ${VIVO_BUILD_DIR} ${VITRO_BUILD_DIR} ${SCRIPT_PATH}
 
 # Prepare VIVO properties
 ADMIN_EMAIL="${ADMIN_EMAIL:=tsullivan@unimelb.edu.au}"
