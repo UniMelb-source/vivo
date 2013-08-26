@@ -63,7 +63,7 @@ public class BaseRelationshipPolicy extends AbstractRelationshipPolicy implement
         return false;
     }
 
-    protected String relationshipName() {
+    protected String getRelationshipName() {
         return "relationship";
     }
 
@@ -71,7 +71,7 @@ public class BaseRelationshipPolicy extends AbstractRelationshipPolicy implement
         List<String> userUris = new ArrayList<String>(HasAssociatedIndividual.getIndividualUris(whoToAuth));
 
         if (userUris.isEmpty()) {
-            return inconclusiveDecision("No user to check " + relationshipName() + "authorisation.");
+            return inconclusiveDecision("No user to check " + getRelationshipName() + "authorisation.");
         }
 
         if (!canModifyPredicate(action.predicateUri)) {
@@ -87,7 +87,7 @@ public class BaseRelationshipPolicy extends AbstractRelationshipPolicy implement
         for (String resourceUri : action.resourceUris) {
             if (isTypeOrSubType(resourceUri)) {
                 if (anyUrisInCommon(userUris, getAssociatedPrincipalUris(resourceUri))) {
-                    return authorizedDecision("User has valid " + relationshipName() + " for " + resourceUri);
+                    return authorizedDecision("User has valid " + getRelationshipName() + " for " + resourceUri);
                 }
             }
         }

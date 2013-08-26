@@ -39,6 +39,11 @@ public class ChiefInvestigatorRelationshipPolicy extends BaseRelationshipPolicy 
         return typeList;
     }
 
+    @Override
+    protected String getRelationshipName() {
+        return "Chief Investigator";
+    }
+
     public static class Setup implements ServletContextListener {
 
         @Override

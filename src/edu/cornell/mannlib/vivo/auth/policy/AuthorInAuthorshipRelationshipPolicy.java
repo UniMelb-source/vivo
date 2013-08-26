@@ -103,6 +103,11 @@ public class AuthorInAuthorshipRelationshipPolicy extends BaseRelationshipPolicy
     }
 
     @Override
+    protected String getRelationshipName() {
+        return "Author in Authorship";
+    }
+
+    @Override
     protected List<String> getAssociatedTypes() {
         return typeList;
     }
