@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 VITRO_VERSION=${1}
 VIVO_BUILD_DIR=${2}
 VITRO_BUILD_DIR=${3}
