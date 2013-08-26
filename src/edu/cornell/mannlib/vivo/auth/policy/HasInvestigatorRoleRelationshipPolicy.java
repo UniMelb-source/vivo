@@ -23,8 +23,8 @@ public class HasInvestigatorRoleRelationshipPolicy extends AbstractRelationshipP
 
     private static final Log log = LogFactory.getLog(HasInvestigatorRoleRelationshipPolicy.class);
     private static final String VIVO_CORE = "http://vivoweb.org/ontology/core#";
-    private static final String URI_INVESTIGATOR_ROLE = VIVO_CORE + "hasInvestigatorRole";
-    private static final String URI_INVESTIGATOR_ROLE_INVERSE = VIVO_CORE + "investigatorRoleOf";
+    private static final String URI_CONTRIBUTING_ROLE_PROPERTY = VIVO_CORE + "contributingRole";
+    private static final String URI_INVESTIGATOR_ROLE_OF_PROPERTY = VIVO_CORE + "investigatorRoleOf";
     private static final String URI_AGREEMENT_TYPE = VIVO_CORE + "Agreement";
     private static final String URI_CONTRACT_TYPE = VIVO_CORE + "Contract";
     private static final String URI_GRANT_TYPE = VIVO_CORE + "Grant";
@@ -54,7 +54,7 @@ public class HasInvestigatorRoleRelationshipPolicy extends AbstractRelationshipP
     }
 
     private List<String> getUrisOfHasInvestigatorRoles(String resourceUri) {
-        return getObjectsOfProperty(resourceUri, URI_INVESTIGATOR_ROLE);
+        return getObjectsOfLinkedProperty(resourceUri, URI_CONTRIBUTING_ROLE_PROPERTY, URI_INVESTIGATOR_ROLE_OF_PROPERTY);
     }
 
     private PolicyDecision isAuthorized(IdentifierBundle whoToAuth, DistilledAction action) {
