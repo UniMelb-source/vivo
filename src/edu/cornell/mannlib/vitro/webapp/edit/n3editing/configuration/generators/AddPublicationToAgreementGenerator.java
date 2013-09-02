@@ -8,9 +8,9 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author tom
  */
-public class AddPublicationToResearchDataGenerator extends AddPublicationToThingGenerator {
+public class AddPublicationToAgreementGenerator extends AddPublicationToThingGenerator {
 
-    private static final Log log = LogFactory.getLog(AddPublicationToAgreement.class);
+    private static final Log log = LogFactory.getLog(AddPublicationToAgreementGenerator.class);
 
     @Override
     protected Log getLog() {
