@@ -203,30 +203,30 @@ endif;
                 <p>In order to edit content, you'll need to enable JavaScript. Here are the <a href="http://www.enable-javascript.com" title="java script instructions">instructions for enabling JavaScript in your web browser</a>.</p>
             </section>
             </noscript>
-            <h2>University of Melbourne user account</h2>
-            <?php if (!empty($errors)): ?>
-                <ul class=error>
-                    <?php foreach ($errors as $error): ?>
-                        <li><?php print($error); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-            <form method="post" class="login-form load">
-                <div class="login-input-wrap">
-                    <label for="username" class="pull-left"></label>
-                    <input type="text" name="username" <?php echo empty($_POST['username']) ? '' : 'value=' . $_POST['username'] . ' ' ?>placeholder="Username">
-                </div>
-                <span>Enter your staff username or your UMID</span>
-                <div class="login-input-wrap">
-                    <label for="password" class="pull-left"></label>
-                    <input type="password" name="password" placeholder="Password">
-                </div>
-                <span>Enter your password</span>
-                <input name="login" value="Login" type="submit" class="login-button">
+            <div class="login-wrap">
+                <h2>University of Melbourne user account</h2>
                 <?php if (!empty($errors)): ?>
-                    <a href="https://idm.unimelb.edu.au/idm/user/login.jsp">Forgot username or password?</a>
+                    <ul class=error>
+                        <?php foreach ($errors as $error): ?>
+                            <li><?php print($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 <?php endif; ?>
-            </form>
+                <form method="post" class="login-form load">
+                    <div class="login-input-wrap">
+                        <label for="username" class="pull-left">Enter your staff username or your UMID</label>
+                        <input type="text" name="username" id="username" <?php echo empty($_POST['username']) ? '' : 'value=' . $_POST['username'] . ' ' ?>placeholder="Username">
+                    </div>
+                    <div class="login-input-wrap">
+                        <label for="password" class="pull-left">Enter your password</label>
+                        <input type="password" name="password" id="password" placeholder="Password">
+                    </div>
+                    <input name="login" value="Login" type="submit" class="login-button">
+                    <?php if (!empty($errors)): ?>
+                        <a href="https://idm.unimelb.edu.au/idm/user/login.jsp" class="password-forgotten">Forgot username or password?</a>
+                    <?php endif; ?>
+                </form>
+            </div>
         </div>
         <footer role="contentinfo">
             <p class="copyright">
