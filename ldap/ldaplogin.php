@@ -1,87 +1,88 @@
 <?php
+
 function checkAuthentication($username, $password) {
-  if ($connection = ldap_connect('ad1.unimelb.edu.au')) {
-    ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, 3);
-    ldap_set_option($connection, LDAP_OPT_REFERRALS, 0);
-    $base = 'OU=People,DC=unimelb,DC=edu,DC=au';
-    $distinguishedName = "CN=$username,$base";
-    $return = false;
-    try {
-      if ($binding = ldap_bind($connection, $distinguishedName, $password)) {
-        $search = ldap_search($connection, $base, "(CN=$username)", array('sAMAccountName', 'givenName', 'sn', 'mail'));
-        if($entry = ldap_first_entry($connection, $search)) {
-          $accountNames = ldap_get_values($connection, $entry, 'sAMAccountName');
-          if($accountNames['count'] > 0) {
-            $accountName = $accountNames[0];
-          }
-          $givenNames = ldap_get_values($connection, $entry, 'givenName');
-          if($givenNames['count'] > 0) {
-            $givenName = $givenNames[0];
-          }
-          $sns = ldap_get_values($connection, $entry, 'sn');
-          if($sns['count'] > 0) {
-            $sn = $sns[0];
-          }
-          $emails = ldap_get_values($connection, $entry, 'mail');
-          if($emails['count'] > 0) {
-            $email = $emails[0];
-          }
-          $return = array($accountName, $givenName, $sn, $email);
+    if ($connection = ldap_connect('ad1.unimelb.edu.au')) {
+        ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($connection, LDAP_OPT_REFERRALS, 0);
+        $base = 'OU=People,DC=unimelb,DC=edu,DC=au';
+        $distinguishedName = "CN=$username,$base";
+        $return = false;
+        try {
+            if ($binding = ldap_bind($connection, $distinguishedName, $password)) {
+                $search = ldap_search($connection, $base, "(CN=$username)", array('sAMAccountName', 'givenName', 'sn', 'mail'));
+                if ($entry = ldap_first_entry($connection, $search)) {
+                    $accountNames = ldap_get_values($connection, $entry, 'sAMAccountName');
+                    if ($accountNames['count'] > 0) {
+                        $accountName = $accountNames[0];
+                    }
+                    $givenNames = ldap_get_values($connection, $entry, 'givenName');
+                    if ($givenNames['count'] > 0) {
+                        $givenName = $givenNames[0];
+                    }
+                    $sns = ldap_get_values($connection, $entry, 'sn');
+                    if ($sns['count'] > 0) {
+                        $sn = $sns[0];
+                    }
+                    $emails = ldap_get_values($connection, $entry, 'mail');
+                    if ($emails['count'] > 0) {
+                        $email = $emails[0];
+                    }
+                    $return = array($accountName, $givenName, $sn, $email);
+                }
+                ldap_close($connection);
+            }
+        } catch (\ErrorException $e) {
+            ldap_close($connection);
         }
-        ldap_close($connection);
-      }
-    } catch (\ErrorException $e) {
-      ldap_close($connection);
     }
-  }
-  return $return;
+    return $return;
 }
 
 function curlSubmit($target, $token, $firstName, $lastName, $email) {
-  $curl = curl_init();
-  curl_setopt_array($curl, array(
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_URL => $target,
-    CURLOPT_USERAGENT => 'VIVO CRDR Login',
-    CURLOPT_POST => true,
-    #TODO remove when SSL certificate is production ready
-    CURLOPT_SSL_VERIFYPEER => false,
-    CURLOPT_HTTPHEADER => array(
-      'Content-Length: 0',
-      "X-VIVO-Token: $token",
-      "X-VIVO-First-Name: $firstName",
-      "X-VIVO-Last-Name: $lastName",
-      "X-VIVO-Email: $email"
-    ),  
-    CURLOPT_HEADER => true
-  )); 
-  $response = curl_exec($curl);
-  $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-  $header_string = substr($response, 0, $header_size);
-  $headers = preg_split("/((\r(?!\n))|((?<!\r)\n)|(\r\n))/", $header_string);
-  foreach($headers as $header):
-    header($header);
-  endforeach;
-  $body = substr($response, $header_size);
-  curl_close($curl);
-  return $body;
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_URL => $target,
+        CURLOPT_USERAGENT => 'VIVO CRDR Login',
+        CURLOPT_POST => true,
+        #TODO remove when SSL certificate is production ready
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_HTTPHEADER => array(
+            'Content-Length: 0',
+            "X-VIVO-Token: $token",
+            "X-VIVO-First-Name: $firstName",
+            "X-VIVO-Last-Name: $lastName",
+            "X-VIVO-Email: $email"
+        ),
+        CURLOPT_HEADER => true
+    ));
+    $response = curl_exec($curl);
+    $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+    $header_string = substr($response, 0, $header_size);
+    $headers = preg_split("/((\r(?!\n))|((?<!\r)\n)|(\r\n))/", $header_string);
+    foreach ($headers as $header):
+        header($header);
+    endforeach;
+    $body = substr($response, $header_size);
+    curl_close($curl);
+    return $body;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'):
-  $errors = array();
-  if (empty($_POST['username'])):
-    $errors[] = 'Username required';
-  endif;
-  if (empty($_POST['password'])):
-    $errors[] = 'Password required';
-  endif;
-  if (empty($errors)):
-    if (list($token, $firstName, $lastName, $email) = checkAuthentication($_POST['username'], $_POST['password'])):
-      echo curlSubmit($_GET['target'], $token, $firstName, $lastName, $email);
-    else:
-      $errors[] = 'Invalid login';
+    $errors = array();
+    if (empty($_POST['username'])):
+        $errors[] = 'Username required';
     endif;
-  endif;
+    if (empty($_POST['password'])):
+        $errors[] = 'Password required';
+    endif;
+    if (empty($errors)):
+        if (list($token, $firstName, $lastName, $email) = checkAuthentication($_POST['username'], $_POST['password'])):
+            echo curlSubmit($_GET['target'], $token, $firstName, $lastName, $email);
+        else:
+            $errors[] = 'Invalid login';
+        endif;
+    endif;
 endif;
 ?>
 <html>
@@ -152,31 +153,95 @@ endif;
         <link rel="stylesheet" type="text/css" href="ldaplogin.css">
         <link href="//brand.unimelb.edu.au/global-header/css/style.css" rel="stylesheet" type="text/css">
     </head>
-  <body class="no-logo science">
-    <div id="g-header" role="banner">       <div class="wrapper">         <ul class="skiplinks">           <li><a href="#g-global-menu">Skip to navigation</a></li>           <li><a href="#main-content">Skip to content</a></li>         </ul>         <ol id="g-breadcrumb-menu">           <li id="g-breadcrumb-home"><a href="//www.unimelb.edu.au/">University Home</a></li>         </ol>         <div id="g-global-search">           <a href="http://search.unimelb.edu.au/" id="g-search-button" role="button" aria-haspopup="true">Search</a>           <ul id="g-audience-links">             <li><a href="http://campaign.unimelb.edu.au" class="mobile-hide">Support the Campaign</a></li>             <li><a href="https://my.unimelb.edu.au/">Current Students</a></li>             <li><a href="http://www.unimelb.edu.au/staff/">Staff</a></li>             <li><a href="http://alumni.unimelb.edu.au/" class="mobile-hide">Alumni</a></li>             <li><a href="http://library.unimelb.edu.au/">Library</a></li>             <li><a href="http://www.unimelb.edu.au/contact/">Contact &amp; Maps</a></li>           </ul>           <div id="g-global-search-overlay">             <form method="get" action="http://search.unimelb.edu.au/" name="g-searchform" id="g-searchform" role="search">               <label for="q"><span>Search the university</span></label>               <input accesskey="s" type="search" name="q" id="q" value="" title="Search the University">               <input type="submit" name="sa" id="g-global-search-submit" value="Search">             </form>           </div>         </div>         <hr>         <ol id="g-global-menu" role="navigation" aria-labelledby="g-global-menu-label">           <a id="g-global-menu-logo" href="http://www.unimelb.edu.au">The University of Melbourne</a>           <li id="g-global-menu-label">Browse the University</li>           <li><a href="//coursesearch.unimelb.edu.au" id="g-global-menu-study">Study</a></li>           <li><a href="http://unimelb.edu.au/research/" id="g-global-menu-research">Research</a></li>           <li><a href="http://unimelb.edu.au/engage/" id="g-global-menu-community">Engage</a></li>           <li><a href="http://about.unimelb.edu.au/" id="g-global-menu-about-us" class="last">About Us</a></li>         </ol>         <hr class="g-clear-floats">       </div>     </div>
-    <h1>University of Melbourne user account</h1>
-    <?php if(!empty($errors)): ?>
-      <ul class=error>
-      <?php foreach($errors as $error): ?>
-        <li><?php print($error); ?></li>
-      <?php endforeach; ?>
-      </ul>
-    <?php endif; ?>
-    <form method="post" class="login-form load">
-      <div class="login-input-wrap">
-        <label for="username" class="pull-left"></label>
-        <input type="text" name="username" <?php echo empty($_POST['username']) ? '' : 'value=' . $_POST['username'] . ' ' ?>placeholder="Username">
-      </div>
-      <span>Enter your staff username or your UMID</span>
-      <div class="login-input-wrap">
-        <label for="password" class="pull-left"></label>
-        <input type="password" name="password" placeholder="Password">
-      </div>
-      <span>Enter your password</span>
-      <input name="login" value="Login" type="submit" class="login-button">
-      <?php if(!empty($errors)): ?>
-        <a href="https://idm.unimelb.edu.au/idm/user/login.jsp">Forgot username or password?</a>
-      <?php endif; ?>
-    </form>
-  </body>
+    <body class="no-logo science">
+        <header id="branding" role="banner">
+            <div class="header">
+                <div class="hgroup">
+                    <h1><a href="">Central Research Data Registry</a></h1>
+                </div>
+                <hr>
+            </div>
+
+            <section id="search" role="region">
+                <fieldset>
+                    <legend>Search form</legend>
+                    <form id="search-home-vivo" action="/search" method="post" name="search-home" role="search">
+                        <div id="search-home-field">
+                            <input type="text" name="querytext" class="search-home-vivo" value="">
+                            <input type="submit" value="Search" class="search">
+                        </div>
+                    </form>
+                </fieldset>
+            </section>
+        </header>
+        <div class="topnav">
+            <div class="wrapper">
+                <ul>
+                    <li ><a href="/">Home</a></li>
+                    <li ><a href="/organizations">Researchers by Department</a></li>
+                    <li class="last"><a href="/researchData">Research Data</a></li>
+                </ul>
+                <ul style="float: right;">
+                    <li><a href="/browse">Index</a></li>
+
+                    <li class="last"><a class="log-out" title="log in to manage this site" href="/authenticate?return=true">Log in</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="wrapper-content" role="main">        
+
+            <!--[if lte IE 8]>
+            <noscript>
+                <p class="ie-alert">This site uses HTML elements that are not recognized by Internet Explorer 8 and below in the absence of JavaScript. As a result, the site will not be rendered appropriately. To correct this, please either enable JavaScript, upgrade to Internet Explorer 9, or use another browser. Here are the <a href="http://www.enable-javascript.com"  title="java script instructions">instructions for enabling JavaScript in your web browser</a>.</p>
+            </noscript>
+            <![endif]-->
+
+
+            <noscript>
+            <section id="error-alert">
+                <img src="/images/iconAlertBig.png" alt="Alert Icon"/>
+                <p>In order to edit content, you'll need to enable JavaScript. Here are the <a href="http://www.enable-javascript.com" title="java script instructions">instructions for enabling JavaScript in your web browser</a>.</p>
+            </section>
+            </noscript>
+            <h2>University of Melbourne user account</h2>
+            <?php if (!empty($errors)): ?>
+                <ul class=error>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?php print($error); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+            <form method="post" class="login-form load">
+                <div class="login-input-wrap">
+                    <label for="username" class="pull-left"></label>
+                    <input type="text" name="username" <?php echo empty($_POST['username']) ? '' : 'value=' . $_POST['username'] . ' ' ?>placeholder="Username">
+                </div>
+                <span>Enter your staff username or your UMID</span>
+                <div class="login-input-wrap">
+                    <label for="password" class="pull-left"></label>
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <span>Enter your password</span>
+                <input name="login" value="Login" type="submit" class="login-button">
+                <?php if (!empty($errors)): ?>
+                    <a href="https://idm.unimelb.edu.au/idm/user/login.jsp">Forgot username or password?</a>
+                <?php endif; ?>
+            </form>
+        </div>
+        <footer role="contentinfo">
+            <p class="copyright">
+                <small>&copy;2013
+                    Central Research Data Registry
+                    | <a class="terms" href="/termsOfUse" title="terms of use">Terms of Use</a></small> | 
+                Powered by <a class="powered-by-vivo" href="http://vivoweb.org" target="_blank" title="powered by VIVO"><strong>VIVO</strong></a>
+            </p>
+
+            <nav role="navigation">
+                <ul id="footer-nav" role="list">
+                    <li role="listitem"><a href="/about" title="about">About</a></li>
+                    <li role="listitem"><a href="http://www.vivoweb.org/support" target="blank" title="support">Support</a></li>
+                </ul>
+            </nav>
+        </footer>
+    </body>
 </html>
