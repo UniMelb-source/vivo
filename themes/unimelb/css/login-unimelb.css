@@ -1,0 +1,97 @@
+.topnav{
+    padding-bottom: 20px;
+}
+
+.login-wrap{
+    background: #758CAA;
+    background: rgba(0, 51, 102, 0.4);
+    width: 60% !important;
+    margin: 0 auto !important;
+    border-radius: 4px;
+    padding: 20px;
+    float: none !important;
+}
+
+.login-wrap h2{
+    color: #FFF;
+    text-align: center;
+    padding-top: 0 !important;
+}
+.login-wrap h3.internal-auth {
+    margin-left: 0 !important;
+    color: #FFF !important;
+    font-size: 17px !important;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.login-wrap form{
+    margin-top: 0;
+    padding: 5px !important;
+    padding-bottom: 0;
+}
+.login-wrap label{
+    color: #FFF;
+    margin-bottom: 0;
+    margin-top: .5em;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+.login-wrap input[type=text],
+.login-wrap input[type=password]{
+    width: 100% !important;
+    margin-left: 0 !important;
+    box-sizing: border-box;
+    padding: 10px !important;
+    height: auto !important;
+    -webkit-appearance:none 
+}
+
+.login-wrap input[type=text]:focus,
+.login-wrap input[type=password]:focus{
+    background: #FFF !important;
+}
+
+.login-wrap .login-button{
+    margin-top: 15px;
+    padding: 9px 40px 8px;
+    float: left;
+}
+.error{
+    padding: 10px 0 10px 100px !important;
+    font-weight: bold !important;
+}
+
+.password-forgotten{
+    padding: 5px 10px;
+    display: block;
+    margin-top: 16px;
+    float: left;
+}
+.external-auth{
+    text-align: center;
+}
+.external-auth a{
+    float: none !important;
+}
+p.submit{
+    margin-left: 0 !important;
+}
+.or-separator{
+    padding: 10px;
+    content: "";
+    border-bottom: 1px solid #FFF;
+    width: 45%;
+    margin: 0;
+    float: left;
+    box-sizing: border-box;
+}
+.or{
+    width: 10%;
+    margin: 0;
+    box-sizing: border-box;
+    float: left;
+    text-align: center;
+    padding: 10px;
+    font-size: 17px;
+    font-weight: normal;
+}
